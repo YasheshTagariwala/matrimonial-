@@ -71,4 +71,9 @@
     <color name="app_yellow">#F4B400</color>
     <color name="app_yellow_dark">#F09300</color>
     <color name="app_red">#DB4437</color>
+
+    <!-- Ellis Added -->
+    <color name="cyan_800">#00838F</color>
+    <color name="cyan_800_overlay">#E600838F</color>
+    <color name="grey_10">#e6e6e6</color>
 </resources>

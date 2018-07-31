@@ -9,29 +9,11 @@ import android.widget.Toast;
 
 public class FullProfile extends AppCompatActivity {
 
-    ImageButton imageButtonShare,imageButtonOption;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_profile);
         getSupportActionBar().hide();
 
-        imageButtonShare = (ImageButton) findViewById(R.id.imagebutton_share);
-        imageButtonOption = (ImageButton) findViewById(R.id.imagebutton_option);
-
-        imageButtonShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(FullProfile.this, "Share This", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        imageButtonOption.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(FullProfile.this, "More Option", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
