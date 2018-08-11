@@ -1,7 +1,21 @@
 <resources>
+
+    <!-- Application wide strings -->
+    <string name="something_went_wrong">Oops ! Something went wrong. Please try again later.</string>
+    <string name="check_internet">Check your internet Connection.</string>
+
+    <!-- Login Activity strings -->
+    <string name="welcome_text">Welcome</string>
+    <string name="welcome_text1">Let\'s Find Your SoulMate</string>
+    <string name="label_login">Log In</string>
+    <string name="label_username">Username</string>
+    <string name="label_password">Password</string>
+
+
     <string name="app_name">matrimonial</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin
         \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin
     </string>
+
 </resources>

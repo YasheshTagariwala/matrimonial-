@@ -1,4 +1,4 @@
-package com.example.minsm.matrimonial;
+package com.example.minsm.matrimonial.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class MiniProfile extends AppCompatActivity {
+import com.example.minsm.matrimonial.FullProfile;
+import com.example.minsm.matrimonial.R;
+
+public class MainActivity1 extends AppCompatActivity {
 
     ImageButton imageButtonShare, imageButtonShare1, imageButtonShare2, imageButtonShare3;
     ImageView imageButtonOption, imageButtonOption1, imageButtonOption2, imageButtonOption3;
@@ -16,8 +19,7 @@ public class MiniProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mini_profile);
-        getSupportActionBar().hide();
+        setContentView(R.layout.activity_main1);
 
         imageButtonShare = findViewById(R.id.imagebutton_share);
         imageButtonShare1 = findViewById(R.id.imagebutton_share1);
@@ -31,28 +33,28 @@ public class MiniProfile extends AppCompatActivity {
         imageButtonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MiniProfile.this, "Share This", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity1.this, "Share This", Toast.LENGTH_SHORT).show();
             }
         });
 
         imageButtonShare1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MiniProfile.this, "Share This", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity1.this, "Share This", Toast.LENGTH_SHORT).show();
             }
         });
 
         imageButtonShare2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MiniProfile.this, "Share This", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity1.this, "Share This", Toast.LENGTH_SHORT).show();
             }
         });
 
         imageButtonShare3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MiniProfile.this, "Share This", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity1.this, "Share This", Toast.LENGTH_SHORT).show();
             }
         });
 
