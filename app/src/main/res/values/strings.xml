@@ -4,6 +4,8 @@
     <string name="something_went_wrong">Oops ! Something went wrong. Please try again later.</string>
     <string name="check_internet">Check your internet Connection.</string>
 
+
+
     <!-- Login Activity strings -->
     <string name="welcome_text">Welcome</string>
     <string name="welcome_text1">Let\'s Find Your SoulMate</string>
@@ -11,8 +13,15 @@
     <string name="label_username">Username</string>
     <string name="label_password">Password</string>
 
+    <!-- Navigation Menu strings -->
+    <string name="content_description_image_view">Image</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_contact_us">Contact Us</string>
+    <string name="nav_about_us">About Us</string>
 
-    <string name="app_name">matrimonial</string>
+
+
+    <string name="app_name">Matrimonial</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin
         \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin

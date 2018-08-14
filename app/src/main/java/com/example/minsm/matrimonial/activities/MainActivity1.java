@@ -8,7 +8,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.minsm.matrimonial.FullProfile;
 import com.example.minsm.matrimonial.R;
 
 public class MainActivity1 extends AppCompatActivity {
@@ -61,28 +60,28 @@ public class MainActivity1 extends AppCompatActivity {
         imageButtonOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),FullProfile.class));
+                startActivity(new Intent(getApplicationContext(),UserProfile.class));
             }
         });
 
         imageButtonOption1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),FullProfile.class));
+                startActivity(new Intent(getApplicationContext(),UserProfile.class));
             }
         });
 
         imageButtonOption2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),FullProfile.class));
+                startActivity(new Intent(getApplicationContext(),UserProfile.class));
             }
         });
 
         imageButtonOption3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),FullProfile.class));
+                startActivity(new Intent(getApplicationContext(),UserProfile.class));
             }
         });
     }
