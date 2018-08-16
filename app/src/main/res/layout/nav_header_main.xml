@@ -5,30 +5,22 @@
     android:background="@color/colorAccent"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/nav_header_vertical_spacing"
-    android:paddingLeft="@dimen/nav_header_vertical_spacing"
-    android:paddingRight="@dimen/nav_header_vertical_spacing"
-    android:paddingTop="@dimen/nav_header_vertical_spacing"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start|center_vertical"
-        android:layout_marginTop="15dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:contentDescription="@string/content_description_image_view"
-        android:background="@android:color/transparent"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/nav_imgView"
+        android:scaleType="centerCrop"
+        android:src="@drawable/nav_bg"
+        android:contentDescription="@string/content_description_image_view"/>
 
     <TextView
         android:id="@+id/company_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_user_name_height"
-        android:layout_below="@id/imageView"
+        android:layout_below="@id/nav_imgView"
         android:gravity="bottom"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:layout_marginTop="15dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </RelativeLayout>

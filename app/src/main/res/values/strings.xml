@@ -14,7 +14,7 @@
     <string name="label_password">Password</string>
 
     <!-- Navigation Menu strings -->
-    <string name="content_description_image_view">Image</string>
+    <string name="content_description_image_view">Navigation menu image</string>
     <string name="nav_home">Home</string>
     <string name="nav_contact_us">Contact Us</string>
     <string name="nav_about_us">About Us</string>
