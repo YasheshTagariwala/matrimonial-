@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.minsm.matrimonial.R;
@@ -28,6 +29,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     String mLogedinUsername, mLogedinPassword;
     FloatingActionButton buttonLogin;
+    TextView signUptextView;
+    Intent intent;
 
     private Call loginRequestCall;
 
@@ -38,6 +41,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         buttonLogin = findViewById(R.id.button_login);
         buttonLogin.setOnClickListener(this);
+
+        signUptextView = findViewById(R.id.sign_up);
+        signUptextView.setOnClickListener(this);
     }
 
 
@@ -47,7 +53,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()) {
             case R.id.button_login:
                 loginServiceCall();
+
+            case R.id.sign_up:
+                intent = new Intent(this, MainActivity.class);
         }
+        startActivity(intent);
     }
 
     /**

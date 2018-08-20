@@ -5,13 +5,14 @@
     <string name="check_internet">Check your internet Connection.</string>
 
 
-
     <!-- Login Activity strings -->
     <string name="welcome_text">Welcome</string>
     <string name="welcome_text1">Let\'s Find Your SoulMate</string>
     <string name="label_login">Log In</string>
     <string name="label_username">Username</string>
     <string name="label_password">Password</string>
+    <string name="label_new_user">New User?</string>
+    <string name="label_sign_up">Sign Up</string>
 
     <!-- Navigation Menu strings -->
     <string name="content_description_image_view">Navigation menu image</string>
@@ -19,6 +20,12 @@
     <string name="nav_contact_us">Contact Us</string>
     <string name="nav_about_us">About Us</string>
 
+
+    <!-- Sign Up Page strings -->
+    <string name="label_registration">Registration</string>
+    <string name="label_full_name">Full Name</string>
+    <string name="label_email">Email</string>
+    <string name="button_label_register">REGISTER</string>
 
 
     <string name="app_name">Matrimonial</string>

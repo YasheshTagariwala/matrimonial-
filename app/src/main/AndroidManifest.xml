@@ -29,6 +29,9 @@
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/FullScreen" />
+        <activity
+            android:name=".activities.SignupActivity"
+            android:theme="@style/FullScreen"/>
 
     </application>
 
