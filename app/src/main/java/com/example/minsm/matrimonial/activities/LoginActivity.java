@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     String mLogedinUsername, mLogedinPassword;
     FloatingActionButton buttonLogin;
     TextView signUptextView;
-    Intent intent;
 
     private Call loginRequestCall;
 
@@ -55,9 +54,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 loginServiceCall();
 
             case R.id.sign_up:
-                intent = new Intent(this, MainActivity.class);
+                Intent intentSignUp = new Intent(this, SignupActivity.class);
+                startActivity(intentSignUp);
         }
-        startActivity(intent);
     }
 
     /**
