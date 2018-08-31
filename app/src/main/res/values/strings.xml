@@ -13,6 +13,8 @@
     <string name="label_password">Password</string>
     <string name="label_new_user">New User?</string>
     <string name="label_sign_up">Sign Up</string>
+    <string name="enter_valid_email">Enter Valid Email ID</string>
+    <string name="enter_valid_password">Enter valid Password</string>
 
     <!-- Navigation Menu strings -->
     <string name="content_description_image_view">Navigation menu image</string>
