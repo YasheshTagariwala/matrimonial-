@@ -11,7 +11,6 @@ import com.example.minsm.matrimonial.utils.ProjectConstants;
 public class MainActivity extends AppCompatActivity {
 
     private String token;
-
     private SharedPreferences globalSP;
 
     @Override
@@ -22,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
 
-        Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
 
     }
 }
