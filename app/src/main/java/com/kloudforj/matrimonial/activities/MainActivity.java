@@ -1,12 +1,11 @@
-package com.example.minsm.matrimonial.activities;
+package com.kloudforj.matrimonial.activities;
 
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
-
-import com.example.minsm.matrimonial.R;
-import com.example.minsm.matrimonial.utils.ProjectConstants;
+import android.util.Log;
+import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.utils.ProjectConstants;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
 
-        //Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
-
+        //Log.e("Token : ", token);
     }
 }

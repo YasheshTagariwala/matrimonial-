@@ -1,9 +1,10 @@
-package com.example.minsm.matrimonial.utils;
+package com.kloudforj.matrimonial.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.widget.Toast;
-import com.example.minsm.matrimonial.R;
+
+import com.kloudforj.matrimonial.R;
 
 public class DetectConnection {
     public static boolean checkInternetConnection(Context context) {

@@ -1,20 +1,20 @@
-package com.example.minsm.matrimonial.activities;
+package com.kloudforj.matrimonial.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.minsm.matrimonial.R;
-import com.example.minsm.matrimonial.utils.DetectConnection;
-import com.example.minsm.matrimonial.utils.ProjectConstants;
+import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.utils.DetectConnection;
+import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
@@ -34,26 +34,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText loginEmail, loginPassword;
     private TextInputLayout emailWrapper, passwordWrapper;
-
-    String mLogedinUsername, mLogedinPassword;
-    FloatingActionButton buttonLogin;
+    private ProgressBar loginProgress;
+    Button loginButton;
     TextView signUptextView;
     private SharedPreferences globalSP;
-
     private Call loginRequestCall;
+
+    private String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        emailWrapper = (TextInputLayout) findViewById(R.id.usernameWrapper);
-        passwordWrapper = (TextInputLayout) findViewById(R.id.passwordWrapper);
+        loginProgress = findViewById(R.id.loginProgress);
+        emailWrapper = findViewById(R.id.usernameWrapper);
+        passwordWrapper = findViewById(R.id.passwordWrapper);
         loginEmail = findViewById(R.id.loginUsername);
         loginPassword = findViewById(R.id.loginPassword);
 
-        buttonLogin = findViewById(R.id.button_login);
-        buttonLogin.setOnClickListener(this);
+        loginButton = findViewById(R.id.button_login);
+        loginButton.setOnClickListener(this);
 
         signUptextView = findViewById(R.id.sign_up);
         signUptextView.setOnClickListener(this);
@@ -119,9 +120,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             OkHttpClient clientLogin = new OkHttpClient();
-            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.LOGIN_URL).newBuilder();
+            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.LOGIN_URL).newBuilder();
 
             String url = urlBuilder.build().toString(); // URL is converted to String
+            //Log.e("URL Login : ", url);
+
+            loginButton.setEnabled(false); // Login Button is Disabled
+            loginProgress.setVisibility(View.VISIBLE); // ProgressBar is Enabled
 
             Request requestLogin = new Request.Builder()
                     .url(url)
@@ -132,39 +137,57 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             loginRequestCall.enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-                    //Log.e("onFailure", "in ", e);
+                    Log.e("onFailure", "in ", e);
                     e.printStackTrace();
                 }
 
                 @Override
                 public void onResponse(Response response) throws IOException {
                     if(!response.isSuccessful()) {
+                        enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                        throw new IOException("Unexpected code " + response);
                     } else {
-                        try {
-                            String result = response.body().string(); // response is converted to string
-                            final JSONObject jsonLogin = new JSONObject(result);
 
-                            //final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
-                            //final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
+                        String result = response.body().string(); // response is converted to string
 
-                            final JSONObject successObj = jsonLogin.getJSONObject(ProjectConstants.SUCCESS);
-                            String token = successObj.getString(ProjectConstants.TOKEN);
+                        if(result != null) {
 
-                            SharedPreferences.Editor editor = globalSP.edit();
-                            editor.putString(ProjectConstants.TOKEN, token);
-                            editor.apply();
+                            try {
 
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
+                                final JSONObject jsonLogin = new JSONObject(result);
 
-                            /*if(auth) {
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            } else {
-                                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-                            }*/
+                                final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
+                                final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
+                                final String token = jsonLogin.getString(ProjectConstants.TOKEN);
 
-                        } catch (JSONException e) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        loginButton.setEnabled(true); // Login Button is Enabled
+                                        loginProgress.setVisibility(View.GONE); // ProgressBar is Disabled
 
+                                        SharedPreferences.Editor editor = globalSP.edit();
+                                        editor.putString(ProjectConstants.TOKEN, token);
+                                        editor.apply();
+
+                                        if(auth) {
+                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                            finish();
+                                        } else {
+                                            loginEmail.setText(ProjectConstants.EMPTY_STRING);
+                                            loginPassword.setText(ProjectConstants.EMPTY_STRING);
+                                            passwordWrapper.setErrorEnabled(false);
+                                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+                            } catch (JSONException e) {
+                                enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                            }
+                        } else {
+                            enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                         }
                     }
                 }
@@ -173,5 +196,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else {
             Toast.makeText(LoginActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Enables login button and progressbar invisible
+     *
+     * @param msg
+     */
+    private void enableLoginComponents(final String msg) {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                loginButton.setEnabled(true); // Login Button is Enabled
+                loginProgress.setVisibility(View.GONE); // ProgressBar is Disabled
+                Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

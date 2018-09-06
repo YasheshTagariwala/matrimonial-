@@ -1,4 +1,4 @@
-package com.example.minsm.matrimonial.activities;
+package com.kloudforj.matrimonial.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.minsm.matrimonial.R;
+import com.kloudforj.matrimonial.R;
 
 public class MainActivity1 extends AppCompatActivity {
 

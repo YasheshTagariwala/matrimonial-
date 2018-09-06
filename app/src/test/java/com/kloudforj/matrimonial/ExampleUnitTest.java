@@ -1,4 +1,4 @@
-package com.example.minsm.matrimonial;
+package com.kloudforj.matrimonial;
 
 import org.junit.Test;
 

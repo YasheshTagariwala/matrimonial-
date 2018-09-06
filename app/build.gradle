@@ -3,7 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.example.minsm.matrimonial"
+        //TODO: Change package name.
+        applicationId "com.kloudforj.matrimonial"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1

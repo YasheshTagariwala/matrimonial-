@@ -1,4 +1,4 @@
-package com.example.minsm.matrimonial.utils;
+package com.kloudforj.matrimonial.utils;
 
 public class ProjectConstants {
 
@@ -12,7 +12,7 @@ public class ProjectConstants {
     public static final String TOKEN = "token";
 
     //public static final String BASE_URL = "http://metrimonial.it/api";
-    public static final String BASE_URL = "http://139.59.90.129/metrimonial/public/index.php/api";
+    public static final String BASE_URL = "http://139.59.90.129/matrimonial/public/index.php/api";
     public static final String VERSION_0 = "/v0";
     public static final String VERSION_1 = "/v1";
 

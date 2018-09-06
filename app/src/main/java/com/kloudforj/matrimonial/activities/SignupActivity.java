@@ -1,9 +1,9 @@
-package com.example.minsm.matrimonial.activities;
+package com.kloudforj.matrimonial.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.minsm.matrimonial.R;
+import com.kloudforj.matrimonial.R;
 
 public class SignupActivity extends AppCompatActivity {
 
