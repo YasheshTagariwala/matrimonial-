@@ -21,6 +21,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.SignupActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".activities.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -30,10 +34,6 @@
         <activity
             android:name=".activities.UserProfile"
             android:theme="@style/FullScreen" />
-
-        <activity
-            android:name=".activities.SignupActivity"
-            android:theme="@style/FullScreen"/>
 
     </application>
 

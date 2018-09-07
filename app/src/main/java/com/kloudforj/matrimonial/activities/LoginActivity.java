@@ -35,8 +35,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText loginEmail, loginPassword;
     private TextInputLayout emailWrapper, passwordWrapper;
     private ProgressBar loginProgress;
-    Button loginButton;
-    TextView signUptextView;
+    private Button loginButton;
+    private TextView signUptextView;
     private SharedPreferences globalSP;
     private Call loginRequestCall;
 
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginEmail = findViewById(R.id.loginUsername);
         loginPassword = findViewById(R.id.loginPassword);
 
-        loginButton = findViewById(R.id.button_login);
+        loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this);
 
         signUptextView = findViewById(R.id.sign_up);
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.button_login:
+            case R.id.loginButton:
                 Boolean signInCheck = true; // A flag is initialized for checking Edittext value is empty or not
 
                 if (loginEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING) && loginPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {

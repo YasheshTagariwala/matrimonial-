@@ -20,7 +20,9 @@ public class ProjectConstants {
     public static final String PROJECTBASEPREFERENCE = "projectbasepreference";
 
     /*Signup Activity constants*/
-    public static final String NAME = "name";
+    public static final String FNAME = "fname";
+    public static final String MNAME = "mname";
+    public static final String LNAME = "lname";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
 

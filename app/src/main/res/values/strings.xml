@@ -11,7 +11,8 @@
     <string name="label_login">Log In</string>
     <string name="label_username">Username</string>
     <string name="label_password">Password</string>
-    <string name="label_new_user">New User?</string>
+    <string name="label_new_user">New User?&#160;</string>
+    <string name="label_forgot_password">Forgot Password?&#160;</string>
     <string name="label_sign_up">Sign Up</string>
     <string name="enter_valid_email">Enter Valid Email ID</string>
     <string name="enter_valid_password">Enter valid Password</string>
@@ -25,9 +26,15 @@
 
     <!-- Sign Up Page strings -->
     <string name="label_registration">Registration</string>
-    <string name="label_full_name">Full Name</string>
+    <string name="label_first_name">First Name</string>
+    <string name="label_middle_name">Middle Name (Optional)</string>
+    <string name="label_last_name">Last Name</string>
     <string name="label_email">Email</string>
-    <string name="button_label_register">REGISTER</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="label_button_register">REGISTER</string>
+
+    <string name="enter_valid_fname">Enter Valid First Name</string>
+    <string name="enter_valid_lname">Enter valid Last Name</string>
 
 
     <string name="app_name">Matrimonial</string>
