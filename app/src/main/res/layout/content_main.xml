@@ -19,9 +19,17 @@
         android:visibility="gone" />
 
     <RelativeLayout
-        android:id="@+id/rl_main_fragment_container"
+        android:id="@+id/rl_main__container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/pb_main_activity" />
+        android:layout_below="@id/pb_main_activity" >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_user_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

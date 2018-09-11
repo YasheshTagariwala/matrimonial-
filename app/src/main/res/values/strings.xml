@@ -18,13 +18,15 @@
     <string name="enter_valid_password">Enter valid Password</string>
 
     <!-- Navigation Menu strings -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="content_description_image_view">Navigation menu image</string>
     <string name="nav_home">Home</string>
     <string name="nav_contact_us">Contact Us</string>
     <string name="nav_about_us">About Us</string>
 
 
-    <!-- Sign Up Page strings -->
+    <!-- Sign Up Activity strings -->
     <string name="label_registration">Registration</string>
     <string name="label_first_name">First Name</string>
     <string name="label_middle_name">Middle Name (Optional)</string>
@@ -35,6 +37,13 @@
 
     <string name="enter_valid_fname">Enter Valid First Name</string>
     <string name="enter_valid_lname">Enter valid Last Name</string>
+
+    <string name="toggle_description">Show/Hide Password</string>
+    <string name="enter_same_password">Password does not match</string>
+
+
+    <!-- Main Activity strings -->
+    <string name="doublebackpress">Press back once again to exit!</string>
 
 
     <string name="app_name">Matrimonial</string>

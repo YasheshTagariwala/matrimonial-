@@ -3,8 +3,11 @@ package com.kloudforj.matrimonial.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,11 +34,12 @@ import java.io.IOException;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText etFirstName, etMiddleName, etLastName, etEmail, etPassword, etConfirmPassword;
-    private TextInputLayout firstNameWrapper, middleNameWrapper, lastNameWrapper, emailWrapper, passwordWrapper, confirmPasswordWrapper;
-    private ProgressBar signUpProgress;
+    private EditText /*etFirstName, etMiddleName, etLastName,*/ etEmail, etPassword, etConfirmPassword;
+    private TextInputLayout /*firstNameWrapper, middleNameWrapper, lastNameWrapper,*/ emailWrapper, passwordWrapper, confirmPasswordWrapper;
+    private ProgressBar mSignUpActvityProgressBar;
     private Button registerButton;
     private SharedPreferences globalSP;
+    Boolean signUpCheck = false; // A flag is initialized for checking Edittext value is empty or not
 
     private Call signUpRequestCall;
     private String TAG = "SignupActivity";
@@ -45,23 +49,82 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        signUpProgress = findViewById(R.id.signUpProgress);
+        mSignUpActvityProgressBar = findViewById(R.id.pb_signup_activity);
+        if (mSignUpActvityProgressBar != null) {
+            mSignUpActvityProgressBar.getIndeterminateDrawable().setColorFilter(
+                    ContextCompat.getColor(SignupActivity.this, R.color.colorAccent),
+                    android.graphics.PorterDuff.Mode.SRC_IN);
+        }
 
-        firstNameWrapper = findViewById(R.id.firstNameWrapper);
+
+        /*firstNameWrapper = findViewById(R.id.firstNameWrapper);
         middleNameWrapper = findViewById(R.id.middleNameWrapper);
-        lastNameWrapper = findViewById(R.id.lastNameWrapper);
+        lastNameWrapper = findViewById(R.id.lastNameWrapper);*/
         emailWrapper = findViewById(R.id.emailWrapper);
         passwordWrapper = findViewById(R.id.passwordWrapper);
         confirmPasswordWrapper = findViewById(R.id.confirmPasswordWrapper);
-        etFirstName = findViewById(R.id.firstName);
+        /*etFirstName = findViewById(R.id.firstName);
         etMiddleName = findViewById(R.id.middleName);
-        etLastName = findViewById(R.id.lastName);
+        etLastName = findViewById(R.id.lastName);*/
         etEmail = findViewById(R.id.email);
         etPassword = findViewById(R.id.password);
         etConfirmPassword = findViewById(R.id.confirmPassword);
 
         registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(this);
+
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String password = etPassword.getText().toString();
+                String confirmPassword = etConfirmPassword.getText().toString();
+
+                if(! password.equals(confirmPassword)) {
+                    confirmPasswordWrapper.setError(getResources().getString(R.string.enter_same_password));
+                    signUpCheck = false;
+                } else {
+                    confirmPasswordWrapper.setErrorEnabled(false);
+                    signUpCheck = true;
+                }
+            }
+        });
+
+        etConfirmPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                String password = etPassword.getText().toString();
+                String confirmPassword = etConfirmPassword.getText().toString();
+
+                if(! password.equals(confirmPassword)) {
+                    confirmPasswordWrapper.setError(getResources().getString(R.string.enter_same_password));
+                    signUpCheck = false;
+                } else {
+                    confirmPasswordWrapper.setErrorEnabled(false);
+                    signUpCheck = true;
+                }
+            }
+        });
 
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
 
@@ -74,13 +137,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.registerButton:
 
-                Boolean signUpCheck = true; // A flag is initialized for checking Edittext value is empty or not
-
-                if (etFirstName.getText().toString().equals(ProjectConstants.EMPTY_STRING) && etLastName.getText().toString().equals(ProjectConstants.EMPTY_STRING)
-                        && etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)
+                if (etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)
                         && etPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING) && etConfirmPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
-                    firstNameWrapper.setError(getResources().getString(R.string.enter_valid_fname));
-                    lastNameWrapper.setError(getResources().getString(R.string.enter_valid_lname));
                     emailWrapper.setError(getResources().getString(R.string.enter_valid_email));
                     passwordWrapper.setError(getResources().getString(R.string.enter_valid_password));
                     confirmPasswordWrapper.setError(getResources().getString(R.string.enter_valid_password));
@@ -88,13 +146,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 // validation for edittext is empty
-                if (etFirstName.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
-                    firstNameWrapper.setError(getResources().getString(R.string.enter_valid_email));
-                    signUpCheck = false;
-                } else if (etLastName.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
-                    lastNameWrapper.setError(getResources().getString(R.string.enter_valid_password));
-                    signUpCheck = false;
-                } else if (etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
+                if (etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
                     emailWrapper.setError(getResources().getString(R.string.enter_valid_password));
                     signUpCheck = false;
                 } else if (etPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
@@ -106,11 +158,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 // validation for edittext is non-empty
-                if (!etFirstName.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
-                    firstNameWrapper.setErrorEnabled(false);
-                } else if (!etLastName.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
-                    lastNameWrapper.setErrorEnabled(false);
-                } else if (!etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
+                if (!etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
                     emailWrapper.setErrorEnabled(false);
                 } else if (!etPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
                     passwordWrapper.setErrorEnabled(false);
@@ -120,7 +168,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
                 if (signUpCheck) {
                     Log.e("Register : ", "Made a call");
-                    //registerServiceCall();
+                    registerServiceCall();
+                } else {
+                    Log.e("Register : ", "Beep beep. Error!!!");
                 }
                 break;
         }
@@ -135,9 +185,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
             JSONObject jsonSignupResquest = new JSONObject();
             try {
-                jsonSignupResquest.put(ProjectConstants.FNAME, etFirstName.getText().toString().trim());
-                jsonSignupResquest.put(ProjectConstants.MNAME, etMiddleName.getText().toString().trim());
-                jsonSignupResquest.put(ProjectConstants.LNAME, etLastName.getText().toString().trim());
                 jsonSignupResquest.put(ProjectConstants.EMAIL, etEmail.getText().toString().trim());
                 jsonSignupResquest.put(ProjectConstants.PASSWORD, etPassword.getText().toString());
             } catch (JSONException e) {
@@ -151,7 +198,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             //Log.e("URL Login : ", url);
 
             registerButton.setEnabled(false); // Login Button is Disabled
-            signUpProgress.setVisibility(View.VISIBLE); // ProgressBar is Enabled
+            mSignUpActvityProgressBar.setVisibility(View.VISIBLE); // ProgressBar is Enabled
 
             Request requestSignup = new Request.Builder()
                     .url(url)
@@ -189,18 +236,19 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                     @Override
                                     public void run() {
                                         registerButton.setEnabled(true); // Login Button is Enabled
-                                        signUpProgress.setVisibility(View.GONE); // ProgressBar is Disabled
-
-                                        SharedPreferences.Editor editor = globalSP.edit();
-                                        editor.putString(ProjectConstants.TOKEN, token);
-                                        editor.apply();
+                                        mSignUpActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
 
                                         if(auth) {
                                             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+                                            SharedPreferences.Editor editor = globalSP.edit();
+                                            editor.putString(ProjectConstants.TOKEN, token);
+                                            editor.apply();
+
                                             startActivity(new Intent(SignupActivity.this, MainActivity.class));
                                             finish();
                                         } else {
-                                            //etEmail.setText(ProjectConstants.EMPTY_STRING);
+
                                             etPassword.setText(ProjectConstants.EMPTY_STRING);
                                             etConfirmPassword.setText(ProjectConstants.EMPTY_STRING);
                                             passwordWrapper.setErrorEnabled(false);
@@ -236,7 +284,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void run() {
                 registerButton.setEnabled(true); // Login Button is Enabled
-                signUpProgress.setVisibility(View.GONE); // ProgressBar is Disabled
+                mSignUpActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
                 Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG).show();
             }
         });

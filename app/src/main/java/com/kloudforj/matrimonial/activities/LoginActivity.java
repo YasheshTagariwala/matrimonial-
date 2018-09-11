@@ -3,6 +3,7 @@ package com.kloudforj.matrimonial.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText loginEmail, loginPassword;
     private TextInputLayout emailWrapper, passwordWrapper;
-    private ProgressBar loginProgress;
+    private ProgressBar mLoginActvityProgressBar;
     private Button loginButton;
     private TextView signUptextView;
     private SharedPreferences globalSP;
@@ -47,7 +48,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginProgress = findViewById(R.id.loginProgress);
+        mLoginActvityProgressBar = findViewById(R.id.pb_login_activity);
+        if (mLoginActvityProgressBar != null) {
+            mLoginActvityProgressBar.getIndeterminateDrawable().setColorFilter(
+                    ContextCompat.getColor(LoginActivity.this, R.color.colorAccent),
+                    android.graphics.PorterDuff.Mode.SRC_IN);
+        }
+
+
         emailWrapper = findViewById(R.id.usernameWrapper);
         passwordWrapper = findViewById(R.id.passwordWrapper);
         loginEmail = findViewById(R.id.loginUsername);
@@ -126,7 +134,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //Log.e("URL Login : ", url);
 
             loginButton.setEnabled(false); // Login Button is Disabled
-            loginProgress.setVisibility(View.VISIBLE); // ProgressBar is Enabled
+            mLoginActvityProgressBar.setVisibility(View.VISIBLE); // ProgressBar is Enabled
 
             Request requestLogin = new Request.Builder()
                     .url(url)
@@ -164,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     @Override
                                     public void run() {
                                         loginButton.setEnabled(true); // Login Button is Enabled
-                                        loginProgress.setVisibility(View.GONE); // ProgressBar is Disabled
+                                        mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
 
                                         SharedPreferences.Editor editor = globalSP.edit();
                                         editor.putString(ProjectConstants.TOKEN, token);
@@ -209,7 +217,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void run() {
                 loginButton.setEnabled(true); // Login Button is Enabled
-                loginProgress.setVisibility(View.GONE); // ProgressBar is Disabled
+                mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
                 Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
             }
         });
