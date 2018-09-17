@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     android.graphics.PorterDuff.Mode.SRC_IN);
         }
 
-
         emailWrapper = findViewById(R.id.usernameWrapper);
         passwordWrapper = findViewById(R.id.passwordWrapper);
         loginEmail = findViewById(R.id.loginUsername);
@@ -132,7 +131,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.LOGIN_URL).newBuilder();
 
             String url = urlBuilder.build().toString(); // URL is converted to String
-            //Log.e("URL Login : ", url);
+            /*Log.e("URL Login : ", url);
+            Log.e("URL Request : ", jsonLoginResquest.toString());*/
 
             loginButton.setEnabled(false); // Login Button is Disabled
             mLoginActvityProgressBar.setVisibility(View.VISIBLE); // ProgressBar is Enabled
@@ -153,11 +153,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onResponse(Response response) throws IOException {
                     if(!response.isSuccessful()) {
+                        //Log.e("1 : ", response.toString());
                         enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                         throw new IOException("Unexpected code " + response);
                     } else {
 
                         String result = response.body().string(); // response is converted to string
+                        //Log.e("Response : ", result);
 
                         if(result != null) {
 
@@ -167,7 +169,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                 final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
                                 final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
-                                final String token = jsonLogin.getString(ProjectConstants.TOKEN);
 
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -175,15 +176,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         loginButton.setEnabled(true); // Login Button is Enabled
                                         mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
 
-                                        SharedPreferences.Editor editor = globalSP.edit();
-                                        editor.putString(ProjectConstants.TOKEN, token);
-                                        editor.apply();
-
                                         if(auth) {
-                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                            finish();
+                                            try {
+                                                final String token = jsonLogin.getString(ProjectConstants.TOKEN);
+                                                final String userid = jsonLogin.getString(ProjectConstants.USERID);
+
+                                                SharedPreferences.Editor editor = globalSP.edit();
+                                                editor.putString(ProjectConstants.TOKEN, token);
+                                                editor.putString(ProjectConstants.USERID, userid);
+                                                editor.apply();
+
+                                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                                finish();
+                                            }
+                                            catch (JSONException e) {
+                                                enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                                                e.printStackTrace();
+                                            }
                                         } else {
+                                            SharedPreferences.Editor editor = globalSP.edit();
+                                            editor.clear();
+                                            editor.apply();
+
                                             loginEmail.setText(ProjectConstants.EMPTY_STRING);
                                             loginPassword.setText(ProjectConstants.EMPTY_STRING);
                                             passwordWrapper.setErrorEnabled(false);

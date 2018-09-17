@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kloudforj.matrimonial.R;
-import com.kloudforj.matrimonial.RecyclerViewAdapters.CardListAdapter;
+import com.kloudforj.matrimonial.adapters.CardListAdapter;
 
 public class MainActivity1 extends AppCompatActivity {
 

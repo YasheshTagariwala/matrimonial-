@@ -1,4 +1,4 @@
-package com.kloudforj.matrimonial.RecyclerViewAdapters;
+package com.kloudforj.matrimonial.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +9,6 @@ import android.view.ViewGroup;
 
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.activities.UserProfile;
-
-/**
- * Created by minsm on 15-Sep-18.
- */
 
 public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHolder> {
 

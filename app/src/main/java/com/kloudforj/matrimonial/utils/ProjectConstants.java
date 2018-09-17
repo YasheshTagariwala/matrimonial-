@@ -10,6 +10,7 @@ public class ProjectConstants {
 
     public static final String SUCCESS = "success";
     public static final String TOKEN = "token";
+    public static final String USERID = "user_id";
 
     //public static final String BASE_URL = "http://metrimonial.it/api";
     public static final String BASE_URL = "http://139.59.90.129/matrimonial/public/index.php/api";
@@ -31,7 +32,5 @@ public class ProjectConstants {
 
     //Login Activity constants
     public static final String LOGIN_URL = "/login";
-
-
 
 }
