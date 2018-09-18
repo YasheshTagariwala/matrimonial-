@@ -24,6 +24,7 @@
     <string name="nav_home">Home</string>
     <string name="nav_contact_us">Contact Us</string>
     <string name="nav_about_us">About Us</string>
+    <string name="nav_settings">Settings</string>
 
 
     <!-- Sign Up Activity strings -->

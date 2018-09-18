@@ -17,13 +17,14 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.SignupActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -34,6 +35,12 @@
         <activity
             android:name=".activities.UserProfile"
             android:theme="@style/FullScreen" />
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:theme="@style/FullScreen" />
+        <activity
+            android:name=".activities.SearchActivity"
+            android:theme="@style/FullScreen"/>
 
     </application>
 

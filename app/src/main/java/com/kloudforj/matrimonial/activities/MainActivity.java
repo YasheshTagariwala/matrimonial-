@@ -1,7 +1,11 @@
 package com.kloudforj.matrimonial.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,17 +13,20 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar mainToolbar;
     private ProgressBar mMainActvityProgressBar;
     private RecyclerView mUsersListRecyclerView;
+    private NavigationView mNavigationView;
 
     private String token;
     private SharedPreferences globalSP;
@@ -29,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         mMainActvityProgressBar = (ProgressBar) findViewById(R.id.pb_main_activity);
         if (mMainActvityProgressBar != null) {
@@ -52,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (mNavigationView != null) {
+            mNavigationView.getMenu().getItem(0).setChecked(true);
+            mNavigationView.setNavigationItemSelectedListener(this);
+        }
+
         mUsersListRecyclerView = findViewById(R.id.rv_user_list);
 
         //Log.e("Token : ", token);
@@ -73,5 +86,22 @@ public class MainActivity extends AppCompatActivity {
                 mainActionBar.setDisplayHomeAsUpEnabled(true);
             }
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if(id == R.id.nav_settings) {
+
+            Intent setttingsActivity = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(setttingsActivity);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
