@@ -40,7 +40,7 @@
             android:theme="@style/FullScreen" />
         <activity
             android:name=".activities.SearchActivity"
-            android:theme="@style/FullScreen"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 

@@ -32,10 +32,17 @@
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
                     android:singleLine="true"
-                    android:textAlignment="gravity"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/imagebutton_search"
+                    android:layout_width="45dp"
+                    android:layout_height="50dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_search_white_24dp"/>
             </LinearLayout>
 
         </android.support.v7.widget.Toolbar>

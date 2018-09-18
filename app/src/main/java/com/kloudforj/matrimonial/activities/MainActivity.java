@@ -10,15 +10,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.adapters.CardListAdapter;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ProgressBar mMainActvityProgressBar;
     private RecyclerView mUsersListRecyclerView;
     private NavigationView mNavigationView;
+    private ImageButton imageButtonSearch;
 
     private String token;
     private SharedPreferences globalSP;
@@ -66,6 +71,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         mUsersListRecyclerView = findViewById(R.id.rv_user_list);
+        mUsersListRecyclerView.setHasFixedSize(true);
+        mUsersListRecyclerView.setNestedScrollingEnabled(false);
+        mUsersListRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mUsersListRecyclerView.setItemViewCacheSize(100);
+        mUsersListRecyclerView.setDrawingCacheEnabled(true);
+        mUsersListRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        mUsersListRecyclerView.setAdapter(new CardListAdapter(this));
+
+        imageButtonSearch = findViewById(R.id.imagebutton_search);
+        imageButtonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,SearchActivity.class));
+            }
+        });
 
         //Log.e("Token : ", token);
     }

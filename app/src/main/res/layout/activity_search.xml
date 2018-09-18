@@ -1,9 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SearchActivity">
+    tools:context=".activities.SearchActivity"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar_search_activity"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--app:popupTheme="@style/AppTheme.PopupOverlay">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_search_toolbar_title"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="start|center_vertical"-->
+                <!--android:singleLine="true"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textSize="20sp"-->
+                <!--android:text="@string/search_user"-->
+                <!--android:textStyle="bold"-->
+                <!--android:layout_weight="1"/>-->
+
+        <!--</LinearLayout>-->
+
+    <!--</android.support.v7.widget.Toolbar>-->
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/bt_close"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@android:color/white"
+                android:src="@drawable/ic_close" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/search_user"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/bt_find"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="@dimen/spacing_xsmall"
+                android:paddingRight="@dimen/spacing_xsmall"
+                android:text="@string/search_find"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:scrollingCache="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_large">
+
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/search_name"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                    android:textColorHint="@color/grey_40" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <EditText
+                    android:id="@+id/et_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/search_age"
+                    android:inputType="number"
+                    android:minHeight="@dimen/spacing_xxlarge"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:textColorHint="@color/grey_40" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_cast"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/grey_60" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spn_cast"
+                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:entries="@array/cast"
+                        android:prompt="@string/search_cast"
+                        android:spinnerMode="dialog"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/grey_60" />
+
+                    <Spinner
+                        android:id="@+id/spn_sub_cast_1"
+                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:entries="@array/sub_cast_1"
+                        android:prompt="@string/search_sub_cast_1"
+                        android:spinnerMode="dialog"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/grey_60" />
+
+
+                    <Spinner
+                        android:id="@+id/spn_sub_cast_2"
+                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:entries="@array/sub_cast_2"
+                        android:spinnerMode="dialog"
+                        android:prompt="@string/search_sub_cast_2"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/grey_60" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_location"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/grey_60" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spn_country"
+                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:entries="@array/country"
+                        android:spinnerMode="dialog"
+                        android:prompt="@string/search_country"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/grey_60" />
+
+                    <Spinner
+                        android:id="@+id/spn_state"
+                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:entries="@array/state"
+                        android:spinnerMode="dialog"
+                        android:prompt="@string/search_state"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/grey_60" />
+
+                    <Spinner
+                        android:id="@+id/spn_city"
+                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:entries="@array/city"
+                        android:spinnerMode="dialog"
+                        android:prompt="@string/search_city"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/grey_60" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_large" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>
