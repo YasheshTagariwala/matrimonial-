@@ -17,6 +17,8 @@ public class ProjectConstants {
     public static final String VERSION_0 = "/v0";
     public static final String VERSION_1 = "/v1";
 
+    public static final String USER = "/user";
+
     /*Shared SharedPreferences used in application*/
     public static final String PROJECTBASEPREFERENCE = "projectbasepreference";
 
@@ -30,7 +32,16 @@ public class ProjectConstants {
     public static final String SIGNUP_URL = "/register";
 
 
-    //Login Activity constants
+    /*Login Activity constants*/
     public static final String LOGIN_URL = "/login";
+
+    /*Update profile constants*/
+    public static final String UPDATE_PROFILE_URL = "/update-profile";
+    public static final String IMAGE_UPLOAD_URL = "/upload-profile-image";
+    public static final String IMAGE_GET_URL = "/user-image";
+    public static final String USERLIST_URL = "/user-list";
+
+    /*Logout constant*/
+    public static final String LOGOUT_URL = "/logout";
 
 }
