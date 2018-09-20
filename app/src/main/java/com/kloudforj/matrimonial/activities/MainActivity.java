@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.adapters.CardListAdapter;
+import com.kloudforj.matrimonial.entities.UserProfile;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.squareup.okhttp.Call;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ProgressBar mMainActvityProgressBar;
     private RecyclerView mUsersListRecyclerView;
     private NavigationView mNavigationView;
-    private ImageButton imageButtonSearch;
+    private ImageButton imageButtonSearch,imageButtonEdit;
     private Call userListRequestCall;
 
     private String token;
@@ -85,6 +86,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mNavigationView.getMenu().getItem(0).setChecked(true);
             mNavigationView.setNavigationItemSelectedListener(this);
         }
+
+        View mView = mNavigationView.getHeaderView(0);
+        imageButtonEdit = mView.findViewById(R.id.imagebutton_edit);
+        imageButtonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,UserProfileActivity.class);
+                intent.putExtra("user_id",1);
+                startActivity(intent);
+            }
+        });
 
         mUsersListRecyclerView = findViewById(R.id.rv_user_list);
         mUsersListRecyclerView.setHasFixedSize(true);
