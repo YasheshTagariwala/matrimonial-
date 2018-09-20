@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.kloudforj.matrimonial.R;
 
-public class UserProfile extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
 
     String user_id = "";
     boolean isSelf = false;

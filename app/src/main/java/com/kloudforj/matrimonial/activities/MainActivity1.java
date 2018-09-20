@@ -74,28 +74,28 @@ public class MainActivity1 extends AppCompatActivity {
         imageButtonOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),UserProfile.class));
+                startActivity(new Intent(getApplicationContext(),UserProfileActivity.class));
             }
         });
 
         imageButtonOption1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),UserProfile.class));
+                startActivity(new Intent(getApplicationContext(),UserProfileActivity.class));
             }
         });
 
         imageButtonOption2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),UserProfile.class));
+                startActivity(new Intent(getApplicationContext(),UserProfileActivity.class));
             }
         });
 
         imageButtonOption3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),UserProfile.class));
+                startActivity(new Intent(getApplicationContext(),UserProfileActivity.class));
             }
         });
     }
