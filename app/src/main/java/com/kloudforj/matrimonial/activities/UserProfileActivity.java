@@ -6,7 +6,7 @@ import android.view.WindowManager;
 
 import com.kloudforj.matrimonial.R;
 
-public class UserProfile extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

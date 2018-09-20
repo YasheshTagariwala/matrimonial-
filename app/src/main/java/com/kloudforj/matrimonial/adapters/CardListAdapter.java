@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kloudforj.matrimonial.R;
-import com.kloudforj.matrimonial.activities.UserProfile;
+import com.kloudforj.matrimonial.activities.UserProfileActivity;
 
 public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHolder> {
 
@@ -29,7 +29,7 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
         holder.setClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
-                context.startActivity(new Intent(context,UserProfile.class));
+                context.startActivity(new Intent(context,UserProfileActivity.class));
             }
         });
     }

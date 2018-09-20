@@ -33,7 +33,7 @@
             android:name=".activities.MainActivity1"
             android:theme="@style/FullScreen" />
         <activity
-            android:name=".activities.UserProfile"
+            android:name=".activities.UserProfileActivity"
             android:theme="@style/FullScreen" />
         <activity
             android:name=".activities.SettingsActivity"

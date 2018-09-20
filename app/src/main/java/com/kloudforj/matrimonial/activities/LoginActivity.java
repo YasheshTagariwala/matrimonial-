@@ -39,8 +39,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressBar mLoginActvityProgressBar;
     private Button loginButton;
     private TextView signUptextView;
-    private SharedPreferences globalSP;
     private Call loginRequestCall;
+
+    private String token;
+    private SharedPreferences globalSP;
 
     private String TAG = "LoginActivity";
 
@@ -68,6 +70,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signUptextView.setOnClickListener(this);
 
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
+        token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
+
+        if(!token.trim().equals(ProjectConstants.EMPTY_STRING)) {
+            finish();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
     }
 
 
@@ -146,14 +154,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             loginRequestCall.enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-                    Log.e("onFailure", "in ", e);
+                    //Log.e("onFailure", "in ", e);
                     e.printStackTrace();
                 }
 
                 @Override
                 public void onResponse(Response response) throws IOException {
                     if(!response.isSuccessful()) {
-                        //Log.e("1 : ", response.toString());
+                        /*Log.e("1 : ", response.toString());
+                        Log.e("2 Code : ", ""+response.code());
+                        Log.e("3 Message : ", response.message());*/
                         enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                         throw new IOException("Unexpected code " + response);
                     } else {
@@ -178,12 +188,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                         if(auth) {
                                             try {
-                                                final String token = jsonLogin.getString(ProjectConstants.TOKEN);
-                                                final String userid = jsonLogin.getString(ProjectConstants.USERID);
+                                                token = jsonLogin.getString(ProjectConstants.TOKEN);
+                                                final int userid = jsonLogin.getInt(ProjectConstants.USERID);
 
                                                 SharedPreferences.Editor editor = globalSP.edit();
                                                 editor.putString(ProjectConstants.TOKEN, token);
-                                                editor.putString(ProjectConstants.USERID, userid);
+                                                editor.putInt(ProjectConstants.USERID, userid);
                                                 editor.apply();
 
                                                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();

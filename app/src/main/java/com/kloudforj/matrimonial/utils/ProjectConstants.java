@@ -9,8 +9,9 @@ public class ProjectConstants {
     public static final String EMPTY_STRING = "";
 
     public static final String SUCCESS = "success";
-    public static final String TOKEN = "token";
+    public static final String TOKEN = "apitoken";
     public static final String USERID = "user_id";
+    public static final String ID = "id";
 
     //public static final String BASE_URL = "http://metrimonial.it/api";
     public static final String BASE_URL = "http://139.59.90.129/matrimonial/public/index.php/api";
@@ -35,7 +36,15 @@ public class ProjectConstants {
     /*Login Activity constants*/
     public static final String LOGIN_URL = "/login";
 
+
     /*Update profile constants*/
+    public static final String CAST = "cast";
+    public static final String SUBCASTE1 = "subCaste1";
+    public static final String SUBCASTE2 = "subCaste2";
+    public static final String AGE = "age";                 // 26-30
+    public static final String LOCATION = "location";       // india/gujarat/surat
+    public static final String NAME = "/user-list";
+
     public static final String UPDATE_PROFILE_URL = "/update-profile";
     public static final String IMAGE_UPLOAD_URL = "/upload-profile-image";
     public static final String IMAGE_GET_URL = "/user-image";
