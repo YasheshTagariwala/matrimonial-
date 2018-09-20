@@ -32,9 +32,12 @@
         <activity
             android:name=".activities.MainActivity1"
             android:theme="@style/FullScreen" />
+        <!--<activity-->
+            <!--android:name=".activities.UserProfile"-->
+            <!--android:theme="@style/FullScreen" />-->
         <activity
             android:name=".activities.UserProfile"
-            android:theme="@style/FullScreen" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SettingsActivity"
             android:theme="@style/FullScreen" />

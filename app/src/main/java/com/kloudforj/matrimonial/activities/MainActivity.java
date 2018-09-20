@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ProgressBar mMainActvityProgressBar;
     private RecyclerView mUsersListRecyclerView;
     private NavigationView mNavigationView;
-    private ImageButton imageButtonSearch;
+    private ImageButton imageButtonSearch,imageButtonEdit;
 
     private String token;
     private SharedPreferences globalSP;
@@ -69,6 +69,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mNavigationView.getMenu().getItem(0).setChecked(true);
             mNavigationView.setNavigationItemSelectedListener(this);
         }
+
+        View mView = mNavigationView.getHeaderView(0);
+        imageButtonEdit = mView.findViewById(R.id.imagebutton_edit);
+        imageButtonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,UserProfile.class);
+                intent.putExtra("user_id",1);
+                startActivity(intent);
+            }
+        });
 
         mUsersListRecyclerView = findViewById(R.id.rv_user_list);
         mUsersListRecyclerView.setHasFixedSize(true);

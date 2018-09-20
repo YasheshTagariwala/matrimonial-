@@ -25,6 +25,7 @@
     <string name="nav_contact_us">Contact Us</string>
     <string name="nav_about_us">About Us</string>
     <string name="nav_settings">Settings</string>
+    <string name="nav_user_name">Profile name</string>
 
 
     <!-- Sign Up Activity strings -->
@@ -45,6 +46,10 @@
 
     <!-- Main Activity strings -->
     <string name="doublebackpress">Press back once again to exit!</string>
+
+    <!-- UserProfile Activity strings -->
+    <string name="user_profile_save">Save</string>
+    <string name="user_profile_birthdate">29-02-1995</string>
 
 
     <!-- Search Activity strings -->
