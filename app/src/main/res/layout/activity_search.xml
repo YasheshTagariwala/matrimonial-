@@ -113,15 +113,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/spacing_large" />
 
-                <EditText
-                    android:id="@+id/et_location"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/search_age"
-                    android:inputType="number"
-                    android:minHeight="@dimen/spacing_xxlarge"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                    android:textColorHint="@color/grey_40" />
+                    android:text="@string/search_age"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/grey_60" />
+
+                <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
+                    android:id="@+id/rangeSeekbar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-30dp"
+                    app:absoluteMinValue="50"
+                    app:absoluteMaxValue="18" />
 
                 <View
                     android:layout_width="match_parent"
