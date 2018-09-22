@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -47,8 +48,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ProgressBar mMainActvityProgressBar;
     private RecyclerView mUsersListRecyclerView;
     private NavigationView mNavigationView;
-    private ImageButton imageButtonSearch,imageButtonEdit;
+    private ImageButton imageButtonSearch;
     private Call userListRequestCall;
+    private Button buttonProfileName;
 
     private String token;
     private SharedPreferences globalSP;
@@ -88,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         View mView = mNavigationView.getHeaderView(0);
-        imageButtonEdit = mView.findViewById(R.id.imagebutton_edit);
-        imageButtonEdit.setOnClickListener(new View.OnClickListener() {
+        buttonProfileName = mView.findViewById(R.id.button_edit);
+        buttonProfileName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,UserProfileActivity.class);

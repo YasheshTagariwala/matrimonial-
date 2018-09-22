@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorAccent"
     android:gravity="center"
     android:orientation="vertical"
@@ -20,26 +21,40 @@
         android:layout_height="match_parent"
         android:gravity="bottom">
 
-        <ImageButton
-            android:id="@+id/imagebutton_edit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/nav_user_name_height"
-            android:background="@color/transparent"
-            android:scaleType="fitStart"
-            android:layout_marginLeft="@dimen/spacing_large"
-            android:layout_marginRight="@dimen/spacing_large"
-            android:src="@drawable/ic_edit_white_24dp"/>
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/company_name"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/nav_user_name_height"
-            android:gravity="bottom"
-            android:layout_marginBottom="@dimen/spacing_large"
-            android:layout_marginLeft="60dp"
-            android:paddingBottom="1dp"
-            android:text="@string/nav_user_name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_image"
+                android:layout_marginLeft="15dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:cardCornerRadius="25dp">
+
+                <ImageView
+                    android:id="@+id/imageview_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/image_26"/>
+
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/button_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/nav_user_name_height"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:background="@color/transparent"
+                android:scaleType="fitStart"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:text="Profile Name"
+                android:layout_marginRight="@dimen/spacing_large" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
