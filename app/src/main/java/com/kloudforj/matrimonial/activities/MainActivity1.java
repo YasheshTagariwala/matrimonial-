@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kloudforj.matrimonial.R;
-import com.kloudforj.matrimonial.adapters.CardListAdapter;
+import com.kloudforj.matrimonial.adapters.HomeListAdapter;
 
 public class MainActivity1 extends AppCompatActivity {
 
@@ -37,11 +37,11 @@ public class MainActivity1 extends AppCompatActivity {
         recyclerViewCardList.setHasFixedSize(true);
         recyclerViewCardList.setNestedScrollingEnabled(false);
         recyclerViewCardList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-//        recyclerViewCardList.addItemDecoration(new RecycleSpacing(25));
+        //recyclerViewCardList.addItemDecoration(new RecycleSpacing(25));
         recyclerViewCardList.setItemViewCacheSize(100);
         recyclerViewCardList.setDrawingCacheEnabled(true);
         recyclerViewCardList.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        recyclerViewCardList.setAdapter(new CardListAdapter(this));
+        //recyclerViewCardList.setAdapter(new HomeListAdapter(this));
 
         imageButtonShare.setOnClickListener(new View.OnClickListener() {
             @Override

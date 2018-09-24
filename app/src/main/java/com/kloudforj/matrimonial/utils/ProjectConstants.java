@@ -9,7 +9,10 @@ public class ProjectConstants {
     public static final String EMPTY_STRING = "";
 
     public static final String SUCCESS = "success";
-    public static final String TOKEN = "apitoken";
+    public static final String DATA = "data";
+    public static final String USER_PROFILE = "user_profile";
+    public static final String TOKEN = "token";
+    public static final String APITOKEN = "apitoken";
     public static final String USERID = "user_id";
     public static final String ID = "id";
 
@@ -38,6 +41,7 @@ public class ProjectConstants {
 
 
     /*Update profile constants*/
+    public static final String SEX = "sex";
     public static final String CAST = "cast";
     public static final String SUBCASTE1 = "subCaste1";
     public static final String SUBCASTE2 = "subCaste2";
@@ -48,7 +52,7 @@ public class ProjectConstants {
     public static final String UPDATE_PROFILE_URL = "/update-profile";
     public static final String IMAGE_UPLOAD_URL = "/upload-profile-image";
     public static final String IMAGE_GET_URL = "/user-image";
-    public static final String USERLIST_URL = "/user-list";
+    public static final String USERLIST_URL = "/home";
 
     /*Logout constant*/
     public static final String LOGOUT_URL = "/logout";

@@ -74,7 +74,7 @@ public class UserProfileActivity extends AppCompatActivity {
         imageButtonCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDatePicjker();
+                openDatePicker();
             }
         });
 
@@ -166,7 +166,7 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void setDataEditable(boolean canEdit){
+    public void setDataEditable(boolean canEdit) {
 //        spinnerGender.setClickable(canEdit);
         spinnerCountry.setClickable(canEdit);
         spinnerState.setClickable(canEdit);
@@ -287,7 +287,7 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void openDatePicjker(){
+    public void openDatePicker(){
         final Calendar c = Calendar.getInstance();
         final int mYear = c.get(Calendar.YEAR);
         final int mMonth = c.get(Calendar.MONTH);
@@ -311,8 +311,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
                             view.updateDate(mYear,mMonth,mDay);
 
-                        textViewBirthDate.setText(dayOfMonth + "-"
-                                + (monthOfYear + 1) + "-" + year);
+                        textViewBirthDate.setText(String.valueOf(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year));
 
                     }
                 }, mYear, mMonth, mDay);

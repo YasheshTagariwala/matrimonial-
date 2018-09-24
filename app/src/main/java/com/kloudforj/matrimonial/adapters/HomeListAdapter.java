@@ -3,19 +3,28 @@ package com.kloudforj.matrimonial.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.activities.UserProfileActivity;
+import com.kloudforj.matrimonial.entities.UserProfile;
+import com.kloudforj.matrimonial.utils.ProjectConstants;
 
-public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHolder> {
+import java.util.List;
+
+public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> {
 
     public Context context;
+    private List<UserProfile> userProfileList;
+    private String TAG = "HomeListAdapter";
 
-    public CardListAdapter(Context context){
+    public HomeListAdapter(Context context, List<UserProfile> userProfileList) {
         this.context = context;
+        this.userProfileList = userProfileList;
     }
 
     @Override
@@ -26,20 +35,31 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        final UserProfile items = userProfileList.get(position);
+        holder.tvUserName.setText(String.valueOf(items.getFirst_name()+" "+items.getMiddle_name()+" "+items.getLast_name()));
+        holder.tvUserCaste.setText(items.getCaste());
+        holder.tvUserAge.setText(String.valueOf(items.getAge()));
+
         holder.setClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
-                context.startActivity(new Intent(context,UserProfileActivity.class));
+                Intent intentUserProfile = new Intent(context, UserProfile.class);
+                intentUserProfile.putExtra(ProjectConstants.USERID, items.getUser_id());
+                context.startActivity(intentUserProfile);
+
+                //context.startActivity(new Intent(context,UserProfileActivity.class));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return userProfileList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+
+        public TextView tvUserName, tvUserCaste, tvUserAge;
 
         View view;
 
@@ -50,6 +70,10 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
             this.view = view;
             view.setOnClickListener(this);
             view.setOnLongClickListener(this);
+
+            tvUserName = view.findViewById(R.id.tv_user_name);
+            tvUserCaste = view.findViewById(R.id.tv_user_caste);
+            tvUserAge = view.findViewById(R.id.tv_user_age);
         }
 
         public void setClickListener(ItemClickListener itemClickListener) {

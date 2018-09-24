@@ -16,15 +16,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
-import com.kloudforj.matrimonial.adapters.CardListAdapter;
+import com.kloudforj.matrimonial.adapters.HomeListAdapter;
 import com.kloudforj.matrimonial.entities.UserProfile;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
@@ -37,22 +37,28 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar mainToolbar;
     private ProgressBar mMainActvityProgressBar;
     private RecyclerView mUsersListRecyclerView;
+    private HomeListAdapter mHomeListAdapter;
     private NavigationView mNavigationView;
     private ImageButton imageButtonSearch;
-    private Call userListRequestCall;
+    private Call userListRequestCall, logoutRequestCall;
     private Button buttonProfileName;
 
+    private Gson gson;
     private String token;
+    private int id;
     private SharedPreferences globalSP;
 
     @Override
@@ -71,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
+        id = globalSP.getInt(ProjectConstants.USERID, 0);
 
         // ActionBar is set on MainActivity
         setToolbar();
@@ -107,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mUsersListRecyclerView.setItemViewCacheSize(100);
         mUsersListRecyclerView.setDrawingCacheEnabled(true);
         mUsersListRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        mUsersListRecyclerView.setAdapter(new CardListAdapter(this));
+        //mUsersListRecyclerView.setAdapter(new HomeListAdapter(this));
 
         imageButtonSearch = findViewById(R.id.imagebutton_search);
         imageButtonSearch.setOnClickListener(new View.OnClickListener() {
@@ -126,8 +133,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(DetectConnection.checkInternetConnection(MainActivity.this)) {
 
-            JSONObject jsonObjectRequest = new JSONObject();
+            /*JSONObject jsonObjectRequest = new JSONObject();
             try {
+                //jsonObjectRequest.put(ProjectConstants.SEX, "");
                 jsonObjectRequest.put(ProjectConstants.CAST, "");
                 jsonObjectRequest.put(ProjectConstants.SUBCASTE1, "");
                 jsonObjectRequest.put(ProjectConstants.SUBCASTE2, "");
@@ -136,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 jsonObjectRequest.put(ProjectConstants.NAME, "");
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             OkHttpClient clientUserList = new OkHttpClient();
             HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USERLIST_URL).newBuilder();
@@ -145,10 +153,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             /*Log.e("URL UserList : ", urlUserList);
             Log.e("URL Request : ", jsonLoginResquest.toString());*/
 
-            Request requestUserList = new Request.Builder()
+            final Request requestUserList = new Request.Builder()
                     .url(urlUserList)
-                    .header(ProjectConstants.TOKEN, token)
-                    .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), jsonObjectRequest.toString()))
+                    .header(ProjectConstants.APITOKEN, token)
+                    .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), ""))
                     .build();
 
             userListRequestCall = clientUserList.newCall(requestUserList);
@@ -162,9 +170,63 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onResponse(Response response) throws IOException {
                     if(!response.isSuccessful()) {
-                        enableComponents(getResources().getString(R.string.something_went_wrong));
+                        Log.e("resp : ", response.toString());
+                        enableComponents("1 : "+getResources().getString(R.string.something_went_wrong));
                         throw new IOException("Unexpected code " + response);
                     } else {
+
+                        String result = response.body().string(); // response is converted to string
+                        //Log.e("resp : ", result);
+
+                        if(result != null) {
+
+                            try {
+
+                                final JSONObject jsonHome = new JSONObject(result);
+
+                                final Boolean auth = jsonHome.getBoolean(ProjectConstants.AUTH);
+                                final String message = jsonHome.getString(ProjectConstants.MESSAGE);
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mMainActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
+
+                                        if(auth) {
+
+                                            try {
+                                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                                JSONArray jsonArrayData = jsonHome.getJSONArray(ProjectConstants.DATA);
+                                                //Log.e("Users : ", jsonArrayData.toString());
+
+                                                if (jsonArrayData.length() > 0) {
+
+                                                    ArrayList<UserProfile> userProfiles = new ArrayList<>();
+
+                                                    for(int i = 0; i < jsonArrayData.length(); i++) {
+                                                        JSONObject jsonObject = jsonArrayData.getJSONObject(i).getJSONObject(ProjectConstants.USER_PROFILE);
+                                                        userProfiles.add(new Gson().fromJson(jsonObject.toString(), UserProfile.class));
+                                                    }
+
+                                                    mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfiles));
+                                                }
+                                            } catch (JSONException e) {
+                                                enableComponents(getResources().getString(R.string.something_went_wrong));
+                                                e.printStackTrace();
+                                            }
+                                        } else {
+                                            logoutServiceCall();
+                                        }
+                                    }
+                                });
+
+                            } catch (JSONException e) {
+                                enableComponents(getResources().getString(R.string.something_went_wrong));
+                            }
+
+                        } else {
+                            enableComponents(getResources().getString(R.string.something_went_wrong));
+                        }
 
                     }
                 }
@@ -225,5 +287,88 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void logoutServiceCall() {
+
+        if(DetectConnection.checkInternetConnection(MainActivity.this)) {
+
+            JSONObject jsonLogoutResquest = new JSONObject();
+            try {
+                jsonLogoutResquest.put(ProjectConstants.ID, id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            OkHttpClient clientlogout = new OkHttpClient();
+            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.LOGOUT_URL).newBuilder();
+
+            String urlLogout = urlBuilder.build().toString(); // URL is converted to String
+            /*Log.e("URL Logout : ", urlLogout);
+            Log.e("URL Request : ", jsonLogoutResquest.toString());*/
+
+            Request requestLogout = new Request.Builder()
+                    .url(urlLogout)
+                    .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), jsonLogoutResquest.toString()))
+                    .build();
+
+            logoutRequestCall = clientlogout.newCall(requestLogout);
+            logoutRequestCall.enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    if(!response.isSuccessful()) {
+                        Log.e("1 : ", response.toString());
+                        enableComponents(getResources().getString(R.string.something_went_wrong));
+                        throw new IOException("Unexpected code " + response);
+                    } else {
+
+                        String result = response.body().string(); // response is converted to string
+
+                        if(result != null) {
+
+                            try {
+
+                                final JSONObject jsonLogin = new JSONObject(result);
+
+                                final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
+                                final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
+
+                                        if(auth) {
+
+                                            SharedPreferences.Editor editor = globalSP.edit();
+                                            editor.clear();
+                                            editor.apply();
+
+                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                            finish();
+                                        } else {
+                                            enableComponents(getResources().getString(R.string.something_went_wrong));
+                                        }
+                                    }
+                                });
+
+                            } catch (JSONException e) {
+                                enableComponents(getResources().getString(R.string.something_went_wrong));
+                            }
+
+                        } else {
+                            enableComponents(getResources().getString(R.string.something_went_wrong));
+                        }
+
+                    }
+                }
+            });
+        }
     }
 }

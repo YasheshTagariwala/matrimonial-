@@ -46,12 +46,12 @@ public class SettingsActivity extends AppCompatActivity {
         tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginServiceCall();
+                logoutServiceCall();
             }
         });
     }
 
-    private void loginServiceCall() {
+    private void logoutServiceCall() {
 
         if(DetectConnection.checkInternetConnection(SettingsActivity.this)) {
 
