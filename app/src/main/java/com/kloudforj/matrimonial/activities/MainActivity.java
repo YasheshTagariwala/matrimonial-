@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -56,9 +57,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Call userListRequestCall, logoutRequestCall;
     private Button buttonProfileName;
 
-    private Gson gson;
     private String token;
-    private int id;
+    private int user_id;
     private SharedPreferences globalSP;
 
     @Override
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         mMainActvityProgressBar = (ProgressBar) findViewById(R.id.pb_main_activity);
         if (mMainActvityProgressBar != null) {
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
-        id = globalSP.getInt(ProjectConstants.USERID, 0);
+        user_id = globalSP.getInt(ProjectConstants.USERID, 0);
 
         // ActionBar is set on MainActivity
         setToolbar();
@@ -101,9 +101,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         buttonProfileName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,UserProfileActivity.class);
+                startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
+                /*Intent intent = new Intent(MainActivity.this,UserProfileActivity.class);
                 intent.putExtra("user_id",1);
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
@@ -295,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             JSONObject jsonLogoutResquest = new JSONObject();
             try {
-                jsonLogoutResquest.put(ProjectConstants.ID, id);
+                jsonLogoutResquest.put(ProjectConstants.ID, user_id);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

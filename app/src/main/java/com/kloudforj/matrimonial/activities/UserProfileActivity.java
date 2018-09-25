@@ -1,9 +1,11 @@
 package com.kloudforj.matrimonial.activities;
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,13 +19,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.utils.ProjectConstants;
 
 import java.util.Calendar;
 
 public class UserProfileActivity extends AppCompatActivity {
 
-    String user_id = "";
+    private String token;
+    private int user_id;
+    private SharedPreferences globalSP;
     boolean isSelf = false;
+
     FloatingActionButton fabEdit;
     Button buttonSave;
     ImageButton imageButtonSave;
@@ -51,12 +57,17 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
+        globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
+        token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             if (extras.containsKey("user_id")) {
-                user_id = extras.getString("user_id");
-                isSelf = true;
+                user_id = extras.getInt("user_id");
             }
+        } else {
+            user_id = globalSP.getInt(ProjectConstants.USERID, 0);
+            isSelf = true;
         }
 
         radioButtonMale = findViewById(R.id.radioMale);
@@ -226,7 +237,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
             textViewGender.setVisibility(View.GONE);
             radioGroupSex.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             textViewCountry.setVisibility(View.VISIBLE);
             textViewState.setVisibility(View.VISIBLE);
             textViewCity.setVisibility(View.VISIBLE);

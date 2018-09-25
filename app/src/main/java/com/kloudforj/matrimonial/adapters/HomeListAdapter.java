@@ -43,7 +43,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         holder.setClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
-                Intent intentUserProfile = new Intent(context, UserProfile.class);
+                Intent intentUserProfile = new Intent(context, UserProfileActivity.class);
                 intentUserProfile.putExtra(ProjectConstants.USERID, items.getUser_id());
                 context.startActivity(intentUserProfile);
 
@@ -59,7 +59,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        public TextView tvUserName, tvUserCaste, tvUserAge;
+        private TextView tvUserName, tvUserCaste, tvUserAge;
 
         View view;
 
