@@ -125,12 +125,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        fetchUserList();
+        fetchUsersList();
 
         //Log.e("Token : ", token);
     }
 
-    private void fetchUserList() {
+    private void fetchUsersList() {
 
         if(DetectConnection.checkInternetConnection(MainActivity.this)) {
 
@@ -171,8 +171,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onResponse(Response response) throws IOException {
                     if(!response.isSuccessful()) {
-                        Log.e("resp : ", response.toString());
-                        enableComponents("1 : "+getResources().getString(R.string.something_went_wrong));
+                        //Log.e("resp : ", response.toString());
+                        enableComponents(getResources().getString(R.string.something_went_wrong));
                         throw new IOException("Unexpected code " + response);
                     } else {
 

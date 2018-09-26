@@ -74,15 +74,15 @@
         \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin
     </string>
 
-    <string-array name="cast">
+    <string-array name="caste">
         <item>cast 1</item>
         <item>cast 2</item>
     </string-array>
-    <string-array name="sub_cast_1">
+    <string-array name="sub_caste_1">
         <item>sub cast 11</item>
         <item>sub cast 12</item>
     </string-array>
-    <string-array name="sub_cast_2">
+    <string-array name="sub_caste_2">
         <item>sub cast 21</item>
         <item>sub cast 22</item>
     </string-array>

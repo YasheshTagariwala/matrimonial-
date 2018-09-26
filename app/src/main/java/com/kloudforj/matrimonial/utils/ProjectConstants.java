@@ -6,13 +6,17 @@ public class ProjectConstants {
     public static final String APPLICATION_CHARSET = "application/json; charset=utf-8";
     public static final String AUTH = "auth";
     public static final String MESSAGE = "msg";
-    public static final String EMPTY_STRING = "";
-
-    public static final String SUCCESS = "success";
-    public static final String DATA = "data";
-    public static final String USER_PROFILE = "user_profile";
     public static final String TOKEN = "token";
     public static final String APITOKEN = "apitoken";
+    public static final String EMPTY_STRING = "";
+    public static final String SLASH = "/";
+
+    public static final String DATA = "data";
+    public static final String USER_PROFILE = "user_profile";
+    public static final String USER_EDUCATION = "user_education";
+    public static final String USER_HOBBY = "user_hobby";
+    public static final String USER_FAMILY = "user_family";
+    public static final String USER_EXTRA = "user_extra";
     public static final String USERID = "user_id";
     public static final String ID = "id";
 
@@ -40,7 +44,7 @@ public class ProjectConstants {
     public static final String LOGIN_URL = "/login";
 
 
-    /*Update profile constants*/
+    /*User profile constants*/
     public static final String SEX = "sex";
     public static final String CAST = "cast";
     public static final String SUBCASTE1 = "subCaste1";
@@ -49,12 +53,13 @@ public class ProjectConstants {
     public static final String LOCATION = "location";       // india/gujarat/surat
     public static final String NAME = "/user-list";
 
+    public static final String USER_PROFILE_URL = "/profile";
     public static final String UPDATE_PROFILE_URL = "/update-profile";
     public static final String IMAGE_UPLOAD_URL = "/upload-profile-image";
     public static final String IMAGE_GET_URL = "/user-image";
     public static final String USERLIST_URL = "/home";
 
-    /*Logout constant*/
+    /*Logout constants*/
     public static final String LOGOUT_URL = "/logout";
 
 }

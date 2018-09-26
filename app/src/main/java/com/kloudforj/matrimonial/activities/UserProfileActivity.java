@@ -3,6 +3,7 @@ package com.kloudforj.matrimonial.activities;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,14 +14,32 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.entities.UserProfile;
+import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Calendar;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -29,25 +48,28 @@ public class UserProfileActivity extends AppCompatActivity {
     private int user_id;
     private SharedPreferences globalSP;
     boolean isSelf = false;
+    private Call userDetailsRequestCall;
+
+    private ProgressBar mUserProfileActvityProgressBar;
 
     FloatingActionButton fabEdit;
     Button buttonSave;
     ImageButton imageButtonSave;
     boolean modeEdit = false;
-    RadioButton radioButtonMale,radioButtonFemale;
+    RadioButton radioButtonMale, radioButtonFemale;
 
-    LinearLayout linearLayoutAddress,linearLayoutPhone;
+    LinearLayout linearLayoutAddress, linearLayoutPhone;
 
-    ImageButton imageButtonAddress1,imageButtonAddress2,imageButtonAddress3,imageButtonCancel,imageButtonCalendar;
+    ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,imageButtonCancel,imageButtonCalendar;
 
-    TextView textViewFullName,textViewAboutMe,textViewHobby,textViewBirthDate,
-            textViewAddress1,textViewAddress2,textViewAddress3,textViewPhone, textViewGender,
-            textViewCountry,textViewState,textViewCity,textViewCast,textViewSubCast1,textViewSubCast2;
-    EditText editTextFullName,editTextAboutMe,editTextHobby,
-            editTextAddress1,editTextAddress2,editTextAddress3,editTextPhone;
+    TextView textViewFullName, textViewAboutMe, textViewHobby, textViewBirthDate,
+            textViewAddress1, textViewAddress2, textViewAddress3, textViewPhone, textViewGender,
+            textViewCountry, textViewState, textViewCity, textViewCaste, textViewSubCaste1, textViewSubCaste2;
+    EditText editTextFullName, editTextAboutMe, editTextHobby,
+            editTextAddress1, editTextAddress2, editTextAddress3, editTextPhone;
 
-    Spinner spinnerGender,spinnerCountry,spinnerState,spinnerCity,
-            spinnerCast,spinnerSubCast1,spinnerSubCast2;
+    Spinner spinnerGender, spinnerCountry, spinnerState, spinnerCity,
+            spinnerCast, spinnerSubCast1, spinnerSubCast2;
 
     RadioGroup radioGroupSex;
 
@@ -55,7 +77,14 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        mUserProfileActvityProgressBar = (ProgressBar) findViewById(R.id.pb_userprofile_activity);
+        if (mUserProfileActvityProgressBar != null) {
+            mUserProfileActvityProgressBar.getIndeterminateDrawable().setColorFilter(
+                    ContextCompat.getColor(UserProfileActivity.this, R.color.colorAccent),
+                    android.graphics.PorterDuff.Mode.SRC_IN);
+        }
 
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
@@ -93,9 +122,9 @@ public class UserProfileActivity extends AppCompatActivity {
         spinnerCountry = findViewById(R.id.spn_user_country);
         spinnerState = findViewById(R.id.spn_user_state);
         spinnerCity = findViewById(R.id.spn_user_city);
-        spinnerCast = findViewById(R.id.spn_user_cast);
-        spinnerSubCast1 = findViewById(R.id.spn_user_sub_cast_1);
-        spinnerSubCast2 = findViewById(R.id.spn_user_sub_cast_2);
+        spinnerCast = findViewById(R.id.spn_user_caste);
+        spinnerSubCast1 = findViewById(R.id.spn_user_sub_caste_1);
+        spinnerSubCast2 = findViewById(R.id.spn_user_sub_caste_2);
 //        spinnerGender.setClickable(false);
         spinnerCountry.setClickable(false);
         spinnerState.setClickable(false);
@@ -117,9 +146,9 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewCountry = findViewById(R.id.text_user_country);
         textViewState = findViewById(R.id.text_user_state);
         textViewCity = findViewById(R.id.text_user_city);
-        textViewCast = findViewById(R.id.text_user_cast);
-        textViewSubCast1 = findViewById(R.id.text_user_sub_cast_1);
-        textViewSubCast2 = findViewById(R.id.text_user_sub_cast_2);
+        textViewCaste = findViewById(R.id.text_user_caste);
+        textViewSubCaste1 = findViewById(R.id.text_user_sub_caste_1);
+        textViewSubCaste2 = findViewById(R.id.text_user_sub_caste_2);
 
         editTextFullName = findViewById(R.id.editText_full_name);
         editTextAboutMe = findViewById(R.id.editText_about_me);
@@ -175,6 +204,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 setDataEditable(false);
             }
         });
+
+        fetchUserDetails();
     }
 
     public void setDataEditable(boolean canEdit) {
@@ -190,9 +221,9 @@ public class UserProfileActivity extends AppCompatActivity {
             textViewCountry.setVisibility(View.GONE);
             textViewState.setVisibility(View.GONE);
             textViewCity.setVisibility(View.GONE);
-            textViewCast.setVisibility(View.GONE);
-            textViewSubCast1.setVisibility(View.GONE);
-            textViewSubCast2.setVisibility(View.GONE);
+            textViewCaste.setVisibility(View.GONE);
+            textViewSubCaste1.setVisibility(View.GONE);
+            textViewSubCaste2.setVisibility(View.GONE);
 
             spinnerCountry.setVisibility(View.VISIBLE);
             spinnerState.setVisibility(View.VISIBLE);
@@ -241,9 +272,9 @@ public class UserProfileActivity extends AppCompatActivity {
             textViewCountry.setVisibility(View.VISIBLE);
             textViewState.setVisibility(View.VISIBLE);
             textViewCity.setVisibility(View.VISIBLE);
-            textViewCast.setVisibility(View.VISIBLE);
-            textViewSubCast1.setVisibility(View.VISIBLE);
-            textViewSubCast2.setVisibility(View.VISIBLE);
+            textViewCaste.setVisibility(View.VISIBLE);
+            textViewSubCaste1.setVisibility(View.VISIBLE);
+            textViewSubCaste1.setVisibility(View.VISIBLE);
 
             spinnerCountry.setVisibility(View.GONE);
             spinnerState.setVisibility(View.GONE);
@@ -337,5 +368,119 @@ public class UserProfileActivity extends AppCompatActivity {
             super.onBackPressed();
             return;
         }
+    }
+
+    private void fetchUserDetails() {
+
+        if(DetectConnection.checkInternetConnection(UserProfileActivity.this)) {
+
+            OkHttpClient clientUserDetails = new OkHttpClient();
+            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USER_PROFILE_URL + ProjectConstants.SLASH + user_id).newBuilder();
+
+            String urlUserDetails = urlBuilder.build().toString(); // URL is converted to String
+            /*Log.e("URL UserList : ", urlUserDetails);*/
+
+            final Request requestUserDetails = new Request.Builder()
+                    .url(urlUserDetails)
+                    .header(ProjectConstants.APITOKEN, token)
+                    .build();
+
+            userDetailsRequestCall = clientUserDetails.newCall(requestUserDetails);
+            userDetailsRequestCall.enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    //Log.e("onFailure", "in ", e);
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    if(!response.isSuccessful()) {
+                        enableComponents(getResources().getString(R.string.something_went_wrong));
+                        throw new IOException("Unexpected code " + response);
+                    } else {
+
+                        String result = response.body().string(); // response is converted to string
+                        Log.e("resp : ", result);
+
+                        if(result != null) {
+
+                            try {
+
+                                final JSONObject jsonUserProfile = new JSONObject(result);
+
+                                final Boolean auth = jsonUserProfile.getBoolean(ProjectConstants.AUTH);
+                                final String message = jsonUserProfile.getString(ProjectConstants.MESSAGE);
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mUserProfileActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
+
+                                        if(auth) {
+                                            try {
+                                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+                                                JSONObject jsonObjectData = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
+                                                JSONObject jsonObjectUserProfile = jsonObjectData.getJSONObject(ProjectConstants.USER_PROFILE);
+                                                /*JSONArray jsonObjectUserEducation = jsonObjectData.getJSONArray(ProjectConstants.USER_EDUCATION);
+                                                JSONArray jsonObjectUserHobby = jsonObjectData.getJSONArray(ProjectConstants.USER_HOBBY);
+                                                JSONObject jsonObjectUserFamily = jsonObjectData.getJSONObject(ProjectConstants.USER_FAMILY);
+                                                JSONObject jsonObjectUserExtra = jsonObjectData.getJSONObject(ProjectConstants.USER_EXTRA);*/
+
+                                                Gson gson = new Gson();
+                                                UserProfile userProfile = gson.fromJson(jsonObjectUserProfile.toString(), UserProfile.class);
+
+                                                textViewFullName.setText(String.valueOf(userProfile.getFirst_name()+" "+userProfile.getMiddle_name()+" "+userProfile.getLast_name()));
+                                                textViewBirthDate.setText(userProfile.getDate_of_birth());
+                                                textViewGender.setText((userProfile.getSex().toLowerCase().equals("m")?"Male":"Female"));
+                                                textViewCountry.setText(userProfile.getCountry());
+                                                textViewState.setText(userProfile.getState());
+                                                textViewCity.setText(userProfile.getCity());
+                                                textViewCaste.setText(userProfile.getCaste());
+                                                textViewSubCaste1.setText(userProfile.getSub_caste1());
+                                                textViewSubCaste2.setText(userProfile.getSub_caste2());
+
+                                            } catch (JSONException e) {
+                                                enableComponents(getResources().getString(R.string.something_went_wrong));
+                                                e.printStackTrace();
+                                            }
+
+                                        } else {
+
+                                        }
+
+                                    }
+                                });
+
+
+                            } catch (JSONException e) {
+                                enableComponents(getResources().getString(R.string.something_went_wrong));
+                            }
+                        } else {
+                            enableComponents(getResources().getString(R.string.something_went_wrong));
+                        }
+                    }
+
+                }
+            });
+
+        }
+    }
+
+    /**
+     * Toast message and rogressbar invisible
+     *
+     * @param msg
+     */
+    private void enableComponents(final String msg) {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mUserProfileActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
+                Toast.makeText(UserProfileActivity.this, msg, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

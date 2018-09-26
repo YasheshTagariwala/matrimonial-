@@ -58,6 +58,16 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <ProgressBar
+        android:id="@+id/pb_userprofile_activity"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@android:color/white"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -895,7 +905,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/text_user_cast"
+                                android:id="@+id/text_user_caste"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
@@ -904,12 +914,12 @@
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                             <Spinner
-                                android:id="@+id/spn_user_cast"
+                                android:id="@+id/spn_user_caste"
                                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:entries="@array/cast"
+                                android:entries="@array/caste"
                                 android:lineSpacingExtra="2dp"
                                 android:spinnerMode="dialog"
                                 android:text="@string/user_profile_birthdate"
@@ -954,7 +964,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/text_user_sub_cast_1"
+                                android:id="@+id/text_user_sub_caste_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
@@ -963,12 +973,12 @@
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                             <Spinner
-                                android:id="@+id/spn_user_sub_cast_1"
+                                android:id="@+id/spn_user_sub_caste_1"
                                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:entries="@array/sub_cast_1"
+                                android:entries="@array/sub_caste_1"
                                 android:lineSpacingExtra="2dp"
                                 android:spinnerMode="dialog"
                                 android:text="@string/user_profile_birthdate"
@@ -1013,7 +1023,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/text_user_sub_cast_2"
+                                android:id="@+id/text_user_sub_caste_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
@@ -1022,12 +1032,12 @@
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                             <Spinner
-                                android:id="@+id/spn_user_sub_cast_2"
+                                android:id="@+id/spn_user_sub_caste_2"
                                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:entries="@array/sub_cast_2"
+                                android:entries="@array/sub_caste_2"
                                 android:lineSpacingExtra="2dp"
                                 android:spinnerMode="dialog"
                                 android:text="@string/user_profile_birthdate"
