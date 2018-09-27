@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -58,7 +59,8 @@ public class UserProfileActivity extends AppCompatActivity {
     boolean modeEdit = false;
     RadioButton radioButtonMale, radioButtonFemale;
 
-    LinearLayout linearLayoutAddress, linearLayoutPhone;
+    LinearLayout linearLayoutPhone;
+    CardView cardViewAddress;
 
     ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,imageButtonCancel,imageButtonCalendar;
 
@@ -103,8 +105,8 @@ public class UserProfileActivity extends AppCompatActivity {
         radioButtonFemale = findViewById(R.id.radioFemale);
         radioGroupSex = findViewById(R.id.radioSex);
 
-        linearLayoutAddress = findViewById(R.id.linearlayout_addres);
         linearLayoutPhone = findViewById(R.id.linearlayout_phone);
+        cardViewAddress = findViewById(R.id.cardview_address);
 
         imageButtonAddress1 = findViewById(R.id.imagebutton_address_1);
         imageButtonAddress2 = findViewById(R.id.imagebutton_address_2);
@@ -186,7 +188,7 @@ public class UserProfileActivity extends AppCompatActivity {
             fabEdit.setVisibility(View.VISIBLE);
         }else {
             fabEdit.setVisibility(View.GONE);
-            linearLayoutAddress.setVisibility(View.GONE);
+            cardViewAddress.setVisibility(View.GONE);
             linearLayoutPhone.setVisibility(View.GONE);
         }
 
