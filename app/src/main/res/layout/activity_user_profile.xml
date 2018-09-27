@@ -125,7 +125,7 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
+            android:background="@color/grey_5"
             android:clipToPadding="false"
             android:scrollbars="none"
             android:scrollingCache="true"
@@ -425,15 +425,6 @@
 
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/swipe_up_handle"
-                            android:tint="@color/red_700" />
-
-
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>
@@ -650,15 +641,6 @@
 
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/swipe_up_handle"
-                            android:tint="@color/red_700" />
-
-
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>
@@ -813,15 +795,6 @@
 
 
                         </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/swipe_up_handle"
-                            android:tint="@color/red_700" />
-
 
                     </LinearLayout>
 
@@ -1036,17 +1009,7 @@
 
                             </LinearLayout>
 
-
                         </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/swipe_up_handle"
-                            android:tint="@color/red_700" />
-
 
                     </LinearLayout>
 
@@ -1267,15 +1230,6 @@
 
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/swipe_up_handle"
-                            android:tint="@color/red_700" />
-
-
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>
@@ -1411,15 +1365,6 @@
                             </LinearLayout>
 
                         </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/swipe_up_handle"
-                            android:tint="@color/red_700" />
-
 
                     </LinearLayout>
 
