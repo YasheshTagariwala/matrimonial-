@@ -8,7 +8,8 @@ public class UserProfile
     private int age;
     private String address1, address2, address3, country, state, city, pincode, phone_number;
     private String caste, sub_caste1, sub_caste2;
-    private boolean email_verified, phone_number_verified;
+    private int email_verified, phone_number_verified;
+//    private boolean email_verified, phone_number_verified;
 
     public int getUser_id() {
         return user_id;
@@ -162,19 +163,41 @@ public class UserProfile
         this.sub_caste2 = sub_caste2;
     }
 
+//    public boolean isEmail_verified() {
+//        return email_verified;
+//    }
+
     public boolean isEmail_verified() {
-        return email_verified;
+        return email_verified == 1 ? true : false;
     }
 
-    public void setEmail_verified(boolean email_verified) {
+//    public void setEmail_verified(boolean email_verified) {
+//        this.email_verified = email_verified;
+//    }
+
+    /**
+     * added on 2018-09-26
+     * to check email verification
+     * @param email_verified
+     */
+    public void setEmail_verified(int email_verified) {
         this.email_verified = email_verified;
     }
 
     public boolean isPhone_number_verified() {
-        return phone_number_verified;
+        return phone_number_verified == 1 ? true : false;
     }
 
-    public void setPhone_number_verified(boolean phone_number_verified) {
+//    public void setPhone_number_verified(boolean phone_number_verified) {
+//        this.phone_number_verified = phone_number_verified;
+//    }
+
+    /**
+     * added on 2018-09-26
+     * to check phone verification
+     * @param phone_number_verified
+     */
+    public void setPhone_number_verified(int phone_number_verified) {
         this.phone_number_verified = phone_number_verified;
     }
 }
