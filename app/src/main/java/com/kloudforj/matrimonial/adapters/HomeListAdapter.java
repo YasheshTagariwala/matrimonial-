@@ -36,15 +36,15 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final UserProfile items = userProfileList.get(position);
-        holder.tvUserName.setText(String.valueOf(items.getFirst_name()+" "+items.getMiddle_name()+" "+items.getLast_name()));
-        holder.tvUserCaste.setText(items.getCaste());
-        holder.tvUserAge.setText(String.valueOf(items.getAge()));
+        holder.tvUserName.setText(String.valueOf(items.getProfile().getFirst_name()+" "+items.getProfile().getMiddle_name()+" "+items.getProfile().getLast_name()));
+        holder.tvUserCaste.setText(items.getProfile().getCaste());
+        holder.tvUserAge.setText(String.valueOf(items.getProfile().getDate_of_birth()));
 
         holder.setClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 Intent intentUserProfile = new Intent(context, UserProfileActivity.class);
-                intentUserProfile.putExtra(ProjectConstants.USERID, items.getUser_id());
+                intentUserProfile.putExtra(ProjectConstants.USERID, items.getId());
                 context.startActivity(intentUserProfile);
 
                 //context.startActivity(new Intent(context,UserProfileActivity.class));

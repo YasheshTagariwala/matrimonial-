@@ -134,30 +134,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(DetectConnection.checkInternetConnection(MainActivity.this)) {
 
-            /*JSONObject jsonObjectRequest = new JSONObject();
+            JSONObject jsonObjectRequest = new JSONObject();
             try {
-                //jsonObjectRequest.put(ProjectConstants.SEX, "");
-                jsonObjectRequest.put(ProjectConstants.CAST, "");
+                jsonObjectRequest.put(ProjectConstants.SEX, "m");
+                /*jsonObjectRequest.put(ProjectConstants.CAST, "");
                 jsonObjectRequest.put(ProjectConstants.SUBCASTE1, "");
                 jsonObjectRequest.put(ProjectConstants.SUBCASTE2, "");
                 jsonObjectRequest.put(ProjectConstants.AGE, "");
                 jsonObjectRequest.put(ProjectConstants.LOCATION, "");
-                jsonObjectRequest.put(ProjectConstants.NAME, "");
+                jsonObjectRequest.put(ProjectConstants.NAME, "");*/
             } catch (JSONException e) {
                 e.printStackTrace();
-            }*/
+            }
 
             OkHttpClient clientUserList = new OkHttpClient();
             HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USERLIST_URL).newBuilder();
 
             String urlUserList = urlBuilder.build().toString(); // URL is converted to String
             /*Log.e("URL UserList : ", urlUserList);
-            Log.e("URL Request : ", jsonLoginResquest.toString());*/
+            Log.e("URL Request : ", jsonObjectRequest.toString());*/
 
             final Request requestUserList = new Request.Builder()
                     .url(urlUserList)
                     .header(ProjectConstants.APITOKEN, token)
-                    .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), ""))
+                    .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), jsonObjectRequest.toString()))
                     .build();
 
             userListRequestCall = clientUserList.newCall(requestUserList);
@@ -187,6 +187,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                 final Boolean auth = jsonHome.getBoolean(ProjectConstants.AUTH);
                                 final String message = jsonHome.getString(ProjectConstants.MESSAGE);
+                                final int total_users = jsonHome.getInt(ProjectConstants.TOTAL_USERS);
 
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -196,7 +197,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         if(auth) {
 
                                             try {
-                                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                                if(total_users == 0) {
+                                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(), total_users+" "+message, Toast.LENGTH_LONG).show();
+                                                }
+
                                                 JSONArray jsonArrayData = jsonHome.getJSONArray(ProjectConstants.DATA);
                                                 //Log.e("Users : ", jsonArrayData.toString());
 
@@ -205,7 +211,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                     ArrayList<UserProfile> userProfiles = new ArrayList<>();
 
                                                     for(int i = 0; i < jsonArrayData.length(); i++) {
-                                                        JSONObject jsonObject = jsonArrayData.getJSONObject(i).getJSONObject(ProjectConstants.USER_PROFILE);
+                                                        JSONObject jsonObject = jsonArrayData.getJSONObject(i);
+                                                        //Log.e("Profile : ", jsonObject.toString());
                                                         userProfiles.add(new Gson().fromJson(jsonObject.toString(), UserProfile.class));
                                                     }
 

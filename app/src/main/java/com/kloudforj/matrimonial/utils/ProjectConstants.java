@@ -10,9 +10,10 @@ public class ProjectConstants {
     public static final String APITOKEN = "apitoken";
     public static final String EMPTY_STRING = "";
     public static final String SLASH = "/";
+    public static final String TOTAL_USERS = "total_users_found";
 
     public static final String DATA = "data";
-    public static final String USER_PROFILE = "user_profile";
+    public static final String USER_PROFILE = "profile";
     public static final String USER_EDUCATION = "user_education";
     public static final String USER_HOBBY = "user_hobby";
     public static final String USER_FAMILY = "user_family";

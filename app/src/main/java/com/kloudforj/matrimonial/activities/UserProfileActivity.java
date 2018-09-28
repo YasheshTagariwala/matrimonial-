@@ -184,9 +184,9 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        if(isSelf){
+        if(isSelf) {
             fabEdit.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             fabEdit.setVisibility(View.GONE);
             cardViewAddress.setVisibility(View.GONE);
             linearLayoutPhone.setVisibility(View.GONE);
@@ -219,7 +219,9 @@ public class UserProfileActivity extends AppCompatActivity {
         spinnerSubCast1.setClickable(canEdit);
         spinnerSubCast2.setClickable(canEdit);
         modeEdit = canEdit;
-        if (canEdit){
+
+        if (canEdit) {
+
             textViewCountry.setVisibility(View.GONE);
             textViewState.setVisibility(View.GONE);
             textViewCity.setVisibility(View.GONE);
@@ -403,7 +405,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     } else {
 
                         String result = response.body().string(); // response is converted to string
-                        Log.e("resp : ", result);
+                        //Log.e("resp : ", result);
 
                         if(result != null) {
 
@@ -424,31 +426,33 @@ public class UserProfileActivity extends AppCompatActivity {
                                                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
                                                 JSONObject jsonObjectData = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
-                                                JSONObject jsonObjectUserProfile = jsonObjectData.getJSONObject(ProjectConstants.USER_PROFILE);
-                                                /*JSONArray jsonObjectUserEducation = jsonObjectData.getJSONArray(ProjectConstants.USER_EDUCATION);
-                                                JSONArray jsonObjectUserHobby = jsonObjectData.getJSONArray(ProjectConstants.USER_HOBBY);
-                                                JSONObject jsonObjectUserFamily = jsonObjectData.getJSONObject(ProjectConstants.USER_FAMILY);
-                                                JSONObject jsonObjectUserExtra = jsonObjectData.getJSONObject(ProjectConstants.USER_EXTRA);*/
 
                                                 Gson gson = new Gson();
-                                                UserProfile userProfile = gson.fromJson(jsonObjectUserProfile.toString(), UserProfile.class);
+                                                UserProfile userProfile = gson.fromJson(jsonObjectData.toString(), UserProfile.class);
 
-                                                textViewFullName.setText(String.valueOf(userProfile.getFirst_name()+" "+userProfile.getMiddle_name()+" "+userProfile.getLast_name()));
-                                                textViewBirthDate.setText(userProfile.getDate_of_birth());
-                                                textViewGender.setText((userProfile.getSex().toLowerCase().equals("m")?"Male":"Female"));
-                                                textViewCountry.setText(userProfile.getCountry());
-                                                textViewState.setText(userProfile.getState());
-                                                textViewCity.setText(userProfile.getCity());
-                                                textViewCaste.setText(userProfile.getCaste());
-                                                textViewSubCaste1.setText(userProfile.getSub_caste1());
-                                                textViewSubCaste2.setText(userProfile.getSub_caste2());
+                                                textViewFullName.setText(String.valueOf(userProfile.getProfile().getFirst_name()+" "+userProfile.getProfile().getMiddle_name()+" "+userProfile.getProfile().getLast_name()));
+                                                textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
+                                                textViewGender.setText((userProfile.getProfile().getSex().toLowerCase().equals("m")?"Male":"Female"));
+                                                textViewPhone.setText(userProfile.getProfile().getPhone_number());
+
+                                                textViewCaste.setText(userProfile.getProfile().getCaste());
+                                                textViewSubCaste1.setText(userProfile.getProfile().getSub_caste1());
+                                                textViewSubCaste2.setText(userProfile.getProfile().getSub_caste2());
+
+                                                textViewAboutMe.setText(userProfile.getExtra().getAbout_me());
+
+                                                textViewAddress1.setText(userProfile.getProfile().getAddress1());
+                                                textViewAddress2.setText(userProfile.getProfile().getAddress2());
+                                                textViewAddress3.setText(userProfile.getProfile().getAddress3());
+
+                                                textViewCountry.setText(userProfile.getProfile().getCountry());
+                                                textViewState.setText(userProfile.getProfile().getState());
+                                                textViewCity.setText(userProfile.getProfile().getCity());
 
                                             } catch (JSONException e) {
                                                 enableComponents(getResources().getString(R.string.something_went_wrong));
                                                 e.printStackTrace();
                                             }
-
-                                        } else {
 
                                         }
 
