@@ -1,6 +1,8 @@
 package com.kloudforj.matrimonial.activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -59,16 +61,24 @@ public class UserProfileActivity extends AppCompatActivity {
     boolean modeEdit = false;
     RadioButton radioButtonMale, radioButtonFemale;
 
-    LinearLayout linearLayoutPhone;
+    LinearLayout linearLayoutPhone,linearLayoutEducation;
     CardView cardViewAddress;
 
-    ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,imageButtonCancel,imageButtonCalendar;
+    ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,imageButtonCancel,imageButtonCalendar, imageButtonAddEducation;
 
     TextView textViewFullName, textViewAboutMe, textViewHobby, textViewBirthDate,
             textViewAddress1, textViewAddress2, textViewAddress3, textViewPhone, textViewGender,
-            textViewCountry, textViewState, textViewCity, textViewCaste, textViewSubCaste1, textViewSubCaste2;
+            textViewCountry, textViewState, textViewCity, textViewCaste, textViewSubCaste1, textViewSubCaste2,
+            textViewUserHeight,textViewUserWeight,textViewUserBirthPlace,textViewUserBirthTime,
+            textViewUserJob,textViewUserEducation,textViewFatherName,textViewFatherEducation,
+            textViewFatherProfession,textViewFatherBirthPlace,textViewMotherName,
+            textViewMotherEducation,textViewMotherProfession,textViewMotherBirthPlace;
+
     EditText editTextFullName, editTextAboutMe, editTextHobby,
-            editTextAddress1, editTextAddress2, editTextAddress3, editTextPhone;
+            editTextAddress1, editTextAddress2, editTextAddress3, editTextPhone,
+            editTextUserHeight,editTextUserWeight,editTextUserBirthPlace,editTextUserBirthTime,
+            editTextUserJob,editTextFatherName,editTextFatherEducation,editTextFatherProfession,
+            editTextFatherBirthPlace,editTextMotherName,editTextMotherEducation,editTextMotherProfession,editTextMotherBirthPlace;
 
     Spinner spinnerGender, spinnerCountry, spinnerState, spinnerCity,
             spinnerCast, spinnerSubCast1, spinnerSubCast2;
@@ -106,6 +116,7 @@ public class UserProfileActivity extends AppCompatActivity {
         radioGroupSex = findViewById(R.id.radioSex);
 
         linearLayoutPhone = findViewById(R.id.linearlayout_phone);
+        linearLayoutEducation = findViewById(R.id.linearlayout_education);
         cardViewAddress = findViewById(R.id.cardview_address);
 
         imageButtonAddress1 = findViewById(R.id.imagebutton_address_1);
@@ -113,6 +124,13 @@ public class UserProfileActivity extends AppCompatActivity {
         imageButtonAddress3 = findViewById(R.id.imagebutton_address_3);
         imageButtonCancel = findViewById(R.id.imagebutton_Cancel);
         imageButtonCalendar = findViewById(R.id.imagebutton_calendar);
+        imageButtonAddEducation = findViewById(R.id.imagebutton_add_education);
+        imageButtonAddEducation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEducationAdd();
+            }
+        });
         imageButtonCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,6 +170,22 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewSubCaste1 = findViewById(R.id.text_user_sub_caste_1);
         textViewSubCaste2 = findViewById(R.id.text_user_sub_caste_2);
 
+        textViewUserHeight = findViewById(R.id.text_user_height);
+        textViewUserWeight = findViewById(R.id.text_user_weight);
+        textViewUserBirthPlace = findViewById(R.id.text_user_birth_place);
+        textViewUserBirthTime = findViewById(R.id.text_user_birth_time);
+        textViewUserJob = findViewById(R.id.text_user_job);
+        textViewUserEducation = findViewById(R.id.text_user_education);
+        textViewFatherName = findViewById(R.id.text_father_name);
+        textViewFatherEducation = findViewById(R.id.text_father_education);
+        textViewFatherProfession = findViewById(R.id.text_father_profession);
+        textViewFatherBirthPlace = findViewById(R.id.text_father_birth_place);
+        textViewMotherName = findViewById(R.id.text_mother_name);
+        textViewMotherEducation = findViewById(R.id.text_mother_education);
+        textViewMotherProfession = findViewById(R.id.text_mother_profession);
+        textViewMotherBirthPlace = findViewById(R.id.text_mother_birth_place);
+
+
         editTextFullName = findViewById(R.id.editText_full_name);
         editTextAboutMe = findViewById(R.id.editText_about_me);
         editTextHobby = findViewById(R.id.editText_hobby);
@@ -159,6 +193,20 @@ public class UserProfileActivity extends AppCompatActivity {
         editTextAddress2 = findViewById(R.id.editText_address_2);
         editTextAddress3 = findViewById(R.id.editText_address_3);
         editTextPhone = findViewById(R.id.editText_phone);
+
+        editTextUserHeight = findViewById(R.id.editText_user_height);
+        editTextUserWeight = findViewById(R.id.editText_user_weight);
+        editTextUserBirthPlace = findViewById(R.id.editText_user_birth_place);
+        editTextUserBirthTime = findViewById(R.id.editText_user_birth_time);
+        editTextUserJob = findViewById(R.id.editText_user_job);
+        editTextFatherName = findViewById(R.id.editText_father_name);
+        editTextFatherEducation = findViewById(R.id.editText_father_education);
+        editTextFatherProfession = findViewById(R.id.editText_father_profession);
+        editTextFatherBirthPlace = findViewById(R.id.editText_father_birth_place);
+        editTextMotherName = findViewById(R.id.editText_mother_name);
+        editTextMotherEducation = findViewById(R.id.editText_mother_education);
+        editTextMotherProfession = findViewById(R.id.editText_mother_profession);
+        editTextMotherBirthPlace = findViewById(R.id.editText_mother_birth_place);
 
 //        buttonSave = findViewById(R.id.button_profile_save);
 //        buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -237,6 +285,7 @@ public class UserProfileActivity extends AppCompatActivity {
             spinnerSubCast2.setVisibility(View.VISIBLE);
 
             imageButtonCancel.setVisibility(View.VISIBLE);
+            imageButtonAddEducation.setVisibility(View.VISIBLE);
             radioButtonMale.setClickable(true);
             radioButtonFemale.setClickable(true);
             imageButtonCalendar.setVisibility(View.VISIBLE);
@@ -272,6 +321,45 @@ public class UserProfileActivity extends AppCompatActivity {
 
             textViewGender.setVisibility(View.GONE);
             radioGroupSex.setVisibility(View.VISIBLE);
+
+            textViewUserHeight.setVisibility(View.GONE);
+            editTextUserHeight.setVisibility(View.VISIBLE);
+
+            textViewUserWeight.setVisibility(View.GONE);
+            editTextUserWeight.setVisibility(View.VISIBLE);
+
+            textViewUserBirthPlace.setVisibility(View.GONE);
+            editTextUserBirthPlace.setVisibility(View.VISIBLE);
+
+            textViewUserBirthTime.setVisibility(View.GONE);
+            editTextUserBirthTime.setVisibility(View.VISIBLE);
+
+            textViewUserJob.setVisibility(View.GONE);
+            editTextUserJob.setVisibility(View.VISIBLE);
+
+            textViewFatherName.setVisibility(View.GONE);
+            editTextFatherName.setVisibility(View.VISIBLE);
+
+            textViewFatherEducation.setVisibility(View.GONE);
+            editTextFatherEducation.setVisibility(View.VISIBLE);
+
+            textViewFatherProfession.setVisibility(View.GONE);
+            editTextFatherProfession.setVisibility(View.VISIBLE);
+
+            textViewFatherBirthPlace.setVisibility(View.GONE);
+            editTextFatherBirthPlace.setVisibility(View.VISIBLE);
+
+            textViewMotherName.setVisibility(View.GONE);
+            editTextMotherName.setVisibility(View.VISIBLE);
+
+            textViewMotherEducation.setVisibility(View.GONE);
+            editTextMotherEducation.setVisibility(View.VISIBLE);
+
+            textViewMotherProfession.setVisibility(View.GONE);
+            editTextMotherProfession.setVisibility(View.VISIBLE);
+
+            textViewMotherBirthPlace.setVisibility(View.GONE);
+            editTextMotherBirthPlace.setVisibility(View.VISIBLE);
         } else {
             textViewCountry.setVisibility(View.VISIBLE);
             textViewState.setVisibility(View.VISIBLE);
@@ -288,6 +376,7 @@ public class UserProfileActivity extends AppCompatActivity {
             spinnerSubCast2.setVisibility(View.GONE);
 
             imageButtonCancel.setVisibility(View.GONE);
+            imageButtonAddEducation.setVisibility(View.GONE);
             radioButtonMale.setClickable(false);
             radioButtonFemale.setClickable(false);
             imageButtonCalendar.setVisibility(View.GONE);
@@ -330,6 +419,45 @@ public class UserProfileActivity extends AppCompatActivity {
 
             textViewGender.setVisibility(View.VISIBLE);
             radioGroupSex.setVisibility(View.GONE);
+
+            textViewUserHeight.setVisibility(View.VISIBLE);
+            editTextUserHeight.setVisibility(View.GONE);
+
+            textViewUserWeight.setVisibility(View.VISIBLE);
+            editTextUserWeight.setVisibility(View.GONE);
+
+            textViewUserBirthPlace.setVisibility(View.VISIBLE);
+            editTextUserBirthPlace.setVisibility(View.GONE);
+
+            textViewUserBirthTime.setVisibility(View.VISIBLE);
+            editTextUserBirthTime.setVisibility(View.GONE);
+
+            textViewUserJob.setVisibility(View.VISIBLE);
+            editTextUserJob.setVisibility(View.GONE);
+
+            textViewFatherName.setVisibility(View.VISIBLE);
+            editTextFatherName.setVisibility(View.GONE);
+
+            textViewFatherEducation.setVisibility(View.VISIBLE);
+            editTextFatherEducation.setVisibility(View.GONE);
+
+            textViewFatherProfession.setVisibility(View.VISIBLE);
+            editTextFatherProfession.setVisibility(View.GONE);
+
+            textViewFatherBirthPlace.setVisibility(View.VISIBLE);
+            editTextFatherBirthPlace.setVisibility(View.GONE);
+
+            textViewMotherName.setVisibility(View.VISIBLE);
+            editTextMotherName.setVisibility(View.GONE);
+
+            textViewMotherEducation.setVisibility(View.VISIBLE);
+            editTextMotherEducation.setVisibility(View.GONE);
+
+            textViewMotherProfession.setVisibility(View.VISIBLE);
+            editTextMotherProfession.setVisibility(View.GONE);
+
+            textViewMotherBirthPlace.setVisibility(View.VISIBLE);
+            editTextMotherBirthPlace.setVisibility(View.GONE);
         }
     }
 
@@ -488,5 +616,28 @@ public class UserProfileActivity extends AppCompatActivity {
                 Toast.makeText(UserProfileActivity.this, msg, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void showEducationAdd(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Add Education"); //Set Alert dialog title here
+        alert.setMessage("Here You Can Add new Education"); //Message here
+
+        final EditText input = new EditText(this);
+        alert.setView(input);
+
+        alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String srt = input.getEditableText().toString();
+                textViewUserEducation.setText(textViewUserEducation.getText().toString() + "\n" + srt);
+            }
+        });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = alert.create();
+        alertDialog.show();
     }
 }
