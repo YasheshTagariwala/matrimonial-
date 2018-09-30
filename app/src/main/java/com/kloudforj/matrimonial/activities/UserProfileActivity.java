@@ -297,9 +297,9 @@ public class UserProfileActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pager);
         adapterImageSlider = new AdapterImageSlider(this, new ArrayList<Image>());
 
-        List<com.kloudforj.matrimonial.model.Image> items = new ArrayList<>();
+        List<Image> items = new ArrayList<>();
         for (int i : array_image_product) {
-            com.kloudforj.matrimonial.model.Image obj = new com.kloudforj.matrimonial.model.Image();
+            Image obj = new Image();
             obj.image = i;
             obj.imageDrw = getResources().getDrawable(obj.image);
             items.add(obj);

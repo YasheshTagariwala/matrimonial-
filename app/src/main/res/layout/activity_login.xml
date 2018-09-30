@@ -98,7 +98,7 @@
                 app:passwordToggleEnabled="true"
                 app:passwordToggleContentDescription="@string/toggle_description"
                 app:passwordToggleDrawable="@drawable/password_toggle"
-                app:passwordToggleTint="@color/pink_primary">
+                app:passwordToggleTint="@color/white">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/loginPassword"
