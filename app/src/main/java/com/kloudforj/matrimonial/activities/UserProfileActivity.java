@@ -1,34 +1,46 @@
 package com.kloudforj.matrimonial.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.entities.UserProfile;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
+import com.kloudforj.matrimonial.utils.Tools;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
@@ -38,12 +50,16 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import com.kloudforj.matrimonial.model.Image;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -52,6 +68,20 @@ public class UserProfileActivity extends AppCompatActivity {
     private SharedPreferences globalSP;
     boolean isSelf = false;
     private Call userDetailsRequestCall;
+
+//========     Added by ellis On date 30-09-2018     ================
+    private LinearLayout layout_dots;
+    private ViewPager viewPager;
+    private AdapterImageSlider adapterImageSlider;
+    private Runnable runnable = null;
+    private Handler handler = new Handler();
+
+    private static int[] array_image_product = {
+            R.drawable.profile_image,
+            R.drawable.profile_image,
+            R.drawable.profile_image,
+    };
+//===================================================================
 
     private ProgressBar mUserProfileActvityProgressBar;
 
@@ -256,7 +286,154 @@ public class UserProfileActivity extends AppCompatActivity {
         });
 
         fetchUserDetails();
+
+        initComponent();
+
     }
+
+    //========     Added by ellis On date 30-09-2018     ================
+    private void initComponent() {
+        layout_dots = findViewById(R.id.layout_dots);
+        viewPager = findViewById(R.id.pager);
+        adapterImageSlider = new AdapterImageSlider(this, new ArrayList<Image>());
+
+        List<com.kloudforj.matrimonial.model.Image> items = new ArrayList<>();
+        for (int i : array_image_product) {
+            com.kloudforj.matrimonial.model.Image obj = new com.kloudforj.matrimonial.model.Image();
+            obj.image = i;
+            obj.imageDrw = getResources().getDrawable(obj.image);
+            items.add(obj);
+        }
+
+        adapterImageSlider.setItems(items);
+        viewPager.setAdapter(adapterImageSlider);
+
+        // displaying selected image first
+        viewPager.setCurrentItem(0);
+        addBottomDots(layout_dots, adapterImageSlider.getCount(), 0);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int pos, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int pos) {
+                addBottomDots(layout_dots, adapterImageSlider.getCount(), pos);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+
+        startAutoSlider(adapterImageSlider.getCount());
+    }
+
+    private void addBottomDots(LinearLayout layout_dots, int size, int current) {
+        ImageView[] dots = new ImageView[size];
+
+        layout_dots.removeAllViews();
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new ImageView(this);
+            int width_height = 15;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(width_height, width_height));
+            params.setMargins(10, 10, 10, 10);
+            dots[i].setLayoutParams(params);
+            dots[i].setImageResource(R.drawable.shape_circle);
+            dots[i].setColorFilter(ContextCompat.getColor(this, R.color.overlay_dark_10), PorterDuff.Mode.SRC_ATOP);
+            layout_dots.addView(dots[i]);
+        }
+
+        if (dots.length > 0) {
+            dots[current].setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryLight), PorterDuff.Mode.SRC_ATOP);
+        }
+    }
+
+    private void startAutoSlider(final int count) {
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                int pos = viewPager.getCurrentItem();
+                pos = pos + 1;
+                if (pos >= count) pos = 0;
+                viewPager.setCurrentItem(pos);
+                handler.postDelayed(runnable, 3000);
+            }
+        };
+        handler.postDelayed(runnable, 3000);
+    }
+
+    private static class AdapterImageSlider extends PagerAdapter {
+
+        private Activity act;
+        private List<Image> items;
+
+        private OnItemClickListener onItemClickListener;
+
+        private interface OnItemClickListener {
+            void onItemClick(View view, Image obj);
+        }
+
+        public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+            this.onItemClickListener = onItemClickListener;
+        }
+
+        // constructor
+        private AdapterImageSlider(Activity activity, List<Image> items) {
+            this.act = activity;
+            this.items = items;
+        }
+
+        @Override
+        public int getCount() {
+            return this.items.size();
+        }
+
+        public Image getItem(int pos) {
+            return items.get(pos);
+        }
+
+        public void setItems(List<Image> items) {
+            this.items = items;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == (object);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            final Image o = items.get(position);
+            LayoutInflater inflater = (LayoutInflater) act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v = inflater.inflate(R.layout.item_slider_image, container, false);
+
+            ImageView image = v.findViewById(R.id.image);
+            MaterialRippleLayout lyt_parent = v.findViewById(R.id.lyt_parent);
+            Tools.displayImageOriginal(act, image, o.image);
+            lyt_parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onItemClick(v, o);
+                    }
+                }
+            });
+
+            (container).addView(v);
+
+            return v;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            (container).removeView((RelativeLayout) object);
+
+        }
+
+    }
+    //===================================================================
 
     public void setDataEditable(boolean canEdit) {
 //        spinnerGender.setClickable(canEdit);
