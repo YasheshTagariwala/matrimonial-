@@ -128,6 +128,7 @@
                     android:layout_height="@dimen/spacing_large" />
 
                 <TextView
+                    android:id="@+id/textview_Age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_age"
@@ -137,10 +138,8 @@
                 <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
                     android:id="@+id/rangeSeekbar"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-30dp"
-                    app:absoluteMinValue="50"
-                    app:absoluteMaxValue="18"/>
+                    android:layout_marginTop="-20dp"
+                    android:layout_height="wrap_content"/>
 
                 <View
                     android:layout_width="match_parent"
