@@ -1,22 +1,17 @@
 package com.kloudforj.matrimonial.activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -29,30 +24,24 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.balysv.materialripple.MaterialRippleLayout;
 import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.adapters.UserImageSliderAdapter;
 import com.kloudforj.matrimonial.entities.UserProfile;
+import com.kloudforj.matrimonial.entities.UserProfileImage;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
-import com.kloudforj.matrimonial.utils.Tools;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
-import com.kloudforj.matrimonial.model.Image;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,7 +61,7 @@ public class UserProfileActivity extends AppCompatActivity {
 //========     Added by ellis On date 30-09-2018     ================
     private LinearLayout layout_dots;
     private ViewPager viewPager;
-    private AdapterImageSlider adapterImageSlider;
+    private UserImageSliderAdapter userImageSliderAdapter;
     private Runnable runnable = null;
     private Handler handler = new Handler();
 
@@ -295,22 +284,22 @@ public class UserProfileActivity extends AppCompatActivity {
     private void initComponent() {
         layout_dots = findViewById(R.id.layout_dots);
         viewPager = findViewById(R.id.pager);
-        adapterImageSlider = new AdapterImageSlider(this, new ArrayList<Image>());
+        userImageSliderAdapter = new UserImageSliderAdapter(this, new ArrayList<UserProfileImage>());
 
-        List<Image> items = new ArrayList<>();
+        List<UserProfileImage> items = new ArrayList<>();
         for (int i : array_image_product) {
-            Image obj = new Image();
+            UserProfileImage obj = new UserProfileImage();
             obj.image = i;
             obj.imageDrw = getResources().getDrawable(obj.image);
             items.add(obj);
         }
 
-        adapterImageSlider.setItems(items);
-        viewPager.setAdapter(adapterImageSlider);
+        userImageSliderAdapter.setItems(items);
+        viewPager.setAdapter(userImageSliderAdapter);
 
         // displaying selected image first
         viewPager.setCurrentItem(0);
-        addBottomDots(layout_dots, adapterImageSlider.getCount(), 0);
+        addBottomDots(layout_dots, userImageSliderAdapter.getCount(), 0);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int pos, float positionOffset, int positionOffsetPixels) {
@@ -318,7 +307,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int pos) {
-                addBottomDots(layout_dots, adapterImageSlider.getCount(), pos);
+                addBottomDots(layout_dots, userImageSliderAdapter.getCount(), pos);
             }
 
             @Override
@@ -326,7 +315,7 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        startAutoSlider(adapterImageSlider.getCount());
+        startAutoSlider(userImageSliderAdapter.getCount());
     }
 
     private void addBottomDots(LinearLayout layout_dots, int size, int current) {
@@ -363,76 +352,6 @@ public class UserProfileActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 3000);
     }
 
-    private static class AdapterImageSlider extends PagerAdapter {
-
-        private Activity act;
-        private List<Image> items;
-
-        private OnItemClickListener onItemClickListener;
-
-        private interface OnItemClickListener {
-            void onItemClick(View view, Image obj);
-        }
-
-        public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-            this.onItemClickListener = onItemClickListener;
-        }
-
-        // constructor
-        private AdapterImageSlider(Activity activity, List<Image> items) {
-            this.act = activity;
-            this.items = items;
-        }
-
-        @Override
-        public int getCount() {
-            return this.items.size();
-        }
-
-        public Image getItem(int pos) {
-            return items.get(pos);
-        }
-
-        public void setItems(List<Image> items) {
-            this.items = items;
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == (object);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            final Image o = items.get(position);
-            LayoutInflater inflater = (LayoutInflater) act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View v = inflater.inflate(R.layout.item_slider_image, container, false);
-
-            ImageView image = v.findViewById(R.id.image);
-            MaterialRippleLayout lyt_parent = v.findViewById(R.id.lyt_parent);
-            Tools.displayImageOriginal(act, image, o.image);
-            lyt_parent.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(v, o);
-                    }
-                }
-            });
-
-            (container).addView(v);
-
-            return v;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            (container).removeView((RelativeLayout) object);
-
-        }
-
-    }
     //===================================================================
 
     public void setDataEditable(boolean canEdit) {
@@ -744,15 +663,28 @@ public class UserProfileActivity extends AppCompatActivity {
                                                 textViewSubCaste1.setText(userProfile.getProfile().getSub_caste1());
                                                 textViewSubCaste2.setText(userProfile.getProfile().getSub_caste2());
 
+                                                textViewUserHeight.setText(userProfile.getExtra().getHeight());
+                                                textViewUserWeight.setText(userProfile.getExtra().getWeight());
+                                                textViewUserBirthPlace.setText(userProfile.getExtra().getBirth_place());
+                                                textViewUserBirthTime.setText(userProfile.getExtra().getBirth_time());
+                                                textViewUserJob.setText(userProfile.getExtra().getCurrent_job());
                                                 textViewAboutMe.setText(userProfile.getExtra().getAbout_me());
 
                                                 textViewAddress1.setText(userProfile.getProfile().getAddress1());
                                                 textViewAddress2.setText(userProfile.getProfile().getAddress2());
                                                 textViewAddress3.setText(userProfile.getProfile().getAddress3());
-
                                                 textViewCountry.setText(userProfile.getProfile().getCountry());
                                                 textViewState.setText(userProfile.getProfile().getState());
                                                 textViewCity.setText(userProfile.getProfile().getCity());
+
+                                                /*textViewFatherName.setText(userProfile.getFamilyDetails().getFather_name());
+                                                textViewFatherEducation.setText(userProfile.getFamilyDetails().getFather_education());
+                                                textViewFatherProfession.setText(userProfile.getFamilyDetails().getFather_profession());
+                                                textViewFatherBirthPlace.setText(userProfile.getFamilyDetails().getFather_birth_place());
+                                                textViewMotherName.setText(userProfile.getFamilyDetails().getMother_name());
+                                                textViewMotherEducation.setText(userProfile.getFamilyDetails().getMother_education());
+                                                textViewMotherProfession.setText(userProfile.getFamilyDetails().getMother_profession());
+                                                textViewMotherBirthPlace.setText(userProfile.getFamilyDetails().getMother_birth_place());*/
 
                                             } catch (JSONException e) {
                                                 enableComponents(getResources().getString(R.string.something_went_wrong));
@@ -780,7 +712,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * Toast message and rogressbar invisible
+     * Toast message and progressbar invisible
      *
      * @param msg
      */

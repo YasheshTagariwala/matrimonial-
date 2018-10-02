@@ -4,7 +4,7 @@ public class UserProfile
 {
     public class Profile {
 
-        private int user_id;
+        private int user_id, age;
         private String first_name, middle_name, last_name, date_of_birth, sex;
         private String address1, address2, address3, country, state, city, pincocde, phone_number;
         private int email_verified, phone_number_verified;
@@ -16,6 +16,14 @@ public class UserProfile
 
         public void setUser_id(int user_id) {
             this.user_id = user_id;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
         }
 
         public String getFirst_name() {

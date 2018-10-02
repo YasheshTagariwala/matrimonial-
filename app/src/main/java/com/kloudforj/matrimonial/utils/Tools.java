@@ -15,6 +15,7 @@ public class Tools {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(img);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -1,8 +1,8 @@
-package com.kloudforj.matrimonial.model;
+package com.kloudforj.matrimonial.entities;
 
 import android.graphics.drawable.Drawable;
 
-public class Image {
+public class UserProfileImage {
 
     public int image;
     public Drawable imageDrw;

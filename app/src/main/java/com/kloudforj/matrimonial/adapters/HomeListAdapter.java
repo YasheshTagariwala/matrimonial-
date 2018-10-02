@@ -38,7 +38,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         final UserProfile items = userProfileList.get(position);
         holder.tvUserName.setText(String.valueOf(items.getProfile().getFirst_name()+" "+items.getProfile().getMiddle_name()+" "+items.getProfile().getLast_name()));
         holder.tvUserCaste.setText(items.getProfile().getCaste());
-        holder.tvUserAge.setText(String.valueOf(items.getProfile().getDate_of_birth()));
+        holder.tvUserAge.setText(String.valueOf(items.getProfile().getAge()));
 
         holder.setClickListener(new ItemClickListener() {
             @Override
