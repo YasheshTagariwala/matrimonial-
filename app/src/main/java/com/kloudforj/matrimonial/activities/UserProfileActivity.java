@@ -3,6 +3,7 @@ package com.kloudforj.matrimonial.activities;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Handler;
@@ -85,7 +86,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,imageButtonCancel,imageButtonCalendar, imageButtonAddEducation;
 
-    TextView textViewFullName, textViewAboutMe, textViewHobby, textViewBirthDate,
+    TextView textViewFullName, textViewAboutMe, textViewHobby, textViewBirthDate, textViewVerifyPhone, textViewVerifymail,
             textViewAddress1, textViewAddress2, textViewAddress3, textViewPhone, textViewGender,
             textViewCountry, textViewState, textViewCity, textViewCaste, textViewSubCaste1, textViewSubCaste2,
             textViewUserHeight,textViewUserWeight,textViewUserBirthPlace,textViewUserBirthTime,
@@ -172,6 +173,25 @@ public class UserProfileActivity extends AppCompatActivity {
         spinnerSubCast1.setClickable(false);
         spinnerSubCast2.setClickable(false);
 
+        textViewVerifyPhone = findViewById(R.id.text_verify_phone);
+        textViewVerifyPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserProfileActivity.this,VerificationActivity.class);
+                intent.putExtra("type","phone");
+                startActivity(intent);
+            }
+        });
+        textViewVerifymail = findViewById(R.id.text_verify_mail);
+        textViewVerifymail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserProfileActivity.this,VerificationActivity.class);
+                intent.putExtra("type","mail");
+                startActivity(intent);
+            }
+        });
+
         textViewFullName = findViewById(R.id.text_full_name);
         textViewAboutMe = findViewById(R.id.text_about_me);
         textViewHobby = findViewById(R.id.text_hobby);
@@ -253,6 +273,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
         if(isSelf) {
             fabEdit.setVisibility(View.VISIBLE);
+
+            textViewVerifymail.setVisibility(View.VISIBLE);
+            textViewVerifyPhone.setVisibility(View.VISIBLE);
         } else {
             fabEdit.setVisibility(View.GONE);
             cardViewAddress.setVisibility(View.GONE);
