@@ -4,19 +4,62 @@
     android:layout_height="wrap_content"
     android:fitsSystemWindows="false">
 
-    <com.balysv.materialripple.MaterialRippleLayout
-        android:id="@+id/lyt_parent"
-        style="@style/RippleStyleWhite"
+    <RelativeLayout
+        android:id="@+id/relative_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/image"
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/lyt_parent"
+            style="@style/RippleStyleWhite"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/grey_80"
-            android:scaleType="centerCrop" />
+            android:layout_height="match_parent">
 
-    </com.balysv.materialripple.MaterialRippleLayout>
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey_80"
+                android:scaleType="centerCrop" />
+
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <RelativeLayout
+        android:id="@+id/relative_editable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_spread_color"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:layout_margin="15dp"
+                android:src="@drawable/ic_close"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/ic_edit_white_24dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

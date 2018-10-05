@@ -338,7 +338,7 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        startAutoSlider(userImageSliderAdapter.getCount());
+//        startAutoSlider(userImageSliderAdapter.getCount());
     }
 
     private void addBottomDots(LinearLayout layout_dots, int size, int current) {
@@ -386,6 +386,8 @@ public class UserProfileActivity extends AppCompatActivity {
         spinnerSubCast1.setClickable(canEdit);
         spinnerSubCast2.setClickable(canEdit);
         modeEdit = canEdit;
+        userImageSliderAdapter.setCanEdit(modeEdit);
+        viewPager.setAdapter(userImageSliderAdapter);
 
         if (canEdit) {
 

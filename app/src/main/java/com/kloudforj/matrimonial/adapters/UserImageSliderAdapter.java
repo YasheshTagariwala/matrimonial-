@@ -22,6 +22,7 @@ public class UserImageSliderAdapter extends PagerAdapter {
     private List<UserProfileImage> items;
 
     private OnItemClickListener onItemClickListener;
+    boolean canEdit = false;
 
     private interface OnItemClickListener {
         void onItemClick(View view, UserProfileImage obj);
@@ -35,6 +36,7 @@ public class UserImageSliderAdapter extends PagerAdapter {
     public UserImageSliderAdapter(Activity activity, List<UserProfileImage> items) {
         this.act = activity;
         this.items = items;
+
     }
 
     @Override
@@ -51,6 +53,10 @@ public class UserImageSliderAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
+    public void setCanEdit(boolean canEdit){
+        this.canEdit = canEdit;
+    }
+
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == (object);
@@ -62,7 +68,18 @@ public class UserImageSliderAdapter extends PagerAdapter {
         LayoutInflater inflater = (LayoutInflater) act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.item_slider_image, container, false);
 
+        RelativeLayout relativeLayoutMain = v.findViewById(R.id.relative_main);
+
         ImageView image = v.findViewById(R.id.image);
+        RelativeLayout relativeLayout = v.findViewById(R.id.relative_editable);
+        if(canEdit){
+            RelativeLayout.LayoutParams relativeParams = (RelativeLayout.LayoutParams)relativeLayout.getLayoutParams();
+            relativeParams.setMargins(10,10,10,10);
+            relativeLayoutMain.setLayoutParams(relativeParams);
+            relativeLayout.setVisibility(View.VISIBLE);
+        }else{
+            relativeLayout.setVisibility(View.GONE);
+        }
         MaterialRippleLayout lyt_parent = v.findViewById(R.id.lyt_parent);
         Tools.displayImageOriginal(act, image, o.image);
         lyt_parent.setOnClickListener(new View.OnClickListener() {
