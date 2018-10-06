@@ -226,6 +226,7 @@
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/grey_5"
@@ -254,164 +255,79 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingBottom="@dimen/spacing_middle">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_large"
-                            android:gravity="center"
-                            android:text="@string/user_profile_card_title_basic_info"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/grey_90" />
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/swipe_up_handle"
-                            android:tint="@color/red_700" />
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:orientation="vertical">
+                            android:background="@android:color/white"
+                            android:gravity="center_vertical"
+                            android:minHeight="?attr/actionBarSize"
+                            android:orientation="horizontal">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <ImageButton
+                                android:layout_width="?attr/actionBarSize"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="@android:color/transparent"
+                                android:tint="@color/deep_purple_900"
+                                android:src="@drawable/ic_info_white_24dp" />
+
+                            <TextView
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    android:tint="@color/black"
-                                    app:srcCompat="@drawable/ic_person_black_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
-                                <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_name"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/text_full_name"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/default_string"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
-
-                                    <EditText
-                                        android:id="@+id/editText_full_name"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/default_string"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black"
-                                        android:visibility="gone" />
-
-                                </LinearLayout>
-
-                            </LinearLayout>
+                                android:layout_weight="1"
+                                android:text="@string/user_profile_card_title_basic_info"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                android:textColor="@color/grey_90"
+                                android:textStyle="bold" />
 
                             <View
+                                android:layout_width="@dimen/spacing_large"
+                                android:layout_height="wrap_content" />
+
+                            <ImageButton
+                                android:id="@+id/img_toggle_basic_info"
+                                android:layout_width="?attr/actionBarSize"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:tint="@color/grey_60"
+                                android:src="@drawable/ic_expand_more_white_24dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/basic_info_expanded_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingBottom="@dimen/spacing_middle"
+                            android:visibility="gone">
+
+                            <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="20dp" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_large"
+                                android:gravity="center"
+                                android:text="@string/user_profile_card_title_basic_info"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/grey_90" />
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/swipe_up_handle"
+                                android:tint="@color/red_700" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:gravity="start">
-
-                                    <ImageButton
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
-                                        android:background="@android:color/transparent"
-                                        android:tint="@color/black"
-                                        app:srcCompat="@drawable/ic_cake_white_24dp"
-                                        tools:ignore="VectorDrawableCompat" />
-
-                                    <View
-                                        android:layout_width="10dp"
-                                        android:layout_height="match_parent" />
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="vertical">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="@string/user_profile_date_of_birth"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal">
-
-                                            <TextView
-                                                android:id="@+id/text_birth_date"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_marginTop="10dp"
-                                                android:lineSpacingExtra="2dp"
-                                                android:text="@string/user_profile_birthdate"
-                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                                            <ImageButton
-                                                android:id="@+id/imagebutton_calendar"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_marginLeft="10dp"
-                                                android:layout_marginTop="10dp"
-                                                android:background="@color/transparent"
-                                                android:src="@drawable/ic_today_white_24dp"
-                                                android:tint="@color/black"
-                                                android:visibility="gone" />
-
-                                        </LinearLayout>
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
+                                android:layout_margin="10dp"
+                                android:orientation="vertical">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:gravity="end">
-
-                                    <LinearLayout
-                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal">
 
@@ -420,7 +336,7 @@
                                         android:layout_height="20dp"
                                         android:background="@android:color/transparent"
                                         android:tint="@color/black"
-                                        app:srcCompat="@drawable/ic_wc_white_24dp"
+                                        app:srcCompat="@drawable/ic_person_black_24dp"
                                         tools:ignore="VectorDrawableCompat" />
 
                                     <View
@@ -435,408 +351,540 @@
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="@string/user_profile_gender"
+                                            android:text="@string/user_profile_name"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/colorPrimary"
                                             android:textStyle="bold" />
 
                                         <TextView
-                                            android:id="@+id/textview_gender"
+                                            android:id="@+id/text_full_name"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/default_string"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black" />
+
+                                        <EditText
+                                            android:id="@+id/editText_full_name"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/default_string"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:gravity="start">
+
+                                        <ImageButton
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:background="@android:color/transparent"
+                                            android:tint="@color/black"
+                                            app:srcCompat="@drawable/ic_cake_white_24dp"
+                                            tools:ignore="VectorDrawableCompat" />
+
+                                        <View
+                                            android:layout_width="10dp"
+                                            android:layout_height="match_parent" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="@string/user_profile_date_of_birth"
+                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textStyle="bold" />
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:orientation="horizontal">
+
+                                                <TextView
+                                                    android:id="@+id/text_birth_date"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="10dp"
+                                                    android:lineSpacingExtra="2dp"
+                                                    android:text="@string/user_profile_birthdate"
+                                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+                                                <ImageButton
+                                                    android:id="@+id/imagebutton_calendar"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginLeft="10dp"
+                                                    android:layout_marginTop="10dp"
+                                                    android:background="@color/transparent"
+                                                    android:src="@drawable/ic_today_white_24dp"
+                                                    android:tint="@color/black"
+                                                    android:visibility="gone" />
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:gravity="end">
+
+                                        <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <ImageButton
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:background="@android:color/transparent"
+                                            android:tint="@color/black"
+                                            app:srcCompat="@drawable/ic_wc_white_24dp"
+                                            tools:ignore="VectorDrawableCompat" />
+
+                                        <View
+                                            android:layout_width="10dp"
+                                            android:layout_height="match_parent" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="@string/user_profile_gender"
+                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:id="@+id/textview_gender"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="10dp"
+                                                android:lineSpacingExtra="2dp"
+                                                android:text="@string/user_profile_gender_female"
+                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+                                            <RadioGroup
+                                                android:id="@+id/radioSex"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:orientation="horizontal"
+                                                android:visibility="gone">
+
+                                                <RadioButton
+                                                    android:id="@+id/radioFemale"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:checked="true"
+                                                    android:clickable="false"
+                                                    android:text="@string/user_profile_gender_female" />
+
+                                                <RadioButton
+                                                    android:id="@+id/radioMale"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:clickable="false"
+                                                    android:text="@string/user_profile_gender_male" />
+
+                                            </RadioGroup>
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
+
+                                <LinearLayout
+                                    android:id="@+id/linearlayout_phone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <ImageButton
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@android:color/transparent"
+                                        android:src="@drawable/ic_local_phone_white_24dp"
+                                        android:tint="@color/black" />
+
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="@string/user_profile_phone_number"
+                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textStyle="bold" />
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="right">
+
+                                                <ImageButton
+                                                    android:id="@+id/phone_number_not_verified"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:src="@drawable/ic_info_white_24dp"
+                                                    android:tint="@color/red_400"/>
+
+
+                                                <ImageButton
+                                                    android:id="@+id/phone_number_verified"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:src="@drawable/ic_verified_user_white_24dp"
+                                                    android:tint="@color/green_400"
+                                                    />
+
+                                                <TextView
+                                                    android:id="@+id/text_verify_phone"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="Verify"
+                                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textStyle="bold"
+                                                    android:visibility="gone"/>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <TextView
+                                            android:id="@+id/text_phone"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:lineSpacingExtra="2dp"
+                                            android:text="@string/user_profile_number"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+                                        <EditText
+                                            android:id="@+id/editText_phone"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:inputType="phone"
+                                            android:lineSpacingExtra="2dp"
+                                            android:text="@string/user_profile_number"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        app:srcCompat="@drawable/ic_person_black_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
+
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="@string/user_profile_email"
+                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textStyle="bold" />
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="right">
+
+                                                <ImageButton
+                                                    android:id="@+id/email_not_verified"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:src="@drawable/ic_info_white_24dp"
+                                                    android:tint="@color/red_400"/>
+
+
+                                                <ImageButton
+                                                    android:id="@+id/email_verified"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:src="@drawable/ic_verified_user_white_24dp"
+                                                    android:tint="@color/green_400"
+                                                    />
+
+                                                <TextView
+                                                    android:id="@+id/text_verify_mail"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="Verify"
+                                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textStyle="bold"
+                                                    android:visibility="gone"/>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <TextView
+                                            android:id="@+id/text_user_mail"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="10dp"
                                             android:lineSpacingExtra="2dp"
-                                            android:text="@string/user_profile_gender_female"
+                                            android:text="tagariwalayashesh@gmail.com"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                                        <RadioGroup
-                                            android:id="@+id/radioSex"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:visibility="gone">
-
-                                            <RadioButton
-                                                android:id="@+id/radioFemale"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:checked="true"
-                                                android:clickable="false"
-                                                android:text="@string/user_profile_gender_female" />
-
-                                            <RadioButton
-                                                android:id="@+id/radioMale"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:clickable="false"
-                                                android:text="@string/user_profile_gender_male" />
-
-                                        </RadioGroup>
-
                                     </LinearLayout>
 
                                 </LinearLayout>
 
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:id="@+id/linearlayout_phone"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@android:color/transparent"
-                                    android:src="@drawable/ic_local_phone_white_24dp"
-                                    android:tint="@color/black" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
+
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        app:srcCompat="@drawable/ic_person_black_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
+
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:orientation="horizontal">
+                                        android:orientation="vertical">
 
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="@string/user_profile_phone_number"
+                                            android:text="@string/user_profile_caste"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/colorPrimary"
                                             android:textStyle="bold" />
 
-                                        <LinearLayout
+                                        <TextView
+                                            android:id="@+id/text_user_caste"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:lineSpacingExtra="2dp"
+                                            android:text="@string/user_profile_caste"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+                                        <Spinner
+                                            android:id="@+id/spn_user_caste"
+                                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:gravity="right">
-
-                                            <ImageButton
-                                                android:id="@+id/phone_number_not_verified"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:src="@drawable/ic_info_white_24dp"
-                                                android:tint="@color/red_400"/>
-
-
-                                            <ImageButton
-                                                android:id="@+id/phone_number_verified"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:src="@drawable/ic_verified_user_white_24dp"
-                                                android:tint="@color/green_400"
-                                                />
-
-                                            <TextView
-                                                android:id="@+id/text_verify_phone"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:text="Verify"
-                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                                android:textColor="@color/colorPrimary"
-                                                android:textStyle="bold"
-                                                android:visibility="gone"/>
-
-                                        </LinearLayout>
+                                            android:layout_marginTop="10dp"
+                                            android:entries="@array/caste"
+                                            android:lineSpacingExtra="2dp"
+                                            android:spinnerMode="dialog"
+                                            android:text="@string/user_profile_birthdate"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                                            android:visibility="gone" />
 
                                     </LinearLayout>
 
-                                    <TextView
-                                        android:id="@+id/text_phone"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/user_profile_number"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                                    <EditText
-                                        android:id="@+id/editText_phone"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:inputType="phone"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/user_profile_number"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
-
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    app:srcCompat="@drawable/ic_person_black_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
+
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        app:srcCompat="@drawable/ic_person_black_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
+
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:orientation="horizontal">
+                                        android:orientation="vertical">
 
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="@string/user_profile_email"
+                                            android:text="@string/user_profile_sub_caste_1"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/colorPrimary"
                                             android:textStyle="bold" />
 
-                                        <LinearLayout
+                                        <TextView
+                                            android:id="@+id/text_user_sub_caste_1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:lineSpacingExtra="2dp"
+                                            android:text="@string/user_profile_sub_caste_1"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+                                        <Spinner
+                                            android:id="@+id/spn_user_sub_caste_1"
+                                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:gravity="right">
-
-                                            <ImageButton
-                                                android:id="@+id/email_not_verified"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:src="@drawable/ic_info_white_24dp"
-                                                android:tint="@color/red_400"/>
-
-
-                                            <ImageButton
-                                                android:id="@+id/email_verified"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:src="@drawable/ic_verified_user_white_24dp"
-                                                android:tint="@color/green_400"
-                                                />
-
-                                            <TextView
-                                                android:id="@+id/text_verify_mail"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:text="Verify"
-                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                                android:textColor="@color/colorPrimary"
-                                                android:textStyle="bold"
-                                                android:visibility="gone"/>
-
-                                        </LinearLayout>
+                                            android:layout_marginTop="10dp"
+                                            android:entries="@array/sub_caste_1"
+                                            android:lineSpacingExtra="2dp"
+                                            android:spinnerMode="dialog"
+                                            android:text="@string/user_profile_birthdate"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                                            android:visibility="gone" />
 
                                     </LinearLayout>
 
-                                    <TextView
-                                        android:id="@+id/text_user_mail"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="tagariwalayashesh@gmail.com"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    app:srcCompat="@drawable/ic_person_black_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_caste"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        app:srcCompat="@drawable/ic_person_black_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_caste"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/user_profile_caste"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <Spinner
-                                        android:id="@+id/spn_user_caste"
-                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:entries="@array/caste"
-                                        android:lineSpacingExtra="2dp"
-                                        android:spinnerMode="dialog"
-                                        android:text="@string/user_profile_birthdate"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
 
-                                </LinearLayout>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_sub_caste_2"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
 
-                            </LinearLayout>
+                                        <TextView
+                                            android:id="@+id/text_user_sub_caste_2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:lineSpacingExtra="2dp"
+                                            android:text="@string/user_profile_sub_caste_2"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
+                                        <Spinner
+                                            android:id="@+id/spn_user_sub_caste_2"
+                                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:entries="@array/sub_caste_2"
+                                            android:lineSpacingExtra="2dp"
+                                            android:spinnerMode="dialog"
+                                            android:text="@string/user_profile_birthdate"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                                            android:visibility="gone" />
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    app:srcCompat="@drawable/ic_person_black_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
-                                <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_sub_caste_1"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/text_user_sub_caste_1"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/user_profile_sub_caste_1"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                                    <Spinner
-                                        android:id="@+id/spn_user_sub_caste_1"
-                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:entries="@array/sub_caste_1"
-                                        android:lineSpacingExtra="2dp"
-                                        android:spinnerMode="dialog"
-                                        android:text="@string/user_profile_birthdate"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    app:srcCompat="@drawable/ic_person_black_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
-                                <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_sub_caste_2"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/text_user_sub_caste_2"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/user_profile_sub_caste_2"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                                    <Spinner
-                                        android:id="@+id/spn_user_sub_caste_2"
-                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:entries="@array/sub_caste_2"
-                                        android:lineSpacingExtra="2dp"
-                                        android:spinnerMode="dialog"
-                                        android:text="@string/user_profile_birthdate"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
@@ -860,101 +908,86 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingBottom="@dimen/spacing_middle">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_large"
-                            android:gravity="center"
-                            android:text="@string/user_profile_card_title_extra_info"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/grey_90" />
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/swipe_up_handle"
-                            android:tint="@color/red_700" />
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:orientation="vertical">
+                            android:background="@android:color/white"
+                            android:gravity="center_vertical"
+                            android:minHeight="?attr/actionBarSize"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:layout_width="?attr/actionBarSize"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="@android:color/transparent"
+                                android:tint="@color/deep_purple_900"
+                                android:src="@drawable/ic_error_white_24dp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/user_profile_card_title_extra_info"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                android:textColor="@color/grey_90"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="@dimen/spacing_large"
+                                android:layout_height="wrap_content" />
+
+                            <ImageButton
+                                android:id="@+id/img_toggle_extra_info"
+                                android:layout_width="?attr/actionBarSize"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:tint="@color/grey_60"
+                                android:src="@drawable/ic_expand_more_white_24dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/extra_info_expanded_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingBottom="@dimen/spacing_middle"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_large"
+                                android:gravity="center"
+                                android:text="@string/user_profile_card_title_extra_info"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/grey_90" />
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/swipe_up_handle"
+                                android:tint="@color/red_700" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="start"
-                                    android:orientation="horizontal">
-
-                                    <ImageButton
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
-                                        android:background="@android:color/transparent"
-                                        android:tint="@color/black"
-                                        app:srcCompat="@drawable/ic_edit_white_24dp"
-                                        tools:ignore="VectorDrawableCompat" />
-
-                                    <View
-                                        android:layout_width="10dp"
-                                        android:layout_height="match_parent" />
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="vertical">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="@string/user_profile_height"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textStyle="bold" />
-
-                                        <TextView
-                                            android:id="@+id/text_user_height"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/user_profile_default_height"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black" />
-
-                                        <EditText
-                                            android:id="@+id/editText_user_height"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/user_profile_default_height"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-
+                                android:layout_margin="10dp"
+                                android:orientation="vertical">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="right">
+                                    android:orientation="horizontal">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:gravity="right"
+                                        android:layout_gravity="start"
                                         android:orientation="horizontal">
 
                                         <ImageButton
@@ -977,27 +1010,26 @@
                                             <TextView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:text="@string/user_profile_weight"
+                                                android:text="@string/user_profile_height"
                                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                                 android:textColor="@color/colorPrimary"
                                                 android:textStyle="bold" />
 
                                             <TextView
-                                                android:id="@+id/text_user_weight"
+                                                android:id="@+id/text_user_height"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginTop="10dp"
-                                                android:text="@string/user_profile_default_weight"
+                                                android:text="@string/user_profile_default_height"
                                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                                 android:textColor="@color/black" />
 
                                             <EditText
-                                                android:id="@+id/editText_user_weight"
+                                                android:id="@+id/editText_user_height"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginTop="10dp"
-                                                android:inputType="number"
-                                                android:text="@string/user_profile_default_weight"
+                                                android:text="@string/user_profile_default_height"
                                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                                 android:textColor="@color/black"
                                                 android:visibility="gone" />
@@ -1006,81 +1038,84 @@
 
                                     </LinearLayout>
 
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="start"
-                                    android:orientation="horizontal">
-
-                                    <ImageButton
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
-                                        android:background="@android:color/transparent"
-                                        android:tint="@color/black"
-                                        app:srcCompat="@drawable/ic_edit_white_24dp"
-                                        tools:ignore="VectorDrawableCompat" />
-
-                                    <View
-                                        android:layout_width="10dp"
-                                        android:layout_height="match_parent" />
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:orientation="vertical">
+                                        android:gravity="right">
 
-                                        <TextView
+                                        <LinearLayout
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="@string/user_profile_birth_place"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textStyle="bold" />
+                                            android:gravity="right"
+                                            android:orientation="horizontal">
 
-                                        <TextView
-                                            android:id="@+id/text_user_birth_place"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/user_profile_default_birth_place"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black" />
+                                            <ImageButton
+                                                android:layout_width="20dp"
+                                                android:layout_height="20dp"
+                                                android:background="@android:color/transparent"
+                                                android:tint="@color/black"
+                                                app:srcCompat="@drawable/ic_edit_white_24dp"
+                                                tools:ignore="VectorDrawableCompat" />
 
-                                        <EditText
-                                            android:id="@+id/editText_user_birth_place"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/user_profile_default_birth_place"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
+                                            <View
+                                                android:layout_width="10dp"
+                                                android:layout_height="match_parent" />
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:orientation="vertical">
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="@string/user_profile_weight"
+                                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textStyle="bold" />
+
+                                                <TextView
+                                                    android:id="@+id/text_user_weight"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="10dp"
+                                                    android:text="@string/user_profile_default_weight"
+                                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                    android:textColor="@color/black" />
+
+                                                <EditText
+                                                    android:id="@+id/editText_user_weight"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="10dp"
+                                                    android:inputType="number"
+                                                    android:text="@string/user_profile_default_weight"
+                                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                    android:textColor="@color/black"
+                                                    android:visibility="gone" />
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
 
                                     </LinearLayout>
 
                                 </LinearLayout>
 
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="end">
+                                    android:orientation="horizontal">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:gravity="start"
                                         android:orientation="horizontal">
 
                                         <ImageButton
@@ -1103,26 +1138,26 @@
                                             <TextView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:text="@string/user_profile_birth_time"
+                                                android:text="@string/user_profile_birth_place"
                                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                                 android:textColor="@color/colorPrimary"
                                                 android:textStyle="bold" />
 
                                             <TextView
-                                                android:id="@+id/text_user_birth_time"
+                                                android:id="@+id/text_user_birth_place"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginTop="10dp"
-                                                android:text="@string/user_profile_default_birth_time"
+                                                android:text="@string/user_profile_default_birth_place"
                                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                                 android:textColor="@color/black" />
 
                                             <EditText
-                                                android:id="@+id/editText_user_birth_time"
+                                                android:id="@+id/editText_user_birth_place"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginTop="10dp"
-                                                android:text="@string/user_profile_default_birth_time"
+                                                android:text="@string/user_profile_default_birth_place"
                                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                                 android:textColor="@color/black"
                                                 android:visibility="gone" />
@@ -1131,118 +1166,178 @@
 
                                     </LinearLayout>
 
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="end">
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal">
+
+                                            <ImageButton
+                                                android:layout_width="20dp"
+                                                android:layout_height="20dp"
+                                                android:background="@android:color/transparent"
+                                                android:tint="@color/black"
+                                                app:srcCompat="@drawable/ic_edit_white_24dp"
+                                                tools:ignore="VectorDrawableCompat" />
+
+                                            <View
+                                                android:layout_width="10dp"
+                                                android:layout_height="match_parent" />
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:orientation="vertical">
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="@string/user_profile_birth_time"
+                                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textStyle="bold" />
+
+                                                <TextView
+                                                    android:id="@+id/text_user_birth_time"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="10dp"
+                                                    android:text="@string/user_profile_default_birth_time"
+                                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                    android:textColor="@color/black" />
+
+                                                <EditText
+                                                    android:id="@+id/editText_user_birth_time"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="10dp"
+                                                    android:text="@string/user_profile_default_birth_time"
+                                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                    android:textColor="@color/black"
+                                                    android:visibility="gone" />
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    android:tint="@color/black"
-                                    app:srcCompat="@drawable/ic_edit_white_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_current_job"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        android:tint="@color/black"
+                                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_job"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_current_job"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <EditText
-                                        android:id="@+id/editText_user_job"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_current_job"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_current_job"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/text_user_job"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_current_job"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black" />
+
+                                        <EditText
+                                            android:id="@+id/editText_user_job"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_current_job"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    app:srcCompat="@drawable/ic_person_black_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_about_me"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        app:srcCompat="@drawable/ic_person_black_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                    <TextView
-                                        android:id="@+id/text_about_me"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/lorem_ipsum"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <EditText
-                                        android:id="@+id/editText_about_me"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/lorem_ipsum"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_about_me"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/text_about_me"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:lineSpacingExtra="2dp"
+                                            android:text="@string/lorem_ipsum"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+                                        <EditText
+                                            android:id="@+id/editText_about_me"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:lineSpacingExtra="2dp"
+                                            android:text="@string/lorem_ipsum"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
@@ -1266,154 +1361,200 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingBottom="@dimen/spacing_middle">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_large"
-                            android:gravity="center"
-                            android:text="@string/user_profile_card_title_education"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/grey_90" />
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/swipe_up_handle"
-                            android:tint="@color/red_700" />
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:orientation="vertical">
+                            android:background="@android:color/white"
+                            android:gravity="center_vertical"
+                            android:minHeight="?attr/actionBarSize"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:layout_width="?attr/actionBarSize"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="@android:color/transparent"
+                                android:tint="@color/deep_purple_900"
+                                android:src="@drawable/ic_school_white_24dp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/user_profile_card_title_education"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                android:textColor="@color/grey_90"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="@dimen/spacing_large"
+                                android:layout_height="wrap_content" />
+
+                            <ImageButton
+                                android:id="@+id/img_toggle_education_info"
+                                android:layout_width="?attr/actionBarSize"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:tint="@color/grey_60"
+                                android:src="@drawable/ic_expand_more_white_24dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/education_info_expanded_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingBottom="@dimen/spacing_middle"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_large"
+                                android:gravity="center"
+                                android:text="@string/user_profile_card_title_education"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/grey_90" />
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/swipe_up_handle"
+                                android:tint="@color/red_700" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@android:color/transparent"
-                                    android:src="@drawable/ic_directions_bike_black_24dp" />
-
-                                <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                android:layout_margin="10dp"
+                                android:orientation="vertical">
 
                                 <LinearLayout
-                                    android:id="@+id/linearlayout_education"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
+
+                                    <ImageButton
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@android:color/transparent"
+                                        android:src="@drawable/ic_directions_bike_black_24dp" />
+
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
                                     <LinearLayout
+                                        android:id="@+id/linearlayout_education"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:orientation="horizontal">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="@string/user_profile_education"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textStyle="bold" />
+                                        android:orientation="vertical">
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:gravity="right">
+                                            android:orientation="horizontal">
 
-                                            <ImageButton
-                                                android:id="@+id/imagebutton_add_education"
+                                            <TextView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:visibility="gone"
-                                                android:background="@android:color/transparent"
-                                                android:tint="@color/colorPrimary"
-                                                android:src="@drawable/ic_add_white_24dp" />
+                                                android:text="@string/user_profile_education"
+                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textStyle="bold" />
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="right">
+
+                                                <ImageButton
+                                                    android:id="@+id/imagebutton_add_education"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:visibility="gone"
+                                                    android:background="@android:color/transparent"
+                                                    android:tint="@color/colorPrimary"
+                                                    android:src="@drawable/ic_add_white_24dp" />
+
+                                            </LinearLayout>
 
                                         </LinearLayout>
 
-                                    </LinearLayout>
+                                        <TextView
+                                            android:id="@+id/text_user_education"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:lineSpacingExtra="2dp"
+                                            android:text="@string/user_profile_default_education"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_education"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/user_profile_default_education"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@android:color/transparent"
-                                    android:src="@drawable/ic_directions_bike_black_24dp" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
+                                    <ImageButton
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_hobbies"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                        android:background="@android:color/transparent"
+                                        android:src="@drawable/ic_directions_bike_black_24dp" />
 
-                                    <TextView
-                                        android:id="@+id/text_hobby"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/user_profile_default_hobbies"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <EditText
-                                        android:id="@+id/editText_hobby"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/user_profile_default_hobbies"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_hobbies"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/text_hobby"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:lineSpacingExtra="2dp"
+                                            android:text="@string/user_profile_default_hobbies"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+                                        <EditText
+                                            android:id="@+id/editText_hobby"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:lineSpacingExtra="2dp"
+                                            android:text="@string/user_profile_default_hobbies"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
                             </LinearLayout>
 
                         </LinearLayout>
-
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>
@@ -1430,481 +1571,528 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingBottom="@dimen/spacing_middle">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_large"
-                            android:gravity="center"
-                            android:text="@string/user_profile_card_title_family_details"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/grey_90" />
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/swipe_up_handle"
-                            android:tint="@color/red_700" />
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:orientation="vertical">
+                            android:background="@android:color/white"
+                            android:gravity="center_vertical"
+                            android:minHeight="?attr/actionBarSize"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:layout_width="?attr/actionBarSize"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="@android:color/transparent"
+                                android:tint="@color/deep_purple_900"
+                                android:src="@drawable/ic_people_white_24dp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/user_profile_card_title_education"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                android:textColor="@color/grey_90"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="@dimen/spacing_large"
+                                android:layout_height="wrap_content" />
+
+                            <ImageButton
+                                android:id="@+id/img_toggle_family_info"
+                                android:layout_width="?attr/actionBarSize"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:tint="@color/grey_60"
+                                android:src="@drawable/ic_expand_more_white_24dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/family_info_expanded_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingBottom="@dimen/spacing_middle"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_large"
+                                android:gravity="center"
+                                android:text="@string/user_profile_card_title_family_details"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/grey_90" />
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/swipe_up_handle"
+                                android:tint="@color/red_700" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    android:tint="@color/black"
-                                    app:srcCompat="@drawable/ic_edit_white_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
-                                <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                android:layout_margin="10dp"
+                                android:orientation="vertical">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_fathers_name"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        android:tint="@color/black"
+                                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                    <TextView
-                                        android:id="@+id/text_father_name"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_fathers_name"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <EditText
-                                        android:id="@+id/editText_father_name"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_fathers_name"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_fathers_name"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/text_father_name"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_fathers_name"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black" />
+
+                                        <EditText
+                                            android:id="@+id/editText_father_name"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_fathers_name"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    android:tint="@color/black"
-                                    app:srcCompat="@drawable/ic_edit_white_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_fathers_education"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        android:tint="@color/black"
+                                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                    <TextView
-                                        android:id="@+id/text_father_education"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_fathers_education"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <EditText
-                                        android:id="@+id/editText_father_education"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:inputType="number"
-                                        android:text="@string/user_profile_default_fathers_education"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_fathers_education"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/text_father_education"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_fathers_education"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black" />
+
+                                        <EditText
+                                            android:id="@+id/editText_father_education"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:inputType="number"
+                                            android:text="@string/user_profile_default_fathers_education"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    android:tint="@color/black"
-                                    app:srcCompat="@drawable/ic_edit_white_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_fathers_profession"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        android:tint="@color/black"
+                                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                    <TextView
-                                        android:id="@+id/text_father_profession"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_fathers_profession"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <EditText
-                                        android:id="@+id/editText_father_profession"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_fathers_profession"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_fathers_profession"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/text_father_profession"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_fathers_profession"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black" />
+
+                                        <EditText
+                                            android:id="@+id/editText_father_profession"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_fathers_profession"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    android:tint="@color/black"
-                                    app:srcCompat="@drawable/ic_edit_white_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_fathers_birth_place"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        android:tint="@color/black"
+                                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                    <TextView
-                                        android:id="@+id/text_father_birth_place"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_fathers_birth_place"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <EditText
-                                        android:id="@+id/editText_father_birth_place"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_fathers_birth_place"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_fathers_birth_place"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/text_father_birth_place"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_fathers_birth_place"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black" />
+
+                                        <EditText
+                                            android:id="@+id/editText_father_birth_place"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_fathers_birth_place"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    android:tint="@color/black"
-                                    app:srcCompat="@drawable/ic_edit_white_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_mothers_name"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        android:tint="@color/black"
+                                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                    <TextView
-                                        android:id="@+id/text_mother_name"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_mothers_name"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <EditText
-                                        android:id="@+id/editText_mother_name"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_mothers_name"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_mothers_name"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/text_mother_name"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_mothers_name"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black" />
+
+                                        <EditText
+                                            android:id="@+id/editText_mother_name"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_mothers_name"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    android:tint="@color/black"
-                                    app:srcCompat="@drawable/ic_edit_white_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_mothers_education"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        android:tint="@color/black"
+                                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                    <TextView
-                                        android:id="@+id/text_mother_education"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_mothers_education"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <EditText
-                                        android:id="@+id/editText_mother_education"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:inputType="number"
-                                        android:text="@string/user_profile_default_mothers_education"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_mothers_education"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/text_mother_education"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_mothers_education"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black" />
+
+                                        <EditText
+                                            android:id="@+id/editText_mother_education"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:inputType="number"
+                                            android:text="@string/user_profile_default_mothers_education"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    android:tint="@color/black"
-                                    app:srcCompat="@drawable/ic_edit_white_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_mothers_profession"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        android:tint="@color/black"
+                                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                    <TextView
-                                        android:id="@+id/text_mother_profession"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_mothers_profession"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <EditText
-                                        android:id="@+id/editText_mother_profession"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_mothers_profession"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_mothers_profession"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/text_mother_profession"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_mothers_profession"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black" />
+
+                                        <EditText
+                                            android:id="@+id/editText_mother_profession"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_mothers_profession"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    android:tint="@color/black"
-                                    app:srcCompat="@drawable/ic_edit_white_24dp"
-                                    tools:ignore="VectorDrawableCompat" />
-
                                 <View
-                                    android:layout_width="10dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/user_profile_mothers_birth_place"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
+                                    <ImageButton
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@android:color/transparent"
+                                        android:tint="@color/black"
+                                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                    <TextView
-                                        android:id="@+id/text_mother_birth_place"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_mothers_birth_place"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                    <View
+                                        android:layout_width="10dp"
+                                        android:layout_height="match_parent" />
 
-                                    <EditText
-                                        android:id="@+id/editText_mother_birth_place"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:text="@string/user_profile_default_mothers_birth_place"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black"
-                                        android:visibility="gone" />
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/user_profile_mothers_birth_place"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/text_mother_birth_place"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_mothers_birth_place"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black" />
+
+                                        <EditText
+                                            android:id="@+id/editText_mother_birth_place"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:text="@string/user_profile_default_mothers_birth_place"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/black"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
