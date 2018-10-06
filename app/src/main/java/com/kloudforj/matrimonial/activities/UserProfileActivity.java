@@ -66,8 +66,8 @@ public class UserProfileActivity extends AppCompatActivity {
     private SharedPreferences globalSP;
     boolean isSelf = false;
     private Call userDetailsRequestCall;
-    private RecyclerView recyclerView;
-    private RelativeLayout relativeLayoutPager;
+    private RecyclerView recyclerViewUserImage;
+    private RelativeLayout relativeLayoutPagerHolder;
 
 //========     Added by ellis On date 30-09-2018     ================
     private LinearLayout layout_dots;
@@ -128,17 +128,17 @@ public class UserProfileActivity extends AppCompatActivity {
                     android.graphics.PorterDuff.Mode.SRC_IN);
         }
 
-        relativeLayoutPager = findViewById(R.id.relative_pager);
+        relativeLayoutPagerHolder = findViewById(R.id.relative_pager);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView_user_image);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 5), true));
-        recyclerView.setHasFixedSize(true);
+        recyclerViewUserImage = (RecyclerView) findViewById(R.id.recyclerView_user_image);
+        recyclerViewUserImage.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerViewUserImage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewUserImage.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 5), true));
+        recyclerViewUserImage.setHasFixedSize(true);
 
         //set data and list adapter
         AdapterGridBasic mAdapter = new AdapterGridBasic(this, 3);
-        recyclerView.setAdapter(mAdapter);
+        recyclerViewUserImage.setAdapter(mAdapter);
 
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
@@ -417,8 +417,8 @@ public class UserProfileActivity extends AppCompatActivity {
         viewPager.setAdapter(userImageSliderAdapter);
 
         if (canEdit) {
-            relativeLayoutPager.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
+            relativeLayoutPagerHolder.setVisibility(View.GONE);
+            recyclerViewUserImage.setVisibility(View.VISIBLE);
 
             textViewCountry.setVisibility(View.GONE);
             textViewState.setVisibility(View.GONE);
@@ -511,8 +511,8 @@ public class UserProfileActivity extends AppCompatActivity {
             textViewMotherBirthPlace.setVisibility(View.GONE);
             editTextMotherBirthPlace.setVisibility(View.VISIBLE);
         } else {
-            relativeLayoutPager.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            relativeLayoutPagerHolder.setVisibility(View.VISIBLE);
+            recyclerViewUserImage.setVisibility(View.GONE);
 
             textViewCountry.setVisibility(View.VISIBLE);
             textViewState.setVisibility(View.VISIBLE);
