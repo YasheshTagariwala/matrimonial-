@@ -120,6 +120,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         SharedPreferences.Editor editor = globalSP.edit();
                                         editor.putString(ProjectConstants.TOKEN, token);
                                         editor.putInt(ProjectConstants.USERID, userid);
+
+                                        editor.putString(ProjectConstants.LOCATION, "");
+                                        editor.putString(ProjectConstants.SUBCASTE1, "");
+                                        editor.putString(ProjectConstants.SUBCASTE2, "");
+                                        editor.putString(ProjectConstants.NAME, "");
+
                                         editor.apply();
 
                                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();

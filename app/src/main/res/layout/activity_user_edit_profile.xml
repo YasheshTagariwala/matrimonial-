@@ -29,8 +29,7 @@
                 android:layout_marginLeft="15dp"
                 android:background="@color/transparent"
                 android:src="@drawable/ic_close"
-                android:textColor="@color/white"
-                android:visibility="gone" />
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/tv_search_toolbar_title"
@@ -51,8 +50,7 @@
                 android:layout_marginRight="15dp"
                 android:background="@color/transparent"
                 android:src="@drawable/ic_done_white_24dp"
-                android:textColor="@color/white"
-                android:visibility="gone" />
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
@@ -98,65 +96,65 @@
                 app:titleEnabled="false">
 
                 <!--<ImageView-->
-                    <!--android:id="@+id/image"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:scaleType="centerCrop"-->
-                    <!--android:src="@drawable/profile_image"-->
-                    <!--app:layout_collapseMode="parallax" />-->
+                <!--android:id="@+id/image"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/profile_image"-->
+                <!--app:layout_collapseMode="parallax" />-->
 
                 <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:layout_margin="5dp">-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_margin="5dp">-->
 
-                    <!--<HorizontalScrollView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="5dp"-->
-                        <!--android:scrollbarSize="2dp">-->
+                <!--<HorizontalScrollView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:scrollbarSize="2dp">-->
 
-                        <!--<LinearLayout-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center_horizontal"-->
-                            <!--android:orientation="horizontal">-->
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:orientation="horizontal">-->
 
-                            <!--<ImageView-->
-                                <!--android:id="@+id/image_11"-->
-                                <!--android:layout_width="100dp"-->
-                                <!--android:layout_height="100dp"-->
-                                <!--android:layout_marginRight="10dp"-->
-                                <!--android:scaleType="centerCrop"-->
-                                <!--android:src="@drawable/mini_profile_background" />-->
+                <!--<ImageView-->
+                <!--android:id="@+id/image_11"-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/mini_profile_background" />-->
 
-                            <!--<ImageView-->
-                                <!--android:id="@+id/image_12"-->
-                                <!--android:layout_width="100dp"-->
-                                <!--android:layout_height="100dp"-->
-                                <!--android:layout_marginRight="10dp"-->
-                                <!--android:scaleType="centerCrop"-->
-                                <!--android:src="@drawable/mini_profile_background" />-->
+                <!--<ImageView-->
+                <!--android:id="@+id/image_12"-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/mini_profile_background" />-->
 
-                            <!--<ImageView-->
-                                <!--android:id="@+id/image_13"-->
-                                <!--android:layout_width="100dp"-->
-                                <!--android:layout_height="100dp"-->
-                                <!--android:layout_marginRight="10dp"-->
-                                <!--android:scaleType="centerCrop"-->
-                                <!--android:src="@drawable/mini_profile_background" />-->
+                <!--<ImageView-->
+                <!--android:id="@+id/image_13"-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/mini_profile_background" />-->
 
-                        <!--</LinearLayout>-->
+                <!--</LinearLayout>-->
 
-                    <!--</HorizontalScrollView>-->
+                <!--</HorizontalScrollView>-->
 
                 <!--</LinearLayout>-->
 
                 <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:background="@color/transparent" />-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@color/transparent" />-->
 
                 <!--<android.support.v7.widget.Toolbar-->
                 <!--android:id="@+id/toolbar"-->
@@ -173,45 +171,10 @@
                     app:cardCornerRadius="0dp"
                     app:cardElevation="2dp">
 
-                    <RelativeLayout
-                        android:id="@+id/relative_pager"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView_user_image"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <android.support.v4.view.ViewPager
-                            android:id="@+id/pager"
-                            android:layout_width="match_parent"
-                            android:layout_height="250dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:background="@color/grey_20"
-                            android:foreground="@color/overlay_dark_10" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:background="@drawable/bg_gradient_soft"
-                            android:orientation="vertical"
-                            android:paddingBottom="@dimen/spacing_mlarge"
-                            android:paddingLeft="@dimen/spacing_large"
-                            android:paddingRight="@dimen/spacing_large"
-                            android:paddingTop="@dimen/spacing_mxlarge">
-
-                            <LinearLayout
-                                android:id="@+id/layout_dots"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_gravity="center_vertical|center_horizontal"
-                                android:gravity="center"
-                                android:orientation="horizontal" />
-
-                        </RelativeLayout>
-
-                    </RelativeLayout>
+                        android:layout_height="150dp"/>
 
                 </android.support.v7.widget.CardView>
 
@@ -304,9 +267,9 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_full_name"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_full_name"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:text="They H Name"
@@ -373,8 +336,7 @@
                                             android:layout_marginTop="10dp"
                                             android:background="@color/transparent"
                                             android:src="@drawable/ic_today_white_24dp"
-                                            android:tint="@color/black"
-                                            android:visibility="gone" />
+                                            android:tint="@color/black" />
 
                                     </LinearLayout>
 
@@ -416,14 +378,28 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/textview_gender"
+                                    <RadioGroup
+                                        android:id="@+id/radioSex"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="Female"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                        android:orientation="horizontal">
+
+                                        <RadioButton
+                                            android:id="@+id/radioFemale"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:checked="true"
+                                            android:clickable="false"
+                                            android:text="Female" />
+
+                                        <RadioButton
+                                            android:id="@+id/radioMale"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:clickable="false"
+                                            android:text="Male" />
+
+                                    </RadioGroup>
 
                                 </LinearLayout>
 
@@ -487,14 +463,15 @@
 
                                     </LinearLayout>
 
-                                    <TextView
-                                        android:id="@+id/text_phone"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_phone"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="5dp"
+                                        android:inputType="phone"
                                         android:lineSpacingExtra="2dp"
                                         android:text="@string/user_profile_number"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
 
                                 </LinearLayout>
 
@@ -564,6 +541,16 @@
                                         android:layout_marginTop="10dp"
                                         android:lineSpacingExtra="2dp"
                                         android:text="tagariwalayashesh@gmail.com"
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                                        android:visibility="gone"/>
+
+                                    <EditText
+                                        android:id="@+id/editText_user_mail"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:lineSpacingExtra="2dp"
+                                        android:text="tagariwalayashesh@gmail.com"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                                 </LinearLayout>
@@ -603,14 +590,17 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_caste"
-                                        android:layout_width="wrap_content"
+                                    <Spinner
+                                        android:id="@+id/spn_user_caste"
+                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
+                                        android:entries="@array/caste"
                                         android:lineSpacingExtra="2dp"
-                                        android:text="Cast"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                        android:spinnerMode="dialog"
+                                        android:text="@string/user_profile_birthdate"
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
 
                                 </LinearLayout>
 
@@ -649,13 +639,16 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_sub_caste_1"
-                                        android:layout_width="wrap_content"
+                                    <Spinner
+                                        android:id="@+id/spn_user_sub_caste_1"
+                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
+                                        android:entries="@array/sub_caste_1"
                                         android:lineSpacingExtra="2dp"
-                                        android:text="sub cast 1"
+                                        android:spinnerMode="dialog"
+                                        android:text="@string/user_profile_birthdate"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                                 </LinearLayout>
@@ -695,13 +688,16 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_sub_caste_2"
-                                        android:layout_width="wrap_content"
+                                    <Spinner
+                                        android:id="@+id/spn_user_sub_caste_2"
+                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
+                                        android:entries="@array/sub_caste_2"
                                         android:lineSpacingExtra="2dp"
-                                        android:text="sub cast 2"
+                                        android:spinnerMode="dialog"
+                                        android:text="@string/user_profile_birthdate"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                                 </LinearLayout>
@@ -782,14 +778,14 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_height"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_user_height"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:text="5-10"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                        android:textColor="@color/black"/>
 
                                 </LinearLayout>
 
@@ -829,14 +825,15 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_weight"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_user_weight"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
+                                        android:inputType="number"
                                         android:text="80"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                        android:textColor="@color/black"/>
 
                                 </LinearLayout>
 
@@ -876,9 +873,9 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_birth_place"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_user_birth_place"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:text="Surat"
@@ -923,9 +920,9 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_birth_time"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_user_birth_time"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:text="04:00 AM"
@@ -970,14 +967,14 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_job"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_user_job"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:text="Sr. Software Developer"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                        android:textColor="@color/black"/>
 
                                 </LinearLayout>
 
@@ -1016,14 +1013,14 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_about_me"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_about_me"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:lineSpacingExtra="2dp"
                                         android:text="@string/lorem_ipsum"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
 
                                 </LinearLayout>
 
@@ -1107,6 +1104,21 @@
                                             android:textColor="@color/colorPrimary"
                                             android:textStyle="bold" />
 
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="right">
+
+                                            <ImageButton
+                                                android:id="@+id/imagebutton_add_education"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:background="@android:color/transparent"
+                                                android:tint="@color/colorPrimary"
+                                                android:src="@drawable/ic_add_white_24dp" />
+
+                                        </LinearLayout>
+
                                     </LinearLayout>
 
                                     <TextView
@@ -1154,14 +1166,14 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_hobby"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_hobby"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="5dp"
                                         android:lineSpacingExtra="2dp"
                                         android:text="Swimming, playing tennis, cooking are my favorite hobbies"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
 
                                 </LinearLayout>
 
@@ -1241,14 +1253,14 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_father_name"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_father_name"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:text="Nandkishor Tagariwala"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                        android:textColor="@color/black"/>
 
                                 </LinearLayout>
 
@@ -1288,14 +1300,15 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_father_education"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_father_education"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
+                                        android:inputType="number"
                                         android:text="10th"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                        android:textColor="@color/black"/>
 
                                 </LinearLayout>
 
@@ -1335,9 +1348,9 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_father_profession"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_father_profession"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:text="Business Man"
@@ -1382,9 +1395,9 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_father_birth_place"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_father_birth_place"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:text="Surat"
@@ -1429,14 +1442,14 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_mother_name"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_mother_name"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:text="Meena Tagariwala"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                        android:textColor="@color/black"/>
 
                                 </LinearLayout>
 
@@ -1476,14 +1489,15 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_mother_education"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_mother_education"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
+                                        android:inputType="number"
                                         android:text="10th"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                        android:textColor="@color/black"/>
 
                                 </LinearLayout>
 
@@ -1523,14 +1537,14 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_mother_profession"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_mother_profession"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:text="Housewife"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                        android:textColor="@color/black"/>
 
                                 </LinearLayout>
 
@@ -1570,14 +1584,14 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_mother_birth_place"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_mother_birth_place"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:text="Surat"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/black" />
+                                        android:textColor="@color/black"/>
 
                                 </LinearLayout>
 
@@ -1661,9 +1675,9 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_address_1"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_address_1"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:lineSpacingExtra="2dp"
@@ -1709,14 +1723,14 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_address_2"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_address_2"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:lineSpacingExtra="2dp"
                                         android:text="@string/user_profile_address"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
 
                                 </LinearLayout>
 
@@ -1757,9 +1771,9 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_address_3"
-                                        android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/editText_address_3"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:lineSpacingExtra="2dp"
@@ -1845,14 +1859,17 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_country"
-                                        android:layout_width="wrap_content"
+                                    <Spinner
+                                        android:id="@+id/spn_user_country"
+                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
+                                        android:entries="@array/country"
                                         android:lineSpacingExtra="2dp"
-                                        android:text="test"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                        android:spinnerMode="dialog"
+                                        android:text="@string/user_profile_birthdate"
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
 
                                 </LinearLayout>
 
@@ -1892,14 +1909,17 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_state"
-                                        android:layout_width="wrap_content"
+                                    <Spinner
+                                        android:id="@+id/spn_user_state"
+                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
+                                        android:entries="@array/state"
                                         android:lineSpacingExtra="2dp"
-                                        android:text="test"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                                        android:spinnerMode="dialog"
+                                        android:text="@string/user_profile_birthdate"
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
 
                                 </LinearLayout>
 
@@ -1939,152 +1959,17 @@
                                         android:textColor="@color/colorPrimary"
                                         android:textStyle="bold" />
 
-                                    <TextView
-                                        android:id="@+id/text_user_city"
-                                        android:layout_width="wrap_content"
+                                    <Spinner
+                                        android:id="@+id/spn_user_city"
+                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
+                                        android:entries="@array/city"
                                         android:lineSpacingExtra="2dp"
-                                        android:text="test"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <!--photo slider-->
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    app:cardCornerRadius="2dp"
-                    app:cardElevation="2dp"
-                    android:visibility="gone"
-                    app:cardUseCompatPadding="true">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingBottom="@dimen/spacing_middle">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_large"
-                            android:gravity="center"
-                            android:text="Location"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/grey_90" />
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="4dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/swipe_up_handle"
-                            android:tint="@color/red_700" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageButton
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@android:color/transparent"
-                                    android:src="@drawable/ic_photo_camera_black_24dp" />
-
-                                <View
-                                    android:layout_width="20dp"
-                                    android:layout_height="match_parent" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Photos"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textStyle="bold" />
-
-                                    <HorizontalScrollView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:scrollbarSize="2dp">
-
-                                        <LinearLayout
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:gravity="center_vertical"
-                                            android:orientation="horizontal">
-
-                                            <ImageView
-                                                android:id="@+id/image_1"
-                                                android:layout_width="90dp"
-                                                android:layout_height="90dp"
-                                                android:layout_marginEnd="5dp"
-                                                android:layout_marginRight="5dp"
-                                                android:scaleType="centerCrop"
-                                                android:src="@drawable/mini_profile_background" />
-
-                                            <ImageView
-                                                android:id="@+id/image_2"
-                                                android:layout_width="90dp"
-                                                android:layout_height="90dp"
-                                                android:layout_marginEnd="5dp"
-                                                android:layout_marginRight="5dp"
-                                                android:scaleType="centerCrop"
-                                                android:src="@drawable/mini_profile_background" />
-
-                                            <ImageView
-                                                android:id="@+id/image_3"
-                                                android:layout_width="90dp"
-                                                android:layout_height="90dp"
-                                                android:layout_marginEnd="5dp"
-                                                android:layout_marginRight="5dp"
-                                                android:scaleType="centerCrop"
-                                                android:src="@drawable/mini_profile_background" />
-
-                                            <ImageView
-                                                android:id="@+id/image_4"
-                                                android:layout_width="90dp"
-                                                android:layout_height="90dp"
-                                                android:layout_marginEnd="5dp"
-                                                android:layout_marginRight="5dp"
-                                                android:scaleType="centerCrop"
-                                                android:src="@drawable/mini_profile_background" />
-
-                                            <ImageView
-                                                android:id="@+id/image_5"
-                                                android:layout_width="90dp"
-                                                android:layout_height="90dp"
-                                                android:layout_marginEnd="5dp"
-                                                android:layout_marginRight="5dp"
-                                                android:scaleType="centerCrop"
-                                                android:src="@drawable/mini_profile_background" />
-
-                                        </LinearLayout>
-
-                                    </HorizontalScrollView>
+                                        android:spinnerMode="dialog"
+                                        android:text="@string/user_profile_birthdate"
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
 
                                 </LinearLayout>
 
@@ -2099,20 +1984,6 @@
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:clickable="true"
-            android:tint="@android:color/white"
-            app:backgroundTint="@color/app_blue"
-            app:fabSize="normal"
-            app:layout_anchor="@id/app_bar_layout"
-            app:layout_anchorGravity="bottom|right|end"
-            app:srcCompat="@drawable/ic_create_black_24dp"
-            tools:ignore="VectorDrawableCompat" />
 
     </android.support.design.widget.CoordinatorLayout>
 

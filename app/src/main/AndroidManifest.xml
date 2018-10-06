@@ -44,7 +44,11 @@
         <activity
             android:name=".activities.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.VerificationActivity"></activity>
+        <activity android:name=".activities.VerificationActivity" />
+        <activity android:name=".activities.UserEditProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

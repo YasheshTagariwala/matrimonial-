@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Call userListRequestCall, logoutRequestCall;
     private Button buttonProfileName;
 
+    private String location, subcaste1, subcaste2, name;
+
     private String token;
     private int user_id;
     private SharedPreferences globalSP;
@@ -79,6 +81,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
         user_id = globalSP.getInt(ProjectConstants.USERID, 0);
+
+        location = globalSP.getString(ProjectConstants.LOCATION, ProjectConstants.EMPTY_STRING);
+        subcaste1 = globalSP.getString(ProjectConstants.SUBCASTE1, ProjectConstants.EMPTY_STRING);
+        subcaste2 = globalSP.getString(ProjectConstants.SUBCASTE2, ProjectConstants.EMPTY_STRING);
+        name = globalSP.getString(ProjectConstants.NAME, ProjectConstants.EMPTY_STRING);
 
         // ActionBar is set on MainActivity
         setToolbar();
@@ -129,12 +136,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         JSONObject jsonObjectRequest = new JSONObject();
         try {
             jsonObjectRequest.put(ProjectConstants.SEX, "m");
-                /*jsonObjectRequest.put(ProjectConstants.CAST, "");
-                jsonObjectRequest.put(ProjectConstants.SUBCASTE1, "");
-                jsonObjectRequest.put(ProjectConstants.SUBCASTE2, "");
-                jsonObjectRequest.put(ProjectConstants.AGE, "");
-                jsonObjectRequest.put(ProjectConstants.LOCATION, "");
-                jsonObjectRequest.put(ProjectConstants.NAME, "");*/
+
+            if(!location.equals(ProjectConstants.EMPTY_STRING)) {
+                jsonObjectRequest.put(ProjectConstants.LOCATION, location);
+            }
+            if(!name.equals(ProjectConstants.EMPTY_STRING)) {
+                jsonObjectRequest.put(ProjectConstants.NAME, name);
+            }
+            if(!subcaste1.equals(ProjectConstants.EMPTY_STRING)) {
+                jsonObjectRequest.put(ProjectConstants.SUBCASTE1, subcaste1);
+            }if(!subcaste2.equals(ProjectConstants.EMPTY_STRING)) {
+                jsonObjectRequest.put(ProjectConstants.SUBCASTE2, subcaste2);
+            }
+
+            //TODO: Add age from range seek bar.
+                /*jsonObjectRequest.put(ProjectConstants.AGE, "");*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
