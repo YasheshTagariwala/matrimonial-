@@ -174,6 +174,7 @@
                     app:cardElevation="2dp">
 
                     <RelativeLayout
+                        android:id="@+id/relative_pager"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -208,10 +209,15 @@
                                 android:gravity="center"
                                 android:orientation="horizontal" />
 
-
                         </RelativeLayout>
 
                     </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView_user_image"
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:layout_height="150dp"/>
 
                 </android.support.v7.widget.CardView>
 
