@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.squareup.okhttp.Call;
@@ -46,91 +47,72 @@ public class SettingsActivity extends AppCompatActivity {
         tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logoutServiceCall();
+                JSONObject jsonLogoutRequest = new JSONObject();
+                try {
+                    jsonLogoutRequest.put(ProjectConstants.ID, id);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.LOGOUT_URL).newBuilder();
+                if(DetectConnection.checkInternetConnection(SettingsActivity.this)) {
+                    new ProjectConstants.getDataFromServer(jsonLogoutRequest,new LogoutServiceCall(),SettingsActivity.this).execute(urlBuilder.build().toString());
+                }else{
+                    Toast.makeText(SettingsActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    private void logoutServiceCall() {
+    public class LogoutServiceCall implements CallBackFunction{
 
-        if(DetectConnection.checkInternetConnection(SettingsActivity.this)) {
+        @Override
+        public void getResponseFromServer(Response response) throws IOException {
+            if(!response.isSuccessful()) {
+                Log.e("1 : ", response.toString());
+                enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                throw new IOException("Unexpected code " + response);
+            } else {
 
-            JSONObject jsonLogoutResquest = new JSONObject();
-            try {
-                jsonLogoutResquest.put(ProjectConstants.ID, id);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                String result = response.body().string(); // response is converted to string
 
-            OkHttpClient clientlogout = new OkHttpClient();
-            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.LOGOUT_URL).newBuilder();
+                if(result != null) {
 
-            String urlLogout = urlBuilder.build().toString(); // URL is converted to String
-            /*Log.e("URL Logout : ", urlLogout);
-            Log.e("URL Request : ", jsonLogoutResquest.toString());*/
+                    try {
 
-            Request requestLogout = new Request.Builder()
-                    .url(urlLogout)
-                    .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), jsonLogoutResquest.toString()))
-                    .build();
+                        final JSONObject jsonLogin = new JSONObject(result);
 
-            logoutRequestCall = clientlogout.newCall(requestLogout);
-            logoutRequestCall.enqueue(new Callback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    e.printStackTrace();
-                }
+                        final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
+                        final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
 
-                @Override
-                public void onResponse(Response response) throws IOException {
-                    if(!response.isSuccessful()) {
-                        Log.e("1 : ", response.toString());
-                        enableLoginComponents(getResources().getString(R.string.something_went_wrong));
-                        throw new IOException("Unexpected code " + response);
-                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
 
-                        String result = response.body().string(); // response is converted to string
+                                if(auth) {
 
-                        if(result != null) {
+                                    SharedPreferences.Editor editor = globalSP.edit();
+                                    editor.clear();
+                                    editor.apply();
 
-                            try {
-
-                                final JSONObject jsonLogin = new JSONObject(result);
-
-                                final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
-                                final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
-
-                                        if(auth) {
-
-                                            SharedPreferences.Editor editor = globalSP.edit();
-                                            editor.clear();
-                                            editor.apply();
-
-                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
-                                            finish();
-                                        } else {
-                                            enableLoginComponents(getResources().getString(R.string.something_went_wrong));
-                                        }
-                                    }
-                                });
-
-                            } catch (JSONException e) {
-                                enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+                                    finish();
+                                } else {
+                                    enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                                }
                             }
+                        });
 
-                        } else {
-                            enableLoginComponents(getResources().getString(R.string.something_went_wrong));
-                        }
-
+                    } catch (JSONException e) {
+                        enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                     }
+
+                } else {
+                    enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                 }
-            });
+
+            }
         }
     }
 

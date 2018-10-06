@@ -40,6 +40,7 @@ import com.kloudforj.matrimonial.adapters.SpacingItemDecoration;
 import com.kloudforj.matrimonial.adapters.UserImageSliderAdapter;
 import com.kloudforj.matrimonial.entities.UserProfile;
 import com.kloudforj.matrimonial.entities.UserProfileImage;
+import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.kloudforj.matrimonial.utils.Tools;
@@ -318,7 +319,12 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        fetchUserDetails();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USER_PROFILE_URL + ProjectConstants.SLASH + user_id).newBuilder();
+        if(DetectConnection.checkInternetConnection(this)) {
+            new ProjectConstants.getDataFromServer(new JSONObject(),new FetchUserDetails(),this).execute(urlBuilder.build().toString(),token);
+        }else{
+            Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+        }
 
         initComponent();
 
@@ -649,84 +655,61 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void fetchUserDetails() {
+    public class FetchUserDetails implements CallBackFunction {
 
-        if(DetectConnection.checkInternetConnection(UserProfileActivity.this)) {
+        @Override
+        public void getResponseFromServer(Response response) throws IOException {
+            if(!response.isSuccessful()) {
+                enableComponents(getResources().getString(R.string.something_went_wrong));
+                throw new IOException("Unexpected code " + response);
+            } else {
 
-            OkHttpClient clientUserDetails = new OkHttpClient();
-            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USER_PROFILE_URL + ProjectConstants.SLASH + user_id).newBuilder();
+                String result = response.body().string(); // response is converted to string
+                //Log.e("resp : ", result);
 
-            String urlUserDetails = urlBuilder.build().toString(); // URL is converted to String
-            /*Log.e("URL UserList : ", urlUserDetails);*/
+                if(result != null) {
+                    try {
+                        final JSONObject jsonUserProfile = new JSONObject(result);
 
-            final Request requestUserDetails = new Request.Builder()
-                    .url(urlUserDetails)
-                    .header(ProjectConstants.APITOKEN, token)
-                    .build();
+                        final Boolean auth = jsonUserProfile.getBoolean(ProjectConstants.AUTH);
+                        final String message = jsonUserProfile.getString(ProjectConstants.MESSAGE);
 
-            userDetailsRequestCall = clientUserDetails.newCall(requestUserDetails);
-            userDetailsRequestCall.enqueue(new Callback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    //Log.e("onFailure", "in ", e);
-                    e.printStackTrace();
-                }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mUserProfileActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
 
-                @Override
-                public void onResponse(Response response) throws IOException {
-                    if(!response.isSuccessful()) {
-                        enableComponents(getResources().getString(R.string.something_went_wrong));
-                        throw new IOException("Unexpected code " + response);
-                    } else {
+                                if(auth) {
+                                    try {
+                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
-                        String result = response.body().string(); // response is converted to string
-                        //Log.e("resp : ", result);
+                                        JSONObject jsonObjectData = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
 
-                        if(result != null) {
+                                        Gson gson = new Gson();
+                                        UserProfile userProfile = gson.fromJson(jsonObjectData.toString(), UserProfile.class);
 
-                            try {
+                                        textViewFullName.setText(String.valueOf(userProfile.getProfile().getFirst_name()+" "+userProfile.getProfile().getMiddle_name()+" "+userProfile.getProfile().getLast_name()));
+                                        textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
+                                        textViewGender.setText((userProfile.getProfile().getSex().toLowerCase().equals("m")?"Male":"Female"));
+                                        textViewPhone.setText(userProfile.getProfile().getPhone_number());
 
-                                final JSONObject jsonUserProfile = new JSONObject(result);
+                                        textViewCaste.setText(userProfile.getProfile().getCaste());
+                                        textViewSubCaste1.setText(userProfile.getProfile().getSub_caste1());
+                                        textViewSubCaste2.setText(userProfile.getProfile().getSub_caste2());
 
-                                final Boolean auth = jsonUserProfile.getBoolean(ProjectConstants.AUTH);
-                                final String message = jsonUserProfile.getString(ProjectConstants.MESSAGE);
+                                        textViewUserHeight.setText(userProfile.getExtra().getHeight());
+                                        textViewUserWeight.setText(userProfile.getExtra().getWeight());
+                                        textViewUserBirthPlace.setText(userProfile.getExtra().getBirth_place());
+                                        textViewUserBirthTime.setText(userProfile.getExtra().getBirth_time());
+                                        textViewUserJob.setText(userProfile.getExtra().getCurrent_job());
+                                        textViewAboutMe.setText(userProfile.getExtra().getAbout_me());
 
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mUserProfileActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
-
-                                        if(auth) {
-                                            try {
-                                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-
-                                                JSONObject jsonObjectData = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
-
-                                                Gson gson = new Gson();
-                                                UserProfile userProfile = gson.fromJson(jsonObjectData.toString(), UserProfile.class);
-
-                                                textViewFullName.setText(String.valueOf(userProfile.getProfile().getFirst_name()+" "+userProfile.getProfile().getMiddle_name()+" "+userProfile.getProfile().getLast_name()));
-                                                textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
-                                                textViewGender.setText((userProfile.getProfile().getSex().toLowerCase().equals("m")?"Male":"Female"));
-                                                textViewPhone.setText(userProfile.getProfile().getPhone_number());
-
-                                                textViewCaste.setText(userProfile.getProfile().getCaste());
-                                                textViewSubCaste1.setText(userProfile.getProfile().getSub_caste1());
-                                                textViewSubCaste2.setText(userProfile.getProfile().getSub_caste2());
-
-                                                textViewUserHeight.setText(userProfile.getExtra().getHeight());
-                                                textViewUserWeight.setText(userProfile.getExtra().getWeight());
-                                                textViewUserBirthPlace.setText(userProfile.getExtra().getBirth_place());
-                                                textViewUserBirthTime.setText(userProfile.getExtra().getBirth_time());
-                                                textViewUserJob.setText(userProfile.getExtra().getCurrent_job());
-                                                textViewAboutMe.setText(userProfile.getExtra().getAbout_me());
-
-                                                textViewAddress1.setText(userProfile.getProfile().getAddress1());
-                                                textViewAddress2.setText(userProfile.getProfile().getAddress2());
-                                                textViewAddress3.setText(userProfile.getProfile().getAddress3());
-                                                textViewCountry.setText(userProfile.getProfile().getCountry());
-                                                textViewState.setText(userProfile.getProfile().getState());
-                                                textViewCity.setText(userProfile.getProfile().getCity());
+                                        textViewAddress1.setText(userProfile.getProfile().getAddress1());
+                                        textViewAddress2.setText(userProfile.getProfile().getAddress2());
+                                        textViewAddress3.setText(userProfile.getProfile().getAddress3());
+                                        textViewCountry.setText(userProfile.getProfile().getCountry());
+                                        textViewState.setText(userProfile.getProfile().getState());
+                                        textViewCity.setText(userProfile.getProfile().getCity());
 
                                                 /*textViewFatherName.setText(userProfile.getFamilyDetails().getFather_name());
                                                 textViewFatherEducation.setText(userProfile.getFamilyDetails().getFather_education());
@@ -737,28 +720,20 @@ public class UserProfileActivity extends AppCompatActivity {
                                                 textViewMotherProfession.setText(userProfile.getFamilyDetails().getMother_profession());
                                                 textViewMotherBirthPlace.setText(userProfile.getFamilyDetails().getMother_birth_place());*/
 
-                                            } catch (JSONException e) {
-                                                enableComponents(getResources().getString(R.string.something_went_wrong));
-                                                e.printStackTrace();
-                                            }
-
-                                        }
-
+                                    } catch (JSONException e) {
+                                        enableComponents(getResources().getString(R.string.something_went_wrong));
+                                        e.printStackTrace();
                                     }
-                                });
-
-
-                            } catch (JSONException e) {
-                                enableComponents(getResources().getString(R.string.something_went_wrong));
+                                }
                             }
-                        } else {
-                            enableComponents(getResources().getString(R.string.something_went_wrong));
-                        }
+                        });
+                    } catch (JSONException e) {
+                        enableComponents(getResources().getString(R.string.something_went_wrong));
                     }
-
+                } else {
+                    enableComponents(getResources().getString(R.string.something_went_wrong));
                 }
-            });
-
+            }
         }
     }
 

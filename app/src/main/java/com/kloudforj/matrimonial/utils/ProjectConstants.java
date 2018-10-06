@@ -1,5 +1,22 @@
 package com.kloudforj.matrimonial.utils;
 
+import android.content.Context;
+
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.List;
+
 public class ProjectConstants {
 
     /*System wide constants*/
@@ -62,5 +79,78 @@ public class ProjectConstants {
 
     /*Logout constants*/
     public static final String LOGOUT_URL = "/logout";
+
+    /* Common Api Call Function */
+    public static class getDataFromServer {
+        JSONObject values;
+        CallBackFunction callBackFunction;
+        WeakReference<Context> context;
+
+        public getDataFromServer(JSONObject values,CallBackFunction callBackFunction,Context context){
+            this.values = values;
+            this.callBackFunction = callBackFunction;
+            this.context = new WeakReference<>(context);
+        }
+
+        public void execute(String url,String token){
+            Call requestCall;
+            OkHttpClient client = new OkHttpClient();
+            Request request;
+            if(this.values.length() > 0){
+                request = new Request.Builder()
+                        .url(url)
+                        .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), this.values.toString()))
+                        .header(ProjectConstants.APITOKEN, token)
+                        .build();
+            }else{
+                request = new Request.Builder()
+                        .url(url)
+                        .header(ProjectConstants.APITOKEN, token)
+                        .build();
+            }
+
+            requestCall = client.newCall(request);
+            requestCall.enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    callBackFunction.getResponseFromServer(response);
+                }
+            });
+        }
+
+        public void execute(String url){
+            Call requestCall;
+            OkHttpClient client = new OkHttpClient();
+            Request request;
+            if(this.values.length() > 0){
+                request = new Request.Builder()
+                        .url(url)
+                        .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), this.values.toString()))
+                        .build();
+            }else{
+                request = new Request.Builder()
+                        .url(url)
+                        .build();
+            }
+
+            requestCall = client.newCall(request);
+            requestCall.enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    callBackFunction.getResponseFromServer(response);
+                }
+            });
+        }
+    }
 
 }

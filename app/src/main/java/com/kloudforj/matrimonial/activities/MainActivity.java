@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.adapters.HomeListAdapter;
 import com.kloudforj.matrimonial.entities.UserProfile;
+import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.squareup.okhttp.Call;
@@ -125,124 +126,99 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        fetchUsersList();
-
-        //Log.e("Token : ", token);
-    }
-
-    private void fetchUsersList() {
-
-        if(DetectConnection.checkInternetConnection(MainActivity.this)) {
-
-            JSONObject jsonObjectRequest = new JSONObject();
-            try {
-                jsonObjectRequest.put(ProjectConstants.SEX, "m");
+        JSONObject jsonObjectRequest = new JSONObject();
+        try {
+            jsonObjectRequest.put(ProjectConstants.SEX, "m");
                 /*jsonObjectRequest.put(ProjectConstants.CAST, "");
                 jsonObjectRequest.put(ProjectConstants.SUBCASTE1, "");
                 jsonObjectRequest.put(ProjectConstants.SUBCASTE2, "");
                 jsonObjectRequest.put(ProjectConstants.AGE, "");
                 jsonObjectRequest.put(ProjectConstants.LOCATION, "");
                 jsonObjectRequest.put(ProjectConstants.NAME, "");*/
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            OkHttpClient clientUserList = new OkHttpClient();
-            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USERLIST_URL).newBuilder();
-
-            String urlUserList = urlBuilder.build().toString(); // URL is converted to String
-            /*Log.e("URL UserList : ", urlUserList);
-            Log.e("URL Request : ", jsonObjectRequest.toString());*/
-
-            final Request requestUserList = new Request.Builder()
-                    .url(urlUserList)
-                    .header(ProjectConstants.APITOKEN, token)
-                    .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), jsonObjectRequest.toString()))
-                    .build();
-
-            userListRequestCall = clientUserList.newCall(requestUserList);
-            userListRequestCall.enqueue(new Callback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    //Log.e("onFailure", "in ", e);
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Response response) throws IOException {
-                    if(!response.isSuccessful()) {
-                        //Log.e("resp : ", response.toString());
-                        enableComponents(getResources().getString(R.string.something_went_wrong));
-                        throw new IOException("Unexpected code " + response);
-                    } else {
-
-                        String result = response.body().string(); // response is converted to string
-                        //Log.e("resp : ", result);
-
-                        if(result != null) {
-
-                            try {
-
-                                final JSONObject jsonHome = new JSONObject(result);
-
-                                final Boolean auth = jsonHome.getBoolean(ProjectConstants.AUTH);
-                                final String message = jsonHome.getString(ProjectConstants.MESSAGE);
-                                final int total_users = jsonHome.getInt(ProjectConstants.TOTAL_USERS);
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mMainActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
-
-                                        if(auth) {
-
-                                            try {
-                                                if(total_users == 0) {
-                                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                                } else {
-                                                    Toast.makeText(getApplicationContext(), total_users+" "+message, Toast.LENGTH_LONG).show();
-                                                }
-
-                                                JSONArray jsonArrayData = jsonHome.getJSONArray(ProjectConstants.DATA);
-                                                //Log.e("Users : ", jsonArrayData.toString());
-
-                                                if (jsonArrayData.length() > 0) {
-
-                                                    ArrayList<UserProfile> userProfiles = new ArrayList<>();
-
-                                                    for(int i = 0; i < jsonArrayData.length(); i++) {
-                                                        JSONObject jsonObject = jsonArrayData.getJSONObject(i);
-                                                        //Log.e("Profile : ", jsonObject.toString());
-                                                        userProfiles.add(new Gson().fromJson(jsonObject.toString(), UserProfile.class));
-                                                    }
-
-                                                    mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfiles));
-                                                }
-                                            } catch (JSONException e) {
-                                                enableComponents(getResources().getString(R.string.something_went_wrong));
-                                                e.printStackTrace();
-                                            }
-                                        } else {
-                                            logoutServiceCall();
-                                        }
-                                    }
-                                });
-
-                            } catch (JSONException e) {
-                                enableComponents(getResources().getString(R.string.something_went_wrong));
-                            }
-
-                        } else {
-                            enableComponents(getResources().getString(R.string.something_went_wrong));
-                        }
-
-                    }
-                }
-            });
-
-
-        } else {
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USERLIST_URL).newBuilder();
+        if(DetectConnection.checkInternetConnection(MainActivity.this)) {
+            new ProjectConstants.getDataFromServer(jsonObjectRequest,new FetchUserList(),this).execute(urlBuilder.build().toString(),token);
+        }else{
             Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+        }
+
+        //Log.e("Token : ", token);
+    }
+
+    public class FetchUserList implements CallBackFunction{
+
+        @Override
+        public void getResponseFromServer(Response response) throws IOException {
+            if(!response.isSuccessful()) {
+                //Log.e("resp : ", response.toString());
+                enableComponents(getResources().getString(R.string.something_went_wrong));
+                throw new IOException("Unexpected code " + response);
+            } else {
+
+                String result = response.body().string(); // response is converted to string
+                //Log.e("resp : ", result);
+
+                if(result != null) {
+
+                    try {
+
+                        final JSONObject jsonHome = new JSONObject(result);
+
+                        final Boolean auth = jsonHome.getBoolean(ProjectConstants.AUTH);
+                        final String message = jsonHome.getString(ProjectConstants.MESSAGE);
+                        final int total_users = jsonHome.getInt(ProjectConstants.TOTAL_USERS);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mMainActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
+
+                                if(auth) {
+
+                                    try {
+                                        if(total_users == 0) {
+                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), total_users+" "+message, Toast.LENGTH_LONG).show();
+                                        }
+
+                                        JSONArray jsonArrayData = jsonHome.getJSONArray(ProjectConstants.DATA);
+                                        //Log.e("Users : ", jsonArrayData.toString());
+
+                                        if (jsonArrayData.length() > 0) {
+
+                                            ArrayList<UserProfile> userProfiles = new ArrayList<>();
+
+                                            for(int i = 0; i < jsonArrayData.length(); i++) {
+                                                JSONObject jsonObject = jsonArrayData.getJSONObject(i);
+                                                //Log.e("Profile : ", jsonObject.toString());
+                                                userProfiles.add(new Gson().fromJson(jsonObject.toString(), UserProfile.class));
+                                            }
+
+                                            mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfiles));
+                                        }
+                                    } catch (JSONException e) {
+                                        enableComponents(getResources().getString(R.string.something_went_wrong));
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    logoutServiceCall();
+                                }
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        enableComponents(getResources().getString(R.string.something_went_wrong));
+                    }
+
+                } else {
+                    enableComponents(getResources().getString(R.string.something_went_wrong));
+                }
+
+            }
         }
     }
 

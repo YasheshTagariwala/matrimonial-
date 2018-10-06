@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.squareup.okhttp.Call;
@@ -168,7 +169,20 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
                 if (signUpCheck) {
                     Log.e("Register : ", "Made a call");
-                    registerServiceCall();
+                    JSONObject jsonSignUpRequest = new JSONObject();
+                    try {
+                        jsonSignUpRequest.put(ProjectConstants.EMAIL, etEmail.getText().toString().trim());
+                        jsonSignUpRequest.put(ProjectConstants.PASSWORD, etPassword.getText().toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.SIGNUP_URL).newBuilder();
+                    if(DetectConnection.checkInternetConnection(this)) {
+                        new ProjectConstants.getDataFromServer(jsonSignUpRequest,new RegisterServiceCall(),this).execute(urlBuilder.build().toString());
+                    }else{
+                        Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
                     Log.e("Register : ", "Beep beep. Error!!!");
                 }
@@ -179,100 +193,62 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     /**
      * used for signup service call
      */
-    private void registerServiceCall() {
+    public class RegisterServiceCall implements CallBackFunction {
 
-        if(DetectConnection.checkInternetConnection(SignupActivity.this)) {
+        @Override
+        public void getResponseFromServer(Response response) throws IOException {
+            if(!response.isSuccessful()) {
+                enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                throw new IOException("Unexpected code " + response);
+            } else {
 
-            JSONObject jsonSignupResquest = new JSONObject();
-            try {
-                jsonSignupResquest.put(ProjectConstants.EMAIL, etEmail.getText().toString().trim());
-                jsonSignupResquest.put(ProjectConstants.PASSWORD, etPassword.getText().toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                String result = response.body().string(); // response is converted to string
 
-            OkHttpClient clientLogin = new OkHttpClient();
-            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.SIGNUP_URL).newBuilder();
+                if(result != null) {
 
-            String url = urlBuilder.build().toString(); // URL is converted to String
-            //Log.e("URL Login : ", url);
+                    try {
 
-            registerButton.setEnabled(false); // Login Button is Disabled
-            mSignUpActvityProgressBar.setVisibility(View.VISIBLE); // ProgressBar is Enabled
+                        final JSONObject jsonLogin = new JSONObject(result);
 
-            Request requestSignup = new Request.Builder()
-                    .url(url)
-                    .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), jsonSignupResquest.toString()))
-                    .build();
+                        final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
+                        final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
+                        final String token = jsonLogin.getString(ProjectConstants.TOKEN);
 
-            signUpRequestCall = clientLogin.newCall(requestSignup);
-            signUpRequestCall.enqueue(new Callback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    Log.e("onFailure", "in ", e);
-                    e.printStackTrace();
-                }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                registerButton.setEnabled(true); // Login Button is Enabled
+                                mSignUpActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
 
-                @Override
-                public void onResponse(Response response) throws IOException {
-                    if(!response.isSuccessful()) {
-                        enableLoginComponents(getResources().getString(R.string.something_went_wrong));
-                        throw new IOException("Unexpected code " + response);
-                    } else {
+                                if(auth) {
+                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
-                        String result = response.body().string(); // response is converted to string
+                                    SharedPreferences.Editor editor = globalSP.edit();
+                                    editor.putString(ProjectConstants.TOKEN, token);
+                                    editor.apply();
 
-                        if(result != null) {
+                                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                                    finish();
+                                } else {
 
-                            try {
-
-                                final JSONObject jsonLogin = new JSONObject(result);
-
-                                final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
-                                final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
-                                final String token = jsonLogin.getString(ProjectConstants.TOKEN);
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        registerButton.setEnabled(true); // Login Button is Enabled
-                                        mSignUpActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
-
-                                        if(auth) {
-                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-
-                                            SharedPreferences.Editor editor = globalSP.edit();
-                                            editor.putString(ProjectConstants.TOKEN, token);
-                                            editor.apply();
-
-                                            startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                                            finish();
-                                        } else {
-
-                                            etPassword.setText(ProjectConstants.EMPTY_STRING);
-                                            etConfirmPassword.setText(ProjectConstants.EMPTY_STRING);
-                                            passwordWrapper.setErrorEnabled(false);
-                                            confirmPasswordWrapper.setErrorEnabled(false);
-                                            Toast.makeText(SignupActivity.this, message, Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-
-                            } catch (JSONException e) {
-                                enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                                    etPassword.setText(ProjectConstants.EMPTY_STRING);
+                                    etConfirmPassword.setText(ProjectConstants.EMPTY_STRING);
+                                    passwordWrapper.setErrorEnabled(false);
+                                    confirmPasswordWrapper.setErrorEnabled(false);
+                                    Toast.makeText(SignupActivity.this, message, Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        } else {
-                            enableLoginComponents(getResources().getString(R.string.something_went_wrong));
-                        }
-                    }
-                }
-            });
+                        });
 
-        } else {
-            Toast.makeText(SignupActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                    }
+                } else {
+                    enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                }
+            }
         }
     }
-
     /**
      * Enables login button and progressbar invisible
      *
