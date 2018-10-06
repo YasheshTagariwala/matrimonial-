@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -33,6 +34,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.animation.ViewAnimation;
 import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.adapters.AdapterGridBasic;
@@ -44,6 +46,7 @@ import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.kloudforj.matrimonial.utils.Tools;
+import com.kloudforj.matrimonial.utils.ViewAnimations;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Response;
@@ -56,6 +59,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.kloudforj.matrimonial.utils.Tools.*;
+import static com.kloudforj.matrimonial.utils.ViewAnimations.*;
+
 public class UserProfileActivity extends AppCompatActivity {
 
     private String token;
@@ -65,6 +71,12 @@ public class UserProfileActivity extends AppCompatActivity {
     private Call userDetailsRequestCall;
 
     //========     Added by ellis On date 30-09-2018     ================
+
+    private ImageButton img_toggle_basic_info, img_toggle_extra_info, img_toggle_education_info, img_toggle_family_info;
+    private View basic_info_expanded_view, extra_info_expanded_view, education_info_expanded_view, family_info_expanded_view;
+    private NestedScrollView nested_scroll_view;
+
+//========     Added by ellis On date 30-09-2018     ================
     private LinearLayout layout_dots;
     private ViewPager viewPager;
     private UserImageSliderAdapter userImageSliderAdapter;
@@ -134,6 +146,7 @@ public class UserProfileActivity extends AppCompatActivity {
         linearLayoutPhone = findViewById(R.id.linearlayout_phone);
         linearLayoutEducation = findViewById(R.id.linearlayout_education);
         cardViewAddress = findViewById(R.id.cardview_address);
+
 
         imageButtonAddress1 = findViewById(R.id.imagebutton_address_1);
         imageButtonAddress2 = findViewById(R.id.imagebutton_address_2);
@@ -228,6 +241,46 @@ public class UserProfileActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pager);
         userImageSliderAdapter = new UserImageSliderAdapter(this, new ArrayList<UserProfileImage>());
 
+        img_toggle_basic_info = findViewById(R.id.img_toggle_basic_info);
+        basic_info_expanded_view = findViewById(R.id.basic_info_expanded_view);
+        img_toggle_basic_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSectionInfo(img_toggle_basic_info);
+            }
+        });
+
+        img_toggle_extra_info = findViewById(R.id.img_toggle_extra_info);
+        extra_info_expanded_view = findViewById(R.id.extra_info_expanded_view);
+        img_toggle_extra_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSectionExtraInfo(img_toggle_extra_info);
+            }
+        });
+
+        img_toggle_education_info = findViewById(R.id.img_toggle_education_info);
+        education_info_expanded_view = findViewById(R.id.education_info_expanded_view);
+        img_toggle_education_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSectionEducationInfo(img_toggle_education_info);
+            }
+        });
+
+        img_toggle_family_info = findViewById(R.id.img_toggle_family_info);
+        family_info_expanded_view = findViewById(R.id.family_info_expanded_view);
+        img_toggle_family_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSectionFamilyInfo(img_toggle_family_info);
+            }
+        });
+
+        nested_scroll_view = findViewById(R.id.nested_scroll_view);
+
+
+
         List<UserProfileImage> items = new ArrayList<>();
         for (int i : array_image_product) {
             UserProfileImage obj = new UserProfileImage();
@@ -258,6 +311,62 @@ public class UserProfileActivity extends AppCompatActivity {
         });
 
 //        startAutoSlider(userImageSliderAdapter.getCount());
+    }
+
+    private void toggleSectionInfo(View view) {
+        boolean show = toggleArrow(view);
+        if (show) {
+            ViewAnimations.expand(basic_info_expanded_view, new ViewAnimations.AnimListener() {
+                @Override
+                public void onFinish() {
+                    Tools.nestedScrollTo(nested_scroll_view, basic_info_expanded_view);
+                }
+            });
+        } else {
+            ViewAnimations.collapse(basic_info_expanded_view);
+        }
+    }
+
+    private void toggleSectionExtraInfo(View view) {
+        boolean show = toggleArrow(view);
+        if (show) {
+            ViewAnimations.expand(extra_info_expanded_view, new ViewAnimations.AnimListener() {
+                @Override
+                public void onFinish() {
+                    Tools.nestedScrollTo(nested_scroll_view, extra_info_expanded_view);
+                }
+            });
+        } else {
+            ViewAnimations.collapse(extra_info_expanded_view);
+        }
+    }
+
+    private void toggleSectionEducationInfo(View view) {
+        boolean show = toggleArrow(view);
+        if (show) {
+            ViewAnimations.expand(education_info_expanded_view, new ViewAnimations.AnimListener() {
+                @Override
+                public void onFinish() {
+                    Tools.nestedScrollTo(nested_scroll_view, education_info_expanded_view);
+                }
+            });
+        } else {
+            ViewAnimations.collapse(education_info_expanded_view);
+        }
+    }
+
+    private void toggleSectionFamilyInfo(View view) {
+        boolean show = toggleArrow(view);
+        if (show) {
+            ViewAnimations.expand(family_info_expanded_view, new ViewAnimations.AnimListener() {
+                @Override
+                public void onFinish() {
+                    Tools.nestedScrollTo(nested_scroll_view, family_info_expanded_view);
+                }
+            });
+        } else {
+            ViewAnimations.collapse(family_info_expanded_view);
+        }
     }
 
     private void addBottomDots(LinearLayout layout_dots, int size, int current) {

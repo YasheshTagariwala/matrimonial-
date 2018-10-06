@@ -1,5 +1,8 @@
 <resources>
 
+    <!-- Default Strings to render if no data is found -->
+    <string name="default_string">They H Name</string>
+
     <!-- Application wide strings -->
     <string name="something_went_wrong">Oops ! Something went wrong. Please try again later.</string>
     <string name="check_internet">Check your internet Connection.</string>
@@ -47,20 +50,76 @@
     <!-- Main Activity strings -->
     <string name="doublebackpress">Press back once again to exit!</string>
 
+
     <!-- UserProfile Activity strings -->
     <string name="user_profile_save">Save</string>
+
+    <!-- Basic Info Card -->
+    <string name="user_profile_card_title_basic_info">Basic Info</string>
+    <string name="user_profile_name">Name</string>
+    <string name="user_profile_date_of_birth">Date Of Birth</string>
     <string name="user_profile_birthdate">29-02-1995</string>
-    <string name="user_profile_address">Lorem ipsum for the dummy address</string>
+    <string name="user_profile_gender">Gender</string>
+    <string name="user_profile_gender_female">Female</string>
+    <string name="user_profile_gender_male">Male</string>
+    <string name="user_profile_phone_number">Phone Number</string>
     <string name="user_profile_number">9898989898</string>
+    <string name="user_profile_email">Email</string>
+    <string name="user_profile_caste">Caste</string>
+    <string name="user_profile_sub_caste_1">Sub Caste 1</string>
+    <string name="user_profile_sub_caste_2">Sub Caste 2</string>
+
+    <!-- Extra Info Card -->
+    <string name="user_profile_card_title_extra_info">Extra Info</string>
+    <string name="user_profile_height">Height</string>
+    <string name="user_profile_default_height">5\'10</string>
+    <string name="user_profile_weight">Weight</string>
+    <string name="user_profile_default_weight">80</string>
+    <string name="user_profile_birth_place">Birth Place</string>
+    <string name="user_profile_default_birth_place">Surat</string>
+    <string name="user_profile_birth_time">Birth Time</string>
+    <string name="user_profile_default_birth_time">09:30 AM</string>
+    <string name="user_profile_current_job">Current Job</string>
+    <string name="user_profile_default_current_job">Sr. Software Developer</string>
+    <string name="user_profile_about_me">About Me</string>
+    <string name="user_profile_address">Lorem ipsum for the dummy address</string>
+
+    <!-- Education Info Card -->
+    <string name="user_profile_card_title_education">Education Details</string>
+    <string name="user_profile_education">Education</string>
+    <string name="user_profile_default_education">10th\n12th\nB.Sc Computer Science</string>
+    <string name="user_profile_hobbies">Hobbies</string>
+    <string name="user_profile_default_hobbies">Swimming, playing tennis, cooking are my favorite hobbies</string>
+
+    <!-- Family Details Card -->
+    <string name="user_profile_card_title_family_details">Family Details</string>
+    <string name="user_profile_fathers_name">Father\'s Name</string>
+    <string name="user_profile_default_fathers_name">Nandkishor Tagariwala</string>
+    <string name="user_profile_fathers_education">Father\'s Education</string>
+    <string name="user_profile_default_fathers_education">10th</string>
+    <string name="user_profile_fathers_profession">Father\'s Profession</string>
+    <string name="user_profile_default_fathers_profession">Business Man</string>
+    <string name="user_profile_fathers_birth_place">Father\'s Birth Place</string>
+    <string name="user_profile_default_fathers_birth_place">Surat</string>
+
+    <string name="user_profile_mothers_name">Mother\'s Name</string>
+    <string name="user_profile_default_mothers_name">Meena Tagariwala</string>
+    <string name="user_profile_mothers_education">Mother\'s Education</string>
+    <string name="user_profile_default_mothers_education">10th</string>
+    <string name="user_profile_mothers_profession">Mother\'s Profession</string>
+    <string name="user_profile_default_mothers_profession">Housewife</string>
+    <string name="user_profile_mothers_birth_place">Mother\'s Birth Place</string>
+    <string name="user_profile_default_mothers_birth_place">Surat</string>
+
 
 
     <!-- Search Activity strings -->
     <string name="search_user">Search</string>
     <string name="search_name">Name</string>
     <string name="search_age">Age</string>
-    <string name="search_cast">Cast</string>
-    <string name="search_sub_cast_1">Sub Cast 1</string>
-    <string name="search_sub_cast_2">Sub Cast 2</string>
+    <string name="search_caste">Caste</string>
+    <string name="search_sub_caste_1">Sub Caste 1</string>
+    <string name="search_sub_caste_2">Sub Caste 2</string>
     <string name="search_country">Country</string>
     <string name="search_state">State</string>
     <string name="search_city">City</string>
@@ -75,16 +134,16 @@
     </string>
 
     <string-array name="caste">
-        <item>cast 1</item>
-        <item>cast 2</item>
+        <item>caste 1</item>
+        <item>caste 2</item>
     </string-array>
     <string-array name="sub_caste_1">
-        <item>sub cast 11</item>
-        <item>sub cast 12</item>
+        <item>sub caste 11</item>
+        <item>sub caste 12</item>
     </string-array>
     <string-array name="sub_caste_2">
-        <item>sub cast 21</item>
-        <item>sub cast 22</item>
+        <item>sub caste 21</item>
+        <item>sub caste 22</item>
     </string-array>
 
     <string-array name="country">

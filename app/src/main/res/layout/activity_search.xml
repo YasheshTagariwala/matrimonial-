@@ -148,7 +148,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/search_cast"
+                    android:text="@string/search_caste"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_60" />
 
@@ -165,7 +165,7 @@
                         android:layout_weight="1"
                         android:singleLine="true"
                         android:entries="@array/caste"
-                        android:prompt="@string/search_cast"
+                        android:prompt="@string/search_caste"
                         android:spinnerMode="dialog"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/grey_60" />
@@ -178,7 +178,7 @@
                         android:layout_weight="1"
                         android:singleLine="true"
                         android:entries="@array/sub_caste_1"
-                        android:prompt="@string/search_sub_cast_1"
+                        android:prompt="@string/search_sub_caste_1"
                         android:spinnerMode="dialog"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/grey_60" />
@@ -193,7 +193,7 @@
                         android:singleLine="true"
                         android:entries="@array/sub_caste_2"
                         android:spinnerMode="dialog"
-                        android:prompt="@string/search_sub_cast_2"
+                        android:prompt="@string/search_sub_caste_2"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/grey_60" />
 
