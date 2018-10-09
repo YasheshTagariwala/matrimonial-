@@ -365,16 +365,6 @@
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/black" />
 
-                                        <EditText
-                                            android:id="@+id/editText_full_name"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/default_string"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
-
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -495,30 +485,6 @@
                                                     android:text="@string/user_profile_gender_female"
                                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                                                <RadioGroup
-                                                    android:id="@+id/radioSex"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:orientation="horizontal"
-                                                    android:visibility="gone">
-
-                                                    <RadioButton
-                                                        android:id="@+id/radioFemale"
-                                                        android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:checked="true"
-                                                        android:clickable="false"
-                                                        android:text="@string/user_profile_gender_female" />
-
-                                                    <RadioButton
-                                                        android:id="@+id/radioMale"
-                                                        android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:clickable="false"
-                                                        android:text="@string/user_profile_gender_male" />
-
-                                                </RadioGroup>
-
                                             </LinearLayout>
 
                                         </LinearLayout>
@@ -576,6 +542,7 @@
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:src="@drawable/ic_info_white_24dp"
+                                                    android:background="@color/transparent"
                                                     android:tint="@color/red_400"/>
 
 
@@ -583,6 +550,7 @@
                                                     android:id="@+id/phone_number_verified"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
+                                                    android:background="@color/transparent"
                                                     android:src="@drawable/ic_verified_user_white_24dp"
                                                     android:tint="@color/green_400"
                                                     />
@@ -609,17 +577,6 @@
                                             android:lineSpacingExtra="2dp"
                                             android:text="@string/user_profile_number"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                                        <EditText
-                                            android:id="@+id/editText_phone"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:inputType="phone"
-                                            android:lineSpacingExtra="2dp"
-                                            android:text="@string/user_profile_number"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                            android:visibility="gone" />
 
                                     </LinearLayout>
 
@@ -672,6 +629,7 @@
                                                     android:id="@+id/email_not_verified"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
+                                                    android:background="@color/transparent"
                                                     android:src="@drawable/ic_info_white_24dp"
                                                     android:tint="@color/red_400"/>
 
@@ -680,6 +638,7 @@
                                                     android:id="@+id/email_verified"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
+                                                    android:background="@color/transparent"
                                                     android:src="@drawable/ic_verified_user_white_24dp"
                                                     android:tint="@color/green_400"
                                                     />
@@ -753,19 +712,6 @@
                                             android:text="@string/user_profile_caste"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                                        <Spinner
-                                            android:id="@+id/spn_user_caste"
-                                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:entries="@array/caste"
-                                            android:lineSpacingExtra="2dp"
-                                            android:spinnerMode="dialog"
-                                            android:text="@string/user_profile_birthdate"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                            android:visibility="gone" />
-
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -812,19 +758,6 @@
                                             android:text="@string/user_profile_sub_caste_1"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                                        <Spinner
-                                            android:id="@+id/spn_user_sub_caste_1"
-                                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:entries="@array/sub_caste_1"
-                                            android:lineSpacingExtra="2dp"
-                                            android:spinnerMode="dialog"
-                                            android:text="@string/user_profile_birthdate"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                            android:visibility="gone" />
-
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -870,19 +803,6 @@
                                             android:lineSpacingExtra="2dp"
                                             android:text="@string/user_profile_sub_caste_2"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                                        <Spinner
-                                            android:id="@+id/spn_user_sub_caste_2"
-                                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:entries="@array/sub_caste_2"
-                                            android:lineSpacingExtra="2dp"
-                                            android:spinnerMode="dialog"
-                                            android:text="@string/user_profile_birthdate"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                            android:visibility="gone" />
 
                                     </LinearLayout>
 
@@ -1024,16 +944,6 @@
                                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                                 android:textColor="@color/black" />
 
-                                            <EditText
-                                                android:id="@+id/editText_user_height"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:layout_marginTop="10dp"
-                                                android:text="@string/user_profile_default_height"
-                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                                android:textColor="@color/black"
-                                                android:visibility="gone" />
-
                                         </LinearLayout>
 
                                     </LinearLayout>
@@ -1083,17 +993,6 @@
                                                     android:text="@string/user_profile_default_weight"
                                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                                     android:textColor="@color/black" />
-
-                                                <EditText
-                                                    android:id="@+id/editText_user_weight"
-                                                    android:layout_width="match_parent"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_marginTop="10dp"
-                                                    android:inputType="number"
-                                                    android:text="@string/user_profile_default_weight"
-                                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                                    android:textColor="@color/black"
-                                                    android:visibility="gone" />
 
                                             </LinearLayout>
 
@@ -1152,16 +1051,6 @@
                                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                                 android:textColor="@color/black" />
 
-                                            <EditText
-                                                android:id="@+id/editText_user_birth_place"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:layout_marginTop="10dp"
-                                                android:text="@string/user_profile_default_birth_place"
-                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                                android:textColor="@color/black"
-                                                android:visibility="gone" />
-
                                         </LinearLayout>
 
                                     </LinearLayout>
@@ -1209,16 +1098,6 @@
                                                     android:text="@string/user_profile_default_birth_time"
                                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                                     android:textColor="@color/black" />
-
-                                                <EditText
-                                                    android:id="@+id/editText_user_birth_time"
-                                                    android:layout_width="match_parent"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_marginTop="10dp"
-                                                    android:text="@string/user_profile_default_birth_time"
-                                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                                    android:textColor="@color/black"
-                                                    android:visibility="gone" />
 
                                             </LinearLayout>
 
@@ -1271,16 +1150,6 @@
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/black" />
 
-                                        <EditText
-                                            android:id="@+id/editText_user_job"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/user_profile_default_current_job"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
-
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -1326,16 +1195,6 @@
                                             android:lineSpacingExtra="2dp"
                                             android:text="@string/lorem_ipsum"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                                        <EditText
-                                            android:id="@+id/editText_about_me"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:lineSpacingExtra="2dp"
-                                            android:text="@string/lorem_ipsum"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                            android:visibility="gone" />
 
                                     </LinearLayout>
 
@@ -1453,36 +1312,13 @@
                                         android:layout_height="wrap_content"
                                         android:orientation="vertical">
 
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
+                                        <TextView
+                                            android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:orientation="horizontal">
-
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:text="@string/user_profile_education"
-                                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                                android:textColor="@color/colorPrimary"
-                                                android:textStyle="bold" />
-
-                                            <LinearLayout
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:gravity="right">
-
-                                                <ImageButton
-                                                    android:id="@+id/imagebutton_add_education"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:visibility="gone"
-                                                    android:background="@android:color/transparent"
-                                                    android:tint="@color/colorPrimary"
-                                                    android:src="@drawable/ic_add_white_24dp" />
-
-                                            </LinearLayout>
-
-                                        </LinearLayout>
+                                            android:text="@string/user_profile_education"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textStyle="bold" />
 
                                         <TextView
                                             android:id="@+id/text_user_education"
@@ -1537,16 +1373,6 @@
                                             android:lineSpacingExtra="2dp"
                                             android:text="@string/user_profile_default_hobbies"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                                        <EditText
-                                            android:id="@+id/editText_hobby"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:lineSpacingExtra="2dp"
-                                            android:text="@string/user_profile_default_hobbies"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                            android:visibility="gone" />
 
                                     </LinearLayout>
 
@@ -1681,16 +1507,6 @@
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/black" />
 
-                                        <EditText
-                                            android:id="@+id/editText_father_name"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/user_profile_default_fathers_name"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
-
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -1737,17 +1553,6 @@
                                             android:text="@string/user_profile_default_fathers_education"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/black" />
-
-                                        <EditText
-                                            android:id="@+id/editText_father_education"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:inputType="number"
-                                            android:text="@string/user_profile_default_fathers_education"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
 
                                     </LinearLayout>
 
@@ -1796,16 +1601,6 @@
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/black" />
 
-                                        <EditText
-                                            android:id="@+id/editText_father_profession"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/user_profile_default_fathers_profession"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
-
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -1852,16 +1647,6 @@
                                             android:text="@string/user_profile_default_fathers_birth_place"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/black" />
-
-                                        <EditText
-                                            android:id="@+id/editText_father_birth_place"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/user_profile_default_fathers_birth_place"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
 
                                     </LinearLayout>
 
@@ -1910,16 +1695,6 @@
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/black" />
 
-                                        <EditText
-                                            android:id="@+id/editText_mother_name"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/user_profile_default_mothers_name"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
-
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -1966,17 +1741,6 @@
                                             android:text="@string/user_profile_default_mothers_education"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/black" />
-
-                                        <EditText
-                                            android:id="@+id/editText_mother_education"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:inputType="number"
-                                            android:text="@string/user_profile_default_mothers_education"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
 
                                     </LinearLayout>
 
@@ -2025,16 +1789,6 @@
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/black" />
 
-                                        <EditText
-                                            android:id="@+id/editText_mother_profession"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/user_profile_default_mothers_profession"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
-
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -2081,16 +1835,6 @@
                                             android:text="@string/user_profile_default_mothers_birth_place"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                             android:textColor="@color/black" />
-
-                                        <EditText
-                                            android:id="@+id/editText_mother_birth_place"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="10dp"
-                                            android:text="@string/user_profile_default_mothers_birth_place"
-                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                            android:textColor="@color/black"
-                                            android:visibility="gone" />
 
                                     </LinearLayout>
 
@@ -2185,16 +1929,6 @@
                                         android:text="@string/user_profile_address"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                                    <EditText
-                                        android:id="@+id/editText_address_1"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/user_profile_address"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
-
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -2243,16 +1977,6 @@
                                         android:text="@string/user_profile_address"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                                    <EditText
-                                        android:id="@+id/editText_address_2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/user_profile_address"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
-
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -2300,16 +2024,6 @@
                                         android:lineSpacingExtra="2dp"
                                         android:text="@string/user_profile_address"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                                    <EditText
-                                        android:id="@+id/editText_address_3"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:lineSpacingExtra="2dp"
-                                        android:text="@string/user_profile_address"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
 
                                 </LinearLayout>
 
@@ -2399,19 +2113,6 @@
                                         android:text="test"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                                    <Spinner
-                                        android:id="@+id/spn_user_country"
-                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:entries="@array/country"
-                                        android:lineSpacingExtra="2dp"
-                                        android:spinnerMode="dialog"
-                                        android:text="@string/user_profile_birthdate"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
-
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -2459,19 +2160,6 @@
                                         android:text="test"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                                    <Spinner
-                                        android:id="@+id/spn_user_state"
-                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:entries="@array/state"
-                                        android:lineSpacingExtra="2dp"
-                                        android:spinnerMode="dialog"
-                                        android:text="@string/user_profile_birthdate"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
-
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -2518,19 +2206,6 @@
                                         android:lineSpacingExtra="2dp"
                                         android:text="test"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                                    <Spinner
-                                        android:id="@+id/spn_user_city"
-                                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:entries="@array/city"
-                                        android:lineSpacingExtra="2dp"
-                                        android:spinnerMode="dialog"
-                                        android:text="@string/user_profile_birthdate"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                                        android:visibility="gone" />
 
                                 </LinearLayout>
 

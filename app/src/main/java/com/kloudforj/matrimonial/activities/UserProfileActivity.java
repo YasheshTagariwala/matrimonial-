@@ -96,12 +96,11 @@ public class UserProfileActivity extends AppCompatActivity {
     Button buttonSave;
     ImageButton imageButtonSave;
     boolean modeEdit = false;
-    RadioButton radioButtonMale, radioButtonFemale;
 
     LinearLayout linearLayoutPhone,linearLayoutEducation;
     CardView cardViewAddress;
 
-    ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,imageButtonCancel,imageButtonCalendar, imageButtonAddEducation;
+    ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,imageButtonCancel,imageButtonCalendar;
 
     TextView textViewFullName, textViewAboutMe, textViewHobby, textViewBirthDate, textViewVerifyPhone, textViewVerifymail,
             textViewAddress1, textViewAddress2, textViewAddress3, textViewPhone, textViewGender,
@@ -110,8 +109,6 @@ public class UserProfileActivity extends AppCompatActivity {
             textViewUserJob,textViewUserEducation,textViewFatherName,textViewFatherEducation,
             textViewFatherProfession,textViewFatherBirthPlace,textViewMotherName,
             textViewMotherEducation,textViewMotherProfession,textViewMotherBirthPlace;
-
-    RadioGroup radioGroupSex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,10 +135,6 @@ public class UserProfileActivity extends AppCompatActivity {
             user_id = globalSP.getInt(ProjectConstants.USERID, 0);
             isSelf = true;
         }
-
-        radioButtonMale = findViewById(R.id.radioMale);
-        radioButtonFemale = findViewById(R.id.radioFemale);
-        radioGroupSex = findViewById(R.id.radioSex);
 
         linearLayoutPhone = findViewById(R.id.linearlayout_phone);
         linearLayoutEducation = findViewById(R.id.linearlayout_education);
