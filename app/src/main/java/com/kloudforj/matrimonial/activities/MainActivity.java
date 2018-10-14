@@ -82,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
         user_id = globalSP.getInt(ProjectConstants.USERID, 0);
 
+        if(globalSP.getString(ProjectConstants.USER_PROFILE, "false").equals("false")){
+            startActivity(new Intent(MainActivity.this, UserEditProfileActivity.class));
+        }
+
         location = globalSP.getString(ProjectConstants.LOCATION, ProjectConstants.EMPTY_STRING);
         subcaste1 = globalSP.getString(ProjectConstants.SUBCASTE1, ProjectConstants.EMPTY_STRING);
         subcaste2 = globalSP.getString(ProjectConstants.SUBCASTE2, ProjectConstants.EMPTY_STRING);

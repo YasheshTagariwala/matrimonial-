@@ -7,6 +7,7 @@
     <!-- Application wide strings -->
     <string name="something_went_wrong">Oops ! Something went wrong. Please try again later.</string>
     <string name="check_internet">Check your internet Connection.</string>
+    <string name="profile_compulsory">You Need To Fill Your Profile Compulsory</string>
 
 
     <!-- Login Activity strings -->

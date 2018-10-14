@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,10 +19,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.adapters.AdapterGridBasic;
 import com.kloudforj.matrimonial.adapters.SpacingItemDecoration;
+import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.kloudforj.matrimonial.utils.Tools;
 
 import java.util.Calendar;
@@ -43,12 +47,16 @@ public class UserEditProfileActivity extends AppCompatActivity {
     RadioGroup radioGroupSex;
     RadioButton radioButtonMale, radioButtonFemale;
 
+    private SharedPreferences globalSP;
+
     ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,imageButtonCancel,imageButtonCalendar, imageButtonAddEducation, imageButtonSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_edit_profile);
+
+        globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
 
         recyclerViewUserImage = (RecyclerView) findViewById(R.id.recyclerView_user_image);
         recyclerViewUserImage.setLayoutManager(new GridLayoutManager(this, 3));
@@ -144,6 +152,12 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 openDatePicker();
             }
         });
+
+        if(globalSP.getString(ProjectConstants.USER_PROFILE, "false").equals("false")){
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.profile_compulsory), Toast.LENGTH_LONG).show();
+            imageButtonCancel.setVisibility(View.GONE);
+        }
+
     }
 
     public void openDatePicker(){

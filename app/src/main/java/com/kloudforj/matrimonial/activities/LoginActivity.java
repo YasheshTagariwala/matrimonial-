@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
                         final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
+                        final Boolean profile = jsonLogin.getBoolean(ProjectConstants.USER_PROFILE);
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -126,10 +127,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         editor.putString(ProjectConstants.SUBCASTE2, "");
                                         editor.putString(ProjectConstants.NAME, "");
 
-                                        editor.apply();
-
                                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        if(profile){
+                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        }else{
+                                            editor.putString(ProjectConstants.USER_PROFILE, "false");
+                                            startActivity(new Intent(LoginActivity.this, UserEditProfileActivity.class));
+                                        }
+                                        editor.apply();
                                         finish();
                                     }
                                     catch (JSONException e) {
