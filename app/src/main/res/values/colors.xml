@@ -82,6 +82,7 @@
     <color name="cyan_800">#00838F</color>
     <color name="cyan_800_overlay">#E600838F</color>
     <color name="grey_10">#e6e6e6</color>
+    <color name="divider_line">#c6c6c6</color>
 
     <!-- Login Page Colors-->
     <color name="blue_grey_900">#263238</color>

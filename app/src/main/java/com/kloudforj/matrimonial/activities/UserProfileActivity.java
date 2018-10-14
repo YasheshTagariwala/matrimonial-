@@ -313,6 +313,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     Tools.nestedScrollTo(nested_scroll_view, basic_info_expanded_view);
+
                 }
             });
         } else {

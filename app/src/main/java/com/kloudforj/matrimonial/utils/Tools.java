@@ -6,6 +6,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.widget.NestedScrollView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -32,7 +33,7 @@ public class Tools {
         nested.post(new Runnable() {
             @Override
             public void run() {
-                nested.scrollTo(500, targetView.getBottom());
+                nested.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
             }
         });
     }

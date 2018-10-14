@@ -2,6 +2,7 @@
 
     <!-- Default Strings to render if no data is found -->
     <string name="default_string">They H Name</string>
+    <string name="default_image_button_string">Default Description String For Image Button</string>
 
     <!-- Application wide strings -->
     <string name="something_went_wrong">Oops ! Something went wrong. Please try again later.</string>
@@ -58,13 +59,14 @@
     <string name="user_profile_card_title_basic_info">Basic Info</string>
     <string name="user_profile_name">Name</string>
     <string name="user_profile_date_of_birth">Date Of Birth</string>
-    <string name="user_profile_birthdate">29-02-1995</string>
+    <string name="user_profile_birthdate">29 &#8211; 02 &#8211; 1995</string>
     <string name="user_profile_gender">Gender</string>
     <string name="user_profile_gender_female">Female</string>
     <string name="user_profile_gender_male">Male</string>
     <string name="user_profile_phone_number">Phone Number</string>
     <string name="user_profile_number">9898989898</string>
     <string name="user_profile_email">Email</string>
+    <string name="user_profile_default_email_address">xyz@gmail.com</string>
     <string name="user_profile_caste">Caste</string>
     <string name="user_profile_sub_caste_1">Sub Caste 1</string>
     <string name="user_profile_sub_caste_2">Sub Caste 2</string>
