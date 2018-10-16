@@ -31,7 +31,7 @@ import java.util.Calendar;
 
 public class UserEditProfileActivity extends AppCompatActivity {
 
-    TextView textViewBirthDate,textViewVerifyPhone, textViewVerifymail, textViewUserEducation;
+    TextView textViewBirthDate, textViewUserEducation;
 
     private RecyclerView recyclerViewUserImage;
 
@@ -49,7 +49,9 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     private SharedPreferences globalSP;
 
-    ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,imageButtonCancel,imageButtonCalendar, imageButtonAddEducation, imageButtonSave;
+    ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,
+            imageButtonCancel,imageButtonCalendar, imageButtonAddEducation, imageButtonSave,
+            imageButtonPhoneVerified,imageButtonEmailVerified, imageButtonPhoneNotVerified,imageButtonEmailNotVerified;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,25 +78,6 @@ public class UserEditProfileActivity extends AppCompatActivity {
         spinnerCast = findViewById(R.id.spn_user_caste);
         spinnerSubCast1 = findViewById(R.id.spn_user_sub_caste_1);
         spinnerSubCast2 = findViewById(R.id.spn_user_sub_caste_2);
-
-        textViewVerifyPhone = findViewById(R.id.text_verify_phone);
-        textViewVerifyPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserEditProfileActivity.this,VerificationActivity.class);
-                intent.putExtra("type","phone");
-                startActivity(intent);
-            }
-        });
-        textViewVerifymail = findViewById(R.id.text_verify_mail);
-        textViewVerifymail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserEditProfileActivity.this,VerificationActivity.class);
-                intent.putExtra("type","mail");
-                startActivity(intent);
-            }
-        });
 
         textViewBirthDate = findViewById(R.id.text_birth_date);
         textViewUserEducation = findViewById(R.id.text_user_education);
@@ -150,6 +133,27 @@ public class UserEditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openDatePicker();
+            }
+        });
+
+        imageButtonPhoneNotVerified = findViewById(R.id.phone_number_not_verified);
+        imageButtonEmailNotVerified = findViewById(R.id.email_not_verified);
+
+        imageButtonPhoneNotVerified.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserEditProfileActivity.this,VerificationActivity.class);
+                intent.putExtra("type","phone");
+                startActivity(intent);
+            }
+        });
+
+        imageButtonEmailNotVerified.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserEditProfileActivity.this,VerificationActivity.class);
+                intent.putExtra("type","mail");
+                startActivity(intent);
             }
         });
 

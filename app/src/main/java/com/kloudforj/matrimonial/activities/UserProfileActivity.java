@@ -98,13 +98,12 @@ public class UserProfileActivity extends AppCompatActivity {
     boolean modeEdit = false;
 
     LinearLayout linearLayoutPhone,linearLayoutEducation;
-    CardView cardViewAddress;
 
-    ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,imageButtonCancel,imageButtonCalendar;
+    ImageButton imageButtonCancel,imageButtonCalendar;
 
     TextView textViewFullName, textViewAboutMe, textViewHobby, textViewBirthDate, textViewVerifyPhone, textViewVerifymail,
-            textViewAddress1, textViewAddress2, textViewAddress3, textViewPhone, textViewGender,
-            textViewCountry, textViewState, textViewCity, textViewCaste, textViewSubCaste1, textViewSubCaste2,
+            textViewPhone, textViewGender,
+            textViewCaste, textViewSubCaste1, textViewSubCaste2,
             textViewUserHeight,textViewUserWeight,textViewUserBirthPlace,textViewUserBirthTime,
             textViewUserJob,textViewUserEducation,textViewFatherName,textViewFatherEducation,
             textViewFatherProfession,textViewFatherBirthPlace,textViewMotherName,
@@ -138,12 +137,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
         linearLayoutPhone = findViewById(R.id.linearlayout_phone);
         linearLayoutEducation = findViewById(R.id.linearlayout_education);
-        cardViewAddress = findViewById(R.id.cardview_address);
-
-
-        imageButtonAddress1 = findViewById(R.id.imagebutton_address_1);
-        imageButtonAddress2 = findViewById(R.id.imagebutton_address_2);
-        imageButtonAddress3 = findViewById(R.id.imagebutton_address_3);
         imageButtonCancel = findViewById(R.id.imagebutton_Cancel);
         imageButtonCalendar = findViewById(R.id.imagebutton_calendar);
 
@@ -170,15 +163,9 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewAboutMe = findViewById(R.id.text_about_me);
         textViewHobby = findViewById(R.id.text_hobby);
         textViewBirthDate = findViewById(R.id.text_birth_date);
-        textViewAddress1 = findViewById(R.id.text_address_1);
-        textViewAddress2 = findViewById(R.id.text_address_2);
-        textViewAddress3 = findViewById(R.id.text_address_3);
         textViewPhone = findViewById(R.id.text_phone);
         textViewGender = findViewById(R.id.textview_gender);
 
-        textViewCountry = findViewById(R.id.text_user_country);
-        textViewState = findViewById(R.id.text_user_state);
-        textViewCity = findViewById(R.id.text_user_city);
         textViewCaste = findViewById(R.id.text_user_caste);
         textViewSubCaste1 = findViewById(R.id.text_user_sub_caste_1);
         textViewSubCaste2 = findViewById(R.id.text_user_sub_caste_2);
@@ -208,12 +195,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
         if(isSelf) {
             fabEdit.setVisibility(View.VISIBLE);
-
             textViewVerifymail.setVisibility(View.VISIBLE);
             textViewVerifyPhone.setVisibility(View.VISIBLE);
         } else {
             fabEdit.setVisibility(View.GONE);
-            cardViewAddress.setVisibility(View.GONE);
             linearLayoutPhone.setVisibility(View.GONE);
         }
 
@@ -448,12 +433,12 @@ public class UserProfileActivity extends AppCompatActivity {
                                         textViewUserJob.setText(userProfile.getExtra().getCurrent_job());
                                         textViewAboutMe.setText(userProfile.getExtra().getAbout_me());
 
-                                        textViewAddress1.setText(userProfile.getProfile().getAddress1());
-                                        textViewAddress2.setText(userProfile.getProfile().getAddress2());
-                                        textViewAddress3.setText(userProfile.getProfile().getAddress3());
-                                        textViewCountry.setText(userProfile.getProfile().getCountry());
-                                        textViewState.setText(userProfile.getProfile().getState());
-                                        textViewCity.setText(userProfile.getProfile().getCity());
+//                                        textViewAddress1.setText(userProfile.getProfile().getAddress1());
+//                                        textViewAddress2.setText(userProfile.getProfile().getAddress2());
+//                                        textViewAddress3.setText(userProfile.getProfile().getAddress3());
+//                                        textViewCountry.setText(userProfile.getProfile().getCountry());
+//                                        textViewState.setText(userProfile.getProfile().getState());
+//                                        textViewCity.setText(userProfile.getProfile().getCity());
 
                                                 /*textViewFatherName.setText(userProfile.getFamilyDetails().getFather_name());
                                                 textViewFatherEducation.setText(userProfile.getFamilyDetails().getFather_education());
