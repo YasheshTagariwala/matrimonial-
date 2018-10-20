@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.activities.UserProfileActivity;
@@ -21,10 +22,18 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     public Context context;
     private List<UserProfile> userProfileList;
     private String TAG = "HomeListAdapter";
+    private int count = 0;
+    private boolean isDummy = false;
 
     public HomeListAdapter(Context context, List<UserProfile> userProfileList) {
         this.context = context;
         this.userProfileList = userProfileList;
+    }
+
+    public HomeListAdapter(Context context,int count){
+        this.context = context;
+        this.count = count;
+        this.isDummy = true;
     }
 
     @Override
@@ -35,26 +44,36 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final UserProfile items = userProfileList.get(position);
-        holder.tvUserName.setText(String.valueOf(items.getProfile().getFirst_name()+" "+items.getProfile().getMiddle_name()+" "+items.getProfile().getLast_name()));
-        holder.tvUserCaste.setText(items.getProfile().getCaste());
-        holder.tvUserAge.setText(String.valueOf(items.getProfile().getAge()));
+        if(!isDummy) {
+            final UserProfile items = userProfileList.get(position);
+            holder.tvUserName.setText(String.valueOf(items.getProfile().getFirst_name() + " " + items.getProfile().getMiddle_name() + " " + items.getProfile().getLast_name()));
+            holder.tvUserCaste.setText(items.getProfile().getCaste());
+            holder.tvUserAge.setText(String.valueOf(items.getProfile().getAge()));
 
-        holder.setClickListener(new ItemClickListener() {
-            @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-                Intent intentUserProfile = new Intent(context, UserProfileActivity.class);
-                intentUserProfile.putExtra(ProjectConstants.USERID, items.getId());
-                context.startActivity(intentUserProfile);
+            holder.setClickListener(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position, boolean isLongClick) {
+                    Intent intentUserProfile = new Intent(context, UserProfileActivity.class);
+                    intentUserProfile.putExtra(ProjectConstants.USERID, items.getId());
+                    context.startActivity(intentUserProfile);
 
-                //context.startActivity(new Intent(context,UserProfileActivity.class));
-            }
-        });
+                    //context.startActivity(new Intent(context,UserProfileActivity.class));
+                }
+            });
+        }else{
+            holder.tvUserName.setText("They H Name");
+            holder.setClickListener(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position, boolean isLongClick) {
+                    Toast.makeText(context, "Dummy Data", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return userProfileList.size();
+        return isDummy ? count : userProfileList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {

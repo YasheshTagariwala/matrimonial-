@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +28,10 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.adapters.HomeListAdapter;
+import com.kloudforj.matrimonial.adapters.ViewPagerAdapter;
 import com.kloudforj.matrimonial.entities.UserProfile;
+import com.kloudforj.matrimonial.fragments.FavouriteListFragment;
+import com.kloudforj.matrimonial.fragments.UserListFragment;
 import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
@@ -63,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String token;
     private int user_id;
     private SharedPreferences globalSP;
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +173,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
         }
 
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+
         //Log.e("Token : ", token);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new UserListFragment(), "");
+        adapter.addFragment(new FavouriteListFragment(), "");
+        viewPager.setAdapter(adapter);
+    }
+
+    private void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_user_white_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_favorite_white_24dp);
     }
 
     public class FetchUserList implements CallBackFunction{

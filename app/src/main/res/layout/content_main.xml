@@ -24,10 +24,24 @@
         android:layout_height="match_parent"
         android:layout_below="@id/pb_main_activity" >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+
+        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_user_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
 
     </RelativeLayout>

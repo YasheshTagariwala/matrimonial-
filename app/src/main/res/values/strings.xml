@@ -115,7 +115,6 @@
     <string name="user_profile_default_mothers_birth_place">Surat</string>
 
 
-
     <!-- Search Activity strings -->
     <string name="search_user">Search</string>
     <string name="search_name">Name</string>
@@ -165,5 +164,8 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
