@@ -413,7 +413,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                                 if(auth) {
                                     try {
-                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+//                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
                                         JSONObject jsonObjectData = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
                                         userProfile = jsonUserProfile.getJSONObject(ProjectConstants.DATA);

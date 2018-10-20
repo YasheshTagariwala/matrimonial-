@@ -124,7 +124,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(validateData()){
                     Toast.makeText(UserEditProfileActivity.this,"Profile Updated Successfully",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(UserEditProfileActivity.this,UserProfile.class));
+                    startActivity(new Intent(UserEditProfileActivity.this,UserProfileActivity.class));
                     finish();
 //                    JSONObject jsonLoginRequest = new JSONObject();
 //                    try {
@@ -270,7 +270,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                         final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
                         if(auth){
                             Toast.makeText(UserEditProfileActivity.this,message,Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(UserEditProfileActivity.this,UserProfile.class));
+                            startActivity(new Intent(UserEditProfileActivity.this,UserProfileActivity.class));
                             finish();
                         }
 
