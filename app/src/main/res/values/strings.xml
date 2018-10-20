@@ -59,6 +59,9 @@
     <!-- Basic Info Card -->
     <string name="user_profile_card_title_basic_info">Basic Info</string>
     <string name="user_profile_name">Name</string>
+    <string name="user_profile_first_name">First Name</string>
+    <string name="user_profile_middle_name">Middle Name</string>
+    <string name="user_profile_last_name">Last Name</string>
     <string name="user_profile_date_of_birth">Date Of Birth</string>
     <string name="user_profile_birthdate">29 &#8211; 02 &#8211; 1995</string>
     <string name="user_profile_gender">Gender</string>
@@ -167,5 +170,27 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Validation strings -->
+    <string name="first_name_empty">Enter Your First Name</string>
+    <string name="middle_name_empty">Enter Your Middle Name</string>
+    <string name="last_name_empty">Enter Your Last Name</string>
+    <string name="birth_date_empty">Select Your Birth Date</string>
+    <string name="birth_date_male">You Must Be Above 21 To Fill Up The Profile</string>
+    <string name="birth_date_female">You Must Be Above 18 To Fill Up The Profile</string>
+    <string name="phone_number_empty">Enter Your Phone Number</string>
+    <string name="email_empty">Enter Your Email</string>
+    <string name="height_empty">Enter Your Height</string>
+    <string name="weight_empty">Enter Your Weight</string>
+    <string name="user_birth_place_empty">Enter Your Birth Place</string>
+    <string name="user_birth_time_empty">Enter Your Birth Time</string>
+    <string name="user_education_empty">Enter At Least One Education Detail</string>
+    <string name="user_hobby_empty">Enter At Least One Hobby</string>
+    <string name="user_father_empty">Enter Your Father Name</string>
+    <string name="user_father_profession_empty">Enter Your Father Profession</string>
+    <string name="user_mother_empty">Enter Your Mother Name</string>
+    <string name="user_mother_profession_empty">Enter Your Mother Profession</string>
+
 
 </resources>

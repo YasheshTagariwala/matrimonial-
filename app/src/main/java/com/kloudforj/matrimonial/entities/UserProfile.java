@@ -197,7 +197,7 @@ public class UserProfile
         }
     }
 
-    public class FamilyDetails {
+    public class Family {
 
         private String father_name, father_education, father_profession, father_birth_place;
         private String mother_name, mother_education, mother_profession, mother_birth_place;
@@ -335,7 +335,7 @@ public class UserProfile
     private Profile profile;
     private Education[] education;
     private Hobbies[] hobbies;
-    private FamilyDetails familyDetails;
+    private Family familyDetails;
     private Extra extra;
 
     public int getId() {
@@ -370,11 +370,11 @@ public class UserProfile
         this.hobbies = hobbies;
     }
 
-    public FamilyDetails getFamilyDetails() {
+    public Family getFamily() {
         return familyDetails;
     }
 
-    public void setFamilyDetails(FamilyDetails familyDetails) {
+    public void setFamily(Family familyDetails) {
         this.familyDetails = familyDetails;
     }
 

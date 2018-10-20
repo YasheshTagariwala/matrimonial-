@@ -69,6 +69,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private SharedPreferences globalSP;
     boolean isSelf = false;
     private Call userDetailsRequestCall;
+    private JSONObject userProfile;
 
     //========     Added by ellis On date 30-09-2018     ================
 
@@ -189,7 +190,9 @@ public class UserProfileActivity extends AppCompatActivity {
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, UserEditProfileActivity.class));
+                Intent editProfile = new Intent(UserProfileActivity.this, UserEditProfileActivity.class);
+                editProfile.putExtra("userProfile",userProfile.toString());
+                startActivity(editProfile);
             }
         });
 
@@ -413,6 +416,7 @@ public class UserProfileActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
                                         JSONObject jsonObjectData = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
+                                        userProfile = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
 
                                         Gson gson = new Gson();
                                         UserProfile userProfile = gson.fromJson(jsonObjectData.toString(), UserProfile.class);

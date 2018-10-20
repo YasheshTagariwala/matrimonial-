@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
-                        android:text="@string/user_profile_default_hobbies"
+                        android:hint="@string/user_profile_default_hobbies"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
 
                 </LinearLayout>

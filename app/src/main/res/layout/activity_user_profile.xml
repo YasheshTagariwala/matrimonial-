@@ -23,17 +23,6 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/imagebutton_Cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_large"
-                android:background="@color/transparent"
-                android:src="@drawable/ic_close"
-                android:textColor="@color/white"
-                android:visibility="gone"
-                android:contentDescription="@string/default_image_button_string" />
-
             <TextView
                 android:id="@+id/tv_search_toolbar_title"
                 android:layout_width="0dp"
@@ -45,17 +34,6 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/imagebutton_profile_save"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/spacing_large"
-                android:background="@color/transparent"
-                android:src="@drawable/ic_done_white_24dp"
-                android:textColor="@color/white"
-                android:visibility="gone"
-                android:contentDescription="@string/default_image_button_string" />
 
         </LinearLayout>
 

@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/user_profile_default_height"
+                        android:hint="@string/user_profile_default_height"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black"/>
 
@@ -125,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
                         android:inputType="number"
-                        android:text="@string/user_profile_default_weight"
+                        android:hint="@string/user_profile_default_weight"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black"/>
 
@@ -173,7 +173,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/user_profile_default_birth_place"
+                        android:hint="@string/user_profile_default_birth_place"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black" />
 
@@ -221,7 +221,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/user_profile_default_birth_time"
+                        android:hint="@string/user_profile_default_birth_time"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black" />
 
@@ -269,7 +269,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/user_profile_default_current_job"
+                        android:hint="@string/user_profile_default_current_job"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black"/>
 
@@ -317,7 +317,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
-                        android:text="@string/lorem_ipsum"
+                        android:hint="@string/lorem_ipsum"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
 
                 </LinearLayout>

@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/user_profile_default_fathers_name"
+                        android:hint="@string/default_string"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black"/>
 
@@ -125,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
                         android:inputType="number"
-                        android:text="@string/user_profile_default_fathers_education"
+                        android:hint="@string/user_profile_default_fathers_education"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black"/>
 
@@ -173,7 +173,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/user_profile_default_fathers_profession"
+                        android:hint="@string/user_profile_default_fathers_profession"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black" />
 
@@ -221,7 +221,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/user_profile_default_fathers_birth_place"
+                        android:hint="@string/user_profile_default_fathers_birth_place"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black" />
 
@@ -269,7 +269,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/user_profile_default_mothers_name"
+                        android:hint="@string/default_string"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black"/>
 
@@ -318,7 +318,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
                         android:inputType="number"
-                        android:text="@string/user_profile_default_mothers_education"
+                        android:hint="@string/user_profile_default_mothers_education"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black"/>
 
@@ -366,7 +366,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/user_profile_default_mothers_profession"
+                        android:hint="@string/user_profile_default_mothers_profession"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black"/>
 
@@ -414,7 +414,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/user_profile_default_mothers_birth_place"
+                        android:hint="@string/user_profile_default_mothers_birth_place"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black"/>
 

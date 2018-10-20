@@ -21,12 +21,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.adapters.AdapterGridBasic;
 import com.kloudforj.matrimonial.adapters.SpacingItemDecoration;
+import com.kloudforj.matrimonial.entities.UserProfile;
+import com.kloudforj.matrimonial.utils.CallBackFunction;
+import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.kloudforj.matrimonial.utils.Tools;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class UserEditProfileActivity extends AppCompatActivity {
@@ -35,7 +46,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewUserImage;
 
-    EditText editTextFullName, editTextAboutMe, editTextHobby,
+    EditText editTextFirstName,editTextMiddleName,editTextLastName, editTextAboutMe, editTextHobby, editTextEmail,
             editTextAddress1, editTextAddress2, editTextAddress3, editTextPhone,
             editTextUserHeight,editTextUserWeight,editTextUserBirthPlace,editTextUserBirthTime,
             editTextUserJob,editTextFatherName,editTextFatherEducation,editTextFatherProfession,
@@ -82,7 +93,10 @@ public class UserEditProfileActivity extends AppCompatActivity {
         textViewBirthDate = findViewById(R.id.text_birth_date);
         textViewUserEducation = findViewById(R.id.text_user_education);
 
-        editTextFullName = findViewById(R.id.editText_full_name);
+        editTextFirstName = findViewById(R.id.editText_first_name);
+        editTextMiddleName = findViewById(R.id.editText_middle_name);
+        editTextLastName = findViewById(R.id.editText_last_name);
+        editTextEmail = findViewById(R.id.editText_user_mail);
         editTextAboutMe = findViewById(R.id.editText_about_me);
         editTextHobby = findViewById(R.id.editText_hobby);
         editTextAddress1 = findViewById(R.id.editText_address_1);
@@ -108,7 +122,24 @@ public class UserEditProfileActivity extends AppCompatActivity {
         imageButtonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                setDataEditable(false);
+                if(validateData()){
+                    Toast.makeText(UserEditProfileActivity.this,"Profile Updated Successfully",Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(UserEditProfileActivity.this,UserProfile.class));
+                    finish();
+//                    JSONObject jsonLoginRequest = new JSONObject();
+//                    try {
+//                        jsonLoginRequest.put(ProjectConstants.EMAIL, loginEmail.getText().toString().trim());
+//                        jsonLoginRequest.put(ProjectConstants.PASSWORD, loginPassword.getText().toString());
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.UPDATE_PROFILE_URL).newBuilder();
+//                    if(DetectConnection.checkInternetConnection(UserEditProfileActivity.this)) {
+//                        new ProjectConstants.getDataFromServer(jsonLoginRequest,new UpdateProfileCall(),UserEditProfileActivity.this).execute(urlBuilder.build().toString());
+//                    }else{
+//                        Toast.makeText(UserEditProfileActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+//                    }
+                }
             }
         });
 
@@ -116,7 +147,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         imageButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                setDataEditable(false);
+                startActivity(new Intent(UserEditProfileActivity.this,UserProfileActivity.class));
             }
         });
 
@@ -137,6 +168,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
         });
 
         imageButtonPhoneNotVerified = findViewById(R.id.phone_number_not_verified);
+        imageButtonPhoneVerified = findViewById(R.id.phone_number_verified);
+        imageButtonEmailVerified = findViewById(R.id.email_verified);
         imageButtonEmailNotVerified = findViewById(R.id.email_not_verified);
 
         imageButtonPhoneNotVerified.setOnClickListener(new View.OnClickListener() {
@@ -157,11 +190,211 @@ public class UserEditProfileActivity extends AppCompatActivity {
             }
         });
 
-        if(globalSP.getString(ProjectConstants.USER_PROFILE, "false").equals("false")){
+        if(!globalSP.getBoolean(ProjectConstants.USER_PROFILE,false)){
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.profile_compulsory), Toast.LENGTH_LONG).show();
             imageButtonCancel.setVisibility(View.GONE);
         }
 
+        if(getIntent().getExtras().getString("userProfile") != null){
+            Gson gson = new Gson();
+            UserProfile userProfile = gson.fromJson(getIntent().getExtras().getString("userProfile"), UserProfile.class);
+            editTextFirstName.setText(userProfile.getProfile().getFirst_name());
+            editTextMiddleName.setText(userProfile.getProfile().getMiddle_name());
+            editTextLastName.setText(userProfile.getProfile().getLast_name());
+            if(userProfile.getProfile().getSex().toLowerCase().equals("m")){
+                radioButtonMale.setChecked(true);
+                radioButtonFemale.setChecked(false);
+            }else{
+                radioButtonMale.setChecked(false);
+                radioButtonFemale.setChecked(true);
+            }
+            textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
+            editTextPhone.setText(userProfile.getProfile().getPhone_number());
+            editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL,""));
+            if(userProfile.getProfile().getPhone_number_verified() == 1){
+                imageButtonPhoneVerified.setVisibility(View.VISIBLE);
+                imageButtonPhoneNotVerified.setVisibility(View.GONE);
+            }else{
+                imageButtonPhoneVerified.setVisibility(View.GONE);
+                imageButtonPhoneNotVerified.setVisibility(View.VISIBLE);
+            }
+
+            if(userProfile.getProfile().getEmail_verified() == 1){
+                imageButtonEmailVerified.setVisibility(View.VISIBLE);
+                imageButtonEmailNotVerified.setVisibility(View.GONE);
+            }else{
+                imageButtonEmailVerified.setVisibility(View.GONE);
+                imageButtonEmailNotVerified.setVisibility(View.VISIBLE);
+            }
+
+            editTextUserHeight.setText(userProfile.getExtra().getHeight());
+            editTextUserWeight.setText(userProfile.getExtra().getWeight());
+            editTextUserBirthPlace.setText(userProfile.getExtra().getBirth_place());
+            editTextUserBirthTime.setText(userProfile.getExtra().getBirth_time());
+            editTextUserJob.setText(userProfile.getExtra().getCurrent_job());
+            editTextAboutMe.setText(userProfile.getExtra().getAbout_me());
+
+            textViewUserEducation.setText(Arrays.toString(userProfile.getEducation()));
+            editTextHobby.setText(Arrays.toString(userProfile.getHobbies()));
+
+            //TODO:: FAMILY DETAILS GETTING NULL POINTER EXCEPTION
+//            editTextFirstName.setText(userProfile.getFamily().getFather_name());
+//            editTextFatherEducation.setText(userProfile.getFamily().getFather_education());
+//            editTextFatherProfession.setText(userProfile.getFamily().getFather_profession());
+//            editTextFatherBirthPlace.setText(userProfile.getFamily().getFather_birth_place());
+//            editTextMotherName.setText(userProfile.getFamily().getMother_name());
+//            editTextMotherEducation.setText(userProfile.getFamily().getMother_education());
+//            editTextMotherProfession.setText(userProfile.getFamily().getMother_profession());
+//            editTextMotherBirthPlace.setText(userProfile.getFamily().getMother_birth_place());
+        }
+
+    }
+
+    public class UpdateProfileCall implements CallBackFunction {
+
+        @Override
+        public void getResponseFromServer(Response response) throws IOException {
+            if(!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response);
+            } else {
+                String result = response.body().string(); // response is converted to string
+                //Log.e("Response : ", result);
+
+                if(result != null) {
+
+                    try {
+
+                        final JSONObject jsonLogin = new JSONObject(result);
+
+                        final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
+                        final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
+                        if(auth){
+                            Toast.makeText(UserEditProfileActivity.this,message,Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(UserEditProfileActivity.this,UserProfile.class));
+                            finish();
+                        }
+
+                    } catch (JSONException e) {
+                        Log.e("error",e.getMessage());
+                    }
+                } else {
+                    Log.e("error","error");
+                }
+            }
+        }
+    }
+
+    private boolean validateData(){
+        String toValidate = editTextFirstName.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.first_name_empty));
+        }
+
+        toValidate = editTextMiddleName.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.middle_name_empty));
+        }
+
+        toValidate = editTextLastName.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.last_name_empty));
+        }
+
+        toValidate = textViewBirthDate.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.birth_date_empty));
+        }else{
+            if(radioButtonMale.isChecked()){
+                if(validateAge(toValidate) < 21){
+                    return showError(getResources().getString(R.string.birth_date_male));
+                }
+            }else{
+                if(validateAge(toValidate) < 18){
+                    return showError(getResources().getString(R.string.birth_date_female));
+                }
+            }
+        }
+
+        toValidate = editTextPhone.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.phone_number_empty));
+        }
+
+        toValidate = editTextEmail.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.email_empty));
+        }
+
+        toValidate = editTextUserHeight.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.height_empty));
+        }
+
+        toValidate = editTextUserWeight.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.weight_empty));
+        }
+
+        toValidate = editTextUserBirthPlace.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.user_birth_place_empty));
+        }
+
+        toValidate = editTextUserBirthTime.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.user_birth_time_empty));
+        }
+
+        toValidate = textViewUserEducation.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.user_education_empty));
+        }
+
+        toValidate = editTextHobby.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.user_hobby_empty));
+        }
+
+        toValidate = editTextFatherName.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.user_father_empty));
+        }
+
+        toValidate = editTextFatherProfession.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.user_father_profession_empty));
+        }
+
+        toValidate = editTextMotherName.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.user_mother_empty));
+        }
+
+        toValidate = editTextMotherProfession.getText().toString();
+        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+            return showError(getResources().getString(R.string.user_mother_profession_empty));
+        }
+
+        return true;
+    }
+
+    private boolean showError(String message){
+        Toast.makeText(UserEditProfileActivity.this,message,Toast.LENGTH_LONG).show();
+        return false;
+    }
+
+    private int validateAge(String dob){
+        int year = Integer.parseInt(dob.split("-")[2]);
+        int month = Integer.parseInt(dob.split("-")[1]);
+        int day = Integer.parseInt(dob.split("-")[0]);
+
+        final Calendar birthDay = Calendar.getInstance();
+        birthDay.set(year, month, day);
+        final Calendar current = Calendar.getInstance();
+        int age = current.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
+        if (birthDay.get(Calendar.MONTH) > current.get(Calendar.MONTH) || (birthDay.get(Calendar.MONTH) == current.get(Calendar.MONTH) && birthDay.get(Calendar.DATE) > current.get(Calendar.DATE)))
+            age--;
+        return age;
     }
 
     public void openDatePicker(){
@@ -192,7 +425,10 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                     }
                 }, mYear, mMonth, mDay);
-        dpd.getDatePicker().setMinDate(System.currentTimeMillis());
+        dpd.getDatePicker().setMaxDate(System.currentTimeMillis());
+        if(!textViewBirthDate.getText().toString().trim().equals("") || !textViewBirthDate.getText().toString().isEmpty()){
+            dpd.updateDate(Integer.parseInt(textViewBirthDate.getText().toString().split("-")[2]),Integer.parseInt(textViewBirthDate.getText().toString().split("-")[1]),Integer.parseInt(textViewBirthDate.getText().toString().split("-")[0]));
+        }
         dpd.show();
     }
 

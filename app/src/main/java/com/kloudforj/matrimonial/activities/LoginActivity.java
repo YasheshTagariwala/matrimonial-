@@ -126,15 +126,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         editor.putString(ProjectConstants.SUBCASTE1, "");
                                         editor.putString(ProjectConstants.SUBCASTE2, "");
                                         editor.putString(ProjectConstants.NAME, "");
+                                        editor.putString(ProjectConstants.EMAIL, loginEmail.getText().toString());
 
                                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                        editor.putBoolean(ProjectConstants.USER_PROFILE, profile);
+                                        editor.apply();
                                         if(profile){
                                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                         }else{
-                                            editor.putString(ProjectConstants.USER_PROFILE, "false");
                                             startActivity(new Intent(LoginActivity.this, UserEditProfileActivity.class));
                                         }
-                                        editor.apply();
                                         finish();
                                     }
                                     catch (JSONException e) {

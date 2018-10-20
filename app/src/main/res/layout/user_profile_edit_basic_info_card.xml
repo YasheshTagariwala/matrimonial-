@@ -66,17 +66,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/user_profile_name"
+                        android:text="@string/user_profile_first_name"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/editText_full_name"
+                        android:id="@+id/editText_first_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/default_string"
+                        android:hint="@string/default_string"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/black" />
 
@@ -98,7 +98,7 @@
                     android:layout_height="@dimen/spacing_mlarge"
                     android:background="@android:color/transparent"
                     android:tint="@color/black"
-                    app:srcCompat="@drawable/ic_cake_white_24dp"
+                    app:srcCompat="@drawable/ic_person_black_24dp"
                     tools:ignore="VectorDrawableCompat"
                     android:contentDescription="@string/default_image_button_string" />
 
@@ -114,37 +114,67 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/user_profile_date_of_birth"
+                        android:text="@string/user_profile_middle_name"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
-                    <LinearLayout
+                    <EditText
+                        android:id="@+id/editText_middle_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="@dimen/spacing_middle"
+                        android:hint="@string/default_string"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/black" />
 
-                        <TextView
-                            android:id="@+id/text_birth_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_middle"
-                            android:lineSpacingExtra="@dimen/spacing_xsmall"
-                            android:text="@string/user_profile_birthdate"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                </LinearLayout>
 
-                        <ImageButton
-                            android:id="@+id/imagebutton_calendar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/spacing_middle"
-                            android:layout_marginTop="@dimen/spacing_middle"
-                            android:background="@color/transparent"
-                            android:src="@drawable/ic_today_white_24dp"
-                            android:tint="@color/black"
-                            android:contentDescription="@string/default_image_button_string" />
+            </LinearLayout>
 
-                    </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_mlarge" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="@dimen/spacing_mlarge"
+                    android:layout_height="@dimen/spacing_mlarge"
+                    android:background="@android:color/transparent"
+                    android:tint="@color/black"
+                    app:srcCompat="@drawable/ic_person_black_24dp"
+                    tools:ignore="VectorDrawableCompat"
+                    android:contentDescription="@string/default_image_button_string" />
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_profile_last_name"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/editText_last_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_middle"
+                        android:hint="@string/default_string"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
@@ -209,6 +239,72 @@
                             android:text="@string/user_profile_gender_male" />
 
                     </RadioGroup>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_mlarge" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="@dimen/spacing_mlarge"
+                    android:layout_height="@dimen/spacing_mlarge"
+                    android:background="@android:color/transparent"
+                    android:tint="@color/black"
+                    app:srcCompat="@drawable/ic_cake_white_24dp"
+                    tools:ignore="VectorDrawableCompat"
+                    android:contentDescription="@string/default_image_button_string" />
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_profile_date_of_birth"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_birth_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:lineSpacingExtra="@dimen/spacing_xsmall"
+                            android:hint="@string/user_profile_birthdate"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+                        <ImageButton
+                            android:id="@+id/imagebutton_calendar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_middle"
+                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_today_white_24dp"
+                            android:tint="@color/black"
+                            android:contentDescription="@string/default_image_button_string" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -289,7 +385,7 @@
                         android:layout_marginTop="@dimen/spacing_medium"
                         android:inputType="phone"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
-                        android:text="@string/user_profile_number"
+                        android:hint="@string/user_profile_number"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
@@ -379,7 +475,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_xsmall"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
-                        android:text="@string/user_profile_default_email_address"
+                        android:hint="@string/user_profile_default_email_address"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
