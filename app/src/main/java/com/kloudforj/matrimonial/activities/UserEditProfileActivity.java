@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -37,16 +38,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class UserEditProfileActivity extends AppCompatActivity {
 
-    TextView textViewBirthDate, textViewUserEducation;
+    TextView textViewBirthDate;
+//    TextView textViewUserEducation;
+    LinearLayout linearLayoutEducationHolder, linearLayoutHobbiesHolder;
+    List<View> arrayOfEducationView = new ArrayList<View>();
+    List<View> arrayOfHobbyView = new ArrayList<View>();
 
     private RecyclerView recyclerViewUserImage;
 
-    EditText editTextFirstName,editTextMiddleName,editTextLastName, editTextAboutMe, editTextHobby, editTextEmail,
+//    EditText editTextHobby;
+    EditText editTextFirstName,editTextMiddleName,editTextLastName, editTextAboutMe, editTextEmail,
             editTextAddress1, editTextAddress2, editTextAddress3, editTextPhone,
             editTextUserHeight,editTextUserWeight,editTextUserBirthPlace,editTextUserBirthTime,
             editTextUserJob,editTextFatherName,editTextFatherEducation,editTextFatherProfession,
@@ -61,13 +69,16 @@ public class UserEditProfileActivity extends AppCompatActivity {
     private SharedPreferences globalSP;
 
     ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,
-            imageButtonCancel,imageButtonCalendar, imageButtonAddEducation, imageButtonSave,
+            imageButtonCancel,imageButtonCalendar, imageButtonAddEducation, imageButtonAddHobbies, imageButtonSave,
             imageButtonPhoneVerified,imageButtonEmailVerified, imageButtonPhoneNotVerified,imageButtonEmailNotVerified;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_edit_profile);
+
+        linearLayoutEducationHolder = findViewById(R.id.linearlayout_education_holder);
+        linearLayoutHobbiesHolder = findViewById(R.id.linearlayout_hobbies_holder);
 
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
 
@@ -91,14 +102,14 @@ public class UserEditProfileActivity extends AppCompatActivity {
         spinnerSubCast2 = findViewById(R.id.spn_user_sub_caste_2);
 
         textViewBirthDate = findViewById(R.id.text_birth_date);
-        textViewUserEducation = findViewById(R.id.text_user_education);
+//        textViewUserEducation = findViewById(R.id.text_user_education);
 
         editTextFirstName = findViewById(R.id.editText_first_name);
         editTextMiddleName = findViewById(R.id.editText_middle_name);
         editTextLastName = findViewById(R.id.editText_last_name);
         editTextEmail = findViewById(R.id.editText_user_mail);
         editTextAboutMe = findViewById(R.id.editText_about_me);
-        editTextHobby = findViewById(R.id.editText_hobby);
+//        editTextHobby = findViewById(R.id.editText_hobby);
         editTextAddress1 = findViewById(R.id.editText_address_1);
         editTextAddress2 = findViewById(R.id.editText_address_2);
         editTextAddress3 = findViewById(R.id.editText_address_3);
@@ -156,6 +167,14 @@ public class UserEditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showEducationAdd();
+            }
+        });
+
+        imageButtonAddHobbies = findViewById(R.id.imagebutton_add_hobbies);
+        imageButtonAddHobbies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHobbiesAdd();
             }
         });
 
@@ -234,8 +253,15 @@ public class UserEditProfileActivity extends AppCompatActivity {
             editTextUserJob.setText(userProfile.getExtra().getCurrent_job());
             editTextAboutMe.setText(userProfile.getExtra().getAbout_me());
 
-            textViewUserEducation.setText(Arrays.toString(userProfile.getEducation()));
-            editTextHobby.setText(Arrays.toString(userProfile.getHobbies()));
+            for(UserProfile.Education education:userProfile.getEducation()){
+                addCell(education.getEducation(),true);
+            }
+
+            for(UserProfile.Hobbies hobbies:userProfile.getHobbies()){
+                addCell(hobbies.getHobby(),false);
+            }
+//            textViewUserEducation.setText(Arrays.toString(userProfile.getEducation()));
+//            editTextHobby.setText(Arrays.toString(userProfile.getHobbies()));
 
             //TODO:: FAMILY DETAILS GETTING NULL POINTER EXCEPTION
 //            editTextFirstName.setText(userProfile.getFamily().getFather_name());
@@ -345,12 +371,12 @@ public class UserEditProfileActivity extends AppCompatActivity {
             return showError(getResources().getString(R.string.user_birth_time_empty));
         }
 
-        toValidate = textViewUserEducation.getText().toString();
+        toValidate = getEducations();
         if(toValidate.trim().equals("") || toValidate.isEmpty()){
             return showError(getResources().getString(R.string.user_education_empty));
         }
 
-        toValidate = editTextHobby.getText().toString();
+        toValidate = getHobbies();
         if(toValidate.trim().equals("") || toValidate.isEmpty()){
             return showError(getResources().getString(R.string.user_hobby_empty));
         }
@@ -443,7 +469,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
         alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String srt = input.getEditableText().toString();
-                textViewUserEducation.setText(textViewUserEducation.getText().toString() + "\n" + srt);
+                addCell(srt,true);
+//                textViewUserEducation.setText(textViewUserEducation.getText().toString() + "\n" + srt);
             }
         });
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -453,5 +480,83 @@ public class UserEditProfileActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = alert.create();
         alertDialog.show();
+    }
+
+    public void showHobbiesAdd(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Add Hobby"); //Set Alert dialog title here
+        alert.setMessage("Here You Can Add new Hobby"); //Message here
+
+        final EditText input = new EditText(this);
+        alert.setView(input);
+
+        alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String srt = input.getEditableText().toString();
+                addCell(srt,false);
+//                textViewUserEducation.setText(textViewUserEducation.getText().toString() + "\n" + srt);
+            }
+        });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = alert.create();
+        alertDialog.show();
+    }
+
+    public void removeEducation(View v){
+        linearLayoutEducationHolder.removeView(v);
+        arrayOfEducationView.remove(arrayOfEducationView.indexOf(v));
+    }
+
+    public void removeHobby(View v){
+        linearLayoutHobbiesHolder.removeView(v);
+        arrayOfHobbyView.remove(arrayOfHobbyView.indexOf(v));
+    }
+
+    public String getHobbies(){
+        String strHobby = "";
+        for(View v : arrayOfHobbyView){
+            TextView text = v.findViewById(R.id.text_main_content);
+            strHobby += "," + text.getText().toString();
+        }
+        return strHobby.length() > 1 ? strHobby.substring(1,strHobby.length()) : "";
+    }
+
+    public String getEducations(){
+        String strEducation = "";
+        for(View v : arrayOfHobbyView){
+            TextView text = v.findViewById(R.id.text_main_content);
+            strEducation += "," + text.getText().toString();
+        }
+        return strEducation.length() > 1 ? strEducation.substring(1,strEducation.length()) : "";
+    }
+
+    public void addCell(String content,boolean isEducation){
+        final View view = getLayoutInflater().inflate(R.layout.element_row_cell, null);
+        TextView textViewTemp = view.findViewById(R.id.text_main_content);
+        ImageButton imageButtonRemove = view.findViewById(R.id.imagebutton_remove_content);
+        textViewTemp.setText(content);
+        if(isEducation){
+            imageButtonRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeEducation(view);
+                }
+            });
+            linearLayoutEducationHolder.addView(view);
+            arrayOfEducationView.add(view);
+        }else{
+            imageButtonRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeHobby(view);
+                }
+            });
+            linearLayoutHobbiesHolder.addView(view);
+            arrayOfHobbyView.add(view);
+        }
     }
 }

@@ -92,14 +92,27 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/text_user_education"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/linearlayout_education_holder"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_medium"
-                        android:lineSpacingExtra="@dimen/spacing_xsmall"
-                        android:text="@string/user_profile_default_education"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                        android:layout_marginRight="34dp"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_middle" />
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/text_user_education"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_medium"-->
+                        <!--android:lineSpacingExtra="@dimen/spacing_xsmall"-->
+                        <!--android:text="@string/user_profile_default_education"-->
+                        <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />-->
 
                 </LinearLayout>
 
@@ -130,22 +143,53 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_profile_hobbies"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/editText_hobby"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_medium"
-                        android:lineSpacingExtra="@dimen/spacing_xsmall"
-                        android:hint="@string/user_profile_default_hobbies"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_profile_hobbies"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end">
+
+                            <ImageButton
+                                android:id="@+id/imagebutton_add_hobbies"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:tint="@color/colorPrimary"
+                                android:src="@drawable/ic_add_white_24dp"
+                                android:contentDescription="@string/default_image_button_string" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearlayout_hobbies_holder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="34dp"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+                    <!--<EditText-->
+                        <!--android:id="@+id/editText_hobby"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/spacing_medium"-->
+                        <!--android:lineSpacingExtra="@dimen/spacing_xsmall"-->
+                        <!--android:hint="@string/user_profile_default_hobbies"-->
+                        <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>-->
 
                 </LinearLayout>
 
