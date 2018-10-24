@@ -335,7 +335,7 @@ public class UserProfile
     private Profile profile;
     private Education[] education;
     private Hobbies[] hobbies;
-    private Family familyDetails;
+    private Family family;
     private Extra extra;
 
     public int getId() {
@@ -371,11 +371,11 @@ public class UserProfile
     }
 
     public Family getFamily() {
-        return familyDetails;
+        return family;
     }
 
-    public void setFamily(Family familyDetails) {
-        this.familyDetails = familyDetails;
+    public void setFamily(Family family) {
+        this.family = family;
     }
 
     public Extra getExtra() {

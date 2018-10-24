@@ -17,6 +17,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -69,7 +70,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private SharedPreferences globalSP;
     boolean isSelf = false;
     private Call userDetailsRequestCall;
-    private JSONObject userProfile;
+    private JSONObject userProfile1;
 
     //========     Added by ellis On date 30-09-2018     ================
 
@@ -105,10 +106,10 @@ public class UserProfileActivity extends AppCompatActivity {
     TextView textViewFullName, textViewAboutMe, textViewHobby, textViewBirthDate, textViewVerifyPhone, textViewVerifymail,
             textViewPhone, textViewGender,
             textViewCaste, textViewSubCaste1, textViewSubCaste2,
-            textViewUserHeight,textViewUserWeight,textViewUserBirthPlace,textViewUserBirthTime,
-            textViewUserJob,textViewUserEducation,textViewFatherName,textViewFatherEducation,
-            textViewFatherProfession,textViewFatherBirthPlace,textViewMotherName,
-            textViewMotherEducation,textViewMotherProfession,textViewMotherBirthPlace;
+            textViewUserHeight, textViewUserWeight, textViewUserBirthPlace, textViewUserBirthTime,
+            textViewUserJob, textViewUserEducation, textViewFatherName, textViewFatherEducation,
+            textViewFatherProfession, textViewFatherBirthPlace, textViewMotherName,
+            textViewMotherEducation, textViewMotherProfession, textViewMotherBirthPlace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,7 +192,7 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent editProfile = new Intent(UserProfileActivity.this, UserEditProfileActivity.class);
-                editProfile.putExtra("userProfile",userProfile.toString());
+                editProfile.putExtra("userProfile", userProfile1.toString());
                 startActivity(editProfile);
             }
         });
@@ -207,7 +208,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USER_PROFILE_URL + ProjectConstants.SLASH + user_id).newBuilder();
         if(DetectConnection.checkInternetConnection(this)) {
-            new ProjectConstants.getDataFromServer(new JSONObject(),new FetchUserDetails(),this).execute(urlBuilder.build().toString(),token);
+            new ProjectConstants.getDataFromServer(new JSONObject(), new FetchUserDetails(), this).execute(urlBuilder.build().toString(),token);
         }else{
             Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
         }
@@ -259,8 +260,6 @@ public class UserProfileActivity extends AppCompatActivity {
         });
 
         nested_scroll_view = findViewById(R.id.nested_scroll_view);
-
-
 
         List<UserProfileImage> items = new ArrayList<>();
         for (int i : array_image_product) {
@@ -416,7 +415,8 @@ public class UserProfileActivity extends AppCompatActivity {
 //                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
                                         JSONObject jsonObjectData = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
-                                        userProfile = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
+                                        //Log.e("1 : ", jsonObjectData.toString());
+                                        userProfile1 = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
 
                                         Gson gson = new Gson();
                                         UserProfile userProfile = gson.fromJson(jsonObjectData.toString(), UserProfile.class);
@@ -437,21 +437,21 @@ public class UserProfileActivity extends AppCompatActivity {
                                         textViewUserJob.setText(userProfile.getExtra().getCurrent_job());
                                         textViewAboutMe.setText(userProfile.getExtra().getAbout_me());
 
-//                                        textViewAddress1.setText(userProfile.getProfile().getAddress1());
-//                                        textViewAddress2.setText(userProfile.getProfile().getAddress2());
-//                                        textViewAddress3.setText(userProfile.getProfile().getAddress3());
-//                                        textViewCountry.setText(userProfile.getProfile().getCountry());
-//                                        textViewState.setText(userProfile.getProfile().getState());
-//                                        textViewCity.setText(userProfile.getProfile().getCity());
+                                        /*textViewAddress1.setText(userProfile.getProfile().getAddress1());
+                                        textViewAddress2.setText(userProfile.getProfile().getAddress2());
+                                        textViewAddress3.setText(userProfile.getProfile().getAddress3());
+                                        textViewCountry.setText(userProfile.getProfile().getCountry());
+                                        textViewState.setText(userProfile.getProfile().getState());
+                                        textViewCity.setText(userProfile.getProfile().getCity());*/
 
-                                                /*textViewFatherName.setText(userProfile.getFamilyDetails().getFather_name());
-                                                textViewFatherEducation.setText(userProfile.getFamilyDetails().getFather_education());
-                                                textViewFatherProfession.setText(userProfile.getFamilyDetails().getFather_profession());
-                                                textViewFatherBirthPlace.setText(userProfile.getFamilyDetails().getFather_birth_place());
-                                                textViewMotherName.setText(userProfile.getFamilyDetails().getMother_name());
-                                                textViewMotherEducation.setText(userProfile.getFamilyDetails().getMother_education());
-                                                textViewMotherProfession.setText(userProfile.getFamilyDetails().getMother_profession());
-                                                textViewMotherBirthPlace.setText(userProfile.getFamilyDetails().getMother_birth_place());*/
+                                        textViewFatherName.setText(userProfile.getFamily().getFather_name());
+                                        textViewFatherEducation.setText(userProfile.getFamily().getFather_education());
+                                        textViewFatherProfession.setText(userProfile.getFamily().getFather_profession());
+                                        textViewFatherBirthPlace.setText(userProfile.getFamily().getFather_birth_place());
+                                        textViewMotherName.setText(userProfile.getFamily().getMother_name());
+                                        textViewMotherEducation.setText(userProfile.getFamily().getMother_education());
+                                        textViewMotherProfession.setText(userProfile.getFamily().getMother_profession());
+                                        textViewMotherBirthPlace.setText(userProfile.getFamily().getMother_birth_place());
 
                                     } catch (JSONException e) {
                                         enableComponents(getResources().getString(R.string.something_went_wrong));

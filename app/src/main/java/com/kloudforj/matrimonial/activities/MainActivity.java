@@ -162,14 +162,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(!globalSP.getBoolean(ProjectConstants.USER_PROFILE,false)){
+        if(!globalSP.getBoolean(ProjectConstants.USER_PROFILE,false)) {
             startActivity(new Intent(MainActivity.this, UserEditProfileActivity.class));
             finish();
-        }else{
+        } else {
             HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USERLIST_URL).newBuilder();
-            if(DetectConnection.checkInternetConnection(MainActivity.this)) {
+            if ( DetectConnection.checkInternetConnection(MainActivity.this) ) {
                 new ProjectConstants.getDataFromServer(jsonObjectRequest,new FetchUserList(),this).execute(urlBuilder.build().toString(),token);
-            }else{
+            } else {
                 Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
             }
         }

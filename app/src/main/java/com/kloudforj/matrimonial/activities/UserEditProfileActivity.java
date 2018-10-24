@@ -54,11 +54,11 @@ public class UserEditProfileActivity extends AppCompatActivity {
     private RecyclerView recyclerViewUserImage;
 
 //    EditText editTextHobby;
-    EditText editTextFirstName,editTextMiddleName,editTextLastName, editTextAboutMe, editTextEmail,
+    EditText editTextFirstName, editTextMiddleName, editTextLastName, editTextAboutMe, editTextEmail,
             editTextAddress1, editTextAddress2, editTextAddress3, editTextPhone,
-            editTextUserHeight,editTextUserWeight,editTextUserBirthPlace,editTextUserBirthTime,
-            editTextUserJob,editTextFatherName,editTextFatherEducation,editTextFatherProfession,
-            editTextFatherBirthPlace,editTextMotherName,editTextMotherEducation,editTextMotherProfession,editTextMotherBirthPlace;
+            editTextUserHeight, editTextUserWeight, editTextUserBirthPlace, editTextUserBirthTime,
+            editTextUserJob, editTextFatherName, editTextFatherEducation, editTextFatherProfession,
+            editTextFatherBirthPlace, editTextMotherName, editTextMotherEducation, editTextMotherProfession, editTextMotherBirthPlace;
 
     Spinner spinnerGender, spinnerCountry, spinnerState, spinnerCity,
             spinnerCast, spinnerSubCast1, spinnerSubCast2;
@@ -264,14 +264,14 @@ public class UserEditProfileActivity extends AppCompatActivity {
 //            editTextHobby.setText(Arrays.toString(userProfile.getHobbies()));
 
             //TODO:: FAMILY DETAILS GETTING NULL POINTER EXCEPTION
-//            editTextFirstName.setText(userProfile.getFamily().getFather_name());
-//            editTextFatherEducation.setText(userProfile.getFamily().getFather_education());
-//            editTextFatherProfession.setText(userProfile.getFamily().getFather_profession());
-//            editTextFatherBirthPlace.setText(userProfile.getFamily().getFather_birth_place());
-//            editTextMotherName.setText(userProfile.getFamily().getMother_name());
-//            editTextMotherEducation.setText(userProfile.getFamily().getMother_education());
-//            editTextMotherProfession.setText(userProfile.getFamily().getMother_profession());
-//            editTextMotherBirthPlace.setText(userProfile.getFamily().getMother_birth_place());
+            editTextFatherName.setText(userProfile.getFamily().getFather_name());
+            editTextFatherEducation.setText(userProfile.getFamily().getFather_education());
+            editTextFatherProfession.setText(userProfile.getFamily().getFather_profession());
+            editTextFatherBirthPlace.setText(userProfile.getFamily().getFather_birth_place());
+            editTextMotherName.setText(userProfile.getFamily().getMother_name());
+            editTextMotherEducation.setText(userProfile.getFamily().getMother_education());
+            editTextMotherProfession.setText(userProfile.getFamily().getMother_profession());
+            editTextMotherBirthPlace.setText(userProfile.getFamily().getMother_birth_place());
         }
 
     }
