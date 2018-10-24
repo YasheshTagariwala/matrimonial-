@@ -12,52 +12,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/spacing_xlarge">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:gravity="center_vertical"
-            android:minHeight="?attr/actionBarSize"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/spacing_large"
+            android:gravity="center"
+            android:text="@string/user_profile_card_title_education"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/grey_90"
+            app:fontFamily="sans-serif-medium" />
 
-            <ImageButton
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/transparent"
-                android:tint="@color/deep_purple_900"
-                android:src="@drawable/ic_school_white_24dp"
-                android:contentDescription="@string/default_image_button_string" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/user_profile_card_title_education"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_90"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="@dimen/spacing_large"
-                android:layout_height="wrap_content" />
-
-            <ImageButton
-                android:id="@+id/img_toggle_education_info"
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/grey_60"
-                android:src="@drawable/ic_expand_more_white_24dp"
-                android:contentDescription="@string/default_image_button_string" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/divider_line"/>
+        <ImageView
+            android:layout_width="@dimen/spacing_mxlarge"
+            android:layout_height="@dimen/ImageViewHeight"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:tint="@color/red_700"
+            android:src="@drawable/swipe_up_handle"
+            android:contentDescription="@string/default_image_button_string" />
 
         <LinearLayout
             android:id="@+id/education_info_expanded_view"
@@ -65,106 +40,99 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="@dimen/spacing_middle"
-            android:visibility="gone">
+            android:layout_margin="@dimen/spacing_middle">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_middle"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_directions_bike_black_24dp"
+                    android:contentDescription="@string/default_image_button_string" />
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
+                    android:id="@+id/linearlayout_education"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <ImageButton
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_directions_bike_black_24dp"
-                        android:contentDescription="@string/default_image_button_string" />
+                        android:text="@string/user_profile_education"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
-
-                    <LinearLayout
-                        android:id="@+id/linearlayout_education"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/text_user_education"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/user_profile_education"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/text_user_education"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_medium"
-                            android:lineSpacingExtra="@dimen/spacing_xsmall"
-                            android:text="@string/user_profile_default_education"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                    </LinearLayout>
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:lineSpacingExtra="@dimen/spacing_xsmall"
+                        android:text="@string/user_profile_default_education"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_mlarge" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_directions_bike_black_24dp"
+                    android:contentDescription="@string/default_image_button_string" />
+
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_mlarge" />
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <ImageButton
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_directions_bike_black_24dp"
-                        android:contentDescription="@string/default_image_button_string" />
+                        android:text="@string/user_profile_hobbies"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/text_hobby"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/user_profile_hobbies"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/text_hobby"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_medium"
-                            android:lineSpacingExtra="@dimen/spacing_xsmall"
-                            android:text="@string/user_profile_default_hobbies"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                    </LinearLayout>
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:lineSpacingExtra="@dimen/spacing_xsmall"
+                        android:text="@string/user_profile_default_hobbies"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
