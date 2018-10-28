@@ -46,14 +46,14 @@ import java.util.List;
 public class UserEditProfileActivity extends AppCompatActivity {
 
     TextView textViewBirthDate;
-//    TextView textViewUserEducation;
+    //    TextView textViewUserEducation;
     LinearLayout linearLayoutEducationHolder, linearLayoutHobbiesHolder;
     List<View> arrayOfEducationView = new ArrayList<View>();
     List<View> arrayOfHobbyView = new ArrayList<View>();
 
     private RecyclerView recyclerViewUserImage;
 
-//    EditText editTextHobby;
+    //    EditText editTextHobby;
     EditText editTextFirstName, editTextMiddleName, editTextLastName, editTextAboutMe, editTextEmail,
             editTextAddress1, editTextAddress2, editTextAddress3, editTextPhone,
             editTextUserHeight, editTextUserWeight, editTextUserBirthPlace, editTextUserBirthTime,
@@ -68,9 +68,9 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     private SharedPreferences globalSP;
 
-    ImageButton imageButtonAddress1, imageButtonAddress2,imageButtonAddress3,
-            imageButtonCancel,imageButtonCalendar, imageButtonAddEducation, imageButtonAddHobbies, imageButtonSave,
-            imageButtonPhoneVerified,imageButtonEmailVerified, imageButtonPhoneNotVerified,imageButtonEmailNotVerified;
+    ImageButton imageButtonAddress1, imageButtonAddress2, imageButtonAddress3,
+            imageButtonCancel, imageButtonCalendar, imageButtonAddEducation, imageButtonAddHobbies, imageButtonSave,
+            imageButtonPhoneVerified, imageButtonEmailVerified, imageButtonPhoneNotVerified, imageButtonEmailNotVerified;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,23 +133,72 @@ public class UserEditProfileActivity extends AppCompatActivity {
         imageButtonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateData()){
-                    Toast.makeText(UserEditProfileActivity.this,"Profile Updated Successfully",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(UserEditProfileActivity.this,UserProfileActivity.class));
-                    finish();
-//                    JSONObject jsonLoginRequest = new JSONObject();
-//                    try {
-//                        jsonLoginRequest.put(ProjectConstants.EMAIL, loginEmail.getText().toString().trim());
-//                        jsonLoginRequest.put(ProjectConstants.PASSWORD, loginPassword.getText().toString());
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.UPDATE_PROFILE_URL).newBuilder();
-//                    if(DetectConnection.checkInternetConnection(UserEditProfileActivity.this)) {
-//                        new ProjectConstants.getDataFromServer(jsonLoginRequest,new UpdateProfileCall(),UserEditProfileActivity.this).execute(urlBuilder.build().toString());
-//                    }else{
-//                        Toast.makeText(UserEditProfileActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-//                    }
+                if (validateData()) {
+                    JSONObject jsonUserProfileRequest = null;
+                    try {
+                        UserProfile userProfile = new UserProfile();
+
+                        //Profile
+                        userProfile.getProfile().setFirst_name(editTextFirstName.getText().toString().trim());
+                        userProfile.getProfile().setMiddle_name(editTextMiddleName.getText().toString().trim());
+                        userProfile.getProfile().setLast_name(editTextLastName.getText().toString().trim());
+                        if (radioButtonMale.isChecked()) {
+                            userProfile.getProfile().setSex("M");
+                        } else {
+                            userProfile.getProfile().setSex("F");
+                        }
+                        userProfile.getProfile().setDate_of_birth(textViewBirthDate.getText().toString().trim());
+                        userProfile.getProfile().setPhone_number(editTextPhone.getText().toString().trim());
+                        userProfile.getProfile().setCaste(spinnerCast.getSelectedItem().toString().trim());
+                        userProfile.getProfile().setSub_caste1(spinnerSubCast1.getSelectedItem().toString().trim());
+                        userProfile.getProfile().setSub_caste2(spinnerSubCast2.getSelectedItem().toString().trim());
+
+                        //Extra
+                        userProfile.getExtra().setHeight(editTextUserHeight.getText().toString().trim());
+                        userProfile.getExtra().setWeight(editTextUserWeight.getText().toString().trim());
+                        userProfile.getExtra().setBirth_place(editTextUserBirthPlace.getText().toString().trim());
+                        userProfile.getExtra().setBirth_time(editTextUserBirthTime.getText().toString().trim());
+                        userProfile.getExtra().setCurrent_job(editTextUserJob.getText().toString().trim());
+                        userProfile.getExtra().setAbout_me(editTextAboutMe.getText().toString().trim());
+
+                        //Education
+                        UserProfile.Education[] education = userProfile.getEducation();
+                        int i = 0;
+                        for (View educations : arrayOfEducationView) {
+                            TextView text = educations.findViewById(R.id.text_main_content);
+                            education[i].setEducation(text.getText().toString().trim());
+                            i = i + 1;
+                        }
+
+                        //Hobbies
+                        UserProfile.Hobbies[] hobbies = userProfile.getHobbies();
+                        int j = 0;
+                        for (View hobbie : arrayOfHobbyView) {
+                            TextView text = hobbie.findViewById(R.id.text_main_content);
+                            hobbies[j].setHobby(text.getText().toString().trim());
+                            j = j + 1;
+                        }
+
+                        //Families
+                        userProfile.getFamily().setFather_name(editTextFatherName.getText().toString().trim());
+                        userProfile.getFamily().setFather_education(editTextFatherEducation.getText().toString().trim());
+                        userProfile.getFamily().setFather_profession(editTextFatherProfession.getText().toString().trim());
+                        userProfile.getFamily().setFather_birth_place(editTextFatherBirthPlace.getText().toString().trim());
+                        userProfile.getFamily().setMother_name(editTextMotherName.getText().toString().trim());
+                        userProfile.getFamily().setMother_education(editTextMotherEducation.getText().toString().trim());
+                        userProfile.getFamily().setMother_profession(editTextMotherProfession.getText().toString().trim());
+                        userProfile.getFamily().setMother_birth_place(editTextMotherBirthPlace.getText().toString().trim());
+
+                        jsonUserProfileRequest = new JSONObject(new Gson().toJson(userProfile));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.UPDATE_PROFILE_URL).newBuilder();
+                    if (DetectConnection.checkInternetConnection(UserEditProfileActivity.this)) {
+                        new ProjectConstants.getDataFromServer(jsonUserProfileRequest, new UpdateProfileCall(), UserEditProfileActivity.this).execute(urlBuilder.build().toString());
+                    } else {
+                        Toast.makeText(UserEditProfileActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -158,7 +207,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         imageButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserEditProfileActivity.this,UserProfileActivity.class));
+                startActivity(new Intent(UserEditProfileActivity.this, UserProfileActivity.class));
             }
         });
 
@@ -194,8 +243,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
         imageButtonPhoneNotVerified.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserEditProfileActivity.this,VerificationActivity.class);
-                intent.putExtra("type","phone");
+                Intent intent = new Intent(UserEditProfileActivity.this, VerificationActivity.class);
+                intent.putExtra("type", "phone");
                 startActivity(intent);
             }
         });
@@ -203,45 +252,45 @@ public class UserEditProfileActivity extends AppCompatActivity {
         imageButtonEmailNotVerified.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserEditProfileActivity.this,VerificationActivity.class);
-                intent.putExtra("type","mail");
+                Intent intent = new Intent(UserEditProfileActivity.this, VerificationActivity.class);
+                intent.putExtra("type", "mail");
                 startActivity(intent);
             }
         });
 
-        if(!globalSP.getBoolean(ProjectConstants.USER_PROFILE,false)){
+        if (!globalSP.getBoolean(ProjectConstants.USER_PROFILE, false)) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.profile_compulsory), Toast.LENGTH_LONG).show();
             imageButtonCancel.setVisibility(View.GONE);
         }
 
-        if(getIntent().getExtras().getString("userProfile") != null){
+        if (getIntent().getExtras().getString("userProfile") != null) {
             Gson gson = new Gson();
             UserProfile userProfile = gson.fromJson(getIntent().getExtras().getString("userProfile"), UserProfile.class);
             editTextFirstName.setText(userProfile.getProfile().getFirst_name());
             editTextMiddleName.setText(userProfile.getProfile().getMiddle_name());
             editTextLastName.setText(userProfile.getProfile().getLast_name());
-            if(userProfile.getProfile().getSex().toLowerCase().equals("m")){
+            if (userProfile.getProfile().getSex().toLowerCase().equals("m")) {
                 radioButtonMale.setChecked(true);
                 radioButtonFemale.setChecked(false);
-            }else{
+            } else {
                 radioButtonMale.setChecked(false);
                 radioButtonFemale.setChecked(true);
             }
             textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
             editTextPhone.setText(userProfile.getProfile().getPhone_number());
-            editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL,""));
-            if(userProfile.getProfile().getPhone_number_verified() == 1){
+            editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ""));
+            if (userProfile.getProfile().getPhone_number_verified() == 1) {
                 imageButtonPhoneVerified.setVisibility(View.VISIBLE);
                 imageButtonPhoneNotVerified.setVisibility(View.GONE);
-            }else{
+            } else {
                 imageButtonPhoneVerified.setVisibility(View.GONE);
                 imageButtonPhoneNotVerified.setVisibility(View.VISIBLE);
             }
 
-            if(userProfile.getProfile().getEmail_verified() == 1){
+            if (userProfile.getProfile().getEmail_verified() == 1) {
                 imageButtonEmailVerified.setVisibility(View.VISIBLE);
                 imageButtonEmailNotVerified.setVisibility(View.GONE);
-            }else{
+            } else {
                 imageButtonEmailVerified.setVisibility(View.GONE);
                 imageButtonEmailNotVerified.setVisibility(View.VISIBLE);
             }
@@ -253,17 +302,14 @@ public class UserEditProfileActivity extends AppCompatActivity {
             editTextUserJob.setText(userProfile.getExtra().getCurrent_job());
             editTextAboutMe.setText(userProfile.getExtra().getAbout_me());
 
-            for(UserProfile.Education education:userProfile.getEducation()){
-                addCell(education.getEducation(),true);
+            for (UserProfile.Education education : userProfile.getEducation()) {
+                addCell(education.getEducation(), true);
             }
 
-            for(UserProfile.Hobbies hobbies:userProfile.getHobbies()){
-                addCell(hobbies.getHobby(),false);
+            for (UserProfile.Hobbies hobbies : userProfile.getHobbies()) {
+                addCell(hobbies.getHobby(), false);
             }
-//            textViewUserEducation.setText(Arrays.toString(userProfile.getEducation()));
-//            editTextHobby.setText(Arrays.toString(userProfile.getHobbies()));
 
-            //TODO:: FAMILY DETAILS GETTING NULL POINTER EXCEPTION
             editTextFatherName.setText(userProfile.getFamily().getFather_name());
             editTextFatherEducation.setText(userProfile.getFamily().getFather_education());
             editTextFatherProfession.setText(userProfile.getFamily().getFather_profession());
@@ -280,13 +326,13 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
         @Override
         public void getResponseFromServer(Response response) throws IOException {
-            if(!response.isSuccessful()) {
+            if (!response.isSuccessful()) {
                 throw new IOException("Unexpected code " + response);
             } else {
                 String result = response.body().string(); // response is converted to string
                 //Log.e("Response : ", result);
 
-                if(result != null) {
+                if (result != null) {
 
                     try {
 
@@ -294,122 +340,122 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                         final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
                         final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
-                        if(auth){
-                            Toast.makeText(UserEditProfileActivity.this,message,Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(UserEditProfileActivity.this,UserProfileActivity.class));
+                        if (auth) {
+                            Toast.makeText(UserEditProfileActivity.this, message, Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(UserEditProfileActivity.this, UserProfileActivity.class));
                             finish();
                         }
 
                     } catch (JSONException e) {
-                        Log.e("error",e.getMessage());
+                        Log.e("error", e.getMessage());
                     }
                 } else {
-                    Log.e("error","error");
+                    Log.e("error", "error");
                 }
             }
         }
     }
 
-    private boolean validateData(){
+    private boolean validateData() {
         String toValidate = editTextFirstName.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.first_name_empty));
         }
 
         toValidate = editTextMiddleName.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.middle_name_empty));
         }
 
         toValidate = editTextLastName.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.last_name_empty));
         }
 
         toValidate = textViewBirthDate.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.birth_date_empty));
-        }else{
-            if(radioButtonMale.isChecked()){
-                if(validateAge(toValidate) < 21){
+        } else {
+            if (radioButtonMale.isChecked()) {
+                if (validateAge(toValidate) < 21) {
                     return showError(getResources().getString(R.string.birth_date_male));
                 }
-            }else{
-                if(validateAge(toValidate) < 18){
+            } else {
+                if (validateAge(toValidate) < 18) {
                     return showError(getResources().getString(R.string.birth_date_female));
                 }
             }
         }
 
         toValidate = editTextPhone.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.phone_number_empty));
         }
 
         toValidate = editTextEmail.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.email_empty));
         }
 
         toValidate = editTextUserHeight.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.height_empty));
         }
 
         toValidate = editTextUserWeight.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.weight_empty));
         }
 
         toValidate = editTextUserBirthPlace.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.user_birth_place_empty));
         }
 
         toValidate = editTextUserBirthTime.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.user_birth_time_empty));
         }
 
         toValidate = getEducations();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.user_education_empty));
         }
 
         toValidate = getHobbies();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.user_hobby_empty));
         }
 
         toValidate = editTextFatherName.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.user_father_empty));
         }
 
         toValidate = editTextFatherProfession.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.user_father_profession_empty));
         }
 
         toValidate = editTextMotherName.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.user_mother_empty));
         }
 
         toValidate = editTextMotherProfession.getText().toString();
-        if(toValidate.trim().equals("") || toValidate.isEmpty()){
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.user_mother_profession_empty));
         }
 
         return true;
     }
 
-    private boolean showError(String message){
-        Toast.makeText(UserEditProfileActivity.this,message,Toast.LENGTH_LONG).show();
+    private boolean showError(String message) {
+        Toast.makeText(UserEditProfileActivity.this, message, Toast.LENGTH_LONG).show();
         return false;
     }
 
-    private int validateAge(String dob){
+    private int validateAge(String dob) {
         int year = Integer.parseInt(dob.split("-")[2]);
         int month = Integer.parseInt(dob.split("-")[1]);
         int day = Integer.parseInt(dob.split("-")[0]);
@@ -423,7 +469,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         return age;
     }
 
-    public void openDatePicker(){
+    public void openDatePicker() {
         final Calendar c = Calendar.getInstance();
         final int mYear = c.get(Calendar.YEAR);
         final int mMonth = c.get(Calendar.MONTH);
@@ -439,26 +485,26 @@ public class UserEditProfileActivity extends AppCompatActivity {
                         // Display Selected date in textbox
 
                         if (year < mYear)
-                            view.updateDate(mYear,mMonth,mDay);
+                            view.updateDate(mYear, mMonth, mDay);
 
                         if (monthOfYear < mMonth && year == mYear)
-                            view.updateDate(mYear,mMonth,mDay);
+                            view.updateDate(mYear, mMonth, mDay);
 
                         if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
-                            view.updateDate(mYear,mMonth,mDay);
+                            view.updateDate(mYear, mMonth, mDay);
 
-                        textViewBirthDate.setText(String.valueOf(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year));
+                        textViewBirthDate.setText(String.valueOf(year + "-" + ((monthOfYear + 1) > 9 ? '0' + (monthOfYear + 1) : (monthOfYear + 1)) + "-" + dayOfMonth));
 
                     }
                 }, mYear, mMonth, mDay);
         dpd.getDatePicker().setMaxDate(System.currentTimeMillis());
-        if(!textViewBirthDate.getText().toString().trim().equals("") || !textViewBirthDate.getText().toString().isEmpty()){
-            dpd.updateDate(Integer.parseInt(textViewBirthDate.getText().toString().split("-")[2]),Integer.parseInt(textViewBirthDate.getText().toString().split("-")[1]),Integer.parseInt(textViewBirthDate.getText().toString().split("-")[0]));
+        if (!textViewBirthDate.getText().toString().trim().equals("") || !textViewBirthDate.getText().toString().isEmpty()) {
+            dpd.updateDate(Integer.parseInt(textViewBirthDate.getText().toString().split("-")[0]), Integer.parseInt(textViewBirthDate.getText().toString().split("-")[1]), Integer.parseInt(textViewBirthDate.getText().toString().split("-")[2]));
         }
         dpd.show();
     }
 
-    public void showEducationAdd(){
+    public void showEducationAdd() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Add Education"); //Set Alert dialog title here
         alert.setMessage("Here You Can Add new Education"); //Message here
@@ -469,7 +515,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String srt = input.getEditableText().toString();
-                addCell(srt,true);
+                addCell(srt, true);
 //                textViewUserEducation.setText(textViewUserEducation.getText().toString() + "\n" + srt);
             }
         });
@@ -482,7 +528,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void showHobbiesAdd(){
+    public void showHobbiesAdd() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Add Hobby"); //Set Alert dialog title here
         alert.setMessage("Here You Can Add new Hobby"); //Message here
@@ -493,7 +539,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String srt = input.getEditableText().toString();
-                addCell(srt,false);
+                addCell(srt, false);
 //                textViewUserEducation.setText(textViewUserEducation.getText().toString() + "\n" + srt);
             }
         });
@@ -506,40 +552,40 @@ public class UserEditProfileActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void removeEducation(View v){
+    public void removeEducation(View v) {
         linearLayoutEducationHolder.removeView(v);
         arrayOfEducationView.remove(arrayOfEducationView.indexOf(v));
     }
 
-    public void removeHobby(View v){
+    public void removeHobby(View v) {
         linearLayoutHobbiesHolder.removeView(v);
         arrayOfHobbyView.remove(arrayOfHobbyView.indexOf(v));
     }
 
-    public String getHobbies(){
+    public String getHobbies() {
         String strHobby = "";
-        for(View v : arrayOfHobbyView){
+        for (View v : arrayOfHobbyView) {
             TextView text = v.findViewById(R.id.text_main_content);
             strHobby += "," + text.getText().toString();
         }
-        return strHobby.length() > 1 ? strHobby.substring(1,strHobby.length()) : "";
+        return strHobby.length() > 1 ? strHobby.substring(1, strHobby.length()) : "";
     }
 
-    public String getEducations(){
+    public String getEducations() {
         String strEducation = "";
-        for(View v : arrayOfHobbyView){
+        for (View v : arrayOfHobbyView) {
             TextView text = v.findViewById(R.id.text_main_content);
             strEducation += "," + text.getText().toString();
         }
-        return strEducation.length() > 1 ? strEducation.substring(1,strEducation.length()) : "";
+        return strEducation.length() > 1 ? strEducation.substring(1, strEducation.length()) : "";
     }
 
-    public void addCell(String content,boolean isEducation){
+    public void addCell(String content, boolean isEducation) {
         final View view = getLayoutInflater().inflate(R.layout.element_row_cell, null);
         TextView textViewTemp = view.findViewById(R.id.text_main_content);
         ImageButton imageButtonRemove = view.findViewById(R.id.imagebutton_remove_content);
         textViewTemp.setText(content);
-        if(isEducation){
+        if (isEducation) {
             imageButtonRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -548,7 +594,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
             });
             linearLayoutEducationHolder.addView(view);
             arrayOfEducationView.add(view);
-        }else{
+        } else {
             imageButtonRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

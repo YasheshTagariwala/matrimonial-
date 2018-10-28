@@ -192,9 +192,13 @@ public class UserProfileActivity extends AppCompatActivity {
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editProfile = new Intent(UserProfileActivity.this, UserEditProfileActivity.class);
-                editProfile.putExtra("userProfile", userProfile1.toString());
-                startActivity(editProfile);
+                if(userProfile1 != null){
+                    Intent editProfile = new Intent(UserProfileActivity.this, UserEditProfileActivity.class);
+                    editProfile.putExtra("userProfile", userProfile1.toString());
+                    startActivity(editProfile);
+                }else{
+                    Toast.makeText(UserProfileActivity.this, UserProfileActivity.this.getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show();
+                }
             }
         });
 
