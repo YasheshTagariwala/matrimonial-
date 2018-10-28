@@ -74,7 +74,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     //========     Added by ellis On date 30-09-2018     ================
 
-    private LinearLayout toggle_basic_info;
+    private LinearLayout toggle_basic_info, toggle_education_info, toggle_extra_info, toggle_family_info;
     private ImageButton img_toggle_basic_info, img_toggle_extra_info, img_toggle_education_info, img_toggle_family_info;
     private View basic_info_expanded_view, extra_info_expanded_view, education_info_expanded_view, family_info_expanded_view;
     private NestedScrollView nested_scroll_view;
@@ -238,27 +238,30 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        toggle_extra_info = findViewById(R.id.toggle_extra_info);
         img_toggle_extra_info = findViewById(R.id.img_toggle_extra_info);
         extra_info_expanded_view = findViewById(R.id.extra_info_expanded_view);
-        img_toggle_extra_info.setOnClickListener(new View.OnClickListener() {
+        toggle_extra_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggleSectionExtraInfo(img_toggle_extra_info);
             }
         });
 
+        toggle_education_info = findViewById(R.id.toggle_education_info);
         img_toggle_education_info = findViewById(R.id.img_toggle_education_info);
         education_info_expanded_view = findViewById(R.id.education_info_expanded_view);
-        img_toggle_education_info.setOnClickListener(new View.OnClickListener() {
+        toggle_education_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggleSectionEducationInfo(img_toggle_education_info);
             }
         });
 
+        toggle_family_info = findViewById(R.id.toggle_family_info);
         img_toggle_family_info = findViewById(R.id.img_toggle_family_info);
         family_info_expanded_view = findViewById(R.id.family_info_expanded_view);
-        img_toggle_family_info.setOnClickListener(new View.OnClickListener() {
+        toggle_family_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggleSectionFamilyInfo(img_toggle_family_info);
