@@ -13,27 +13,52 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/spacing_xlarge">
+        android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:gravity="center"
-            android:text="@string/user_profile_card_title_extra_info"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/grey_90"
-            app:fontFamily="sans-serif-medium" />
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:minHeight="?attr/actionBarSize"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="@dimen/spacing_mxlarge"
-            android:layout_height="@dimen/ImageViewHeight"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:tint="@color/red_700"
-            android:src="@drawable/swipe_up_handle"
-            android:contentDescription="@string/default_image_button_string" />
+            <ImageButton
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                android:tint="@color/deep_purple_900"
+                android:src="@drawable/ic_error_white_24dp"
+                android:contentDescription="@string/default_image_button_string" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/user_profile_card_title_extra_info"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/grey_90"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="@dimen/spacing_large"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/img_toggle_extra_info"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/grey_60"
+                android:src="@drawable/ic_expand_more_white_24dp"
+                android:contentDescription="@string/default_image_button_string" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/divider_line"/>
 
         <LinearLayout
             android:id="@+id/extra_info_expanded_view"
@@ -41,105 +66,113 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="@dimen/spacing_middle"
-            android:layout_margin="@dimen/spacing_middle">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
-                        tools:ignore="VectorDrawableCompat"
-                        android:contentDescription="@string/default_image_button_string" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/user_profile_height"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/text_user_height"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_middle"
-                            android:text="@string/user_profile_default_height"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
+                android:layout_margin="@dimen/spacing_middle"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="@dimen/spacing_mlarge"
+                            android:layout_height="@dimen/spacing_mlarge"
+                            android:background="@android:color/transparent"
+                            android:tint="@color/black"
+                            app:srcCompat="@drawable/ic_edit_white_24dp"
+                            tools:ignore="VectorDrawableCompat"
+                            android:contentDescription="@string/default_image_button_string" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_middle"
+                            android:layout_height="match_parent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_profile_height"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/text_user_height"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_middle"
+                                android:text="@string/user_profile_default_height"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         android:orientation="horizontal">
 
-                        <ImageButton
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="@dimen/spacing_mlarge"
-                            android:background="@android:color/transparent"
-                            android:tint="@color/black"
-                            app:srcCompat="@drawable/ic_edit_white_24dp"
-                            tools:ignore="VectorDrawableCompat"
-                            android:contentDescription="@string/default_image_button_string" />
-
-                        <View
-                            android:layout_width="@dimen/spacing_middle"
-                            android:layout_height="match_parent" />
-
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:gravity="end"
+                            android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/user_profile_weight"
-                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                android:textColor="@color/colorPrimary"
-                                android:textStyle="bold" />
+                            <ImageButton
+                                android:layout_width="@dimen/spacing_mlarge"
+                                android:layout_height="@dimen/spacing_mlarge"
+                                android:background="@android:color/transparent"
+                                android:tint="@color/black"
+                                app:srcCompat="@drawable/ic_edit_white_24dp"
+                                tools:ignore="VectorDrawableCompat"
+                                android:contentDescription="@string/default_image_button_string" />
 
-                            <TextView
-                                android:id="@+id/text_user_weight"
-                                android:layout_width="wrap_content"
+                            <View
+                                android:layout_width="@dimen/spacing_middle"
+                                android:layout_height="match_parent" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/spacing_middle"
-                                android:text="@string/user_profile_default_weight"
-                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                android:textColor="@color/black" />
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/user_profile_weight"
+                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/text_user_weight"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/spacing_middle"
+                                    android:text="@string/user_profile_default_weight"
+                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                    android:textColor="@color/black" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -147,71 +180,19 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_mlarge" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
-                        tools:ignore="VectorDrawableCompat"
-                        android:contentDescription="@string/default_image_button_string" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/user_profile_birth_place"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/text_user_birth_place"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_middle"
-                            android:text="@string/user_profile_default_birth_place"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_mlarge" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="start"
                         android:orientation="horizontal">
 
                         <ImageButton
@@ -235,17 +216,17 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/user_profile_birth_time"
+                                android:text="@string/user_profile_birth_place"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                 android:textColor="@color/colorPrimary"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/text_user_birth_time"
+                                android:id="@+id/text_user_birth_place"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/spacing_middle"
-                                android:text="@string/user_profile_default_birth_time"
+                                android:text="@string/user_profile_default_birth_place"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                 android:textColor="@color/black" />
 
@@ -253,100 +234,152 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:layout_width="@dimen/spacing_mlarge"
+                                android:layout_height="@dimen/spacing_mlarge"
+                                android:background="@android:color/transparent"
+                                android:tint="@color/black"
+                                app:srcCompat="@drawable/ic_edit_white_24dp"
+                                tools:ignore="VectorDrawableCompat"
+                                android:contentDescription="@string/default_image_button_string" />
+
+                            <View
+                                android:layout_width="@dimen/spacing_middle"
+                                android:layout_height="match_parent" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/user_profile_birth_time"
+                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/text_user_birth_time"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/spacing_middle"
+                                    android:text="@string/user_profile_default_birth_time"
+                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                    android:textColor="@color/black" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_mlarge" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_width="@dimen/spacing_mlarge"
-                    android:layout_height="@dimen/spacing_mlarge"
-                    android:background="@android:color/transparent"
-                    android:tint="@color/black"
-                    app:srcCompat="@drawable/ic_edit_white_24dp"
-                    tools:ignore="VectorDrawableCompat"
-                    android:contentDescription="@string/default_image_button_string" />
-
                 <View
-                    android:layout_width="@dimen/spacing_middle"
-                    android:layout_height="match_parent" />
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_mlarge" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_profile_current_job"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mlarge"
+                        android:layout_height="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/black"
+                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                        tools:ignore="VectorDrawableCompat"
+                        android:contentDescription="@string/default_image_button_string" />
 
-                    <TextView
-                        android:id="@+id/text_user_job"
-                        android:layout_width="wrap_content"
+                    <View
+                        android:layout_width="@dimen/spacing_middle"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="@string/user_profile_default_current_job"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_profile_current_job"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/text_user_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:text="@string/user_profile_default_current_job"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_mlarge" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_width="@dimen/spacing_mlarge"
-                    android:layout_height="@dimen/spacing_mlarge"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_person_black_24dp"
-                    tools:ignore="VectorDrawableCompat"
-                    android:contentDescription="@string/default_image_button_string" />
-
                 <View
-                    android:layout_width="@dimen/spacing_middle"
-                    android:layout_height="match_parent" />
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_mlarge" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_profile_about_me"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mlarge"
+                        android:layout_height="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/ic_person_black_24dp"
+                        tools:ignore="VectorDrawableCompat"
+                        android:contentDescription="@string/default_image_button_string" />
 
-                    <TextView
-                        android:id="@+id/text_about_me"
-                        android:layout_width="wrap_content"
+                    <View
+                        android:layout_width="@dimen/spacing_middle"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:lineSpacingExtra="@dimen/spacing_xsmall"
-                        android:text="@string/lorem_ipsum"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_profile_about_me"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/text_about_me"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:lineSpacingExtra="@dimen/spacing_xsmall"
+                            android:text="@string/lorem_ipsum"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
