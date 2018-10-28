@@ -75,7 +75,7 @@ public class UserProfileActivity extends AppCompatActivity {
     //========     Added by ellis On date 30-09-2018     ================
 
     private LinearLayout toggle_basic_info, toggle_education_info, toggle_extra_info, toggle_family_info;
-    private ImageButton img_toggle_basic_info, img_toggle_extra_info, img_toggle_education_info, img_toggle_family_info;
+    private ImageView img_toggle_basic_info, img_toggle_extra_info, img_toggle_education_info, img_toggle_family_info;
     private View basic_info_expanded_view, extra_info_expanded_view, education_info_expanded_view, family_info_expanded_view;
     private NestedScrollView nested_scroll_view;
 

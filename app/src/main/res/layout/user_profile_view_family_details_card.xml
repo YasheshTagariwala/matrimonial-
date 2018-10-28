@@ -36,19 +36,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/user_profile_card_title_education"
+                android:text="@string/user_profile_card_title_family_details"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_90"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:paddingStart="@dimen/spacing_large"
+                android:paddingEnd="@dimen/spacing_large"
+                android:textSize="@dimen/TextViewLabel"/>
 
-            <View
-                android:layout_width="@dimen/spacing_large"
-                android:layout_height="wrap_content" />
-
-            <ImageButton
+            <ImageView
                 android:id="@+id/img_toggle_family_info"
                 android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="@dimen/spacing_mxlarge"
+                android:paddingStart="@dimen/spacing_large"
+                android:paddingEnd="@dimen/spacing_large"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:tint="@color/grey_60"
                 android:src="@drawable/ic_expand_more_white_24dp"
@@ -66,36 +67,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/spacing_middle"
+            android:padding="@dimen/spacing_middle"
             android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_middle"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_middle">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:gravity="center"
+                    android:text="@string/user_profile_father"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/grey_90" />
+
+                <ImageView
+                    android:layout_width="@dimen/spacing_mxlarge"
+                    android:layout_height="@dimen/ImageViewHeight"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:src="@drawable/swipe_up_handle"
+                    android:tint="@color/red_700"
+                    android:contentDescription="@string/default_image_button_string" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_middle"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                        android:tint="@color/kloudforj_black"
+                        app:srcCompat="@drawable/ic_person_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/spacing_large"
+                        android:paddingEnd="@dimen/spacing_large"
                         android:orientation="vertical">
 
                         <TextView
@@ -104,46 +122,44 @@
                             android:text="@string/user_profile_fathers_name"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_father_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:paddingTop="@dimen/spacing_xsmall"
                             android:text="@string/user_profile_default_fathers_name"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/kloudforj_black"
+                            android:textSize="@dimen/TextViewLabel" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_mlarge" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_mlarge"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                        android:tint="@color/kloudforj_black"
+                        app:srcCompat="@drawable/ic_school_white_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/spacing_large"
+                        android:paddingEnd="@dimen/spacing_large"
                         android:orientation="vertical">
 
                         <TextView
@@ -152,46 +168,44 @@
                             android:text="@string/user_profile_fathers_education"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_father_education"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:paddingTop="@dimen/spacing_xsmall"
                             android:text="@string/user_profile_default_fathers_education"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/kloudforj_black"
+                            android:textSize="@dimen/TextViewLabel" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_mlarge" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_mlarge"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                        android:tint="@color/kloudforj_black"
+                        app:srcCompat="@drawable/ic_work_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/spacing_large"
+                        android:paddingEnd="@dimen/spacing_large"
                         android:orientation="vertical">
 
                         <TextView
@@ -200,46 +214,44 @@
                             android:text="@string/user_profile_fathers_profession"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_father_profession"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:paddingTop="@dimen/spacing_xsmall"
                             android:text="@string/user_profile_default_fathers_profession"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/kloudforj_black"
+                            android:textSize="@dimen/TextViewLabel" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_mlarge" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_mlarge"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                        android:tint="@color/kloudforj_black"
+                        app:srcCompat="@drawable/ic_person_pin_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/spacing_large"
+                        android:paddingEnd="@dimen/spacing_large"
                         android:orientation="vertical">
 
                         <TextView
@@ -248,46 +260,70 @@
                             android:text="@string/user_profile_fathers_birth_place"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_father_birth_place"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:paddingTop="@dimen/spacing_xsmall"
                             android:text="@string/user_profile_default_fathers_birth_place"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/kloudforj_black"
+                            android:textSize="@dimen/TextViewLabel" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <View
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_middle">
+
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_mlarge" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:gravity="center"
+                    android:text="@string/user_profile_mother"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/grey_90" />
+
+                <ImageView
+                    android:layout_width="@dimen/spacing_mxlarge"
+                    android:layout_height="@dimen/ImageViewHeight"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:src="@drawable/swipe_up_handle"
+                    android:tint="@color/red_700"
+                    android:contentDescription="@string/default_image_button_string" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_mlarge"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                        android:tint="@color/kloudforj_black"
+                        app:srcCompat="@drawable/ic_person_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/spacing_large"
+                        android:paddingEnd="@dimen/spacing_large"
                         android:orientation="vertical">
 
                         <TextView
@@ -296,46 +332,44 @@
                             android:text="@string/user_profile_mothers_name"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_mother_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:paddingTop="@dimen/spacing_xsmall"
                             android:text="@string/user_profile_default_mothers_name"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/kloudforj_black"
+                            android:textSize="@dimen/TextViewLabel" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_mlarge" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_mlarge"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                        android:tint="@color/kloudforj_black"
+                        app:srcCompat="@drawable/ic_school_white_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/spacing_large"
+                        android:paddingEnd="@dimen/spacing_large"
                         android:orientation="vertical">
 
                         <TextView
@@ -344,46 +378,44 @@
                             android:text="@string/user_profile_mothers_education"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_mother_education"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:paddingTop="@dimen/spacing_xsmall"
                             android:text="@string/user_profile_default_mothers_education"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/kloudforj_black"
+                            android:textSize="@dimen/TextViewLabel" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_mlarge" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_mlarge"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                        android:tint="@color/kloudforj_black"
+                        app:srcCompat="@drawable/ic_work_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/spacing_large"
+                        android:paddingEnd="@dimen/spacing_large"
                         android:orientation="vertical">
 
                         <TextView
@@ -392,46 +424,45 @@
                             android:text="@string/user_profile_mothers_profession"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_mother_profession"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:paddingTop="@dimen/spacing_xsmall"
                             android:text="@string/user_profile_default_mothers_profession"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/kloudforj_black"
+                            android:textSize="@dimen/TextViewLabel" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_mlarge" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_mlarge"
+                    android:paddingBottom="@dimen/spacing_middle"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
+                        android:tint="@color/kloudforj_black"
+                        app:srcCompat="@drawable/ic_person_pin_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/spacing_large"
+                        android:paddingEnd="@dimen/spacing_large"
                         android:orientation="vertical">
 
                         <TextView
@@ -440,16 +471,19 @@
                             android:text="@string/user_profile_mothers_birth_place"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_mother_birth_place"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:paddingTop="@dimen/spacing_xsmall"
                             android:text="@string/user_profile_default_mothers_birth_place"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/kloudforj_black"
+                            android:textSize="@dimen/TextViewLabel" />
 
                     </LinearLayout>
 

@@ -99,22 +99,24 @@
 
     <!-- Family Details Card -->
     <string name="user_profile_card_title_family_details">Family Details</string>
-    <string name="user_profile_fathers_name">Father\'s Name</string>
+    <string name="user_profile_father">Father</string>
+    <string name="user_profile_fathers_name">Name</string>
     <string name="user_profile_default_fathers_name">Nandkishor Tagariwala</string>
-    <string name="user_profile_fathers_education">Father\'s Education</string>
+    <string name="user_profile_fathers_education">Education</string>
     <string name="user_profile_default_fathers_education">10th</string>
-    <string name="user_profile_fathers_profession">Father\'s Profession</string>
+    <string name="user_profile_fathers_profession">Profession</string>
     <string name="user_profile_default_fathers_profession">Business Man</string>
-    <string name="user_profile_fathers_birth_place">Father\'s Birth Place</string>
+    <string name="user_profile_fathers_birth_place">Birth Place</string>
     <string name="user_profile_default_fathers_birth_place">Surat</string>
 
-    <string name="user_profile_mothers_name">Mother\'s Name</string>
+    <string name="user_profile_mother">Mother</string>
+    <string name="user_profile_mothers_name">Name</string>
     <string name="user_profile_default_mothers_name">Meena Tagariwala</string>
-    <string name="user_profile_mothers_education">Mother\'s Education</string>
+    <string name="user_profile_mothers_education">Education</string>
     <string name="user_profile_default_mothers_education">10th</string>
-    <string name="user_profile_mothers_profession">Mother\'s Profession</string>
+    <string name="user_profile_mothers_profession">Profession</string>
     <string name="user_profile_default_mothers_profession">Housewife</string>
-    <string name="user_profile_mothers_birth_place">Mother\'s Birth Place</string>
+    <string name="user_profile_mothers_birth_place">Birth Place</string>
     <string name="user_profile_default_mothers_birth_place">Surat</string>
 
 

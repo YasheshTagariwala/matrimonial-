@@ -29,4 +29,7 @@
     <dimen name="LinearLayoutPaddingTop">8dp</dimen>
     <dimen name="ImageViewSquare">90dp</dimen>
 
+    <dimen name="TextViewLabel">14sp</dimen>
+    <dimen name="TextViewHeader">16sp</dimen>
+
 </resources>
