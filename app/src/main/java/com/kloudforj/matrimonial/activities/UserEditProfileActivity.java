@@ -1,5 +1,6 @@
 package com.kloudforj.matrimonial.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -68,6 +69,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
     RadioGroup radioGroupSex;
     RadioButton radioButtonMale, radioButtonFemale;
 
+    private String token;
+
     private SharedPreferences globalSP;
 
     ImageButton imageButtonAddress1, imageButtonAddress2, imageButtonAddress3,
@@ -83,6 +86,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         linearLayoutHobbiesHolder = findViewById(R.id.linearlayout_hobbies_holder);
 
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
+        token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
 
         recyclerViewUserImage = (RecyclerView) findViewById(R.id.recyclerView_user_image);
         recyclerViewUserImage.setLayoutManager(new GridLayoutManager(this, 3));
@@ -136,7 +140,6 @@ public class UserEditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validateData()) {
-                    Log.e("1", "1");
                     JSONObject jsonUserProfileRequest = null;
                     try {
                         UserProfile userProfile = new UserProfile();
@@ -156,6 +159,17 @@ public class UserEditProfileActivity extends AppCompatActivity {
                         profile.setCaste(spinnerCast.getSelectedItem().toString().trim());
                         profile.setSub_caste1(spinnerSubCast1.getSelectedItem().toString().trim());
                         profile.setSub_caste2(spinnerSubCast2.getSelectedItem().toString().trim());
+
+                        //TODO:: To Change When Done Dynamic
+
+                        profile.setAddress1("asdf1234");
+                        profile.setCountry("asdas");
+                        profile.setState("asdas");
+                        profile.setCity("asdas");
+                        profile.setPincode("123456");
+
+                        //
+
                         userProfile.setProfile(profile);
                         //userProfile.getProfile().setFirst_name(editTextFirstName.getText().toString().trim());
                         //userProfile.getProfile().setMiddle_name(editTextMiddleName.getText().toString().trim());
@@ -189,7 +203,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                             temphobby.add(text.getText().toString().trim());
                             j = j + 1;
                         }
-                        userProfile.setHobby(temphobby);
+                        userProfile.setHobbies(temphobby);
 
                         //Families
                         UserProfile.Family family = userProfile.new Family();
@@ -207,11 +221,10 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.UPDATE_PROFILE_URL).newBuilder();
+                    Log.e("data",jsonUserProfileRequest.toString());
+                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.UPDATE_PROFILE_URL).newBuilder();
                     if (DetectConnection.checkInternetConnection(UserEditProfileActivity.this)) {
-                        Log.e("2", "2");
-                        new ProjectConstants.getDataFromServer(jsonUserProfileRequest, new UpdateProfileCall(), UserEditProfileActivity.this).execute(urlBuilder.build().toString());
-                        Log.e("3", "3");
+                        new ProjectConstants.getDataFromServer(jsonUserProfileRequest, new UpdateProfileCall(), UserEditProfileActivity.this).execute(urlBuilder.build().toString(),token);
                     } else {
                         Toast.makeText(UserEditProfileActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                     }
@@ -345,6 +358,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         @Override
         public void getResponseFromServer(Response response) throws IOException {
             if (!response.isSuccessful()) {
+                Log.e("asd",response.toString());
                 throw new IOException("Unexpected code " + response);
             } else {
                 String result = response.body().string(); // response is converted to string
@@ -359,7 +373,15 @@ public class UserEditProfileActivity extends AppCompatActivity {
                         final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
                         final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
                         if (auth) {
-                            Toast.makeText(UserEditProfileActivity.this, message, Toast.LENGTH_LONG).show();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(UserEditProfileActivity.this, message, Toast.LENGTH_LONG).show();
+                                    SharedPreferences.Editor editor = globalSP.edit();
+                                    editor.putBoolean(ProjectConstants.USER_PROFILE, true);
+                                    editor.apply();
+                                }
+                            });
                             startActivity(new Intent(UserEditProfileActivity.this, UserProfileActivity.class));
                             finish();
                         }
@@ -510,14 +532,21 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                         if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
                             view.updateDate(mYear, mMonth, mDay);
-
-                        textViewBirthDate.setText(String.valueOf(year + "-" + ((monthOfYear + 1) > 9 ? '0' + (monthOfYear + 1) : (monthOfYear + 1)) + "-" + dayOfMonth));
+                        String month = String.valueOf(monthOfYear + 1);
+                        if((monthOfYear + 1) < 10){
+                            month = "0" + String.valueOf((monthOfYear + 1));
+                        }
+                        String day = String.valueOf(dayOfMonth);
+                        if(dayOfMonth < 10){
+                            day = "0" + String.valueOf(dayOfMonth);
+                        }
+                        textViewBirthDate.setText(String.valueOf(year + "-" + month + "-" + day));
 
                     }
                 }, mYear, mMonth, mDay);
         dpd.getDatePicker().setMaxDate(System.currentTimeMillis());
         if (!textViewBirthDate.getText().toString().trim().equals("") || !textViewBirthDate.getText().toString().isEmpty()) {
-            dpd.updateDate(Integer.parseInt(textViewBirthDate.getText().toString().split("-")[0]), Integer.parseInt(textViewBirthDate.getText().toString().split("-")[1]), Integer.parseInt(textViewBirthDate.getText().toString().split("-")[2]));
+            dpd.updateDate(Integer.parseInt(textViewBirthDate.getText().toString().split("-")[0]), Integer.parseInt(textViewBirthDate.getText().toString().split("-")[1]) - 1, Integer.parseInt(textViewBirthDate.getText().toString().split("-")[2]));
         }
         dpd.show();
     }

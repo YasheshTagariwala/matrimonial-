@@ -31,7 +31,7 @@ public class UserListFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    RecyclerView mUsersListRecyclerView;
+    public RecyclerView mUsersListRecyclerView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,7 +79,7 @@ public class UserListFragment extends Fragment {
         mUsersListRecyclerView.setItemViewCacheSize(100);
         mUsersListRecyclerView.setDrawingCacheEnabled(true);
         mUsersListRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        mUsersListRecyclerView.setAdapter(new HomeListAdapter(getActivity().getApplicationContext(),10));
+//        mUsersListRecyclerView.setAdapter(new HomeListAdapter(getActivity().getApplicationContext(),10));
 
         return v;
     }

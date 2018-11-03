@@ -405,7 +405,7 @@ public class UserProfileActivity extends AppCompatActivity {
             } else {
 
                 String result = response.body().string(); // response is converted to string
-                //Log.e("resp : ", result);
+//                Log.e("resp : ", result);
 
                 if(result != null) {
                     try {
