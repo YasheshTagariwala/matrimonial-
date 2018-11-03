@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
             android:gravity="center"
-            android:text="@string/user_profile_card_title_family_details"
+            android:text="@string/user_profile_card_title_address_details"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/grey_90" />
 
@@ -57,13 +57,13 @@
                         android:textColorHint="@color/colorPrimary">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/editText_father_name"
+                            android:id="@+id/editText_address1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_person_black_24dp"
+                            android:drawableStart="@drawable/ic_edit_white_24dp"
                             android:drawableTint="@color/kloudforj_black"
-                            android:hint="@string/user_profile_fathers_name"
+                            android:hint="@string/user_profile_address1"
                             android:singleLine="true"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/black"
@@ -94,13 +94,13 @@
                         android:textColorHint="@color/colorPrimary">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/editText_father_education"
+                            android:id="@+id/editText_address2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_school_white_24dp"
+                            android:drawableStart="@drawable/ic_edit_white_24dp"
                             android:drawableTint="@color/kloudforj_black"
-                            android:hint="@string/user_profile_fathers_education"
+                            android:hint="@string/user_profile_address2"
                             android:singleLine="true"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/black"
@@ -131,13 +131,13 @@
                         android:textColorHint="@color/colorPrimary">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/editText_father_profession"
+                            android:id="@+id/editText_address3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_work_black_24dp"
+                            android:drawableStart="@drawable/ic_edit_white_24dp"
                             android:drawableTint="@color/kloudforj_black"
-                            android:hint="@string/user_profile_fathers_profession"
+                            android:hint="@string/user_profile_address3"
                             android:singleLine="true"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/black"
@@ -168,13 +168,14 @@
                         android:textColorHint="@color/colorPrimary">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/editText_father_birth_place"
+                            android:id="@+id/editText_pincode"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_person_pin_black_24dp"
+                            android:drawableStart="@drawable/ic_edit_white_24dp"
                             android:drawableTint="@color/kloudforj_black"
-                            android:hint="@string/user_profile_fathers_birth_place"
+                            android:hint="@string/user_profile_pincode"
+                            android:inputType="number"
                             android:singleLine="true"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/black"
@@ -191,36 +192,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="@dimen/spacing_middle"
+                android:paddingTop="@dimen/spacing_large"
                 android:paddingEnd="@dimen/spacing_large"
                 android:paddingStart="@dimen/spacing_large">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <ImageButton
+                    android:layout_width="@dimen/spacing_mlarge"
+                    android:layout_height="@dimen/spacing_mlarge"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/default_image_button_string"
+                    android:tint="@color/kloudforj_black"
+                    app:srcCompat="@drawable/ic_person_black_24dp"
+                    tools:ignore="VectorDrawableCompat" />
 
-                    <android.support.design.widget.TextInputLayout
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_profile_country"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/TextViewLabel"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spn_user_country"
+                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/colorPrimary">
+                        android:entries="@array/country"
+                        android:lineSpacingExtra="@dimen/spacing_xsmall"
+                        android:spinnerMode="dialog"
+                        android:text="@string/user_profile_birthdate"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/editText_mother_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_person_black_24dp"
-                            android:drawableTint="@color/kloudforj_black"
-                            android:hint="@string/user_profile_mothers_name"
-                            android:singleLine="true"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/colorPrimary"
-                            android:textSize="@dimen/TextViewLabel" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                </RelativeLayout>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -228,36 +242,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="@dimen/spacing_middle"
+                android:paddingTop="@dimen/spacing_large"
                 android:paddingEnd="@dimen/spacing_large"
                 android:paddingStart="@dimen/spacing_large">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <ImageButton
+                    android:layout_width="@dimen/spacing_mlarge"
+                    android:layout_height="@dimen/spacing_mlarge"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/default_image_button_string"
+                    android:tint="@color/kloudforj_black"
+                    app:srcCompat="@drawable/ic_person_black_24dp"
+                    tools:ignore="VectorDrawableCompat" />
 
-                    <android.support.design.widget.TextInputLayout
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_profile_state"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/TextViewLabel"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spn_user_state"
+                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/colorPrimary">
+                        android:entries="@array/state"
+                        android:lineSpacingExtra="@dimen/spacing_xsmall"
+                        android:spinnerMode="dialog"
+                        android:text="@string/user_profile_birthdate"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/editText_mother_education"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_school_white_24dp"
-                            android:drawableTint="@color/kloudforj_black"
-                            android:hint="@string/user_profile_mothers_education"
-                            android:singleLine="true"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/colorPrimary"
-                            android:textSize="@dimen/TextViewLabel" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                </RelativeLayout>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -265,73 +292,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="@dimen/spacing_middle"
+                android:paddingTop="@dimen/spacing_large"
                 android:paddingEnd="@dimen/spacing_large"
                 android:paddingStart="@dimen/spacing_large">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <ImageButton
+                    android:layout_width="@dimen/spacing_mlarge"
+                    android:layout_height="@dimen/spacing_mlarge"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/default_image_button_string"
+                    android:tint="@color/kloudforj_black"
+                    app:srcCompat="@drawable/ic_person_black_24dp"
+                    tools:ignore="VectorDrawableCompat" />
 
-                    <android.support.design.widget.TextInputLayout
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_profile_city"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/TextViewLabel"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spn_user_city"
+                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/colorPrimary">
+                        android:entries="@array/city"
+                        android:lineSpacingExtra="@dimen/spacing_xsmall"
+                        android:spinnerMode="dialog"
+                        android:text="@string/user_profile_birthdate"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/editText_mother_profession"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_work_black_24dp"
-                            android:drawableTint="@color/kloudforj_black"
-                            android:hint="@string/user_profile_mothers_profession"
-                            android:singleLine="true"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/colorPrimary"
-                            android:textSize="@dimen/TextViewLabel" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/spacing_middle"
-                android:paddingEnd="@dimen/spacing_large"
-                android:paddingStart="@dimen/spacing_large">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColorHint="@color/colorPrimary">
-
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/editText_mother_birth_place"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_person_pin_black_24dp"
-                            android:drawableTint="@color/kloudforj_black"
-                            android:hint="@string/user_profile_mothers_birth_place"
-                            android:singleLine="true"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/colorPrimary"
-                            android:textSize="@dimen/TextViewLabel" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                </RelativeLayout>
+                </LinearLayout>
 
             </LinearLayout>
 

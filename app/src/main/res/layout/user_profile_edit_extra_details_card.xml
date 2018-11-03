@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -30,36 +29,27 @@
             android:layout_height="@dimen/ImageViewHeight"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/spacing_medium"
+            android:contentDescription="@string/default_image_button_string"
             android:src="@drawable/swipe_up_handle"
-            android:tint="@color/red_700"
-            android:contentDescription="@string/default_image_button_string" />
+            android:tint="@color/red_700" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_medium"
+            android:padding="@dimen/spacing_middle"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/spacing_middle"
+                android:paddingEnd="@dimen/spacing_large"
+                android:paddingStart="@dimen/spacing_large">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="45dp"
-                        android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
-                        tools:ignore="VectorDrawableCompat"
-                        android:contentDescription="@string/default_image_button_string" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -69,13 +59,16 @@
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/editText_user_height"
                             android:layout_width="match_parent"
+                            android:textSize="@dimen/TextViewLabel"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="35dp"
+                            android:drawablePadding="@dimen/spacing_large"
+                            android:drawableStart="@drawable/ic_accessibility_white_24dp"
+                            android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_height"
-                            android:textColorHint="@color/colorPrimary"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:singleLine="true"
-                            android:textColor="@color/black"/>
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimary" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -86,23 +79,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/spacing_middle"
+                android:paddingEnd="@dimen/spacing_large"
+                android:paddingStart="@dimen/spacing_large">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="45dp"
-                        android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
-                        tools:ignore="VectorDrawableCompat"
-                        android:contentDescription="@string/default_image_button_string" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -112,13 +96,16 @@
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/editText_user_weight"
                             android:layout_width="match_parent"
+                            android:textSize="@dimen/TextViewLabel"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="35dp"
+                            android:drawablePadding="@dimen/spacing_large"
+                            android:drawableStart="@drawable/ic_fitness_center_white_24dp"
+                            android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_weight"
-                            android:textColorHint="@color/colorPrimary"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:singleLine="true"
-                            android:textColor="@color/black"/>
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimary" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -129,23 +116,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/spacing_middle"
+                android:paddingEnd="@dimen/spacing_large"
+                android:paddingStart="@dimen/spacing_large">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="45dp"
-                        android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
-                        tools:ignore="VectorDrawableCompat"
-                        android:contentDescription="@string/default_image_button_string" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -155,13 +133,16 @@
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/editText_user_birth_place"
                             android:layout_width="match_parent"
+                            android:textSize="@dimen/TextViewLabel"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="35dp"
+                            android:drawablePadding="@dimen/spacing_large"
+                            android:drawableStart="@drawable/ic_person_pin_black_24dp"
+                            android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_birth_place"
-                            android:textColorHint="@color/colorPrimary"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:singleLine="true"
-                            android:textColor="@color/black"/>
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimary" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -172,66 +153,79 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/spacing_large"
+                android:paddingEnd="@dimen/spacing_large"
+                android:paddingStart="@dimen/spacing_large">
 
-                <RelativeLayout
+                <ImageButton
+                    android:layout_width="@dimen/spacing_mlarge"
+                    android:layout_height="@dimen/spacing_mlarge"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/default_image_button_string"
+                    android:tint="@color/kloudforj_black"
+                    app:srcCompat="@drawable/ic_access_time_white_24dp"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/spacing_mlarge"
+                    android:paddingStart="@dimen/spacing_mlarge"
+                    android:orientation="vertical">
 
-                    <ImageButton
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="45dp"
-                        android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
-                        tools:ignore="VectorDrawableCompat"
-                        android:contentDescription="@string/default_image_button_string" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_profile_birth_time"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/TextViewLabel"
+                        android:textStyle="bold" />
 
-                    <android.support.design.widget.TextInputLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/colorPrimary">
+                        android:orientation="horizontal">
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/editText_user_birth_time"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/text_birth_time"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="35dp"
-                            android:hint="@string/user_profile_birth_time"
-                            android:textColorHint="@color/colorPrimary"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:singleLine="true"
-                            android:textColor="@color/black"/>
+                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:hint="@string/user_profile_birthdate"
+                            android:lineSpacingExtra="@dimen/spacing_xsmall"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                            android:textSize="@dimen/TextViewLabel" />
 
-                    </android.support.design.widget.TextInputLayout>
+                        <ImageButton
+                            android:id="@+id/imagebutton_birth_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_middle"
+                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:background="@color/transparent"
+                            android:contentDescription="@string/default_image_button_string"
+                            android:src="@drawable/ic_today_white_24dp"
+                            android:tint="@color/kloudforj_black" />
 
-                </RelativeLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/spacing_middle"
+                android:paddingEnd="@dimen/spacing_large"
+                android:paddingStart="@dimen/spacing_large">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:background="@android:color/transparent"
-                        android:tint="@color/black"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="45dp"
-                        android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/ic_edit_white_24dp"
-                        tools:ignore="VectorDrawableCompat"
-                        android:contentDescription="@string/default_image_button_string" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -241,13 +235,16 @@
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/editText_user_job"
                             android:layout_width="match_parent"
+                            android:textSize="@dimen/TextViewLabel"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="35dp"
+                            android:drawablePadding="@dimen/spacing_large"
+                            android:drawableStart="@drawable/ic_work_black_24dp"
+                            android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_current_job"
-                            android:textColorHint="@color/colorPrimary"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:singleLine="true"
-                            android:textColor="@color/black"/>
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimary" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -258,15 +255,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/spacing_middle"
+                android:paddingEnd="@dimen/spacing_large"
+                android:paddingStart="@dimen/spacing_large">
 
                 <ImageButton
                     android:layout_width="@dimen/spacing_mlarge"
                     android:layout_height="@dimen/spacing_mlarge"
                     android:background="@android:color/transparent"
+                    android:contentDescription="@string/default_image_button_string"
+                    android:tint="@color/kloudforj_black"
                     app:srcCompat="@drawable/ic_person_black_24dp"
-                    tools:ignore="VectorDrawableCompat"
-                    android:contentDescription="@string/default_image_button_string" />
+                    tools:ignore="VectorDrawableCompat" />
 
                 <View
                     android:layout_width="@dimen/spacing_middle"
@@ -281,6 +282,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/user_profile_about_me"
+                        android:textSize="@dimen/TextViewLabel"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
@@ -290,9 +292,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:lineSpacingExtra="@dimen/spacing_xsmall"
                         android:hint="@string/lorem_ipsum"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
+                        android:lineSpacingExtra="@dimen/spacing_xsmall"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
 

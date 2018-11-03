@@ -102,9 +102,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
     LinearLayout linearLayoutPhone,linearLayoutEducation;
 
-    ImageButton imageButtonCancel,imageButtonCalendar;
+    ImageButton imageButtonCancel;
 
-    TextView textViewFullName, textViewAboutMe, textViewHobby, textViewBirthDate, textViewVerifyPhone, textViewVerifymail,
+    TextView textViewFullName, textViewAboutMe, textViewHobby, textViewBirthDate,
             textViewPhone, textViewGender,
             textViewCaste, textViewSubCaste1, textViewSubCaste2,
             textViewUserHeight, textViewUserWeight, textViewUserBirthPlace, textViewUserBirthTime,
@@ -141,26 +141,6 @@ public class UserProfileActivity extends AppCompatActivity {
         linearLayoutPhone = findViewById(R.id.linearlayout_phone);
         linearLayoutEducation = findViewById(R.id.linearlayout_education);
         imageButtonCancel = findViewById(R.id.imagebutton_Cancel);
-        imageButtonCalendar = findViewById(R.id.imagebutton_calendar);
-
-        textViewVerifyPhone = findViewById(R.id.text_verify_phone);
-        textViewVerifyPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserProfileActivity.this,VerificationActivity.class);
-                intent.putExtra("type","phone");
-                startActivity(intent);
-            }
-        });
-        textViewVerifymail = findViewById(R.id.text_verify_mail);
-        textViewVerifymail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserProfileActivity.this,VerificationActivity.class);
-                intent.putExtra("type","mail");
-                startActivity(intent);
-            }
-        });
 
         textViewFullName = findViewById(R.id.text_full_name);
         textViewAboutMe = findViewById(R.id.text_about_me);
@@ -204,8 +184,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
         if(isSelf) {
             fabEdit.setVisibility(View.VISIBLE);
-            textViewVerifymail.setVisibility(View.VISIBLE);
-            textViewVerifyPhone.setVisibility(View.VISIBLE);
         } else {
             fabEdit.setVisibility(View.GONE);
             linearLayoutPhone.setVisibility(View.GONE);

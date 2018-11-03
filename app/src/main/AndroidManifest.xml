@@ -31,9 +31,6 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.MainActivity1"
-            android:theme="@style/FullScreen" />
-        <activity
             android:name=".activities.UserProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- <activity -->

@@ -119,6 +119,14 @@
     <string name="user_profile_mothers_birth_place">Mother Birth Place</string>
     <string name="user_profile_default_mothers_birth_place">Surat</string>
 
+    <string name="user_profile_card_title_address_details">Address Details</string>
+    <string name="user_profile_address1">Address 1</string>
+    <string name="user_profile_address2">Address 2</string>
+    <string name="user_profile_address3">Address 3</string>
+    <string name="user_profile_country">Country</string>
+    <string name="user_profile_state">State</string>
+    <string name="user_profile_city">City</string>
+    <string name="user_profile_pincode">Pincode</string>
 
     <!-- Search Activity strings -->
     <string name="search_user">Search</string>

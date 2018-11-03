@@ -46,7 +46,7 @@ import java.util.List;
 
 public class UserEditProfileActivity extends AppCompatActivity {
 
-    TextView textViewBirthDate;
+    TextView textViewBirthDate, textViewBirthTime;
     //    TextView textViewUserEducation;
     LinearLayout linearLayoutEducationHolder, linearLayoutHobbiesHolder;
     List<View> arrayOfEducationView = new ArrayList<View>();
@@ -57,8 +57,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     //    EditText editTextHobby;
     EditText editTextFirstName, editTextMiddleName, editTextLastName, editTextAboutMe, editTextEmail,
-            editTextAddress1, editTextAddress2, editTextAddress3, editTextPhone,
-            editTextUserHeight, editTextUserWeight, editTextUserBirthPlace, editTextUserBirthTime,
+            editTextAddress1, editTextAddress2, editTextAddress3, editTextPinCode, editTextPhone,
+            editTextUserHeight, editTextUserWeight, editTextUserBirthPlace,
             editTextUserJob, editTextFatherName, editTextFatherEducation, editTextFatherProfession,
             editTextFatherBirthPlace, editTextMotherName, editTextMotherEducation, editTextMotherProfession, editTextMotherBirthPlace;
 
@@ -70,7 +70,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     private SharedPreferences globalSP;
 
-    ImageButton imageButtonAddress1, imageButtonAddress2, imageButtonAddress3,
+    ImageButton imageButtonAddress1, imageButtonAddress2, imageButtonAddress3,imageButtonBirthTime,
             imageButtonCancel, imageButtonCalendar, imageButtonAddEducation, imageButtonAddHobbies, imageButtonSave,
             imageButtonPhoneVerified, imageButtonEmailVerified, imageButtonPhoneNotVerified, imageButtonEmailNotVerified;
 
@@ -99,6 +99,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         spinnerCountry = findViewById(R.id.spn_user_country);
         spinnerState = findViewById(R.id.spn_user_state);
         spinnerCity = findViewById(R.id.spn_user_city);
+
         spinnerCast = findViewById(R.id.spn_user_caste);
         spinnerSubCast1 = findViewById(R.id.spn_user_sub_caste_1);
         spinnerSubCast2 = findViewById(R.id.spn_user_sub_caste_2);
@@ -112,15 +113,15 @@ public class UserEditProfileActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editText_user_mail);
         editTextAboutMe = findViewById(R.id.editText_about_me);
 //        editTextHobby = findViewById(R.id.editText_hobby);
-        editTextAddress1 = findViewById(R.id.editText_address_1);
-        editTextAddress2 = findViewById(R.id.editText_address_2);
-        editTextAddress3 = findViewById(R.id.editText_address_3);
+        editTextAddress1 = findViewById(R.id.editText_address1);
+        editTextAddress2 = findViewById(R.id.editText_address2);
+        editTextAddress3 = findViewById(R.id.editText_address3);
+        editTextPinCode = findViewById(R.id.editText_pincode);
         editTextPhone = findViewById(R.id.editText_phone);
 
         editTextUserHeight = findViewById(R.id.editText_user_height);
         editTextUserWeight = findViewById(R.id.editText_user_weight);
         editTextUserBirthPlace = findViewById(R.id.editText_user_birth_place);
-        editTextUserBirthTime = findViewById(R.id.editText_user_birth_time);
         editTextUserJob = findViewById(R.id.editText_user_job);
         editTextFatherName = findViewById(R.id.editText_father_name);
         editTextFatherEducation = findViewById(R.id.editText_father_education);
@@ -130,6 +131,15 @@ public class UserEditProfileActivity extends AppCompatActivity {
         editTextMotherEducation = findViewById(R.id.editText_mother_education);
         editTextMotherProfession = findViewById(R.id.editText_mother_profession);
         editTextMotherBirthPlace = findViewById(R.id.editText_mother_birth_place);
+
+        textViewBirthTime = findViewById(R.id.text_birth_time);
+        imageButtonBirthTime = findViewById(R.id.imagebutton_birth_time);
+        imageButtonBirthTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getBirthTime();
+            }
+        });
 
         imageButtonSave = findViewById(R.id.imagebutton_profile_save);
         imageButtonSave.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +169,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                         userProfile.getExtra().setHeight(editTextUserHeight.getText().toString().trim());
                         userProfile.getExtra().setWeight(editTextUserWeight.getText().toString().trim());
                         userProfile.getExtra().setBirth_place(editTextUserBirthPlace.getText().toString().trim());
-                        userProfile.getExtra().setBirth_time(editTextUserBirthTime.getText().toString().trim());
+                        userProfile.getExtra().setBirth_time(textViewBirthTime.getText().toString().trim());
                         userProfile.getExtra().setCurrent_job(editTextUserJob.getText().toString().trim());
                         userProfile.getExtra().setAbout_me(editTextAboutMe.getText().toString().trim());
 
@@ -300,7 +310,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
             editTextUserHeight.setText(userProfile.getExtra().getHeight());
             editTextUserWeight.setText(userProfile.getExtra().getWeight());
             editTextUserBirthPlace.setText(userProfile.getExtra().getBirth_place());
-            editTextUserBirthTime.setText(userProfile.getExtra().getBirth_time());
+            textViewBirthTime.setText(userProfile.getExtra().getBirth_time());
             editTextUserJob.setText(userProfile.getExtra().getCurrent_job());
             editTextAboutMe.setText(userProfile.getExtra().getAbout_me());
 
@@ -414,7 +424,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
             return showError(getResources().getString(R.string.user_birth_place_empty));
         }
 
-        toValidate = editTextUserBirthTime.getText().toString();
+        toValidate = textViewBirthTime.getText().toString();
         if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.user_birth_time_empty));
         }
@@ -606,6 +616,10 @@ public class UserEditProfileActivity extends AppCompatActivity {
             linearLayoutHobbiesHolder.addView(view);
             arrayOfHobbyView.add(view);
         }
+    }
+
+    public void getBirthTime(){
+
     }
 
     @Override
