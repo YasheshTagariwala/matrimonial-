@@ -341,13 +341,13 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 editTextUserJob.setText(userProfile.getExtra().getCurrent_job());
                 editTextAboutMe.setText(userProfile.getExtra().getAbout_me());
 
-            for (UserProfile.Education education : userProfile.getEducation()) {
-                addCell(education.getEducation(), true);
-            }
-
-            for (UserProfile.Hobbies hobbies : userProfile.getHobbies()) {
-                addCell(hobbies.getHobby(), false);
-            }
+//            for (UserProfile.Education education : userProfile.getEducation()) {
+//                addCell(education.getEducation(), true);
+//            }
+//
+//            for (UserProfile.Hobbies hobbies : userProfile.getHobbies()) {
+//                addCell(hobbies.getHobby(), false);
+//            }
 
                 editTextFatherName.setText(userProfile.getFamily().getFather_name());
                 editTextFatherEducation.setText(userProfile.getFamily().getFather_education());
