@@ -1,7 +1,10 @@
 package com.kloudforj.matrimonial.entities;
 
+import java.util.List;
+
 public class UserProfile
 {
+
     public class Profile {
 
         private int user_id, age;
@@ -171,31 +174,31 @@ public class UserProfile
         }
     }
 
-    public class Education {
+    /*public class Education {
 
-        private String education;
+        private String[] education;
 
-        public String getEducation() {
+        public String[] getEducation() {
             return education;
         }
 
-        public void setEducation(String education) {
+        public void setEducation(String[] education) {
             this.education = education;
         }
     }
 
-    public class Hobbies {
+    public class Hobby {
 
-        private String hobby;
+        private String[] hobby;
 
-        public String getHobby() {
+        public String[] getHobby() {
             return hobby;
         }
 
-        public void setHobby(String hobby) {
+        public void setHobby(String[] hobby) {
             this.hobby = hobby;
         }
-    }
+    }*/
 
     public class Family {
 
@@ -333,8 +336,8 @@ public class UserProfile
 
     private int id;
     private Profile profile;
-    private Education[] education;
-    private Hobbies[] hobbies;
+    private List<String> education;
+    private List<String> hobby;
     private Family family;
     private Extra extra;
 
@@ -354,20 +357,20 @@ public class UserProfile
         this.profile = profile;
     }
 
-    public Education[] getEducation() {
+    public List<String> getEducation() {
         return education;
     }
 
-    public void setEducation(Education[] education) {
+    public void setEducation(List<String> education) {
         this.education = education;
     }
 
-    public Hobbies[] getHobbies() {
-        return hobbies;
+    public List<String> getHobby() {
+        return hobby;
     }
 
-    public void setHobbies(Hobbies[] hobbies) {
-        this.hobbies = hobbies;
+    public void setHobby(List<String> hobby) {
+        this.hobby = hobby;
     }
 
     public Family getFamily() {
