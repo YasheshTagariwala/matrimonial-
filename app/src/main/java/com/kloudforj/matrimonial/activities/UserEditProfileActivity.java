@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -50,6 +51,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
     LinearLayout linearLayoutEducationHolder, linearLayoutHobbiesHolder;
     List<View> arrayOfEducationView = new ArrayList<View>();
     List<View> arrayOfHobbyView = new ArrayList<View>();
+    AdapterGridBasic mAdapter;
 
     private RecyclerView recyclerViewUserImage;
 
@@ -87,7 +89,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         recyclerViewUserImage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewUserImage.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 5), true));
         recyclerViewUserImage.setHasFixedSize(true);
-        AdapterGridBasic mAdapter = new AdapterGridBasic(this, 3);
+        mAdapter = new AdapterGridBasic(this, 3);
         recyclerViewUserImage.setAdapter(mAdapter);
 
         radioButtonMale = findViewById(R.id.radioMale);
@@ -604,5 +606,11 @@ public class UserEditProfileActivity extends AppCompatActivity {
             linearLayoutHobbiesHolder.addView(view);
             arrayOfHobbyView.add(view);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        mAdapter.onActivityResult(requestCode, resultCode, imageReturnedIntent);
     }
 }

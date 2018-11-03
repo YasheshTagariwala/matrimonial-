@@ -100,23 +100,23 @@
     <!-- Family Details Card -->
     <string name="user_profile_card_title_family_details">Family Details</string>
     <string name="user_profile_father">Father</string>
-    <string name="user_profile_fathers_name">Name</string>
+    <string name="user_profile_fathers_name">Father Name</string>
     <string name="user_profile_default_fathers_name">Nandkishor Tagariwala</string>
-    <string name="user_profile_fathers_education">Education</string>
+    <string name="user_profile_fathers_education">Father Education</string>
     <string name="user_profile_default_fathers_education">10th</string>
-    <string name="user_profile_fathers_profession">Profession</string>
+    <string name="user_profile_fathers_profession">Father Profession</string>
     <string name="user_profile_default_fathers_profession">Business Man</string>
-    <string name="user_profile_fathers_birth_place">Birth Place</string>
+    <string name="user_profile_fathers_birth_place">Father Birth Place</string>
     <string name="user_profile_default_fathers_birth_place">Surat</string>
 
     <string name="user_profile_mother">Mother</string>
-    <string name="user_profile_mothers_name">Name</string>
+    <string name="user_profile_mothers_name">Mother Name</string>
     <string name="user_profile_default_mothers_name">Meena Tagariwala</string>
-    <string name="user_profile_mothers_education">Education</string>
+    <string name="user_profile_mothers_education">Mother Education</string>
     <string name="user_profile_default_mothers_education">10th</string>
-    <string name="user_profile_mothers_profession">Profession</string>
+    <string name="user_profile_mothers_profession">Mother Profession</string>
     <string name="user_profile_default_mothers_profession">Housewife</string>
-    <string name="user_profile_mothers_birth_place">Birth Place</string>
+    <string name="user_profile_mothers_birth_place">Mother Birth Place</string>
     <string name="user_profile_default_mothers_birth_place">Surat</string>
 
 

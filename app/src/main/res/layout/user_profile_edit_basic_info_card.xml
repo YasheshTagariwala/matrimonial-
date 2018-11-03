@@ -45,138 +45,271 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:layout_width="@dimen/spacing_mlarge"
-                    android:layout_height="@dimen/spacing_mlarge"
-                    android:background="@android:color/transparent"
-                    android:tint="@color/black"
-                    app:srcCompat="@drawable/ic_person_black_24dp"
-                    tools:ignore="VectorDrawableCompat"
-                    android:contentDescription="@string/default_image_button_string" />
-
-                <View
-                    android:layout_width="@dimen/spacing_middle"
-                    android:layout_height="match_parent" />
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_profile_first_name"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mlarge"
+                        android:layout_height="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/black"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_person_black_24dp"
+                        tools:ignore="VectorDrawableCompat"
+                        android:contentDescription="@string/default_image_button_string" />
 
-                    <EditText
-                        android:id="@+id/editText_first_name"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/usernameWrapper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:hint="@string/default_string"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black" />
+                        android:textColorHint="@color/colorPrimary">
 
-                </LinearLayout>
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/editText_first_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="35dp"
+                            android:hint="@string/user_profile_first_name"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:singleLine="true"
+                            android:textColor="@color/black"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_mlarge" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:layout_width="@dimen/spacing_mlarge"
-                    android:layout_height="@dimen/spacing_mlarge"
-                    android:background="@android:color/transparent"
-                    android:tint="@color/black"
-                    app:srcCompat="@drawable/ic_person_black_24dp"
-                    tools:ignore="VectorDrawableCompat"
-                    android:contentDescription="@string/default_image_button_string" />
-
-                <View
-                    android:layout_width="@dimen/spacing_middle"
-                    android:layout_height="match_parent" />
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_profile_middle_name"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mlarge"
+                        android:layout_height="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/black"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_person_black_24dp"
+                        tools:ignore="VectorDrawableCompat"
+                        android:contentDescription="@string/default_image_button_string" />
 
-                    <EditText
-                        android:id="@+id/editText_middle_name"
+                    <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:hint="@string/default_string"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black" />
+                        android:textColorHint="@color/colorPrimary">
 
-                </LinearLayout>
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/editText_middle_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="35dp"
+                            android:hint="@string/user_profile_middle_name"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:singleLine="true"
+                            android:textColor="@color/black"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_mlarge" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:layout_width="@dimen/spacing_mlarge"
-                    android:layout_height="@dimen/spacing_mlarge"
-                    android:background="@android:color/transparent"
-                    android:tint="@color/black"
-                    app:srcCompat="@drawable/ic_person_black_24dp"
-                    tools:ignore="VectorDrawableCompat"
-                    android:contentDescription="@string/default_image_button_string" />
-
-                <View
-                    android:layout_width="@dimen/spacing_middle"
-                    android:layout_height="match_parent" />
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_profile_last_name"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mlarge"
+                        android:layout_height="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/black"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_person_black_24dp"
+                        tools:ignore="VectorDrawableCompat"
+                        android:contentDescription="@string/default_image_button_string" />
 
-                    <EditText
-                        android:id="@+id/editText_last_name"
+                    <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:hint="@string/default_string"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black" />
+                        android:textColorHint="@color/colorPrimary">
 
-                </LinearLayout>
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/editText_last_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="35dp"
+                            android:hint="@string/user_profile_last_name"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:singleLine="true"
+                            android:textColor="@color/black"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mlarge"
+                        android:layout_height="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/black"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_local_phone_white_24dp"
+                        tools:ignore="VectorDrawableCompat"
+                        android:contentDescription="@string/default_image_button_string" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimary">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/editText_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="35dp"
+                            android:inputType="phone"
+                            android:hint="@string/user_profile_phone_number"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:singleLine="true"
+                            android:textColor="@color/black"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true">
+
+                        <ImageButton
+                            android:id="@+id/phone_number_not_verified"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:contentDescription="@string/default_image_button_string"
+                            android:src="@drawable/ic_info_white_24dp"
+                            android:tint="@color/red_900"/>
+
+
+                        <ImageButton
+                            android:id="@+id/phone_number_verified"
+                            android:layout_toRightOf="@id/phone_number_not_verified"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:contentDescription="@string/default_image_button_string"
+                            android:src="@drawable/ic_verified_user_white_24dp"
+                            android:tint="@color/green_900" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mlarge"
+                        android:layout_height="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/black"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_person_black_24dp"
+                        tools:ignore="VectorDrawableCompat"
+                        android:contentDescription="@string/default_image_button_string" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimary">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/editText_user_mail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="35dp"
+                            android:hint="@string/user_profile_email"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:singleLine="true"
+                            android:textColor="@color/black"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true">
+
+                        <ImageButton
+                            android:id="@+id/email_not_verified"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_info_white_24dp"
+                            android:tint="@color/red_900"
+                            android:contentDescription="@string/default_image_button_string" />
+
+
+                        <ImageButton
+                            android:id="@+id/email_verified"
+                            android:layout_toRightOf="@+id/email_not_verified"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_verified_user_white_24dp"
+                            android:tint="@color/green_900"
+                            android:contentDescription="@string/default_image_button_string" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -315,178 +448,6 @@
                 android:layout_height="@dimen/spacing_mlarge" />
 
             <LinearLayout
-                android:id="@+id/linearlayout_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_local_phone_white_24dp"
-                    android:tint="@color/black"
-                    android:contentDescription="@string/default_image_button_string" />
-
-                <View
-                    android:layout_width="@dimen/spacing_middle"
-                    android:layout_height="match_parent" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/user_profile_phone_number"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end">
-
-                            <ImageButton
-                                android:id="@+id/phone_number_not_verified"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/transparent"
-                                android:contentDescription="@string/default_image_button_string"
-                                android:src="@drawable/ic_info_white_24dp"
-                                android:tint="@color/red_900"/>
-
-
-                            <ImageButton
-                                android:id="@+id/phone_number_verified"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/transparent"
-                                android:contentDescription="@string/default_image_button_string"
-                                android:src="@drawable/ic_verified_user_white_24dp"
-                                android:tint="@color/green_900" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <EditText
-                        android:id="@+id/editText_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_medium"
-                        android:inputType="phone"
-                        android:lineSpacingExtra="@dimen/spacing_xsmall"
-                        android:hint="@string/user_profile_number"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_mlarge" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_width="@dimen/spacing_mlarge"
-                    android:layout_height="@dimen/spacing_mlarge"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_person_black_24dp"
-                    tools:ignore="VectorDrawableCompat"
-                    android:contentDescription="@string/default_image_button_string" />
-
-                <View
-                    android:layout_width="@dimen/spacing_middle"
-                    android:layout_height="match_parent" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/user_profile_email"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/colorPrimary"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end">
-
-                            <ImageButton
-                                android:id="@+id/email_not_verified"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/transparent"
-                                android:src="@drawable/ic_info_white_24dp"
-                                android:tint="@color/red_900"
-                                android:contentDescription="@string/default_image_button_string" />
-
-
-                            <ImageButton
-                                android:id="@+id/email_verified"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/transparent"
-                                android:src="@drawable/ic_verified_user_white_24dp"
-                                android:tint="@color/green_900"
-                                android:contentDescription="@string/default_image_button_string" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/text_user_mail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:lineSpacingExtra="@dimen/spacing_xsmall"
-                        android:text="@string/user_profile_default_email_address"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                        android:visibility="gone"/>
-
-                    <EditText
-                        android:id="@+id/editText_user_mail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_xsmall"
-                        android:lineSpacingExtra="@dimen/spacing_xsmall"
-                        android:hint="@string/user_profile_default_email_address"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_mlarge" />
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -521,7 +482,6 @@
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_middle"
                         android:entries="@array/caste"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
                         android:spinnerMode="dialog"
@@ -571,7 +531,6 @@
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_middle"
                         android:entries="@array/sub_caste_1"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
                         android:spinnerMode="dialog"
@@ -621,7 +580,6 @@
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_middle"
                         android:entries="@array/sub_caste_2"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
                         android:spinnerMode="dialog"
