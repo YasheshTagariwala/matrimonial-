@@ -62,8 +62,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ImageButton imageButtonSearch;
     private Call userListRequestCall, logoutRequestCall;
     private Button buttonProfileName;
+    private UserListFragment userListFragment;
+    private FavouriteListFragment favouriteListFragment;
 
     private String location, subcaste1, subcaste2, name;
+    private String age;
 
     private String token;
     private int user_id;
@@ -94,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         subcaste1 = globalSP.getString(ProjectConstants.SUBCASTE1, ProjectConstants.EMPTY_STRING);
         subcaste2 = globalSP.getString(ProjectConstants.SUBCASTE2, ProjectConstants.EMPTY_STRING);
         name = globalSP.getString(ProjectConstants.NAME, ProjectConstants.EMPTY_STRING);
+        age = globalSP.getString(ProjectConstants.AGE, ProjectConstants.EMPTY_STRING);
 
         // ActionBar is set on MainActivity
         setToolbar();
@@ -145,16 +149,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         try {
             jsonObjectRequest.put(ProjectConstants.SEX, "m");
 
-            if(!location.equals(ProjectConstants.EMPTY_STRING)) {
-                jsonObjectRequest.put(ProjectConstants.LOCATION, location);
-            }
+//            if(!location.equals(ProjectConstants.EMPTY_STRING)) {
+//                jsonObjectRequest.put(ProjectConstants.LOCATION, location);
+//            }
             if(!name.equals(ProjectConstants.EMPTY_STRING)) {
                 jsonObjectRequest.put(ProjectConstants.NAME, name);
             }
             if(!subcaste1.equals(ProjectConstants.EMPTY_STRING)) {
                 jsonObjectRequest.put(ProjectConstants.SUBCASTE1, subcaste1);
-            }if(!subcaste2.equals(ProjectConstants.EMPTY_STRING)) {
+            }
+            if(!subcaste2.equals(ProjectConstants.EMPTY_STRING)) {
                 jsonObjectRequest.put(ProjectConstants.SUBCASTE2, subcaste2);
+            }
+            if(!age.equals(ProjectConstants.EMPTY_STRING)) {
+                jsonObjectRequest.put(ProjectConstants.AGE, age);
             }
 
             //TODO: Add age from range seek bar.
@@ -186,8 +194,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UserListFragment(), "");
-        adapter.addFragment(new FavouriteListFragment(), "");
+        userListFragment = new UserListFragment();
+        favouriteListFragment = new FavouriteListFragment();
+        adapter.addFragment(userListFragment, "");
+        adapter.addFragment(favouriteListFragment, "");
         viewPager.setAdapter(adapter);
     }
 
@@ -201,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public void getResponseFromServer(Response response) throws IOException {
             if(!response.isSuccessful()) {
-                //Log.e("resp : ", response.toString());
+//                Log.e("resp : ", response.toString());
                 enableComponents(getResources().getString(R.string.something_went_wrong));
                 throw new IOException("Unexpected code " + response);
             } else {
@@ -239,14 +249,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         if (jsonArrayData.length() > 0) {
 
                                             ArrayList<UserProfile> userProfiles = new ArrayList<>();
+                                            ArrayList<UserProfile> userProfilesWithFavorites = new ArrayList<>();
 
                                             for(int i = 0; i < jsonArrayData.length(); i++) {
                                                 JSONObject jsonObject = jsonArrayData.getJSONObject(i);
                                                 //Log.e("Profile : ", jsonObject.toString());
                                                 userProfiles.add(new Gson().fromJson(jsonObject.toString(), UserProfile.class));
+                                                if(jsonObject.getBoolean("is_favorite")){
+                                                    userProfilesWithFavorites.add(new Gson().fromJson(jsonObject.toString(), UserProfile.class));
+                                                }
                                             }
-
-                                            mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfiles));
+                                            userListFragment.mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfiles));
+                                            favouriteListFragment.mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfilesWithFavorites));
+//                                            mUsersListRecyclerView.setAdapter();
                                         }
                                     } catch (JSONException e) {
                                         enableComponents(getResources().getString(R.string.something_went_wrong));

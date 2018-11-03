@@ -69,7 +69,8 @@ public class ProjectConstants {
     public static final String SUBCASTE2 = "subCaste2";
     public static final String AGE = "age";                 // 26-30
     public static final String LOCATION = "location";       // india/gujarat/surat
-    public static final String NAME = "/user-list";
+//    public static final String NAME = "/user-list";
+    public static final String NAME = "name";
 
     public static final String USER_PROFILE_URL = "/profile";
     public static final String UPDATE_PROFILE_URL = "/update-profile";

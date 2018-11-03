@@ -1,5 +1,6 @@
 package com.kloudforj.matrimonial.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -68,6 +69,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
     RadioGroup radioGroupSex;
     RadioButton radioButtonMale, radioButtonFemale;
 
+    private String token;
+
     private SharedPreferences globalSP;
 
     ImageButton imageButtonAddress1, imageButtonAddress2, imageButtonAddress3,imageButtonBirthTime,
@@ -83,6 +86,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         linearLayoutHobbiesHolder = findViewById(R.id.linearlayout_hobbies_holder);
 
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
+        token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
 
         recyclerViewUserImage = (RecyclerView) findViewById(R.id.recyclerView_user_image);
         recyclerViewUserImage.setLayoutManager(new GridLayoutManager(this, 3));
@@ -99,7 +103,6 @@ public class UserEditProfileActivity extends AppCompatActivity {
         spinnerCountry = findViewById(R.id.spn_user_country);
         spinnerState = findViewById(R.id.spn_user_state);
         spinnerCity = findViewById(R.id.spn_user_city);
-
         spinnerCast = findViewById(R.id.spn_user_caste);
         spinnerSubCast1 = findViewById(R.id.spn_user_sub_caste_1);
         spinnerSubCast2 = findViewById(R.id.spn_user_sub_caste_2);
@@ -151,63 +154,86 @@ public class UserEditProfileActivity extends AppCompatActivity {
                         UserProfile userProfile = new UserProfile();
 
                         //Profile
-                        userProfile.getProfile().setFirst_name(editTextFirstName.getText().toString().trim());
-                        userProfile.getProfile().setMiddle_name(editTextMiddleName.getText().toString().trim());
-                        userProfile.getProfile().setLast_name(editTextLastName.getText().toString().trim());
+                        UserProfile.Profile profile = userProfile.new Profile();
+                        profile.setFirst_name(editTextFirstName.getText().toString().trim());
+                        profile.setMiddle_name(editTextMiddleName.getText().toString().trim());
+                        profile.setLast_name(editTextLastName.getText().toString().trim());
                         if (radioButtonMale.isChecked()) {
-                            userProfile.getProfile().setSex("M");
+                            profile.setSex("M");
                         } else {
-                            userProfile.getProfile().setSex("F");
+                            profile.setSex("F");
                         }
-                        userProfile.getProfile().setDate_of_birth(textViewBirthDate.getText().toString().trim());
-                        userProfile.getProfile().setPhone_number(editTextPhone.getText().toString().trim());
-                        userProfile.getProfile().setCaste(spinnerCast.getSelectedItem().toString().trim());
-                        userProfile.getProfile().setSub_caste1(spinnerSubCast1.getSelectedItem().toString().trim());
-                        userProfile.getProfile().setSub_caste2(spinnerSubCast2.getSelectedItem().toString().trim());
+                        profile.setDate_of_birth(textViewBirthDate.getText().toString().trim());
+                        profile.setPhone_number(editTextPhone.getText().toString().trim());
+                        profile.setCaste(spinnerCast.getSelectedItem().toString().trim());
+                        profile.setSub_caste1(spinnerSubCast1.getSelectedItem().toString().trim());
+                        profile.setSub_caste2(spinnerSubCast2.getSelectedItem().toString().trim());
+
+                        //TODO:: To Change When Done Dynamic
+
+                        profile.setAddress1("asdf1234");
+                        profile.setCountry("asdas");
+                        profile.setState("asdas");
+                        profile.setCity("asdas");
+                        profile.setPincode("123456");
+
+                        //
+
+                        userProfile.setProfile(profile);
+                        //userProfile.getProfile().setFirst_name(editTextFirstName.getText().toString().trim());
+                        //userProfile.getProfile().setMiddle_name(editTextMiddleName.getText().toString().trim());
+                        //userProfile.getProfile().setLast_name(editTextLastName.getText().toString().trim());
 
                         //Extra
-                        userProfile.getExtra().setHeight(editTextUserHeight.getText().toString().trim());
-                        userProfile.getExtra().setWeight(editTextUserWeight.getText().toString().trim());
-                        userProfile.getExtra().setBirth_place(editTextUserBirthPlace.getText().toString().trim());
-                        userProfile.getExtra().setBirth_time(textViewBirthTime.getText().toString().trim());
-                        userProfile.getExtra().setCurrent_job(editTextUserJob.getText().toString().trim());
-                        userProfile.getExtra().setAbout_me(editTextAboutMe.getText().toString().trim());
+                        UserProfile.Extra extra = userProfile.new Extra();
+                        extra.setHeight(editTextUserHeight.getText().toString().trim());
+                        extra.setWeight(editTextUserWeight.getText().toString().trim());
+                        extra.setBirth_place(editTextUserBirthPlace.getText().toString().trim());
+                        extra.setBirth_time(textViewBirthTime.getText().toString().trim());
+                        extra.setCurrent_job(editTextUserJob.getText().toString().trim());
+                        extra.setAbout_me(editTextAboutMe.getText().toString().trim());
+                        userProfile.setExtra(extra);
 
                         //Education
-                        UserProfile.Education[] education = userProfile.getEducation();
-                        int i = 0;
+                        //UserProfile.Education education = userProfile.new Education(); //getEducation();
+                        int i = 0; List<String> tempedu = new ArrayList<>();
                         for (View educations : arrayOfEducationView) {
                             TextView text = educations.findViewById(R.id.text_main_content);
-                            education[i].setEducation(text.getText().toString().trim());
+                            tempedu.add(text.getText().toString().trim());
                             i = i + 1;
                         }
+                        userProfile.setEducation(tempedu);
 
                         //Hobbies
-                        UserProfile.Hobbies[] hobbies = userProfile.getHobbies();
-                        int j = 0;
+                        //UserProfile.Hobby hobbies = userProfile.new Hobby(); //getHobbies();
+                        int j = 0; List<String> temphobby = new ArrayList<>();
                         for (View hobbie : arrayOfHobbyView) {
                             TextView text = hobbie.findViewById(R.id.text_main_content);
-                            hobbies[j].setHobby(text.getText().toString().trim());
+                            temphobby.add(text.getText().toString().trim());
                             j = j + 1;
                         }
+                        userProfile.setHobbies(temphobby);
 
                         //Families
-                        userProfile.getFamily().setFather_name(editTextFatherName.getText().toString().trim());
-                        userProfile.getFamily().setFather_education(editTextFatherEducation.getText().toString().trim());
-                        userProfile.getFamily().setFather_profession(editTextFatherProfession.getText().toString().trim());
-                        userProfile.getFamily().setFather_birth_place(editTextFatherBirthPlace.getText().toString().trim());
-                        userProfile.getFamily().setMother_name(editTextMotherName.getText().toString().trim());
-                        userProfile.getFamily().setMother_education(editTextMotherEducation.getText().toString().trim());
-                        userProfile.getFamily().setMother_profession(editTextMotherProfession.getText().toString().trim());
-                        userProfile.getFamily().setMother_birth_place(editTextMotherBirthPlace.getText().toString().trim());
+                        UserProfile.Family family = userProfile.new Family();
+                        family.setFather_name(editTextFatherName.getText().toString().trim());
+                        family.setFather_education(editTextFatherEducation.getText().toString().trim());
+                        family.setFather_profession(editTextFatherProfession.getText().toString().trim());
+                        family.setFather_birth_place(editTextFatherBirthPlace.getText().toString().trim());
+                        family.setMother_name(editTextMotherName.getText().toString().trim());
+                        family.setMother_education(editTextMotherEducation.getText().toString().trim());
+                        family.setMother_profession(editTextMotherProfession.getText().toString().trim());
+                        family.setMother_birth_place(editTextMotherBirthPlace.getText().toString().trim());
+                        userProfile.setFamily(family);
 
                         jsonUserProfileRequest = new JSONObject(new Gson().toJson(userProfile));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.UPDATE_PROFILE_URL).newBuilder();
+                    Log.e("data",jsonUserProfileRequest.toString());
+                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.UPDATE_PROFILE_URL).newBuilder();
                     if (DetectConnection.checkInternetConnection(UserEditProfileActivity.this)) {
-                        new ProjectConstants.getDataFromServer(jsonUserProfileRequest, new UpdateProfileCall(), UserEditProfileActivity.this).execute(urlBuilder.build().toString());
+                        new ProjectConstants.getDataFromServer(jsonUserProfileRequest, new UpdateProfileCall(), UserEditProfileActivity.this).execute(urlBuilder.build().toString(),token);
                     } else {
                         Toast.makeText(UserEditProfileActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                     }
@@ -275,44 +301,45 @@ public class UserEditProfileActivity extends AppCompatActivity {
             imageButtonCancel.setVisibility(View.GONE);
         }
 
-        if (getIntent().getExtras().getString("userProfile") != null) {
-            Gson gson = new Gson();
-            UserProfile userProfile = gson.fromJson(getIntent().getExtras().getString("userProfile"), UserProfile.class);
-            editTextFirstName.setText(userProfile.getProfile().getFirst_name());
-            editTextMiddleName.setText(userProfile.getProfile().getMiddle_name());
-            editTextLastName.setText(userProfile.getProfile().getLast_name());
-            if (userProfile.getProfile().getSex().toLowerCase().equals("m")) {
-                radioButtonMale.setChecked(true);
-                radioButtonFemale.setChecked(false);
-            } else {
-                radioButtonMale.setChecked(false);
-                radioButtonFemale.setChecked(true);
-            }
-            textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
-            editTextPhone.setText(userProfile.getProfile().getPhone_number());
-            editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ""));
-            if (userProfile.getProfile().getPhone_number_verified() == 1) {
-                imageButtonPhoneVerified.setVisibility(View.VISIBLE);
-                imageButtonPhoneNotVerified.setVisibility(View.GONE);
-            } else {
-                imageButtonPhoneVerified.setVisibility(View.GONE);
-                imageButtonPhoneNotVerified.setVisibility(View.VISIBLE);
-            }
+        if (getIntent().hasExtra("userProfile"))  {
+            if(getIntent().getExtras().getString("userProfile") != null) {
+                Gson gson = new Gson();
+                UserProfile userProfile = gson.fromJson(getIntent().getExtras().getString("userProfile"), UserProfile.class);
+                editTextFirstName.setText(userProfile.getProfile().getFirst_name());
+                editTextMiddleName.setText(userProfile.getProfile().getMiddle_name());
+                editTextLastName.setText(userProfile.getProfile().getLast_name());
+                if (userProfile.getProfile().getSex().toLowerCase().equals("m")) {
+                    radioButtonMale.setChecked(true);
+                    radioButtonFemale.setChecked(false);
+                } else {
+                    radioButtonMale.setChecked(false);
+                    radioButtonFemale.setChecked(true);
+                }
+                textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
+                editTextPhone.setText(userProfile.getProfile().getPhone_number());
+                editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ""));
+                if (userProfile.getProfile().getPhone_number_verified() == 1) {
+                    imageButtonPhoneVerified.setVisibility(View.VISIBLE);
+                    imageButtonPhoneNotVerified.setVisibility(View.GONE);
+                } else {
+                    imageButtonPhoneVerified.setVisibility(View.GONE);
+                    imageButtonPhoneNotVerified.setVisibility(View.VISIBLE);
+                }
 
-            if (userProfile.getProfile().getEmail_verified() == 1) {
-                imageButtonEmailVerified.setVisibility(View.VISIBLE);
-                imageButtonEmailNotVerified.setVisibility(View.GONE);
-            } else {
-                imageButtonEmailVerified.setVisibility(View.GONE);
-                imageButtonEmailNotVerified.setVisibility(View.VISIBLE);
-            }
+                if (userProfile.getProfile().getEmail_verified() == 1) {
+                    imageButtonEmailVerified.setVisibility(View.VISIBLE);
+                    imageButtonEmailNotVerified.setVisibility(View.GONE);
+                } else {
+                    imageButtonEmailVerified.setVisibility(View.GONE);
+                    imageButtonEmailNotVerified.setVisibility(View.VISIBLE);
+                }
 
-            editTextUserHeight.setText(userProfile.getExtra().getHeight());
-            editTextUserWeight.setText(userProfile.getExtra().getWeight());
-            editTextUserBirthPlace.setText(userProfile.getExtra().getBirth_place());
-            textViewBirthTime.setText(userProfile.getExtra().getBirth_time());
-            editTextUserJob.setText(userProfile.getExtra().getCurrent_job());
-            editTextAboutMe.setText(userProfile.getExtra().getAbout_me());
+                editTextUserHeight.setText(userProfile.getExtra().getHeight());
+                editTextUserWeight.setText(userProfile.getExtra().getWeight());
+                editTextUserBirthPlace.setText(userProfile.getExtra().getBirth_place());
+                textViewBirthTime.setText(userProfile.getExtra().getBirth_time());
+                editTextUserJob.setText(userProfile.getExtra().getCurrent_job());
+                editTextAboutMe.setText(userProfile.getExtra().getAbout_me());
 
             for (UserProfile.Education education : userProfile.getEducation()) {
                 addCell(education.getEducation(), true);
@@ -322,14 +349,15 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 addCell(hobbies.getHobby(), false);
             }
 
-            editTextFatherName.setText(userProfile.getFamily().getFather_name());
-            editTextFatherEducation.setText(userProfile.getFamily().getFather_education());
-            editTextFatherProfession.setText(userProfile.getFamily().getFather_profession());
-            editTextFatherBirthPlace.setText(userProfile.getFamily().getFather_birth_place());
-            editTextMotherName.setText(userProfile.getFamily().getMother_name());
-            editTextMotherEducation.setText(userProfile.getFamily().getMother_education());
-            editTextMotherProfession.setText(userProfile.getFamily().getMother_profession());
-            editTextMotherBirthPlace.setText(userProfile.getFamily().getMother_birth_place());
+                editTextFatherName.setText(userProfile.getFamily().getFather_name());
+                editTextFatherEducation.setText(userProfile.getFamily().getFather_education());
+                editTextFatherProfession.setText(userProfile.getFamily().getFather_profession());
+                editTextFatherBirthPlace.setText(userProfile.getFamily().getFather_birth_place());
+                editTextMotherName.setText(userProfile.getFamily().getMother_name());
+                editTextMotherEducation.setText(userProfile.getFamily().getMother_education());
+                editTextMotherProfession.setText(userProfile.getFamily().getMother_profession());
+                editTextMotherBirthPlace.setText(userProfile.getFamily().getMother_birth_place());
+            }
         }
 
     }
@@ -353,7 +381,15 @@ public class UserEditProfileActivity extends AppCompatActivity {
                         final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
                         final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
                         if (auth) {
-                            Toast.makeText(UserEditProfileActivity.this, message, Toast.LENGTH_LONG).show();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(UserEditProfileActivity.this, message, Toast.LENGTH_LONG).show();
+                                    SharedPreferences.Editor editor = globalSP.edit();
+                                    editor.putBoolean(ProjectConstants.USER_PROFILE, true);
+                                    editor.apply();
+                                }
+                            });
                             startActivity(new Intent(UserEditProfileActivity.this, UserProfileActivity.class));
                             finish();
                         }
@@ -504,14 +540,21 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                         if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
                             view.updateDate(mYear, mMonth, mDay);
-
-                        textViewBirthDate.setText(String.valueOf(year + "-" + ((monthOfYear + 1) > 9 ? '0' + (monthOfYear + 1) : (monthOfYear + 1)) + "-" + dayOfMonth));
+                        String month = String.valueOf(monthOfYear + 1);
+                        if((monthOfYear + 1) < 10){
+                            month = "0" + String.valueOf((monthOfYear + 1));
+                        }
+                        String day = String.valueOf(dayOfMonth);
+                        if(dayOfMonth < 10){
+                            day = "0" + String.valueOf(dayOfMonth);
+                        }
+                        textViewBirthDate.setText(String.valueOf(year + "-" + month + "-" + day));
 
                     }
                 }, mYear, mMonth, mDay);
         dpd.getDatePicker().setMaxDate(System.currentTimeMillis());
         if (!textViewBirthDate.getText().toString().trim().equals("") || !textViewBirthDate.getText().toString().isEmpty()) {
-            dpd.updateDate(Integer.parseInt(textViewBirthDate.getText().toString().split("-")[0]), Integer.parseInt(textViewBirthDate.getText().toString().split("-")[1]), Integer.parseInt(textViewBirthDate.getText().toString().split("-")[2]));
+            dpd.updateDate(Integer.parseInt(textViewBirthDate.getText().toString().split("-")[0]), Integer.parseInt(textViewBirthDate.getText().toString().split("-")[1]) - 1, Integer.parseInt(textViewBirthDate.getText().toString().split("-")[2]));
         }
         dpd.show();
     }

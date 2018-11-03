@@ -1,12 +1,15 @@
 package com.kloudforj.matrimonial.entities;
 
+import java.util.List;
+
 public class UserProfile
 {
+
     public class Profile {
 
         private int user_id, age;
         private String first_name, middle_name, last_name, date_of_birth, sex;
-        private String address1, address2, address3, country, state, city, pincocde, phone_number;
+        private String address1, address2, address3, country, state, city, pincode, phone_number;
         private int email_verified, phone_number_verified;
         private String caste, sub_caste1, sub_caste2;
 
@@ -70,6 +73,14 @@ public class UserProfile
             return address1;
         }
 
+        public String getPincode() {
+            return pincode;
+        }
+
+        public void setPincode(String pincode) {
+            this.pincode = pincode;
+        }
+
         public void setAddress1(String address1) {
             this.address1 = address1;
         }
@@ -112,14 +123,6 @@ public class UserProfile
 
         public void setCity(String city) {
             this.city = city;
-        }
-
-        public String getPincocde() {
-            return pincocde;
-        }
-
-        public void setPincocde(String pincocde) {
-            this.pincocde = pincocde;
         }
 
         public String getPhone_number() {
@@ -171,29 +174,51 @@ public class UserProfile
         }
     }
 
-    public class Education {
+    /*public class Education {
 
-        private String education;
+        private String[] education;
 
-        public String getEducation() {
+        public String[] getEducation() {
             return education;
         }
 
-        public void setEducation(String education) {
+        public void setEducation(String[] education) {
             this.education = education;
         }
     }
 
-    public class Hobbies {
+    public class Hobby {
 
-        private String hobby;
+        private String[] hobby;
 
-        public String getHobby() {
+        public String[] getHobby() {
             return hobby;
         }
 
-        public void setHobby(String hobby) {
+        public void setHobby(String[] hobby) {
             this.hobby = hobby;
+        }
+    }*/
+
+    public class Images {
+
+        private int id;
+        private String image_path;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getImage_path() {
+            return image_path;
+        }
+
+        public void setImage_path(String image_path) {
+            this.image_path = image_path;
         }
     }
 
@@ -333,10 +358,19 @@ public class UserProfile
 
     private int id;
     private Profile profile;
-    private Education[] education;
-    private Hobbies[] hobbies;
+    private List<String> education;
+    private List<String> hobbies;
     private Family family;
     private Extra extra;
+    private Images images;
+
+    public Images getImages() {
+        return images;
+    }
+
+    public void setImages(Images images) {
+        this.images = images;
+    }
 
     public int getId() {
         return id;
@@ -354,19 +388,19 @@ public class UserProfile
         this.profile = profile;
     }
 
-    public Education[] getEducation() {
+    public List<String> getEducation() {
         return education;
     }
 
-    public void setEducation(Education[] education) {
+    public void setEducation(List<String> education) {
         this.education = education;
     }
 
-    public Hobbies[] getHobbies() {
+    public List<String> getHobbies() {
         return hobbies;
     }
 
-    public void setHobbies(Hobbies[] hobbies) {
+    public void setHobbies(List<String> hobbies) {
         this.hobbies = hobbies;
     }
 
