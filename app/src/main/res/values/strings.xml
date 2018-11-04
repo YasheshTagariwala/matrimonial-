@@ -64,6 +64,7 @@
     <string name="user_profile_last_name">Last Name</string>
     <string name="user_profile_date_of_birth">Date Of Birth</string>
     <string name="user_profile_birthdate">29 &#8211; 02 &#8211; 1995</string>
+    <string name="user_profile_birthtime">23:56</string>
     <string name="user_profile_gender">Gender</string>
     <string name="user_profile_gender_female">Female</string>
     <string name="user_profile_gender_male">Male</string>

@@ -3,6 +3,7 @@ package com.kloudforj.matrimonial.activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +23,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -662,7 +664,17 @@ public class UserEditProfileActivity extends AppCompatActivity {
     }
 
     public void getBirthTime(){
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
 
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+
+                        textViewBirthTime.setText(hourOfDay + ":" + minute);
+                    }
+                }, 0, 0, false);
+        timePickerDialog.show();
     }
 
     @Override

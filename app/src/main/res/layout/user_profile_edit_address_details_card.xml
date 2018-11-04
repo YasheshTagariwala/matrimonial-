@@ -61,7 +61,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_edit_white_24dp"
+                            android:drawableStart="@drawable/ic_location_on_white_24dp"
                             android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_address1"
                             android:singleLine="true"
@@ -97,8 +97,7 @@
                             android:id="@+id/editText_address2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_edit_white_24dp"
+                            android:paddingLeft="39dp"
                             android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_address2"
                             android:singleLine="true"
@@ -134,8 +133,7 @@
                             android:id="@+id/editText_address3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_edit_white_24dp"
+                            android:paddingLeft="39dp"
                             android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_address3"
                             android:singleLine="true"
@@ -171,8 +169,7 @@
                             android:id="@+id/editText_pincode"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_edit_white_24dp"
+                            android:paddingLeft="39dp"
                             android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_pincode"
                             android:inputType="number"
@@ -196,19 +193,6 @@
                 android:paddingEnd="@dimen/spacing_large"
                 android:paddingStart="@dimen/spacing_large">
 
-                <ImageButton
-                    android:layout_width="@dimen/spacing_mlarge"
-                    android:layout_height="@dimen/spacing_mlarge"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/default_image_button_string"
-                    android:tint="@color/kloudforj_black"
-                    app:srcCompat="@drawable/ic_person_black_24dp"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <View
-                    android:layout_width="@dimen/spacing_middle"
-                    android:layout_height="match_parent" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -217,6 +201,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="39dp"
                         android:text="@string/user_profile_country"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimary"
@@ -246,19 +231,6 @@
                 android:paddingEnd="@dimen/spacing_large"
                 android:paddingStart="@dimen/spacing_large">
 
-                <ImageButton
-                    android:layout_width="@dimen/spacing_mlarge"
-                    android:layout_height="@dimen/spacing_mlarge"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/default_image_button_string"
-                    android:tint="@color/kloudforj_black"
-                    app:srcCompat="@drawable/ic_person_black_24dp"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <View
-                    android:layout_width="@dimen/spacing_middle"
-                    android:layout_height="match_parent" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -268,6 +240,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/user_profile_state"
+                        android:paddingLeft="39dp"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/TextViewLabel"
@@ -296,19 +269,6 @@
                 android:paddingEnd="@dimen/spacing_large"
                 android:paddingStart="@dimen/spacing_large">
 
-                <ImageButton
-                    android:layout_width="@dimen/spacing_mlarge"
-                    android:layout_height="@dimen/spacing_mlarge"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/default_image_button_string"
-                    android:tint="@color/kloudforj_black"
-                    app:srcCompat="@drawable/ic_person_black_24dp"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <View
-                    android:layout_width="@dimen/spacing_middle"
-                    android:layout_height="match_parent" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -318,6 +278,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/user_profile_city"
+                        android:paddingLeft="39dp"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/TextViewLabel"
