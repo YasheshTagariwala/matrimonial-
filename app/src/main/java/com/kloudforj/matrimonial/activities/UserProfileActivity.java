@@ -34,8 +34,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.request.animation.ViewAnimation;
 import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.adapters.AdapterGridBasic;
@@ -48,9 +46,6 @@ import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.kloudforj.matrimonial.utils.Tools;
 import com.kloudforj.matrimonial.utils.ViewAnimations;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +54,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.HttpUrl;
+import okhttp3.Response;
 
 import static com.kloudforj.matrimonial.utils.Tools.*;
 import static com.kloudforj.matrimonial.utils.ViewAnimations.*;
@@ -423,6 +422,20 @@ public class UserProfileActivity extends AppCompatActivity {
                                         textViewUserBirthTime.setText(userProfile.getExtra().getBirth_time());
                                         textViewUserJob.setText(userProfile.getExtra().getCurrent_job());
                                         textViewAboutMe.setText(userProfile.getExtra().getAbout_me());
+
+                                        StringBuilder education = new StringBuilder();
+                                        for(int i = 0; i < userProfile.getEducation().size(); i++)
+                                        {
+                                            education.append(userProfile.getEducation().get(i)).append(System.getProperty("line.separator"));
+                                        }
+                                        textViewUserEducation.setText(education.toString());
+
+                                        StringBuilder hobbies = new StringBuilder();
+                                        for(int i = 0; i < userProfile.getHobbies().size(); i++)
+                                        {
+                                            hobbies.append(userProfile.getHobbies().get(i)).append(System.getProperty("line.separator"));
+                                        }
+                                        textViewHobby.setText(hobbies.toString());
 
                                         /*textViewAddress1.setText(userProfile.getProfile().getAddress1());
                                         textViewAddress2.setText(userProfile.getProfile().getAddress2());

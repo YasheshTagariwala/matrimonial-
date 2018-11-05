@@ -322,7 +322,6 @@
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
                             android:textSize="@dimen/TextViewLabel"
                             android:textColor="@color/kloudforj_black"
-                            android:text="@string/user_profile_default_hobbies"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                     </LinearLayout>

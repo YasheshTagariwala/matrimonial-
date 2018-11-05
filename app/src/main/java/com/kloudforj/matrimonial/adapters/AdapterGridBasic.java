@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
@@ -17,12 +19,22 @@ import android.widget.ImageView;
 
 
 import com.kloudforj.matrimonial.R;
-import com.kloudforj.matrimonial.utils.Tools;
+import com.kloudforj.matrimonial.utils.ProjectConstants;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -160,9 +172,19 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                         public void onClick(View v) {
                         }
                     });
-                }
 
+                    //Uri selectedImage = imageReturnedIntent.getData();
+                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+                    Cursor cursor1 = ctx.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    cursor1.moveToFirst();
+
+                    int columnIndex = cursor1.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor1.getString(columnIndex);
+                    cursor1.close();
+                }
                 break;
+
             case 1:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
@@ -171,6 +193,47 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                     mainHolder.imageButtonTimeline.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                        }
+                    });
+
+                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+                    Cursor cursor1 = ctx.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    cursor1.moveToFirst();
+
+                    int columnIndex = cursor1.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor1.getString(columnIndex);
+                    cursor1.close();
+
+                    Call requestCall;
+                    OkHttpClient client = new OkHttpClient();
+                    Request request;
+                    SharedPreferences globalSP = ctx.getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
+                    RequestBody req = new MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("user_id", String.valueOf(globalSP.getInt(ProjectConstants.USERID, 0)))
+                            .addFormDataPart("profile", picturePath, RequestBody.create(MediaType.parse("image/jpg"), new File(picturePath))).build();
+
+                    request = new Request.Builder()
+                            .url("http://139.59.90.129/matrimonial/public/index.php/api/v0/user/upload-profile-image")
+                            .post(req)
+                            .header(ProjectConstants.APITOKEN, globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING))
+                            .build();
+
+                    Log.e("Request : ", request.toString());
+
+                    requestCall = client.newCall(request);
+                    requestCall.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.e("Error : ", "123");
+                            Log.e("Error : ", e.getMessage());
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            Log.e("Resp : ", response.body().string());
                         }
                     });
                 }

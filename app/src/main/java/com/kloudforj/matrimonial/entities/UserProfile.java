@@ -174,32 +174,6 @@ public class UserProfile
         }
     }
 
-    /*public class Education {
-
-        private String[] education;
-
-        public String[] getEducation() {
-            return education;
-        }
-
-        public void setEducation(String[] education) {
-            this.education = education;
-        }
-    }
-
-    public class Hobby {
-
-        private String[] hobby;
-
-        public String[] getHobby() {
-            return hobby;
-        }
-
-        public void setHobby(String[] hobby) {
-            this.hobby = hobby;
-        }
-    }*/
-
     public class Images {
 
         private int id;
@@ -362,15 +336,7 @@ public class UserProfile
     private List<String> hobbies;
     private Family family;
     private Extra extra;
-    private Images images;
-
-    public Images getImages() {
-        return images;
-    }
-
-    public void setImages(Images images) {
-        this.images = images;
-    }
+    private Images[] images;
 
     public int getId() {
         return id;
@@ -418,5 +384,13 @@ public class UserProfile
 
     public void setExtra(Extra extra) {
         this.extra = extra;
+    }
+
+    public Images[] getImages() {
+        return images;
+    }
+
+    public void setImages(Images[] images) {
+        this.images = images;
     }
 }

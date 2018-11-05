@@ -35,17 +35,26 @@ import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.kloudforj.matrimonial.utils.Tools;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class UserEditProfileActivity extends AppCompatActivity {
 
@@ -343,13 +352,12 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 editTextUserJob.setText(userProfile.getExtra().getCurrent_job());
                 editTextAboutMe.setText(userProfile.getExtra().getAbout_me());
 
-//            for (UserProfile.Education education : userProfile.getEducation()) {
-//                addCell(education.getEducation(), true);
-//            }
-//
-//            for (UserProfile.Hobbies hobbies : userProfile.getHobbies()) {
-//                addCell(hobbies.getHobby(), false);
-//            }
+                for (int i = 0; i< userProfile.getEducation().size(); i++) {
+                    addCell(userProfile.getEducation().get(i), true);
+                }
+                for (int i = 0; i< userProfile.getHobbies().size(); i++) {
+                    addCell(userProfile.getHobbies().get(i), false);
+                }
 
                 editTextFatherName.setText(userProfile.getFamily().getFather_name());
                 editTextFatherEducation.setText(userProfile.getFamily().getFather_education());
@@ -681,5 +689,38 @@ public class UserEditProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         mAdapter.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+    }
+
+    public void uploadImageAPI(String picturePath) {
+        Call requestCall;
+        OkHttpClient client = new OkHttpClient();
+        Request request;
+        RequestBody req = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("user_id", "4")
+                .addFormDataPart("profile", picturePath, RequestBody.create(MediaType.parse("image/jpg"), new File(picturePath))).build();
+
+        request = new Request.Builder()
+                .url("http://139.59.90.129/matrimonial/public/index.php/api/v0/user/upload-profile-image")
+                .post(req)
+                .header(ProjectConstants.APITOKEN, "g4EcKYTRzMAkhmNWq6AV3G9kOdbrAQQXv37Vhg1CdzXJSDMLKXhKuuWjDW4W")
+                .build();
+
+        Log.e("Request : ", request.toString());
+
+        requestCall = client.newCall(request);
+        requestCall.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("Error : ", "123");
+                Log.e("Error : ", e.getMessage());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.e("Resp : ", response.body().string());
+            }
+        });
     }
 }

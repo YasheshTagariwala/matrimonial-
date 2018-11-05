@@ -16,8 +16,8 @@ public class Tools {
     public static void displayImageOriginal(Context ctx, ImageView img, @DrawableRes int drawable) {
         try {
             Glide.with(ctx).load(drawable)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    /*.crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)*/
                     .into(img);
         } catch (Exception e) {
             e.printStackTrace();

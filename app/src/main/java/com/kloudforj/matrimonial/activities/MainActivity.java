@@ -2,6 +2,7 @@ package com.kloudforj.matrimonial.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -22,9 +23,11 @@ import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.adapters.HomeListAdapter;
@@ -35,15 +38,6 @@ import com.kloudforj.matrimonial.fragments.UserListFragment;
 import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +45,15 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ImageButton imageButtonSearch;
     private Call userListRequestCall, logoutRequestCall;
     private Button buttonProfileName;
+    private ImageView imgProfile;
     private UserListFragment userListFragment;
     private FavouriteListFragment favouriteListFragment;
 
@@ -117,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         View mView = mNavigationView.getHeaderView(0);
-        buttonProfileName = mView.findViewById(R.id.button_edit);
+        buttonProfileName = mView.findViewById(R.id.button_profile_name);
         buttonProfileName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +131,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);*/
             }
         });
+        imgProfile = mView.findViewById(R.id.imageview_profile);
+        //TODO: Load image.
+        //Glide.with(getApplicationContext()).load("").into(imgProfile);
 
         mUsersListRecyclerView = findViewById(R.id.rv_user_list);
         mUsersListRecyclerView.setHasFixedSize(true);
@@ -141,7 +148,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         imageButtonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,SearchActivity.class));
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+                //startActivity(new Intent(MainActivity.this,SearchActivity.class));
+                //finish();
             }
         });
 
@@ -362,12 +375,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             logoutRequestCall = clientlogout.newCall(requestLogout);
             logoutRequestCall.enqueue(new Callback() {
                 @Override
-                public void onFailure(Request request, IOException e) {
+                public void onFailure(Call call, IOException e) {
                     e.printStackTrace();
                 }
 
                 @Override
-                public void onResponse(Response response) throws IOException {
+                public void onResponse(Call call, Response response) throws IOException {
                     if(!response.isSuccessful()) {
                         Log.e("1 : ", response.toString());
                         enableComponents(getResources().getString(R.string.something_went_wrong));
@@ -417,5 +430,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
         }
+    }
+
+    private Boolean exit = false;
+
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.", Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+
+        }
+
     }
 }

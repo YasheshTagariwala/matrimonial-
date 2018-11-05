@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <!--<android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_user_profile_activity"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -37,7 +37,7 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.Toolbar>-->
 
     <ProgressBar
         android:id="@+id/pb_userprofile_activity"
@@ -176,8 +176,8 @@
             android:layout_margin="@dimen/spacing_mlarge"
             android:clickable="true"
             android:focusable="true"
-            android:tint="@android:color/white"
-            app:backgroundTint="@color/app_blue"
+            android:tint="@color/pink_primary_dark"
+            app:backgroundTint="@color/colorPrimary"
             app:fabSize="normal"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|right|end"
