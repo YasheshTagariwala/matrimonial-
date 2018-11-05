@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,22 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 }
             });
         }
+
+        holder.imageButtonFavouritePerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.imageButtonFavouritePerson.setVisibility(View.GONE);
+                holder.imageButtonFavouritePersonLike.setVisibility(View.VISIBLE);
+            }
+        });
+
+        holder.imageButtonFavouritePersonLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.imageButtonFavouritePerson.setVisibility(View.VISIBLE);
+                holder.imageButtonFavouritePersonLike.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -79,6 +96,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private TextView tvUserName, tvUserCaste, tvUserAge;
+        ImageButton imageButtonFavouritePerson,imageButtonFavouritePersonLike;
 
         View view;
 
@@ -93,6 +111,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             tvUserName = view.findViewById(R.id.tv_user_name);
             tvUserCaste = view.findViewById(R.id.tv_user_caste);
             tvUserAge = view.findViewById(R.id.tv_user_age);
+            imageButtonFavouritePerson = view.findViewById(R.id.favourite_person);
+            imageButtonFavouritePersonLike = view.findViewById(R.id.favourite_person_like);
         }
 
         public void setClickListener(ItemClickListener itemClickListener) {

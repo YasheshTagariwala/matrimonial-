@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     app:tabMode="fixed"
                     android:layout_weight="1"
-                    app:tabGravity="fill"/>
+                    app:tabGravity="center"/>
 
                 <ImageButton
                     android:id="@+id/imagebutton_search"

@@ -128,6 +128,8 @@
     <string name="user_profile_state">State</string>
     <string name="user_profile_city">City</string>
     <string name="user_profile_pincode">Pincode</string>
+    <string name="user_profile_location">Location</string>
+    <string name="user_profile_default_location">Surat, Gujarat, India</string>
 
     <!-- Search Activity strings -->
     <string name="search_user">Search</string>

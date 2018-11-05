@@ -74,8 +74,8 @@ public class UserProfileActivity extends AppCompatActivity {
     //========     Added by ellis On date 30-09-2018     ================
 
     private LinearLayout toggle_basic_info, toggle_education_info, toggle_extra_info, toggle_family_info;
-    private ImageView img_toggle_basic_info, img_toggle_extra_info, img_toggle_education_info, img_toggle_family_info;
-    private View basic_info_expanded_view, extra_info_expanded_view, education_info_expanded_view, family_info_expanded_view;
+    private ImageView img_toggle_basic_info, img_toggle_extra_info, img_toggle_education_info, img_toggle_family_info, img_toggle_address_info;
+    private View basic_info_expanded_view, extra_info_expanded_view, education_info_expanded_view, family_info_expanded_view,toggle_address_info, address_info_expanded_view;
     private NestedScrollView nested_scroll_view;
 
 //========     Added by ellis On date 30-09-2018     ================
@@ -109,7 +109,7 @@ public class UserProfileActivity extends AppCompatActivity {
             textViewUserHeight, textViewUserWeight, textViewUserBirthPlace, textViewUserBirthTime,
             textViewUserJob, textViewUserEducation, textViewFatherName, textViewFatherEducation,
             textViewFatherProfession, textViewFatherBirthPlace, textViewMotherName,
-            textViewMotherEducation, textViewMotherProfession, textViewMotherBirthPlace;
+            textViewMotherEducation, textViewMotherProfession, textViewMotherBirthPlace,textViewAddress1, textViewAddress2, textViewAddress3, textViewPincode, textviewLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +166,12 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewMotherEducation = findViewById(R.id.text_mother_education);
         textViewMotherProfession = findViewById(R.id.text_mother_profession);
         textViewMotherBirthPlace = findViewById(R.id.text_mother_birth_place);
+
+        textViewAddress1 = findViewById(R.id.text_address1);
+        textViewAddress2 = findViewById(R.id.text_address2);
+        textViewAddress3 = findViewById(R.id.text_address3);
+        textViewPincode = findViewById(R.id.text_pincode);
+        textviewLocation = findViewById(R.id.text_location);
 
         fabEdit = findViewById(R.id.fab_edit);
         fabEdit.setOnClickListener(new View.OnClickListener() {
@@ -242,6 +248,16 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 toggleSectionFamilyInfo(img_toggle_family_info);
+            }
+        });
+
+        toggle_address_info = findViewById(R.id.toggle_address_info);
+        img_toggle_address_info = findViewById(R.id.img_toggle_address_info);
+        address_info_expanded_view = findViewById(R.id.address_info_expanded_view);
+        toggle_address_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSectionaddressInfo(img_toggle_address_info);
             }
         });
 
@@ -333,6 +349,20 @@ public class UserProfileActivity extends AppCompatActivity {
             });
         } else {
             ViewAnimations.collapse(family_info_expanded_view);
+        }
+    }
+
+    private void toggleSectionaddressInfo(View view) {
+        boolean show = toggleArrow(view);
+        if (show) {
+            ViewAnimations.expand(address_info_expanded_view, new ViewAnimations.AnimListener() {
+                @Override
+                public void onFinish() {
+                    Tools.nestedScrollTo(nested_scroll_view, address_info_expanded_view);
+                }
+            });
+        } else {
+            ViewAnimations.collapse(address_info_expanded_view);
         }
     }
 

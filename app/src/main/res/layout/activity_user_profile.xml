@@ -165,6 +165,9 @@
                 <!--family detail-->
                 <include layout="@layout/user_profile_view_family_details_card" />
 
+                <!--address detail-->
+                <include layout="@layout/user_profile_view_address_details_card" />
+
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
