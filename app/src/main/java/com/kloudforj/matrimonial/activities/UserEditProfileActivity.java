@@ -104,8 +104,6 @@ public class UserEditProfileActivity extends AppCompatActivity {
         recyclerViewUserImage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewUserImage.addItemDecoration(new SpacingItemDecoration(3, Tools.dpToPx(this, 5), true));
         recyclerViewUserImage.setHasFixedSize(true);
-        mAdapter = new AdapterGridBasic(this, 3);
-        recyclerViewUserImage.setAdapter(mAdapter);
 
         radioButtonMale = findViewById(R.id.radioMale);
         radioButtonFemale = findViewById(R.id.radioFemale);
@@ -182,11 +180,17 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                         //TODO:: To Change When Done Dynamic
 
-                        profile.setAddress1("asdf1234");
-                        profile.setCountry("asdas");
-                        profile.setState("asdas");
-                        profile.setCity("asdas");
-                        profile.setPincode("123456");
+                        profile.setAddress1(editTextAddress1.getText().toString().trim());
+                        if(!editTextAddress2.getText().toString().trim().equals("")){
+                            profile.setAddress2(editTextAddress2.getText().toString().trim());
+                        }
+                        if(!editTextAddress3.getText().toString().trim().equals("")){
+                            profile.setAddress3(editTextAddress3.getText().toString().trim());
+                        }
+                        profile.setCountry(spinnerCountry.getSelectedItem().toString());
+                        profile.setState(spinnerState.getSelectedItem().toString());
+                        profile.setCity(spinnerCity.getSelectedItem().toString());
+                        profile.setPincode(editTextPinCode.getText().toString().trim());
 
                         //
 
@@ -359,6 +363,20 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     addCell(userProfile.getHobbies().get(i), false);
                 }
 
+                String[] items = new String[userProfile.getImages().length];
+                int[] items_id = new int[userProfile.getImages().length];
+                for (int i = 0; i < userProfile.getImages().length; i++) {
+                    items[i] = userProfile.getImages()[i].getImage_path();
+                    items_id[i] = userProfile.getImages()[i].getId();
+                }
+                mAdapter = new AdapterGridBasic(this, items,items_id);
+                recyclerViewUserImage.setAdapter(mAdapter);
+
+                editTextAddress1.setText(userProfile.getProfile().getAddress1());
+                editTextAddress2.setText(userProfile.getProfile().getAddress2());
+                editTextAddress3.setText(userProfile.getProfile().getAddress3());
+                editTextPinCode.setText(userProfile.getProfile().getPincode());
+
                 editTextFatherName.setText(userProfile.getFamily().getFather_name());
                 editTextFatherEducation.setText(userProfile.getFamily().getFather_education());
                 editTextFatherProfession.setText(userProfile.getFamily().getFather_profession());
@@ -503,6 +521,16 @@ public class UserEditProfileActivity extends AppCompatActivity {
         toValidate = editTextMotherProfession.getText().toString();
         if (toValidate.trim().equals("") || toValidate.isEmpty()) {
             return showError(getResources().getString(R.string.user_mother_profession_empty));
+        }
+
+        toValidate = editTextAddress1.getText().toString();
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
+            return showError(getResources().getString(R.string.user_address_empty));
+        }
+
+        toValidate = editTextPinCode.getText().toString();
+        if (toValidate.trim().equals("") || toValidate.isEmpty()) {
+            return showError(getResources().getString(R.string.user_pincode_empty));
         }
 
         return true;
@@ -697,13 +725,13 @@ public class UserEditProfileActivity extends AppCompatActivity {
         Request request;
         RequestBody req = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("user_id", "4")
+                .addFormDataPart("user_id", globalSP.getString(ProjectConstants.USERID, ProjectConstants.EMPTY_STRING))
                 .addFormDataPart("profile", picturePath, RequestBody.create(MediaType.parse("image/jpg"), new File(picturePath))).build();
 
         request = new Request.Builder()
                 .url("http://139.59.90.129/matrimonial/public/index.php/api/v0/user/upload-profile-image")
                 .post(req)
-                .header(ProjectConstants.APITOKEN, "g4EcKYTRzMAkhmNWq6AV3G9kOdbrAQQXv37Vhg1CdzXJSDMLKXhKuuWjDW4W")
+                .header(ProjectConstants.APITOKEN, globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING))
                 .build();
 
         Log.e("Request : ", request.toString());

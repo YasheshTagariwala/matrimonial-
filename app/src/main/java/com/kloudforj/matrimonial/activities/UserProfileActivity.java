@@ -85,11 +85,12 @@ public class UserProfileActivity extends AppCompatActivity {
     private Runnable runnable = null;
     private Handler handler = new Handler();
 
-    private static int[] array_image_product = {
-            R.drawable.profile_image,
-            R.drawable.profile_image,
-            R.drawable.profile_image,
-    };
+//    private static int[] array_image_product = {
+//            R.drawable.profile_image,
+//            R.drawable.profile_image,
+//            R.drawable.profile_image,
+//    };
+    private String[] array_image_product;
 //===================================================================
 
     private ProgressBar mUserProfileActvityProgressBar;
@@ -262,35 +263,6 @@ public class UserProfileActivity extends AppCompatActivity {
         });
 
         nested_scroll_view = findViewById(R.id.nested_scroll_view);
-
-        List<UserProfileImage> items = new ArrayList<>();
-        for (int i : array_image_product) {
-            UserProfileImage obj = new UserProfileImage();
-            obj.image = i;
-            obj.imageDrw = getResources().getDrawable(obj.image);
-            items.add(obj);
-        }
-
-        userImageSliderAdapter.setItems(items);
-        viewPager.setAdapter(userImageSliderAdapter);
-
-        // displaying selected image first
-        viewPager.setCurrentItem(0);
-        addBottomDots(layout_dots, userImageSliderAdapter.getCount(), 0);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int pos, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int pos) {
-                addBottomDots(layout_dots, userImageSliderAdapter.getCount(), pos);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
 
 //        startAutoSlider(userImageSliderAdapter.getCount());
     }
@@ -467,12 +439,15 @@ public class UserProfileActivity extends AppCompatActivity {
                                         }
                                         textViewHobby.setText(hobbies.toString());
 
-                                        /*textViewAddress1.setText(userProfile.getProfile().getAddress1());
+                                        array_image_product = new String[userProfile.getImages().length];
+                                        for(int i = 0; i < userProfile.getImages().length; i++){
+                                            array_image_product[i] = userProfile.getImages()[i].getImage_path();
+                                        }
+
+                                        textViewAddress1.setText(userProfile.getProfile().getAddress1());
                                         textViewAddress2.setText(userProfile.getProfile().getAddress2());
                                         textViewAddress3.setText(userProfile.getProfile().getAddress3());
-                                        textViewCountry.setText(userProfile.getProfile().getCountry());
-                                        textViewState.setText(userProfile.getProfile().getState());
-                                        textViewCity.setText(userProfile.getProfile().getCity());*/
+                                        textviewLocation.setText(userProfile.getProfile().getCountry() + ", "+ userProfile.getProfile().getState() + ", "+ userProfile.getProfile().getCity());
 
                                         textViewFatherName.setText(userProfile.getFamily().getFather_name());
                                         textViewFatherEducation.setText(userProfile.getFamily().getFather_education());
@@ -482,6 +457,34 @@ public class UserProfileActivity extends AppCompatActivity {
                                         textViewMotherEducation.setText(userProfile.getFamily().getMother_education());
                                         textViewMotherProfession.setText(userProfile.getFamily().getMother_profession());
                                         textViewMotherBirthPlace.setText(userProfile.getFamily().getMother_birth_place());
+
+                                        List<UserProfileImage> items = new ArrayList<>();
+                                        for (String i : array_image_product) {
+                                            UserProfileImage obj = new UserProfileImage();
+                                            obj.name = i;
+                                            items.add(obj);
+                                        }
+
+                                        userImageSliderAdapter.setItems(items);
+                                        viewPager.setAdapter(userImageSliderAdapter);
+
+                                        // displaying selected image first
+                                        viewPager.setCurrentItem(0);
+                                        addBottomDots(layout_dots, userImageSliderAdapter.getCount(), 0);
+                                        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                                            @Override
+                                            public void onPageScrolled(int pos, float positionOffset, int positionOffsetPixels) {
+                                            }
+
+                                            @Override
+                                            public void onPageSelected(int pos) {
+                                                addBottomDots(layout_dots, userImageSliderAdapter.getCount(), pos);
+                                            }
+
+                                            @Override
+                                            public void onPageScrollStateChanged(int state) {
+                                            }
+                                        });
 
                                     } catch (JSONException e) {
                                         enableComponents(getResources().getString(R.string.something_went_wrong));

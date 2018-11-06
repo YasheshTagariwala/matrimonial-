@@ -204,6 +204,8 @@
     <string name="user_father_profession_empty">Enter Your Father Profession</string>
     <string name="user_mother_empty">Enter Your Mother Name</string>
     <string name="user_mother_profession_empty">Enter Your Mother Profession</string>
+    <string name="user_address_empty">Enter Your Address</string>
+    <string name="user_pincode_empty">Enter Your Pincode</string>
 
 
 </resources>

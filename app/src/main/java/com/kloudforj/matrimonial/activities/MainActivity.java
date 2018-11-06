@@ -28,6 +28,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.adapters.HomeListAdapter;
@@ -37,6 +41,7 @@ import com.kloudforj.matrimonial.fragments.FavouriteListFragment;
 import com.kloudforj.matrimonial.fragments.UserListFragment;
 import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
+import com.kloudforj.matrimonial.utils.GlideApp;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +50,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -69,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private UserListFragment userListFragment;
     private FavouriteListFragment favouriteListFragment;
 
-    private String location, subcaste1, subcaste2, name;
+    private String location, subcaste1, subcaste2, name, user_name, image_name;
     private String age;
 
     private String token;
@@ -101,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         subcaste1 = globalSP.getString(ProjectConstants.SUBCASTE1, ProjectConstants.EMPTY_STRING);
         subcaste2 = globalSP.getString(ProjectConstants.SUBCASTE2, ProjectConstants.EMPTY_STRING);
         name = globalSP.getString(ProjectConstants.NAME, ProjectConstants.EMPTY_STRING);
+        user_name = globalSP.getString(ProjectConstants.USER_NAME, ProjectConstants.EMPTY_STRING);
+        image_name = globalSP.getString(ProjectConstants.BASE_IMAGE, ProjectConstants.EMPTY_STRING);
         age = globalSP.getString(ProjectConstants.AGE, ProjectConstants.EMPTY_STRING);
 
         // ActionBar is set on MainActivity
@@ -122,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         View mView = mNavigationView.getHeaderView(0);
         buttonProfileName = mView.findViewById(R.id.button_profile_name);
+        buttonProfileName.setText(user_name);
         buttonProfileName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +143,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         imgProfile = mView.findViewById(R.id.imageview_profile);
         //TODO: Load image.
-        //Glide.with(getApplicationContext()).load("").into(imgProfile);
+        RequestOptions ro = new RequestOptions()
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .fitCenter();
+
+        GlideUrl url = new GlideUrl(ProjectConstants.BASE_URL + ProjectConstants.IMAGE_GET_URL + "/" + image_name,
+                new LazyHeaders.Builder().addHeader(ProjectConstants.APITOKEN, token).build());
+        GlideApp.with(MainActivity.this).load(url).apply(ro)
+                /*.crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)*/
+                .into(imgProfile);
 
         mUsersListRecyclerView = findViewById(R.id.rv_user_list);
         mUsersListRecyclerView.setHasFixedSize(true);
@@ -263,17 +283,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                             ArrayList<UserProfile> userProfiles = new ArrayList<>();
                                             ArrayList<UserProfile> userProfilesWithFavorites = new ArrayList<>();
-
+                                            Map<Integer,Boolean> is_favorite = new HashMap<>();
                                             for(int i = 0; i < jsonArrayData.length(); i++) {
                                                 JSONObject jsonObject = jsonArrayData.getJSONObject(i);
                                                 //Log.e("Profile : ", jsonObject.toString());
                                                 userProfiles.add(new Gson().fromJson(jsonObject.toString(), UserProfile.class));
                                                 if(jsonObject.getBoolean("is_favorite")){
+                                                    is_favorite.put(jsonObject.getJSONObject("profile").getInt("user_id"),true);
                                                     userProfilesWithFavorites.add(new Gson().fromJson(jsonObject.toString(), UserProfile.class));
                                                 }
                                             }
-                                            userListFragment.mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfiles));
-                                            favouriteListFragment.mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfilesWithFavorites));
+                                            userListFragment.mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfiles,false,is_favorite));
+                                            favouriteListFragment.mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfilesWithFavorites,true,is_favorite));
 //                                            mUsersListRecyclerView.setAdapter();
                                         }
                                     } catch (JSONException e) {
@@ -295,6 +316,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
 
             }
+        }
+    }
+
+    public void updateData(boolean is_removed){
+        if(is_removed){
+
+        }else{
+
         }
     }
 

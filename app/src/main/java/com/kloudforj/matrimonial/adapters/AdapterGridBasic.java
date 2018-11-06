@@ -16,16 +16,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.utils.CallBackFunction;
+import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
+import com.kloudforj.matrimonial.utils.Tools;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -44,12 +52,13 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
     private OnItemClickListener mOnItemClickListener;
     private OriginalViewHolder mainHolder;
 
-
+    private String[] items;
+    private int[] items_id;
 
     int numberOfImages;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, Integer obj, int position);
+        void onItemClick(View view, String obj, int position);
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
@@ -58,6 +67,12 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public AdapterGridBasic(Context context, int numberOfImages) {
         this.numberOfImages = numberOfImages;
+        ctx = context;
+    }
+
+    public AdapterGridBasic(Context context, String[] items, int[] items_id) {
+        this.items = items;
+        this.items_id = items_id;
         ctx = context;
     }
 
@@ -88,19 +103,46 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof OriginalViewHolder) {
+            SharedPreferences globalSP;
+            globalSP = ctx.getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
+            final String token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
             final OriginalViewHolder view = (OriginalViewHolder) holder;
-//            Tools.displayImageOriginal(ctx, view.image, items.get(position));
-//            view.lyt_parent.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    if (mOnItemClickListener != null) {
-//                        mOnItemClickListener.onItemClick(view, items.get(position), position);
-//                    }
-//                }
-//            });
+            if(items.length > position && items[position] != null){
+                Tools.displayImageOriginal(ctx, view.imageButtonTimeline, items[position]);
+                view.lyt_parent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (mOnItemClickListener != null) {
+                            mOnItemClickListener.onItemClick(view, items[position], position);
+                        }
+                    }
+                });
+            }else{
+                view.imageButtonTimeline.setImageResource(R.drawable.add_image_icon);
+                view.imageButtonRemove.setVisibility(View.GONE);
+                view.imageButtonTimeline.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mainHolder = view;
+                        getImageData();
+                    }
+                });
+            }
             view.imageButtonRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    JSONObject jsonObjectRequest = new JSONObject();
+                    try {
+                        jsonObjectRequest.put(ProjectConstants.IMAGE_ID, items_id[position]);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.DELETE_IMAGE_URL).newBuilder();
+                    if (DetectConnection.checkInternetConnection(ctx)) {
+                        new ProjectConstants.getDataFromServer(jsonObjectRequest, new DeleteProfilePic(), ctx).execute(urlBuilder.build().toString(), token);
+                    } else {
+                        Toast.makeText(ctx, ctx.getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                    }
                     view.imageButtonTimeline.setImageResource(R.drawable.add_image_icon);
                     view.imageButtonRemove.setVisibility(View.GONE);
                     view.imageButtonTimeline.setOnClickListener(new View.OnClickListener() {
@@ -112,16 +154,55 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                     });
                 }
             });
-            if(position == 2){
-                view.imageButtonTimeline.setImageResource(R.drawable.add_image_icon);
-                view.imageButtonRemove.setVisibility(View.GONE);
-                view.imageButtonTimeline.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mainHolder = view;
-                        getImageData();
+        }
+    }
+
+    public class DeleteProfilePic implements CallBackFunction {
+
+        @Override
+        public void getResponseFromServer(Response response) throws IOException {
+            if (!response.isSuccessful()) {
+                Log.e("resp1 : ", response.toString());
+                Toast.makeText(ctx, ctx.getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                throw new IOException("Unexpected code " + response);
+            } else {
+
+                String result = response.body().string(); // response is converted to string
+                Log.e("resp : ", result);
+
+                if (result != null) {
+
+                    try {
+
+                        final JSONObject jsonHome = new JSONObject(result);
+
+                        final Boolean auth = jsonHome.getBoolean(ProjectConstants.AUTH);
+                        final String message = jsonHome.getString(ProjectConstants.MESSAGE);
+
+                        ((Activity) ctx).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (auth) {
+                                    Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                    } catch (JSONException e) {
+                        ((Activity) ctx).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(ctx, ctx.getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
-                });
+                } else {
+                    ((Activity) ctx).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(ctx, ctx.getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         }
     }
@@ -215,7 +296,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                             .addFormDataPart("profile", picturePath, RequestBody.create(MediaType.parse("image/jpg"), new File(picturePath))).build();
 
                     request = new Request.Builder()
-                            .url("http://139.59.90.129/matrimonial/public/index.php/api/v0/user/upload-profile-image")
+                            .url(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.IMAGE_UPLOAD_URL)
                             .post(req)
                             .header(ProjectConstants.APITOKEN, globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING))
                             .build();
@@ -243,7 +324,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return numberOfImages;
+        return 3;
     }
 
     public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {

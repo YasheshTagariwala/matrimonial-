@@ -81,7 +81,7 @@ public class UserImageSliderAdapter extends PagerAdapter {
             relativeLayout.setVisibility(View.GONE);
         }
         MaterialRippleLayout lyt_parent = v.findViewById(R.id.lyt_parent);
-        Tools.displayImageOriginal(act, image, o.image);
+        Tools.displayImageOriginal(act, image, o.name);
         lyt_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

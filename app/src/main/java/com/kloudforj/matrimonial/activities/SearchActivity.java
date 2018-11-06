@@ -58,7 +58,7 @@ public class SearchActivity extends AppCompatActivity {
         rangeSeekBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                textViewAge.setText("Age (" + getSelectedValue((Integer) rangeSeekBar.getSelectedMinValue()) + "-" + getSelectedValue((Integer) rangeSeekBar.getSelectedMaxValue()) + ")");
+                textViewAge.setText(getSelectedValue((Integer) rangeSeekBar.getSelectedMinValue()) + "-" + getSelectedValue((Integer) rangeSeekBar.getSelectedMaxValue()));
                 return false;
             }
         });
@@ -74,7 +74,11 @@ public class SearchActivity extends AppCompatActivity {
                 String location = mSpnCountry.getSelectedItem().toString().trim()+"/"+mSpnState.getSelectedItem().toString().trim()+"/"+mSpnCity.getSelectedItem().toString().trim();
 
                 editor.putString(ProjectConstants.LOCATION, location);
-                editor.putString(ProjectConstants.AGE, "24-24");
+                if(textViewAge.getText().toString().trim().equals("")){
+                    editor.putString(ProjectConstants.AGE, "0-24");
+                }else{
+                    editor.putString(ProjectConstants.AGE, textViewAge.getText().toString().trim());
+                }
                 editor.putString(ProjectConstants.SUBCASTE1, mSpnSubCaste1.getSelectedItemId() == 0 ? "" : mSpnSubCaste1.getSelectedItem().toString().trim());
                 editor.putString(ProjectConstants.SUBCASTE2, mSpnSubCaste2.getSelectedItemId() == 0 ? "" : mSpnSubCaste2.getSelectedItem().toString().trim());
                 editor.putString(ProjectConstants.NAME, mEtName.getText().toString().trim());

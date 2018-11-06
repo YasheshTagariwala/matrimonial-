@@ -37,7 +37,13 @@ public class ProjectConstants {
     public static final String USER_FAMILY = "user_family";
     public static final String USER_EXTRA = "user_extra";
     public static final String USERID = "user_id";
+    public static final String USER_NAME = "user_name";
+    public static final String BASE_IMAGE = "user_image";
     public static final String ID = "id";
+
+
+    public static final String BOOKMARKID = "bookmark_id";
+    public static final String IMAGE_ID = "image_id";
 
     //public static final String BASE_URL = "http://metrimonial.it/api";
     public static final String BASE_URL = "http://139.59.90.129/matrimonial/public/index.php/api";
@@ -76,8 +82,11 @@ public class ProjectConstants {
     public static final String USER_PROFILE_URL = "/profile";
     public static final String UPDATE_PROFILE_URL = "/update-profile";
     public static final String IMAGE_UPLOAD_URL = "/upload-profile-image";
+    public static final String DELETE_IMAGE_URL = "/delete-profile-image";
     public static final String IMAGE_GET_URL = "/user-image";
     public static final String USERLIST_URL = "/home";
+    public static final String ADD_TO_FAVORITES_URL = "/add-to-favorites";
+    public static final String REMOVE_FAVORITES_URL = "/delete-favorites";
 
     /*Logout constants*/
     public static final String LOGOUT_URL = "/logout";
