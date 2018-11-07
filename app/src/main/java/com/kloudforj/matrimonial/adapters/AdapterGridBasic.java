@@ -163,7 +163,12 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
         public void getResponseFromServer(Response response) throws IOException {
             if (!response.isSuccessful()) {
                 Log.e("resp1 : ", response.toString());
-                Toast.makeText(ctx, ctx.getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                ((Activity) ctx).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ctx, ctx.getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 throw new IOException("Unexpected code " + response);
             } else {
 
