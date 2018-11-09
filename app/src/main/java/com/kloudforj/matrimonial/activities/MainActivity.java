@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         imgProfile = mView.findViewById(R.id.imageview_profile);
-        //TODO: Load image.
+
         RequestOptions ro = new RequestOptions()
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

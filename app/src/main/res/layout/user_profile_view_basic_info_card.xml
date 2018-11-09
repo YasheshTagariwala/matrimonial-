@@ -114,7 +114,7 @@
                             android:paddingTop="@dimen/spacing_middle"
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
                             android:textSize="@dimen/TextViewLabel"
-                            android:text="@string/default_string"
+                            android:hint="@string/default_string"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black" />
 
@@ -167,7 +167,7 @@
                                 android:paddingTop="@dimen/spacing_middle"
                                 android:lineSpacingExtra="@dimen/spacing_xsmall"
                                 android:textSize="@dimen/TextViewLabel"
-                                android:text="@string/user_profile_birthdate"
+                                android:hint="@string/user_profile_birthdate"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/kloudforj_black" />
 
@@ -213,11 +213,57 @@
                                 android:paddingTop="@dimen/spacing_middle"
                                 android:lineSpacingExtra="@dimen/spacing_xsmall"
                                 android:textSize="@dimen/TextViewLabel"
-                                android:text="@string/user_profile_gender_female"
+                                android:hint="@string/user_profile_gender_female"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/kloudforj_black" />
 
                         </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/spacing_middle">
+
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mlarge"
+                        android:layout_height="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/kloudforj_black"
+                        app:srcCompat="@drawable/ic_favorite_white_24dp"
+                        tools:ignore="VectorDrawableCompat"
+                        android:contentDescription="@string/default_image_button_string" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/spacing_large"
+                        android:paddingEnd="@dimen/spacing_large"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_profile_marital_status"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/TextViewLabel" />
+
+                        <TextView
+                            android:id="@+id/text_marital_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/spacing_middle"
+                            android:lineSpacingExtra="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel"
+                            android:hint="@string/user_profile_default_marital_status"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/kloudforj_black" />
 
                     </LinearLayout>
 
@@ -268,7 +314,7 @@
                                 android:lineSpacingExtra="@dimen/spacing_xsmall"
                                 android:textSize="@dimen/TextViewLabel"
                                 android:textColor="@color/kloudforj_black"
-                                android:text="@string/user_profile_number"
+                                android:hint="@string/user_profile_number"
                                 android:layout_weight="1"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
@@ -350,7 +396,7 @@
                                 android:lineSpacingExtra="@dimen/spacing_xsmall"
                                 android:textSize="@dimen/TextViewLabel"
                                 android:textColor="@color/kloudforj_black"
-                                android:text="tagariwalayashesh@gmail.com"
+                                android:hint="tagariwalayashesh@gmail.com"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                             <LinearLayout
@@ -423,7 +469,7 @@
                             android:paddingTop="@dimen/spacing_middle"
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
                             android:textSize="@dimen/TextViewLabel"
-                            android:text="@string/user_profile_caste"
+                            android:hint="@string/user_profile_caste"
                             android:textColor="@color/kloudforj_black"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
@@ -470,7 +516,7 @@
                             android:textSize="@dimen/TextViewLabel"
                             android:textColor="@color/kloudforj_black"
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
-                            android:text="@string/user_profile_sub_caste_1"
+                            android:hint="@string/user_profile_sub_caste_1"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                     </LinearLayout>
@@ -516,7 +562,7 @@
                             android:textSize="@dimen/TextViewLabel"
                             android:textColor="@color/kloudforj_black"
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
-                            android:text="@string/user_profile_sub_caste_2"
+                            android:hint="@string/user_profile_sub_caste_2"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                     </LinearLayout>

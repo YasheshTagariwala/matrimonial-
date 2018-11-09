@@ -121,78 +121,74 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:paddingTop="@dimen/spacing_middle"
-                android:paddingStart="@dimen/spacing_large"
                 android:paddingEnd="@dimen/spacing_large"
-                android:orientation="horizontal">
+                android:paddingStart="@dimen/spacing_large">
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/default_image_button_string"
-                    android:src="@drawable/ic_directions_bike_black_24dp"
-                    android:tint="@color/kloudforj_black" />
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/spacing_middle"
-                    android:paddingEnd="@dimen/spacing_middle"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <LinearLayout
+                    <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:textColorHint="@color/colorPrimary">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/user_profile_hobbies"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/TextViewLabel"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/editText_user_job"
                             android:layout_width="match_parent"
+                            android:textSize="@dimen/TextViewLabel"
                             android:layout_height="wrap_content"
-                            android:gravity="end">
+                            android:drawablePadding="@dimen/spacing_large"
+                            android:drawableStart="@drawable/ic_work_black_24dp"
+                            android:drawableTint="@color/kloudforj_black"
+                            android:hint="@string/user_profile_current_job"
+                            android:singleLine="true"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimary" />
 
-                            <ImageButton
-                                android:id="@+id/imagebutton_add_hobbies"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
-                                android:contentDescription="@string/default_image_button_string"
-                                android:src="@drawable/ic_add_white_24dp"
-                                android:tint="@color/colorPrimary" />
+                    </android.support.design.widget.TextInputLayout>
 
-                        </LinearLayout>
+                </RelativeLayout>
 
-                    </LinearLayout>
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/linearlayout_hobbies_holder"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/spacing_middle"
+                android:paddingEnd="@dimen/spacing_large"
+                android:paddingStart="@dimen/spacing_large">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/spacing_large"
-                        android:paddingEnd="@dimen/spacing_large"
-                        android:paddingTop="@dimen/spacing_middle"
-                        android:orientation="vertical">
+                        android:textColorHint="@color/colorPrimary">
 
-                    </LinearLayout>
-                    <!--<EditText-->
-                    <!--android:id="@+id/editText_hobby"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="@dimen/spacing_medium"-->
-                    <!--android:lineSpacingExtra="@dimen/spacing_xsmall"-->
-                    <!--android:hint="@string/user_profile_default_hobbies"-->
-                    <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>-->
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/editText_user_income"
+                            android:layout_width="match_parent"
+                            android:textSize="@dimen/TextViewLabel"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/spacing_large"
+                            android:drawableStart="@drawable/ic_attach_money_white_24dp"
+                            android:drawableTint="@color/kloudforj_black"
+                            android:hint="@string/user_profile_income"
+                            android:singleLine="true"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimary" />
 
-                </LinearLayout>
+                    </android.support.design.widget.TextInputLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
 

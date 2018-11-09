@@ -8,7 +8,21 @@ public class UserProfile
     public class Profile {
 
         private int user_id, age;
-        private String first_name, middle_name, last_name, date_of_birth, sex;
+        private String first_name;
+        private String middle_name;
+        private String last_name;
+        private String date_of_birth;
+        private String sex;
+
+        public String getMarital_status() {
+            return marital_status;
+        }
+
+        public void setMarital_status(String marital_status) {
+            this.marital_status = marital_status;
+        }
+
+        private String marital_status;
         private String address1, address2, address3, country, state, city, pincode, phone_number;
         private int email_verified, phone_number_verified;
         private String caste, sub_caste1, sub_caste2;
@@ -278,7 +292,18 @@ public class UserProfile
     public class Extra {
 
         private String height, weight;
-        private String birth_place, birth_time;
+        private String birth_place;
+        private String birth_time;
+
+        public String getIncome() {
+            return income;
+        }
+
+        public void setIncome(String income) {
+            this.income = income;
+        }
+
+        private String income;
         private String current_job, about_me;
 
         public String getHeight() {

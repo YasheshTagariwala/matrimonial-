@@ -319,7 +319,31 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
-                            Log.e("Resp : ", response.body().string());
+                            try {
+                                String result = response.body().string();
+                                final JSONObject jsonLogin = new JSONObject(result);
+                                final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
+                                final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
+                                if (auth) {
+                                    ((Activity) ctx).runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
+                                            SharedPreferences globalSP;
+                                            globalSP = ctx.getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = globalSP.edit();
+                                            try {
+                                                editor.putString(ProjectConstants.BASE_IMAGE, jsonLogin.getString(ProjectConstants.BASE_IMAGE));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            editor.apply();
+                                        }
+                                    });
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
                 }

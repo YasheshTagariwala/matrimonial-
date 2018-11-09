@@ -164,7 +164,60 @@
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
                             android:textSize="@dimen/TextViewLabel"
                             android:textColor="@color/kloudforj_black"
-                            android:text="@string/user_profile_default_current_job"
+                            android:hint="@string/user_profile_default_current_job"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_middle">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_middle"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/kloudforj_black"
+                        app:srcCompat="@drawable/ic_attach_money_white_24dp"
+                        tools:ignore="VectorDrawableCompat"
+                        android:contentDescription="@string/default_image_button_string" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/spacing_large"
+                        android:paddingEnd="@dimen/spacing_large"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_profile_income"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/TextViewLabel" />
+
+                        <TextView
+                            android:id="@+id/text_user_income"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel"
+                            android:textColor="@color/kloudforj_black"
+                            android:hint="@string/user_profile_default_income"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                     </LinearLayout>

@@ -72,10 +72,11 @@ public class UserEditProfileActivity extends AppCompatActivity {
             editTextAddress1, editTextAddress2, editTextAddress3, editTextPinCode, editTextPhone,
             editTextUserHeight, editTextUserWeight, editTextUserBirthPlace,
             editTextUserJob, editTextFatherName, editTextFatherEducation, editTextFatherProfession,
-            editTextFatherBirthPlace, editTextMotherName, editTextMotherEducation, editTextMotherProfession, editTextMotherBirthPlace;
+            editTextFatherBirthPlace, editTextMotherName, editTextMotherEducation, editTextMotherProfession,
+            editTextMotherBirthPlace, editTextUserIncome;
 
     Spinner spinnerGender, spinnerCountry, spinnerState, spinnerCity,
-            spinnerCast, spinnerSubCast1, spinnerSubCast2;
+            spinnerCast, spinnerSubCast1, spinnerSubCast2, spinnerMaritalStatus;
 
     RadioGroup radioGroupSex;
     RadioButton radioButtonMale, radioButtonFemale;
@@ -115,6 +116,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         spinnerCast = findViewById(R.id.spn_user_caste);
         spinnerSubCast1 = findViewById(R.id.spn_user_sub_caste_1);
         spinnerSubCast2 = findViewById(R.id.spn_user_sub_caste_2);
+        spinnerMaritalStatus = findViewById(R.id.spn_marital_status);
 
         textViewBirthDate = findViewById(R.id.text_birth_date);
 //        textViewUserEducation = findViewById(R.id.text_user_education);
@@ -135,6 +137,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         editTextUserWeight = findViewById(R.id.editText_user_weight);
         editTextUserBirthPlace = findViewById(R.id.editText_user_birth_place);
         editTextUserJob = findViewById(R.id.editText_user_job);
+        editTextUserIncome = findViewById(R.id.editText_user_income);
         editTextFatherName = findViewById(R.id.editText_father_name);
         editTextFatherEducation = findViewById(R.id.editText_father_education);
         editTextFatherProfession = findViewById(R.id.editText_father_profession);
@@ -177,8 +180,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                         profile.setCaste(spinnerCast.getSelectedItem().toString().trim());
                         profile.setSub_caste1(spinnerSubCast1.getSelectedItem().toString().trim());
                         profile.setSub_caste2(spinnerSubCast2.getSelectedItem().toString().trim());
-
-                        //TODO:: To Change When Done Dynamic
+                        profile.setMarital_status(spinnerMaritalStatus.getSelectedItem().toString().trim());
 
                         profile.setAddress1(editTextAddress1.getText().toString().trim());
                         if(!editTextAddress2.getText().toString().trim().equals("")){
@@ -206,6 +208,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                         extra.setBirth_place(editTextUserBirthPlace.getText().toString().trim());
                         extra.setBirth_time(textViewBirthTime.getText().toString().trim());
                         extra.setCurrent_job(editTextUserJob.getText().toString().trim());
+                        extra.setIncome(editTextUserIncome.getText().toString().trim());
                         extra.setAbout_me(editTextAboutMe.getText().toString().trim());
                         userProfile.setExtra(extra);
 
@@ -323,6 +326,23 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 editTextFirstName.setText(userProfile.getProfile().getFirst_name());
                 editTextMiddleName.setText(userProfile.getProfile().getMiddle_name());
                 editTextLastName.setText(userProfile.getProfile().getLast_name());
+
+
+                String[] datas = getResources().getStringArray(R.array.marital_status);
+                spinnerMaritalStatus.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getMarital_status()));
+
+                datas = getResources().getStringArray(R.array.country);
+                spinnerCountry.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCountry()));
+                datas = getResources().getStringArray(R.array.state);
+                spinnerState.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getState()));
+                datas = getResources().getStringArray(R.array.city);
+                spinnerCity.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCity()));
+                datas = getResources().getStringArray(R.array.caste);
+                spinnerCast.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCaste()));
+                datas = getResources().getStringArray(R.array.sub_caste_1);
+                spinnerSubCast1.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getSub_caste1()));
+                datas = getResources().getStringArray(R.array.sub_caste_2);
+                spinnerSubCast2.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getSub_caste2()));
                 if (userProfile.getProfile().getSex().toLowerCase().equals("m")) {
                     radioButtonMale.setChecked(true);
                     radioButtonFemale.setChecked(false);
@@ -331,8 +351,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     radioButtonFemale.setChecked(true);
                 }
                 textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
-                editTextPhone.setText(userProfile.getProfile().getPhone_number());
-                editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ""));
+                editTextPhone.setText(globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING));
+                editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING));
                 if (userProfile.getProfile().getPhone_number_verified() == 1) {
                     imageButtonPhoneVerified.setVisibility(View.VISIBLE);
                     imageButtonPhoneNotVerified.setVisibility(View.GONE);
@@ -376,6 +396,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 editTextAddress2.setText(userProfile.getProfile().getAddress2());
                 editTextAddress3.setText(userProfile.getProfile().getAddress3());
                 editTextPinCode.setText(userProfile.getProfile().getPincode());
+                editTextUserIncome.setText(userProfile.getExtra().getIncome());
 
                 editTextFatherName.setText(userProfile.getFamily().getFather_name());
                 editTextFatherEducation.setText(userProfile.getFamily().getFather_education());
@@ -415,6 +436,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                                     Toast.makeText(UserEditProfileActivity.this, message, Toast.LENGTH_LONG).show();
                                     SharedPreferences.Editor editor = globalSP.edit();
                                     editor.putBoolean(ProjectConstants.USER_PROFILE, true);
+                                    editor.putString(ProjectConstants.USER_NAME, editTextFirstName.getText().toString().trim() + " " + editTextLastName.getText().toString().trim());
                                     editor.apply();
                                 }
                             });

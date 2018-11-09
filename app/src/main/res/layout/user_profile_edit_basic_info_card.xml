@@ -358,6 +358,54 @@
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/default_image_button_string"
                     android:tint="@color/kloudforj_black"
+                    app:srcCompat="@drawable/ic_favorite_white_24dp"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/spacing_mlarge"
+                    android:paddingStart="@dimen/spacing_mlarge"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_profile_marital_status"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/TextViewLabel"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spn_marital_status"
+                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/marital_status"
+                        android:lineSpacingExtra="@dimen/spacing_xsmall"
+                        android:spinnerMode="dialog"
+                        android:text="@string/user_profile_marital_status"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/spacing_large"
+                android:paddingEnd="@dimen/spacing_large"
+                android:paddingStart="@dimen/spacing_large">
+
+                <ImageButton
+                    android:layout_width="@dimen/spacing_mlarge"
+                    android:layout_height="@dimen/spacing_mlarge"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/default_image_button_string"
+                    android:tint="@color/kloudforj_black"
                     app:srcCompat="@drawable/ic_cake_white_24dp"
                     tools:ignore="VectorDrawableCompat" />
 

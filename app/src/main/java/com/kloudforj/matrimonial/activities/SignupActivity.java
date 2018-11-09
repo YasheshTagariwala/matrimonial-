@@ -31,8 +31,8 @@ import okhttp3.Response;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText /*etFirstName, etMiddleName, etLastName,*/ etEmail, etPassword, etConfirmPassword;
-    private TextInputLayout /*firstNameWrapper, middleNameWrapper, lastNameWrapper,*/ emailWrapper, passwordWrapper, confirmPasswordWrapper;
+    private EditText /*etFirstName, etMiddleName, etLastName,*/ etEmail, etPassword, etConfirmPassword, etPhone;
+    private TextInputLayout /*firstNameWrapper, middleNameWrapper, lastNameWrapper,*/ emailWrapper, phoneWrapper, passwordWrapper, confirmPasswordWrapper;
     private ProgressBar mSignUpActvityProgressBar;
     private Button registerButton;
     private SharedPreferences globalSP;
@@ -58,12 +58,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         middleNameWrapper = findViewById(R.id.middleNameWrapper);
         lastNameWrapper = findViewById(R.id.lastNameWrapper);*/
         emailWrapper = findViewById(R.id.emailWrapper);
+        phoneWrapper = findViewById(R.id.phoneWrapper);
         passwordWrapper = findViewById(R.id.passwordWrapper);
         confirmPasswordWrapper = findViewById(R.id.confirmPasswordWrapper);
         /*etFirstName = findViewById(R.id.firstName);
         etMiddleName = findViewById(R.id.middleName);
         etLastName = findViewById(R.id.lastName);*/
         etEmail = findViewById(R.id.email);
+        etPhone = findViewById(R.id.phone);
         etPassword = findViewById(R.id.password);
         etConfirmPassword = findViewById(R.id.confirmPassword);
 
@@ -134,19 +136,21 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.registerButton:
 
-                if (etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)
+                if ( (etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING) || etPhone.getText().toString().equals(ProjectConstants.EMPTY_STRING ))
                         && etPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING) && etConfirmPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
                     emailWrapper.setError(getResources().getString(R.string.enter_valid_email));
+                    phoneWrapper.setError(getResources().getString(R.string.enter_valid_phone));
                     passwordWrapper.setError(getResources().getString(R.string.enter_valid_password));
                     confirmPasswordWrapper.setError(getResources().getString(R.string.enter_valid_password));
                     signUpCheck = false;
                 }
 
                 // validation for edittext is empty
-                if (etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
-                    emailWrapper.setError(getResources().getString(R.string.enter_valid_password));
+                /*if (etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
+                    emailWrapper.setError(getResources().getString(R.string.enter_valid_email));
                     signUpCheck = false;
-                } else if (etPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
+                } else*/
+                if (etPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
                     passwordWrapper.setError(getResources().getString(R.string.enter_valid_password));
                     signUpCheck = false;
                 } else if (etConfirmPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
@@ -155,19 +159,21 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 // validation for edittext is non-empty
-                if (!etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
+                /*if (!etEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
                     emailWrapper.setErrorEnabled(false);
-                } else if (!etPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
+                } else*/
+                if (!etPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
                     passwordWrapper.setErrorEnabled(false);
                 } else if (!etConfirmPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
                     confirmPasswordWrapper.setErrorEnabled(false);
                 }
 
                 if (signUpCheck) {
-                    Log.e("Register : ", "Made a call");
+                    //Log.e("Register : ", "Made a call");
                     JSONObject jsonSignUpRequest = new JSONObject();
                     try {
                         jsonSignUpRequest.put(ProjectConstants.EMAIL, etEmail.getText().toString().trim());
+                        jsonSignUpRequest.put(ProjectConstants.PHONE, etPhone.getText().toString().trim());
                         jsonSignUpRequest.put(ProjectConstants.PASSWORD, etPassword.getText().toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -179,9 +185,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                     }
 
-                } else {
-                    Log.e("Register : ", "Beep beep. Error!!!");
                 }
+
                 break;
         }
     }
@@ -194,6 +199,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         public void getResponseFromServer(Response response) throws IOException {
             if(!response.isSuccessful()) {
+                Log.e("data",response.toString());
                 enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                 throw new IOException("Unexpected code " + response);
             } else {
@@ -219,11 +225,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                 if(auth) {
                                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
-                                    SharedPreferences.Editor editor = globalSP.edit();
-                                    editor.putString(ProjectConstants.TOKEN, token);
-                                    editor.apply();
+//                                    SharedPreferences.Editor editor = globalSP.edit();
+//                                    editor.putString(ProjectConstants.TOKEN, token);
+//                                    editor.apply();
 
-                                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                                    startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                                     finish();
                                 } else {
 

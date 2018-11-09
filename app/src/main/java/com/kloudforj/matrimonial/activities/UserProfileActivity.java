@@ -105,8 +105,8 @@ public class UserProfileActivity extends AppCompatActivity {
     ImageButton imageButtonCancel;
 
     TextView textViewFullName, textViewAboutMe, textViewHobby, textViewBirthDate,
-            textViewPhone, textViewGender,
-            textViewCaste, textViewSubCaste1, textViewSubCaste2,
+            textViewPhone, textViewGender,textViewEmail,
+            textViewCaste, textViewSubCaste1, textViewSubCaste2,textViewMaritalStatus,textViewIncome,
             textViewUserHeight, textViewUserWeight, textViewUserBirthPlace, textViewUserBirthTime,
             textViewUserJob, textViewUserEducation, textViewFatherName, textViewFatherEducation,
             textViewFatherProfession, textViewFatherBirthPlace, textViewMotherName,
@@ -148,6 +148,9 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewBirthDate = findViewById(R.id.text_birth_date);
         textViewPhone = findViewById(R.id.text_phone);
         textViewGender = findViewById(R.id.textview_gender);
+        textViewMaritalStatus = findViewById(R.id.text_marital_status);
+        textViewIncome = findViewById(R.id.text_user_income);
+        textViewEmail = findViewById(R.id.text_user_mail);
 
         textViewCaste = findViewById(R.id.text_user_caste);
         textViewSubCaste1 = findViewById(R.id.text_user_sub_caste_1);
@@ -412,11 +415,14 @@ public class UserProfileActivity extends AppCompatActivity {
                                         textViewFullName.setText(String.valueOf(userProfile.getProfile().getFirst_name()+" "+userProfile.getProfile().getMiddle_name()+" "+userProfile.getProfile().getLast_name()));
                                         textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
                                         textViewGender.setText((userProfile.getProfile().getSex().toLowerCase().equals("m")?"Male":"Female"));
-                                        textViewPhone.setText(userProfile.getProfile().getPhone_number());
+                                        textViewPhone.setText(globalSP.getString(ProjectConstants.PHONE,ProjectConstants.EMPTY_STRING));
+                                        textViewEmail.setText(globalSP.getString(ProjectConstants.EMAIL,ProjectConstants.EMPTY_STRING));
+                                        textViewMaritalStatus.setText(userProfile.getProfile().getMarital_status());
 
                                         textViewCaste.setText(userProfile.getProfile().getCaste());
                                         textViewSubCaste1.setText(userProfile.getProfile().getSub_caste1());
                                         textViewSubCaste2.setText(userProfile.getProfile().getSub_caste2());
+                                        textViewIncome.setText(userProfile.getExtra().getIncome());
 
                                         textViewUserHeight.setText(userProfile.getExtra().getHeight());
                                         textViewUserWeight.setText(userProfile.getExtra().getWeight());
