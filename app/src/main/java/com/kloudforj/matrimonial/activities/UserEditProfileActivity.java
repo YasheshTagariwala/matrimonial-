@@ -408,6 +408,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 editTextMotherBirthPlace.setText(userProfile.getFamily().getMother_birth_place());
             }
         }
+        editTextPhone.setText(globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING));
+        editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING));
 
     }
 
@@ -688,7 +690,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     public String getEducations() {
         String strEducation = "";
-        for (View v : arrayOfHobbyView) {
+        for (View v : arrayOfEducationView) {
             TextView text = v.findViewById(R.id.text_main_content);
             strEducation += "," + text.getText().toString();
         }
@@ -728,8 +730,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
-
-                        textViewBirthTime.setText(hourOfDay + ":" + minute);
+                        textViewBirthTime.setText(hourOfDay + ":" + minute + " " + (hourOfDay >= 12 ? "PM" : "AM"));
                     }
                 }, 0, 0, false);
         timePickerDialog.show();
