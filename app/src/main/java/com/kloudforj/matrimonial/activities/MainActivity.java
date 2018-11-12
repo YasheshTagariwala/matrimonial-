@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -222,6 +223,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
+        Snackbar snackbar = Snackbar
+                .make(drawer, "TEST", Snackbar.LENGTH_INDEFINITE)
+                .setAction("OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.e("Token : ", token);
+                    }
+                });
+        snackbar.show();
+
         //Log.e("Token : ", token);
     }
 
@@ -363,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * Toast message and rogressbar invisible
+     * Toast message and progressbar invisible
      *
      * @param msg
      */

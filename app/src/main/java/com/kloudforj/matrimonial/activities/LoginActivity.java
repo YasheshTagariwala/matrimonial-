@@ -83,15 +83,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         public void getResponseFromServer(Response response) throws IOException {
             if(!response.isSuccessful()) {
-                        /*Log.e("1 : ", response.toString());
-                        Log.e("2 Code : ", ""+response.code());
-                        Log.e("3 Message : ", response.message());*/
+                //Log.e("Response False : ", response.body().string());
                 enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                 throw new IOException("Unexpected code " + response);
             } else {
 
                 String result = response.body().string(); // response is converted to string
-                //Log.e("Response : ", result);
+                //Log.e("Response True : ", result);
 
                 if(result != null) {
 
@@ -123,9 +121,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         editor.putString(ProjectConstants.SUBCASTE2, "");
                                         editor.putString(ProjectConstants.NAME, "");
                                         editor.putString(ProjectConstants.EMAIL, loginEmail.getText().toString());
-                                        editor.putString(ProjectConstants.USER_NAME, jsonLogin.getString(ProjectConstants.USER_NAME));
-                                        editor.putString(ProjectConstants.BASE_IMAGE, jsonLogin.getString(ProjectConstants.BASE_IMAGE));
-                                        editor.putString(ProjectConstants.PHONE, jsonLogin.getString(ProjectConstants.PHONE));
+                                        editor.putString(ProjectConstants.USER_NAME, ( jsonLogin.has(ProjectConstants.USER_NAME) ? jsonLogin.getString(ProjectConstants.USER_NAME) : "") );
+                                        editor.putString(ProjectConstants.BASE_IMAGE, ( jsonLogin.has(ProjectConstants.BASE_IMAGE) ? jsonLogin.getString(ProjectConstants.BASE_IMAGE) : "") );
+                                        editor.putString(ProjectConstants.PHONE, ( jsonLogin.has(ProjectConstants.PHONE) ? jsonLogin.getString(ProjectConstants.PHONE) : ""));
 
                                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                                         editor.putBoolean(ProjectConstants.USER_PROFILE, profile);

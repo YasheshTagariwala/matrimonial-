@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.annotation.DrawableRes;
 import android.support.v4.widget.NestedScrollView;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.HorizontalScrollView;
