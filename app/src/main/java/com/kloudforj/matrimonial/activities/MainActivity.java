@@ -137,12 +137,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
-                /*Intent intent = new Intent(MainActivity.this,UserProfileActivity.class);
-                intent.putExtra("user_id",1);
-                startActivity(intent);*/
             }
         });
         imgProfile = mView.findViewById(R.id.imageview_profile);
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
+            }
+        });
 
         RequestOptions ro = new RequestOptions()
                 .fitCenter()
@@ -225,10 +228,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Snackbar snackbar = Snackbar
                 .make(drawer, "TEST", Snackbar.LENGTH_INDEFINITE)
-                .setAction("OK", new View.OnClickListener() {
+                .setAction("Contact Us", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.e("Token : ", token);
+
                     }
                 });
         snackbar.show();

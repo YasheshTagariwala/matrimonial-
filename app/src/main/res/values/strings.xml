@@ -13,12 +13,12 @@
     <!-- Login Activity strings -->
     <string name="welcome_text">Welcome</string>
     <string name="welcome_text1">Let\'s Find Your SoulMate</string>
-    <string name="label_login">Log In</string>
+    <string name="label_login">LOGIN</string>
     <string name="label_username">Username</string>
     <string name="label_password">Password</string>
     <string name="label_new_user">New User?&#160;</string>
     <string name="label_forgot_password">Forgot Password?&#160;</string>
-    <string name="label_sign_up">Sign Up</string>
+    <string name="label_sign_up">SIGN UP</string>
     <string name="enter_valid_email">Enter Valid Email ID</string>
     <string name="enter_valid_phone">Enter Valid Phone Number</string>
     <string name="enter_valid_password">Enter valid Password</string>
