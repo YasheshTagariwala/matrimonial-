@@ -385,7 +385,6 @@
                         android:entries="@array/marital_status"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
                         android:spinnerMode="dialog"
-                        android:text="@string/user_profile_marital_status"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
@@ -498,7 +497,6 @@
                         android:entries="@array/caste"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
                         android:spinnerMode="dialog"
-                        android:text="@string/user_profile_birthdate"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
@@ -546,7 +544,6 @@
                         android:entries="@array/sub_caste_1"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
                         android:spinnerMode="dialog"
-                        android:text="@string/user_profile_birthdate"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
@@ -594,7 +591,6 @@
                         android:entries="@array/sub_caste_2"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
                         android:spinnerMode="dialog"
-                        android:text="@string/user_profile_birthdate"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>

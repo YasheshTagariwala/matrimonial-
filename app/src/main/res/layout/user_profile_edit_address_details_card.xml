@@ -61,7 +61,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_location_on_white_24dp"
                             android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_address1"
                             android:singleLine="true"
@@ -97,7 +96,6 @@
                             android:id="@+id/editText_address2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="10dp"
                             android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_address2"
                             android:singleLine="true"
@@ -133,7 +131,6 @@
                             android:id="@+id/editText_address3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="10dp"
                             android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_address3"
                             android:singleLine="true"
@@ -169,7 +166,6 @@
                             android:id="@+id/editText_pincode"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="10dp"
                             android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_pincode"
                             android:inputType="number"
@@ -201,7 +197,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
                         android:text="@string/user_profile_country"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimary"
@@ -216,7 +211,6 @@
                         android:entries="@array/country"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
                         android:spinnerMode="dialog"
-                        android:text="@string/user_profile_birthdate"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
@@ -240,7 +234,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/user_profile_state"
-                        android:paddingLeft="10dp"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/TextViewLabel"
@@ -254,7 +247,6 @@
                         android:entries="@array/state"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
                         android:spinnerMode="dialog"
-                        android:text="@string/user_profile_birthdate"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
@@ -278,7 +270,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/user_profile_city"
-                        android:paddingLeft="10dp"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/TextViewLabel"
@@ -292,7 +283,6 @@
                         android:entries="@array/city"
                         android:lineSpacingExtra="@dimen/spacing_xsmall"
                         android:spinnerMode="dialog"
-                        android:text="@string/user_profile_birthdate"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
