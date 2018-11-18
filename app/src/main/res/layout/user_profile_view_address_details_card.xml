@@ -82,19 +82,18 @@
                     android:paddingTop="@dimen/spacing_middle"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        app:srcCompat="@drawable/ic_location_on_white_24dp"
-                        tools:ignore="VectorDrawableCompat"
-                        android:contentDescription="@string/default_image_button_string" />
+                    <!--<ImageButton-->
+                        <!--android:layout_width="@dimen/spacing_mlarge"-->
+                        <!--android:layout_height="@dimen/spacing_mlarge"-->
+                        <!--android:background="@android:color/transparent"-->
+                        <!--android:tint="@color/kloudforj_black"-->
+                        <!--app:srcCompat="@drawable/ic_location_on_white_24dp"-->
+                        <!--tools:ignore="VectorDrawableCompat"-->
+                        <!--android:contentDescription="@string/default_image_button_string" />-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/spacing_large"
                         android:paddingEnd="@dimen/spacing_large"
                         android:orientation="vertical">
 
@@ -113,7 +112,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:text="@string/user_profile_address1"
+                            android:hint="@string/user_profile_address1"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -149,7 +148,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:text="@string/user_profile_address2"
+                            android:hint="@string/user_profile_address2"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -185,7 +184,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:text="@string/user_profile_address3"
+                            android:hint="@string/user_profile_address3"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -221,7 +220,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:text="@string/user_profile_pincode"
+                            android:hint="@string/user_profile_pincode"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -257,7 +256,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:text="@string/user_profile_default_location"
+                            android:hint="@string/user_profile_default_location"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />

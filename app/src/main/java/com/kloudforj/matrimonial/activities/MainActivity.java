@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         JSONObject jsonObjectRequest = new JSONObject();
         try {
-            jsonObjectRequest.put(ProjectConstants.SEX, "m");
+            jsonObjectRequest.put(ProjectConstants.SEX, "F");
 
 //            if(!location.equals(ProjectConstants.EMPTY_STRING)) {
 //                jsonObjectRequest.put(ProjectConstants.LOCATION, location);
