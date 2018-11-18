@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -74,7 +75,7 @@ public class SearchActivity extends AppCompatActivity {
                 String location = mSpnCountry.getSelectedItem().toString().trim()+"/"+mSpnState.getSelectedItem().toString().trim()+"/"+mSpnCity.getSelectedItem().toString().trim();
 
                 editor.putString(ProjectConstants.LOCATION, location);
-                if(textViewAge.getText().toString().trim().equals("")){
+                if(textViewAge.getText().toString().trim().equals("") || textViewAge.getText().toString().trim().equals(getResources().getString(R.string.search_age))){
                     editor.putString(ProjectConstants.AGE, "0-24");
                 }else{
                     editor.putString(ProjectConstants.AGE, textViewAge.getText().toString().trim());
