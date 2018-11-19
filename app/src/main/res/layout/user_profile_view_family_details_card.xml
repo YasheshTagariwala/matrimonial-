@@ -28,8 +28,7 @@
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
-                android:tint="@color/deep_purple_900"
-                android:src="@drawable/ic_people_white_24dp"
+                android:src="@drawable/ic_people_deep_purple_900_24dp"
                 android:contentDescription="@string/default_image_button_string" />
 
             <TextView
@@ -51,8 +50,7 @@
                 android:paddingStart="@dimen/spacing_large"
                 android:paddingEnd="@dimen/spacing_large"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/grey_60"
-                android:src="@drawable/ic_expand_more_white_24dp"
+                android:src="@drawable/ic_expand_more_grey_60_24dp"
                 android:contentDescription="@string/default_image_button_string" />
 
         </LinearLayout>
@@ -90,8 +88,7 @@
                     android:layout_height="@dimen/ImageViewHeight"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/spacing_medium"
-                    android:src="@drawable/swipe_up_handle"
-                    android:tint="@color/red_700"
+                    android:src="@drawable/swipe_up_handle_red_700"
                     android:contentDescription="@string/default_image_button_string" />
 
                 <LinearLayout
@@ -104,8 +101,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        app:srcCompat="@drawable/ic_person_black_24dp"
+                        app:srcCompat="@drawable/ic_person_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
 
@@ -150,8 +146,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        app:srcCompat="@drawable/ic_school_white_24dp"
+                        app:srcCompat="@drawable/ic_school_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
 
@@ -196,8 +191,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        app:srcCompat="@drawable/ic_work_black_24dp"
+                        app:srcCompat="@drawable/ic_work_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
 
@@ -242,8 +236,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        app:srcCompat="@drawable/ic_person_pin_black_24dp"
+                        app:srcCompat="@drawable/ic_person_pin_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
 
@@ -300,8 +293,7 @@
                     android:layout_height="@dimen/ImageViewHeight"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/spacing_medium"
-                    android:src="@drawable/swipe_up_handle"
-                    android:tint="@color/red_700"
+                    android:src="@drawable/swipe_up_handle_red_700"
                     android:contentDescription="@string/default_image_button_string" />
 
                 <LinearLayout
@@ -314,8 +306,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        app:srcCompat="@drawable/ic_person_black_24dp"
+                        app:srcCompat="@drawable/ic_person_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
 
@@ -360,8 +351,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        app:srcCompat="@drawable/ic_school_white_24dp"
+                        app:srcCompat="@drawable/ic_school_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
 
@@ -406,8 +396,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        app:srcCompat="@drawable/ic_work_black_24dp"
+                        app:srcCompat="@drawable/ic_work_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
 
@@ -453,8 +442,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        app:srcCompat="@drawable/ic_person_pin_black_24dp"
+                        app:srcCompat="@drawable/ic_person_pin_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
 

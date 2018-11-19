@@ -28,8 +28,7 @@
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
-                android:tint="@color/deep_purple_900"
-                android:src="@drawable/ic_info_white_24dp"
+                android:src="@drawable/ic_info_deep_purple_900_24dp"
                 android:contentDescription="@string/default_image_button_string" />
 
             <TextView
@@ -51,9 +50,8 @@
                 android:paddingStart="@dimen/spacing_large"
                 android:paddingEnd="@dimen/spacing_large"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/grey_60"
                 android:rotation="180"
-                android:src="@drawable/ic_expand_more_white_24dp"
+                android:src="@drawable/ic_expand_more_grey_60_24dp"
                 android:contentDescription="@string/default_image_button_string" />
 
         </LinearLayout>
@@ -86,8 +84,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        app:srcCompat="@drawable/ic_person_black_24dp"
+                        app:srcCompat="@drawable/ic_person_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
 
@@ -139,8 +136,7 @@
                             android:layout_width="@dimen/spacing_mlarge"
                             android:layout_height="@dimen/spacing_mlarge"
                             android:background="@android:color/transparent"
-                            android:tint="@color/kloudforj_black"
-                            app:srcCompat="@drawable/ic_cake_white_24dp"
+                            app:srcCompat="@drawable/ic_cake_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat"
                             android:contentDescription="@string/default_image_button_string" />
 
@@ -185,8 +181,7 @@
                             android:layout_width="@dimen/spacing_mlarge"
                             android:layout_height="@dimen/spacing_mlarge"
                             android:background="@android:color/transparent"
-                            android:tint="@color/kloudforj_black"
-                            app:srcCompat="@drawable/ic_wc_white_24dp"
+                            app:srcCompat="@drawable/ic_wc_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat"
                             android:contentDescription="@string/default_image_button_string" />
 
@@ -233,8 +228,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        app:srcCompat="@drawable/ic_favorite_white_24dp"
+                        app:srcCompat="@drawable/ic_favorite_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
                         android:contentDescription="@string/default_image_button_string" />
 
@@ -280,8 +274,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:src="@drawable/ic_local_phone_white_24dp"
-                        android:tint="@color/kloudforj_black"
+                        android:src="@drawable/ic_local_phone_kloudforj_black_24dp"
                         android:contentDescription="@string/default_image_button_string" />
 
                     <LinearLayout
@@ -328,9 +321,8 @@
                                     android:id="@+id/phone_number_not_verified"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_info_white_24dp"
+                                    android:src="@drawable/ic_info_red_900_24dp"
                                     android:background="@color/transparent"
-                                    android:tint="@color/red_900"
                                     android:contentDescription="@string/default_image_button_string" />
 
                                 <ImageButton
@@ -338,8 +330,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@color/transparent"
-                                    android:src="@drawable/ic_verified_user_white_24dp"
-                                    android:tint="@color/green_900"
+                                    android:src="@drawable/ic_verified_user_green_900_24dp"
                                     android:visibility="gone"
                                     android:contentDescription="@string/default_image_button_string" />
 
@@ -362,9 +353,8 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/ic_email_white_24dp"
+                        app:srcCompat="@drawable/ic_email_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
-                        android:tint="@color/kloudforj_black"
                         android:contentDescription="@string/default_image_button_string" />
 
                     <LinearLayout
@@ -409,8 +399,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@color/transparent"
-                                    android:src="@drawable/ic_info_white_24dp"
-                                    android:tint="@color/red_900"
+                                    android:src="@drawable/ic_info_red_900_24dp"
                                     android:contentDescription="@string/default_image_button_string" />
 
                                 <ImageButton
@@ -418,8 +407,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@color/transparent"
-                                    android:src="@drawable/ic_verified_user_white_24dp"
-                                    android:tint="@color/green_900"
+                                    android:src="@drawable/ic_verified_user_green_900_24dp"
                                     android:visibility="gone"
                                     android:contentDescription="@string/default_image_button_string" />
 
@@ -441,9 +429,8 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/ic_recent_actors_white_24dp"
+                        app:srcCompat="@drawable/ic_recent_actors_kloudforj_black_24dp"
                         tools:ignore="TooManyViews,VectorDrawableCompat"
-                        android:tint="@color/kloudforj_black"
                         android:contentDescription="@string/default_image_button_string" />
 
                     <LinearLayout
@@ -487,9 +474,8 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/ic_recent_actors_white_24dp"
+                        app:srcCompat="@drawable/ic_recent_actors_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
-                        android:tint="@color/kloudforj_black"
                         android:contentDescription="@string/default_image_button_string" />
 
                     <LinearLayout
@@ -533,9 +519,8 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/ic_recent_actors_white_24dp"
+                        app:srcCompat="@drawable/ic_recent_actors_kloudforj_black_24dp"
                         tools:ignore="VectorDrawableCompat"
-                        android:tint="@color/kloudforj_black"
                         android:contentDescription="@string/default_image_button_string" />
 
                     <LinearLayout

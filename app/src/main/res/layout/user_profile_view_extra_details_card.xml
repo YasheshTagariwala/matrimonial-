@@ -28,8 +28,7 @@
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
-                android:tint="@color/deep_purple_900"
-                android:src="@drawable/ic_work_black_24dp"
+                android:src="@drawable/ic_work_deep_purple_900_24dp"
                 android:contentDescription="@string/default_image_button_string" />
 
             <TextView
@@ -51,8 +50,7 @@
                 android:paddingStart="@dimen/spacing_large"
                 android:paddingEnd="@dimen/spacing_large"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/grey_60"
-                android:src="@drawable/ic_expand_more_white_24dp"
+                android:src="@drawable/ic_expand_more_grey_60_24dp"
                 android:contentDescription="@string/default_image_button_string" />
 
         </LinearLayout>
@@ -95,8 +93,7 @@
                             android:layout_width="@dimen/spacing_mlarge"
                             android:layout_height="@dimen/spacing_mlarge"
                             android:background="@android:color/transparent"
-                            android:tint="@color/kloudforj_black"
-                            app:srcCompat="@drawable/ic_accessibility_white_24dp"
+                            app:srcCompat="@drawable/ic_accessibility_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat"
                             android:contentDescription="@string/default_image_button_string" />
 
@@ -143,8 +140,7 @@
                             android:layout_width="@dimen/spacing_mlarge"
                             android:layout_height="@dimen/spacing_mlarge"
                             android:background="@android:color/transparent"
-                            android:tint="@color/kloudforj_black"
-                            app:srcCompat="@drawable/ic_fitness_center_white_24dp"
+                            app:srcCompat="@drawable/ic_fitness_center_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat"
                             android:contentDescription="@string/default_image_button_string" />
 
@@ -199,8 +195,7 @@
                             android:layout_width="@dimen/spacing_mlarge"
                             android:layout_height="@dimen/spacing_mlarge"
                             android:background="@android:color/transparent"
-                            android:tint="@color/kloudforj_black"
-                            app:srcCompat="@drawable/ic_person_pin_black_24dp"
+                            app:srcCompat="@drawable/ic_person_pin_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat"
                             android:contentDescription="@string/default_image_button_string" />
 
@@ -246,8 +241,7 @@
                             android:layout_width="@dimen/spacing_mlarge"
                             android:layout_height="@dimen/spacing_mlarge"
                             android:background="@android:color/transparent"
-                            android:tint="@color/kloudforj_black"
-                            app:srcCompat="@drawable/ic_access_time_white_24dp"
+                            app:srcCompat="@drawable/ic_access_time_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat"
                             android:contentDescription="@string/default_image_button_string" />
 
@@ -294,8 +288,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        android:src="@drawable/ic_directions_bike_black_24dp"
+                        android:src="@drawable/ic_directions_bike_kloudforj_black_24dp"
                         android:contentDescription="@string/default_image_button_string" />
 
                     <LinearLayout
@@ -338,8 +331,7 @@
                         android:layout_width="@dimen/spacing_mlarge"
                         android:layout_height="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/kloudforj_black"
-                        android:src="@drawable/ic_person_black_24dp"
+                        android:src="@drawable/ic_person_kloudforj_black_24dp"
                         android:contentDescription="@string/default_image_button_string" />
 
                     <LinearLayout

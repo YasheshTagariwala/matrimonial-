@@ -29,8 +29,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/spacing_medium"
             android:contentDescription="@string/default_image_button_string"
-            android:src="@drawable/swipe_up_handle"
-            android:tint="@color/red_700" />
+            android:src="@drawable/swipe_up_handle_red_700" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,8 +50,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/default_image_button_string"
-                    android:src="@drawable/ic_school_white_24dp"
-                    android:tint="@color/kloudforj_black" />
+                    android:src="@drawable/ic_school_kloudforj_black_24dp" />
 
                 <LinearLayout
                     android:id="@+id/linearlayout_education"
@@ -87,8 +85,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@android:color/transparent"
                                 android:contentDescription="@string/default_image_button_string"
-                                android:src="@drawable/ic_add_white_24dp"
-                                android:tint="@color/colorPrimary" />
+                                android:src="@drawable/ic_add_color_primary_24dp" />
 
                         </LinearLayout>
 
@@ -141,8 +138,7 @@
                             android:textSize="@dimen/TextViewLabel"
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_work_black_24dp"
-                            android:drawableTint="@color/kloudforj_black"
+                            android:drawableStart="@drawable/ic_work_kloudforj_black_24dp"
                             android:hint="@string/user_profile_current_job"
                             android:singleLine="true"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
@@ -178,8 +174,7 @@
                             android:textSize="@dimen/TextViewLabel"
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/spacing_large"
-                            android:drawableStart="@drawable/ic_attach_money_white_24dp"
-                            android:drawableTint="@color/kloudforj_black"
+                            android:drawableStart="@drawable/ic_attach_money_kloudforj_black_24dp"
                             android:hint="@string/user_profile_income"
                             android:singleLine="true"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"

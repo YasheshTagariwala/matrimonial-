@@ -102,7 +102,7 @@
                 app:passwordToggleEnabled="true"
                 app:passwordToggleContentDescription="@string/toggle_description"
                 app:passwordToggleDrawable="@drawable/password_toggle"
-                app:passwordToggleTint="@color/pink_primary">
+                >
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/password"
@@ -131,8 +131,7 @@
                 android:theme="@style/EditText.White.Hint"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleContentDescription="@string/toggle_description"
-                app:passwordToggleDrawable="@drawable/password_toggle"
-                app:passwordToggleTint="@color/pink_primary">
+                app:passwordToggleDrawable="@drawable/password_toggle">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/confirmPassword"

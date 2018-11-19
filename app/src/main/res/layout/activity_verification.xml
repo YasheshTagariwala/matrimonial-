@@ -109,8 +109,7 @@
                     android:layout_width="@dimen/spacing_xmlarge"
                     android:layout_height="@dimen/spacing_xmlarge"
                     android:background="@android:color/transparent"
-                    android:tint="@color/green_400"
-                    android:src="@drawable/ic_check_circle" />
+                    android:src="@drawable/ic_check_circle_green_400" />
 
             </LinearLayout>
 
@@ -253,8 +252,7 @@
                     android:layout_width="@dimen/spacing_xmlarge"
                     android:layout_height="@dimen/spacing_xmlarge"
                     android:background="@android:color/transparent"
-                    android:tint="@color/green_400"
-                    android:src="@drawable/ic_check_circle" />
+                    android:src="@drawable/ic_check_circle_green_400" />
 
             </LinearLayout>
 

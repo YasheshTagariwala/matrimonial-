@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:layout_margin="15dp"
-                android:src="@drawable/ic_close"/>
+                android:src="@drawable/ic_close_white"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:layout_margin="15dp"
-                    android:src="@drawable/ic_edit_white_24dp"/>
+                    android:src="@drawable/ic_edit_kloudforj_black_24dp"/>
 
             </LinearLayout>
 

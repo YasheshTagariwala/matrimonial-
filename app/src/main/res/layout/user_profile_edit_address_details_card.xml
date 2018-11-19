@@ -30,8 +30,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/spacing_medium"
             android:contentDescription="@string/default_image_button_string"
-            android:src="@drawable/swipe_up_handle"
-            android:tint="@color/red_700" />
+            android:src="@drawable/swipe_up_handle_red_700" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +60,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/spacing_large"
-                            android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_address1"
                             android:singleLine="true"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
@@ -96,7 +94,6 @@
                             android:id="@+id/editText_address2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_address2"
                             android:singleLine="true"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
@@ -131,7 +128,6 @@
                             android:id="@+id/editText_address3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_address3"
                             android:singleLine="true"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
@@ -166,7 +162,6 @@
                             android:id="@+id/editText_pincode"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableTint="@color/kloudforj_black"
                             android:hint="@string/user_profile_pincode"
                             android:inputType="number"
                             android:singleLine="true"

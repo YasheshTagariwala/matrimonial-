@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:src="@drawable/ic_close"
+                android:src="@drawable/ic_close_red_400"
                 android:background="@color/transparent"
                 android:textColor="@color/white"
                 android:visibility="gone"/>
@@ -153,8 +153,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:background="@android:color/transparent"
-                            android:tint="@color/black"
-                            app:srcCompat="@drawable/ic_edit_white_24dp"
+                            app:srcCompat="@drawable/ic_edit_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat" />
 
                         <View
@@ -210,7 +209,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:background="@android:color/transparent"
-                            app:srcCompat="@drawable/ic_person_black_24dp"
+                            app:srcCompat="@drawable/ic_person_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat" />
 
                         <View
@@ -266,7 +265,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:src="@drawable/ic_directions_bike_black_24dp" />
+                            android:src="@drawable/ic_directions_bike_kloudforj_black_24dp" />
 
                         <View
                             android:layout_width="10dp"
@@ -327,8 +326,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@android:color/transparent"
-                                android:src="@drawable/ic_local_phone_white_24dp"
-                                android:tint="@color/black" />
+                                android:src="@drawable/ic_local_phone_kloudforj_black_24dp" />
 
                             <View
                                 android:layout_width="10dp"
@@ -386,8 +384,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:background="@android:color/transparent"
-                            android:tint="@color/black"
-                            app:srcCompat="@drawable/ic_cake_white_24dp"
+                            app:srcCompat="@drawable/ic_cake_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat" />
 
                         <View
@@ -427,9 +424,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginLeft="10dp"
-                                    android:tint="@color/black"
                                     android:background="@color/transparent"
-                                    android:src="@drawable/ic_today_white_24dp"
+                                    android:src="@drawable/ic_today_kloudforj_black_24dp"
                                     android:visibility="gone"/>
 
                             </LinearLayout>
@@ -451,8 +447,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:background="@android:color/transparent"
-                            android:tint="@color/black"
-                            app:srcCompat="@drawable/ic_face_white_24dp"
+                            app:srcCompat="@drawable/ic_face_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat" />
 
                         <View
@@ -529,8 +524,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:background="@android:color/transparent"
-                                android:tint="@color/black"
-                                app:srcCompat="@drawable/ic_place_white_24dp"
+                                app:srcCompat="@drawable/ic_place_kloudforj_black_24dp"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <View
@@ -587,8 +581,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:background="@android:color/transparent"
-                                android:tint="@color/black"
-                                app:srcCompat="@drawable/ic_place_white_24dp"
+                                app:srcCompat="@drawable/ic_place_kloudforj_black_24dp"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <View
@@ -645,8 +638,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:background="@android:color/transparent"
-                                android:tint="@color/black"
-                                app:srcCompat="@drawable/ic_place_white_24dp"
+                                app:srcCompat="@drawable/ic_place_kloudforj_black_24dp"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <View
@@ -704,8 +696,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:background="@android:color/transparent"
-                            android:tint="@color/black"
-                            app:srcCompat="@drawable/ic_language_white_24dp"
+                            app:srcCompat="@drawable/ic_language_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat" />
 
                         <View
@@ -764,8 +755,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:background="@android:color/transparent"
-                            android:tint="@color/black"
-                            app:srcCompat="@drawable/ic_language_white_24dp"
+                            app:srcCompat="@drawable/ic_language_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat" />
 
                         <View
@@ -824,8 +814,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:background="@android:color/transparent"
-                            android:tint="@color/black"
-                            app:srcCompat="@drawable/ic_language_white_24dp"
+                            app:srcCompat="@drawable/ic_language_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat" />
 
                         <View
@@ -884,7 +873,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:background="@android:color/transparent"
-                            app:srcCompat="@drawable/ic_person_black_24dp"
+                            app:srcCompat="@drawable/ic_person_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat" />
 
                         <View
@@ -943,7 +932,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:background="@android:color/transparent"
-                            app:srcCompat="@drawable/ic_person_black_24dp"
+                            app:srcCompat="@drawable/ic_person_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat" />
 
                         <View
@@ -1002,7 +991,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:background="@android:color/transparent"
-                            app:srcCompat="@drawable/ic_person_black_24dp"
+                            app:srcCompat="@drawable/ic_person_kloudforj_black_24dp"
                             tools:ignore="VectorDrawableCompat" />
 
                         <View
@@ -1158,12 +1147,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:clickable="true"
-            android:tint="@android:color/white"
-            app:backgroundTint="@color/app_blue"
+            app:backgroundTint="@color/colorPrimary"
             app:fabSize="normal"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|right|end"
-            app:srcCompat="@drawable/ic_create_black_24dp"
+            app:srcCompat="@drawable/ic_create_pink_primary_dark_24dp"
             tools:ignore="VectorDrawableCompat" />
     </android.support.design.widget.CoordinatorLayout>
 

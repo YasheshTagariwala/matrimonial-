@@ -28,7 +28,6 @@
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
-                android:tint="@color/deep_purple_900"
                 android:src="@drawable/ic_location_on_white_24dp"
                 android:contentDescription="@string/default_image_button_string" />
 
@@ -51,8 +50,7 @@
                 android:paddingStart="@dimen/spacing_large"
                 android:paddingEnd="@dimen/spacing_large"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/grey_60"
-                android:src="@drawable/ic_expand_more_white_24dp"
+                android:src="@drawable/ic_expand_more_grey_60_24dp"
                 android:contentDescription="@string/default_image_button_string" />
 
         </LinearLayout>
@@ -86,7 +84,6 @@
                         <!--android:layout_width="@dimen/spacing_mlarge"-->
                         <!--android:layout_height="@dimen/spacing_mlarge"-->
                         <!--android:background="@android:color/transparent"-->
-                        <!--android:tint="@color/kloudforj_black"-->
                         <!--app:srcCompat="@drawable/ic_location_on_white_24dp"-->
                         <!--tools:ignore="VectorDrawableCompat"-->
                         <!--android:contentDescription="@string/default_image_button_string" />-->

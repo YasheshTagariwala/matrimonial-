@@ -179,12 +179,11 @@
             android:layout_margin="@dimen/spacing_mlarge"
             android:clickable="true"
             android:focusable="true"
-            android:tint="@color/pink_primary_dark"
             app:backgroundTint="@color/colorPrimary"
             app:fabSize="normal"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|right|end"
-            app:srcCompat="@drawable/ic_create_black_24dp"
+            app:srcCompat="@drawable/ic_create_pink_primary_dark_24dp"
             tools:ignore="VectorDrawableCompat" />
 
     </android.support.design.widget.CoordinatorLayout>
