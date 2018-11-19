@@ -76,7 +76,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 editor.putString(ProjectConstants.LOCATION, location);
                 if(textViewAge.getText().toString().trim().equals("") || textViewAge.getText().toString().trim().equals(getResources().getString(R.string.search_age))){
-                    editor.putString(ProjectConstants.AGE, "0-24");
+                    editor.putString(ProjectConstants.AGE, "18-24");
                 }else{
                     editor.putString(ProjectConstants.AGE, textViewAge.getText().toString().trim());
                 }
