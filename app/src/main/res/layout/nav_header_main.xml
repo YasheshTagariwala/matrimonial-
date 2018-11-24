@@ -30,7 +30,7 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardview_image"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:cardCornerRadius="25dp">
@@ -42,15 +42,15 @@
 
             </android.support.v7.widget.CardView>
 
-            <Button
-                android:id="@+id/button_profile_name"
+            <TextView
+                android:id="@+id/tv_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/nav_user_name_height"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 android:background="@color/transparent"
-                android:scaleType="fitStart"
-                android:layout_marginLeft="@dimen/spacing_large"
-                android:layout_marginRight="@dimen/spacing_large" />
+                android:layout_marginStart="@dimen/spacing_large"
+                android:layout_marginEnd="05dp"/>
 
         </LinearLayout>
 

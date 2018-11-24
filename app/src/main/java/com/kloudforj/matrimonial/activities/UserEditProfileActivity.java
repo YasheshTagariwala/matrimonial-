@@ -259,11 +259,12 @@ public class UserEditProfileActivity extends AppCompatActivity {
             }
         });
 
-        imageButtonCancel = findViewById(R.id.imagebutton_Cancel);
+        imageButtonCancel = findViewById(R.id.imagebutton_cancel);
         imageButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserEditProfileActivity.this, UserProfileActivity.class));
+                finish();
+                //startActivity(new Intent(UserEditProfileActivity.this, UserProfileActivity.class));
             }
         });
 
@@ -730,7 +731,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
-                        textViewBirthTime.setText(hourOfDay + ":" + minute + " " + (hourOfDay >= 12 ? "PM" : "AM"));
+                        textViewBirthTime.setText( String.valueOf(hourOfDay + ":" + minute + " " + (hourOfDay >= 12 ? "PM" : "AM")));
                     }
                 }, 0, 0, false);
         timePickerDialog.show();
@@ -740,38 +741,5 @@ public class UserEditProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         mAdapter.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-    }
-
-    public void uploadImageAPI(String picturePath) {
-        Call requestCall;
-        OkHttpClient client = new OkHttpClient();
-        Request request;
-        RequestBody req = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("user_id", globalSP.getString(ProjectConstants.USERID, ProjectConstants.EMPTY_STRING))
-                .addFormDataPart("profile", picturePath, RequestBody.create(MediaType.parse("image/jpg"), new File(picturePath))).build();
-
-        request = new Request.Builder()
-                .url("http://139.59.90.129/matrimonial/public/index.php/api/v0/user/upload-profile-image")
-                .post(req)
-                .header(ProjectConstants.APITOKEN, globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING))
-                .build();
-
-        Log.e("Request : ", request.toString());
-
-        requestCall = client.newCall(request);
-        requestCall.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("Error : ", "123");
-                Log.e("Error : ", e.getMessage());
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.e("Resp : ", response.body().string());
-            }
-        });
     }
 }

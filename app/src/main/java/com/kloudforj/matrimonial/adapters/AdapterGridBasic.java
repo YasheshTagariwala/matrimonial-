@@ -321,14 +321,16 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                         public void onResponse(Call call, Response response) throws IOException {
                             try {
                                 String result = response.body().string();
+                                Log.e("Response : ", result);
                                 final JSONObject jsonLogin = new JSONObject(result);
                                 final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
-                                final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
+                                //final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
                                 if (auth) {
                                     ((Activity) ctx).runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
+                                            //TODO: NV : Ask Yashesh about error format
+                                            //Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
                                             SharedPreferences globalSP;
                                             globalSP = ctx.getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
                                             SharedPreferences.Editor editor = globalSP.edit();

@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView mNavigationView;
     private ImageButton imageButtonSearch;
     private Call userListRequestCall, logoutRequestCall;
-    private Button buttonProfileName;
+    private TextView textViewProfileName;
     private ImageView imgProfile;
     private UserListFragment userListFragment;
     private FavouriteListFragment favouriteListFragment;
@@ -128,9 +129,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         View mView = mNavigationView.getHeaderView(0);
-        buttonProfileName = mView.findViewById(R.id.button_profile_name);
-        buttonProfileName.setText(user_name);
-        buttonProfileName.setOnClickListener(new View.OnClickListener() {
+        textViewProfileName = mView.findViewById(R.id.tv_profile_name);
+        textViewProfileName.setText(user_name);
+        textViewProfileName.setHorizontallyScrolling(true);
+        textViewProfileName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
