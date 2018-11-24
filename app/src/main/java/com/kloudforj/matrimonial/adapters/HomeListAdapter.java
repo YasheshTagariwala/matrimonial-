@@ -71,7 +71,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         final UserProfile items = userProfileList.get(position);
         holder.tvUserName.setText(String.valueOf(items.getProfile().getFirst_name() + " " + items.getProfile().getMiddle_name() + " " + items.getProfile().getLast_name()));
         holder.tvUserCaste.setText(items.getProfile().getCaste());
-        holder.tvUserAge.setText(String.valueOf(items.getProfile().getAge()));
+        holder.tvUserAge.setText(String.valueOf(items.getProfile().getAge())+" Years");
+
+        holder.tvUserBirthPlace.setText("Surat");
+        holder.tvUserMaritalStatus.setText("Single / Never Married");
+        holder.tvUserHeight.setText("5` 3``");
+        holder.tvUserEducation.setText("blah blahblah");
 
         holder.setClickListener(new ItemClickListener() {
             @Override
@@ -260,7 +265,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        private TextView tvUserName, tvUserCaste, tvUserAge;
+        private TextView tvUserName, tvUserCaste, tvUserAge, tvUserBirthPlace, tvUserMaritalStatus, tvUserHeight, tvUserEducation;
         ImageButton imageButtonFavouritePerson, imageButtonFavouritePersonLike;
 
         View view;
@@ -276,6 +281,11 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             tvUserName = view.findViewById(R.id.tv_user_name);
             tvUserCaste = view.findViewById(R.id.tv_user_caste);
             tvUserAge = view.findViewById(R.id.tv_user_age);
+            tvUserBirthPlace = view.findViewById(R.id.tv_user_birth_place);
+            tvUserMaritalStatus = view.findViewById(R.id.tv_user_marital_status);
+            tvUserHeight = view.findViewById(R.id.tv_user_height);
+            tvUserEducation = view.findViewById(R.id.tv_user_education);
+
             imageButtonFavouritePerson = view.findViewById(R.id.favourite_person);
             imageButtonFavouritePersonLike = view.findViewById(R.id.favourite_person_like);
         }
