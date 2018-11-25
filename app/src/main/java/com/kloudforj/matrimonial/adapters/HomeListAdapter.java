@@ -73,10 +73,14 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         holder.tvUserCaste.setText(items.getProfile().getCaste());
         holder.tvUserAge.setText(String.valueOf(items.getProfile().getAge())+" Years");
 
-        holder.tvUserBirthPlace.setText("Surat");
-        holder.tvUserMaritalStatus.setText("Single / Never Married");
-        holder.tvUserHeight.setText("5` 3``");
-        holder.tvUserEducation.setText("blah blahblah");
+        holder.tvUserBirthPlace.setText(items.getExtra().getBirth_place());
+        holder.tvUserMaritalStatus.setText(items.getProfile().getMarital_status());
+        holder.tvUserHeight.setText(items.getExtra().getHeight());
+        if(items.getEducation().size() > 0){
+            holder.tvUserEducation.setText(items.getEducation().get(0));
+        }else{
+            holder.tvUserEducation.setText('-');
+        }
 
         holder.setClickListener(new ItemClickListener() {
             @Override
