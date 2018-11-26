@@ -1,13 +1,17 @@
 package com.kloudforj.matrimonial.activities;
 
-import android.app.Activity;
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -39,21 +43,13 @@ import com.kloudforj.matrimonial.utils.Tools;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.HttpUrl;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class UserEditProfileActivity extends AppCompatActivity {
@@ -64,6 +60,13 @@ public class UserEditProfileActivity extends AppCompatActivity {
     List<View> arrayOfEducationView = new ArrayList<View>();
     List<View> arrayOfHobbyView = new ArrayList<View>();
     AdapterGridBasic mAdapter;
+    private boolean sentToSettings = false;
+    private SharedPreferences permissionStatus;
+
+    final String[] permissionsRequired = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.INTERNET,
+            Manifest.permission.ACCESS_NETWORK_STATE};
 
     private RecyclerView recyclerViewUserImage;
 
@@ -93,6 +96,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_edit_profile);
+        permissionStatus = getSharedPreferences("permissionStatus", MODE_PRIVATE);
 
         linearLayoutEducationHolder = findViewById(R.id.linearlayout_education_holder);
         linearLayoutHobbiesHolder = findViewById(R.id.linearlayout_hobbies_holder);
@@ -412,6 +416,119 @@ public class UserEditProfileActivity extends AppCompatActivity {
         editTextPhone.setText(globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING));
         editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING));
 
+    }
+
+    public void requestPermission() {
+
+        if (ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[0]) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[1]) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[2]) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[3]) != PackageManager.PERMISSION_GRANTED ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(UserEditProfileActivity.this, permissionsRequired[0]) || ActivityCompat.shouldShowRequestPermissionRationale(UserEditProfileActivity.this, permissionsRequired[1]) || ActivityCompat.shouldShowRequestPermissionRationale(UserEditProfileActivity.this, permissionsRequired[2]) || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[3]) != PackageManager.PERMISSION_GRANTED) {
+                //Show Information about why you need the permission
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Need Multiple Permissions");
+                builder.setMessage("This app needs Storage and Internet permissions.");
+                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        ActivityCompat.requestPermissions(UserEditProfileActivity.this, permissionsRequired, 100);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+                builder.show();
+            } else if (permissionStatus.getBoolean(permissionsRequired[0], false) || permissionStatus.getBoolean(permissionsRequired[2], false)) {
+                //Previously Permission Request was cancelled with 'Dont Ask Again',
+                // Redirect to Settings after showing Information about why you need the
+                AlertDialog.Builder builder = new AlertDialog.Builder(UserEditProfileActivity.this);
+                builder.setTitle("Need Multiple Permissions");
+                builder.setMessage("This app needs Storage and Internet permissions.");
+                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        sentToSettings = true;
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivityForResult(intent, 101);
+                        Toast.makeText(getBaseContext(), "Go to Permissions to Grant Storage and Internet", Toast.LENGTH_LONG).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+                builder.show();
+            } else {
+                ActivityCompat.requestPermissions(UserEditProfileActivity.this, permissionsRequired, 100);
+            }
+            SharedPreferences.Editor editor = permissionStatus.edit();
+            editor.putBoolean(permissionsRequired[0], true);
+            editor.apply();
+        } else {
+            mAdapter.getImageData();
+        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (sentToSettings) {
+            if (ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[0]) == PackageManager.PERMISSION_GRANTED) {
+                //Got Permission
+                mAdapter.getImageData();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull final String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            boolean allGranted = false;
+            for (int grantResult : grantResults) {
+                if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                    allGranted = true;
+                } else {
+                    allGranted = false;
+                    break;
+                }
+            }
+            if (allGranted) {
+                mAdapter.getImageData();
+            } else if (ActivityCompat.shouldShowRequestPermissionRationale(UserEditProfileActivity.this, permissionsRequired[0]) || ActivityCompat.shouldShowRequestPermissionRationale(UserEditProfileActivity.this, permissionsRequired[1]) || ActivityCompat.shouldShowRequestPermissionRationale(UserEditProfileActivity.this, permissionsRequired[2]) || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[3]) != PackageManager.PERMISSION_GRANTED) {
+                //Show Information about why you need the permission
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(UserEditProfileActivity.this);
+                builder.setTitle("Need Multiple Permissions");
+                builder.setMessage("This app needs Storage and Internet permissions.");
+                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        ActivityCompat.requestPermissions(UserEditProfileActivity.this, permissionsRequired, 100);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+                builder.show();
+            } else {
+                Toast.makeText(getBaseContext(), "Storage Permission Is Must", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
     }
 
     public class UpdateProfileCall implements CallBackFunction {

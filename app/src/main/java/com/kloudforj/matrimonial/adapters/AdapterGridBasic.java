@@ -1,14 +1,19 @@
 package com.kloudforj.matrimonial.adapters;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +25,8 @@ import android.widget.Toast;
 
 
 import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.activities.MainActivity;
+import com.kloudforj.matrimonial.activities.UserEditProfileActivity;
 import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
@@ -107,7 +114,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
             globalSP = ctx.getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
             final String token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
             final OriginalViewHolder view = (OriginalViewHolder) holder;
-            if(items.length > position && items[position] != null){
+            if (items.length > position && items[position] != null) {
                 Tools.displayImageOriginal(ctx, view.imageButtonTimeline, items[position]);
                 view.lyt_parent.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -117,14 +124,14 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                         }
                     }
                 });
-            }else{
+            } else {
                 view.imageButtonTimeline.setImageResource(R.drawable.add_image_icon);
                 view.imageButtonRemove.setVisibility(View.GONE);
                 view.imageButtonTimeline.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mainHolder = view;
-                        getImageData();
+                        ((UserEditProfileActivity) ctx).requestPermission();
                     }
                 });
             }
@@ -149,7 +156,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                         @Override
                         public void onClick(View v) {
                             mainHolder = view;
-                            getImageData();
+                            ((UserEditProfileActivity) ctx).requestPermission();
                         }
                     });
                 }
@@ -212,8 +219,8 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    private void getImageData(){
-        Log.e("where","getImageData");
+    public void getImageData() {
+        Log.e("where", "getImageData");
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
         builder.setTitle("Get New Image");
 
@@ -233,23 +240,22 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
         builder.show();
     }
 
-    private void getImageFromGallery(){
+    private void getImageFromGallery() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        ((Activity)ctx).startActivityForResult(pickPhoto , 1);
+        ((Activity) ctx).startActivityForResult(pickPhoto, 1);
     }
 
-    private void getImageFromCamera(){
+    private void getImageFromCamera() {
         Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        ((Activity)ctx).startActivityForResult(takePicture, 0);
+        ((Activity) ctx).startActivityForResult(takePicture, 0);
     }
-
 
     public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
 //        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        switch(requestCode) {
+        switch (requestCode) {
             case 0:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     Uri selectedImage = imageReturnedIntent.getData();
                     mainHolder.imageButtonTimeline.setImageURI(selectedImage);
                     mainHolder.imageButtonRemove.setVisibility(View.VISIBLE);
@@ -260,7 +266,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                     });
 
                     //Uri selectedImage = imageReturnedIntent.getData();
-                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
                     Cursor cursor1 = ctx.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                     cursor1.moveToFirst();
@@ -272,7 +278,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                 break;
 
             case 1:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     Uri selectedImage = imageReturnedIntent.getData();
                     mainHolder.imageButtonTimeline.setImageURI(selectedImage);
                     mainHolder.imageButtonRemove.setVisibility(View.VISIBLE);
@@ -282,7 +288,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                         }
                     });
 
-                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
                     Cursor cursor1 = ctx.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                     cursor1.moveToFirst();
@@ -324,13 +330,12 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                                 Log.e("Response : ", result);
                                 final JSONObject jsonLogin = new JSONObject(result);
                                 final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
-                                //final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
+                                final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
                                 if (auth) {
                                     ((Activity) ctx).runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            //TODO: NV : Ask Yashesh about error format
-                                            //Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
+                                            Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
                                             SharedPreferences globalSP;
                                             globalSP = ctx.getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
                                             SharedPreferences.Editor editor = globalSP.edit();
