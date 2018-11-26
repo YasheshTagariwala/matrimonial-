@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ProgressBar mMainActvityProgressBar;
     private RecyclerView mUsersListRecyclerView;
     private HomeListAdapter mHomeListAdapter;
+    private HomeListAdapter mHomeListFavoritesAdapter;
     private NavigationView mNavigationView;
     private ImageButton imageButtonSearch;
     private Call userListRequestCall, logoutRequestCall;
@@ -84,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    ArrayList<UserProfile> userProfiles = new ArrayList<>();
+    ArrayList<UserProfile> userProfilesWithFavorites = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -294,8 +297,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                         if (jsonArrayData.length() > 0) {
 
-                                            ArrayList<UserProfile> userProfiles = new ArrayList<>();
-                                            ArrayList<UserProfile> userProfilesWithFavorites = new ArrayList<>();
+                                            userProfiles = new ArrayList<>();
+                                            userProfilesWithFavorites = new ArrayList<>();
                                             Map<Integer,Boolean> is_favorite = new HashMap<>();
                                             for(int i = 0; i < jsonArrayData.length(); i++) {
                                                 JSONObject jsonObject = jsonArrayData.getJSONObject(i);
@@ -306,8 +309,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                     userProfilesWithFavorites.add(new Gson().fromJson(jsonObject.toString(), UserProfile.class));
                                                 }
                                             }
-                                            userListFragment.mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfiles,false,is_favorite));
-                                            favouriteListFragment.mUsersListRecyclerView.setAdapter(new HomeListAdapter(MainActivity.this, userProfilesWithFavorites,true,is_favorite));
+                                            mHomeListAdapter = new HomeListAdapter(MainActivity.this, userProfiles,false,is_favorite);
+                                            userListFragment.mUsersListRecyclerView.setAdapter(mHomeListAdapter);
+                                            mHomeListFavoritesAdapter = new HomeListAdapter(MainActivity.this, userProfilesWithFavorites,true,is_favorite);
+                                            favouriteListFragment.mUsersListRecyclerView.setAdapter(mHomeListFavoritesAdapter);
 //                                            mUsersListRecyclerView.setAdapter();
                                         }
                                     } catch (JSONException e) {
@@ -332,11 +337,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void updateData(boolean is_removed){
+    public void updateData(boolean is_removed,int id){
+        Map<Integer,Boolean> is_favorite = new HashMap<>();
         if(is_removed){
-
+            for (int i = 0;i < userProfilesWithFavorites.size();i++){
+                if(userProfilesWithFavorites.get(i).getId() == id){
+                    userProfilesWithFavorites.remove(i);
+                }
+            }
         }else{
-
+            for (int j = 0;j < userProfiles.size();j++){
+                if(userProfiles.get(j).getId() == id){
+                    userProfilesWithFavorites.add(userProfiles.get(j));
+                }
+            }
+        }
+        for (int i = 0;i < userProfilesWithFavorites.size();i++){
+            is_favorite.put(userProfilesWithFavorites.get(i).getId(),true);
+        }
+        if(is_removed){
+            mHomeListAdapter = new HomeListAdapter(MainActivity.this, userProfiles,false,is_favorite);
+            userListFragment.mUsersListRecyclerView.setAdapter(mHomeListAdapter);
+            mHomeListAdapter = new HomeListAdapter(MainActivity.this, userProfilesWithFavorites,true,is_favorite);
+            favouriteListFragment.mUsersListRecyclerView.setAdapter(mHomeListAdapter);
+        }else{
+            mHomeListFavoritesAdapter.notifyDataSetChanged();
         }
     }
 

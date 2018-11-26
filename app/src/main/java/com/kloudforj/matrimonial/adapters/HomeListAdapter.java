@@ -10,9 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.activities.MainActivity;
@@ -20,6 +25,7 @@ import com.kloudforj.matrimonial.activities.UserProfileActivity;
 import com.kloudforj.matrimonial.entities.UserProfile;
 import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
+import com.kloudforj.matrimonial.utils.GlideApp;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 
 import org.json.JSONArray;
@@ -46,12 +52,16 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     private boolean isDummy = false;
     private boolean isFavorite = false;
     private Map<Integer, Boolean> is_favorite;
+    private SharedPreferences globalSP;
+    public String token;
 
     public HomeListAdapter(Context context, List<UserProfile> userProfileList, boolean isFavorite, Map<Integer, Boolean> is_favorite) {
         this.context = context;
         this.userProfileList = userProfileList;
         this.isFavorite = isFavorite;
         this.is_favorite = is_favorite;
+        globalSP = context.getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
+        token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
     }
 
     public HomeListAdapter(Context context, int count) {
@@ -80,6 +90,18 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             holder.tvUserEducation.setText(items.getEducation().get(0));
         }else{
             holder.tvUserEducation.setText('-');
+        }
+
+        if(items.getImages().length > 0){
+            RequestOptions ro = new RequestOptions()
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .fitCenter();
+
+            GlideUrl url = new GlideUrl(ProjectConstants.BASE_URL + ProjectConstants.IMAGE_GET_URL + "/" + items.getImages()[0].getImage_path(),
+                    new LazyHeaders.Builder().addHeader(ProjectConstants.APITOKEN, token).build());
+            GlideApp.with(context).load(url).apply(ro)
+                    .into(holder.userImage);
         }
 
         holder.setClickListener(new ItemClickListener() {
@@ -143,8 +165,27 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 }
             });
         }else{
-            holder.imageButtonFavouritePersonLike.setVisibility(View.GONE);
-            holder.imageButtonFavouritePerson.setVisibility(View.GONE);
+            holder.imageButtonFavouritePersonLike.setVisibility(View.VISIBLE);
+            holder.imageButtonFavouritePersonLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    JSONObject jsonObjectRequest = new JSONObject();
+                    try {
+                        jsonObjectRequest.put(ProjectConstants.BOOKMARKID, items.getId());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.REMOVE_FAVORITES_URL).newBuilder();
+                    if (DetectConnection.checkInternetConnection(context)) {
+                        new ProjectConstants.getDataFromServer(jsonObjectRequest, new RemoveFromFavorite(items.getId()), context).execute(urlBuilder.build().toString(), token);
+                        holder.imageButtonFavouritePerson.setVisibility(View.VISIBLE);
+                        holder.imageButtonFavouritePersonLike.setVisibility(View.GONE);
+                    } else {
+                        Toast.makeText(context, context.getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+//            holder.imageButtonFavouritePerson.setVisibility(View.GONE);
         }
     }
 
@@ -182,6 +223,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                 if (auth) {
                                     is_favorite.put(bookmark_id, true);
                                     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                    ((MainActivity) context).updateData(false,bookmark_id);
                                 }
                             }
                         });
@@ -239,6 +281,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                 if (auth) {
                                     is_favorite.remove(bookmark_id);
                                     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                    ((MainActivity) context).updateData(true,bookmark_id);
                                 }
                             }
                         });
@@ -271,6 +314,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
         private TextView tvUserName, tvUserCaste, tvUserAge, tvUserBirthPlace, tvUserMaritalStatus, tvUserHeight, tvUserEducation;
         ImageButton imageButtonFavouritePerson, imageButtonFavouritePersonLike;
+        ImageView userImage;
 
         View view;
 
@@ -292,6 +336,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
             imageButtonFavouritePerson = view.findViewById(R.id.favourite_person);
             imageButtonFavouritePersonLike = view.findViewById(R.id.favourite_person_like);
+
+            userImage = view.findViewById(R.id.image_user);
         }
 
         public void setClickListener(ItemClickListener itemClickListener) {
