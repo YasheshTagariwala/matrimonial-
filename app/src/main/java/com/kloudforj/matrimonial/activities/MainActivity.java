@@ -363,10 +363,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if(id == R.id.nav_settings) {
-
-            Intent setttingsActivity = new Intent(MainActivity.this, SettingsActivity.class);
-            startActivity(setttingsActivity);
+//        if(id == R.id.nav_settings) {
+//
+//            Intent setttingsActivity = new Intent(MainActivity.this, SettingsActivity.class);
+//            startActivity(setttingsActivity);
+//        }
+        if(id == R.id.nav_log_out) {
+            JSONObject jsonLogoutRequest = new JSONObject();
+            try {
+                jsonLogoutRequest.put(ProjectConstants.ID, id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.LOGOUT_URL).newBuilder();
+            if(DetectConnection.checkInternetConnection(MainActivity.this)) {
+                new ProjectConstants.getDataFromServer(jsonLogoutRequest,new LogoutServiceCall(),MainActivity.this).execute(urlBuilder.build().toString());
+            }else{
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+            }
+        }
+        if(id == R.id.nav_change_password) {
+//            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -492,5 +509,76 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
+    }
+
+    public class LogoutServiceCall implements CallBackFunction{
+
+        @Override
+        public void getResponseFromServer(Response response) throws IOException {
+            if(!response.isSuccessful()) {
+                Log.e("1 : ", response.toString());
+                enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                throw new IOException("Unexpected code " + response);
+            } else {
+
+                String result = response.body().string(); // response is converted to string
+
+                if(result != null) {
+
+                    try {
+
+                        final JSONObject jsonLogin = new JSONObject(result);
+
+                        final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
+                        final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
+
+                                if(auth) {
+
+                                    SharedPreferences.Editor editor = globalSP.edit();
+                                    editor.clear();
+                                    editor.apply();
+
+                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                    finish();
+                                } else {
+                                    enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                                }
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                    }
+
+                } else {
+                    enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                }
+
+            }
+        }
+    }
+
+    /**
+     * Enables login button and progressbar invisible
+     *
+     * @param msg
+     */
+    private void enableLoginComponents(final String msg) {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //TODO: Settings design
+                /*loginButton.setEnabled(true); // Login Button is Enabled
+                mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled*/
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

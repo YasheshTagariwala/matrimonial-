@@ -29,6 +29,8 @@
     <string name="content_description_image_view">Navigation menu image</string>
     <string name="nav_home">Home</string>
     <string name="nav_contact_us">Contact Us</string>
+    <string name="nav_change_password">Change Password</string>
+    <string name="nav_logout">Logout</string>
     <string name="nav_about_us">About Us</string>
     <string name="nav_settings">Settings</string>
     <string name="nav_user_name">Profile name</string>

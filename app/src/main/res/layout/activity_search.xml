@@ -117,7 +117,7 @@
                         android:maxLength="50"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/grey_10"
+                        android:textColor="@color/kloudforj_black"
                         android:theme="@style/EditText.Grey" />
 
                 </android.support.design.widget.TextInputLayout>
