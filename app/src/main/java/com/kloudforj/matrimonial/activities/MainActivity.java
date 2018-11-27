@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FavouriteListFragment favouriteListFragment;
 
     private String location, subcaste1, subcaste2, name, user_name, image_name;
-    private String age;
+    private String age, sex;
 
     private String token;
     private int user_id;
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         user_name = globalSP.getString(ProjectConstants.USER_NAME, ProjectConstants.EMPTY_STRING);
         image_name = globalSP.getString(ProjectConstants.BASE_IMAGE, ProjectConstants.EMPTY_STRING);
         age = globalSP.getString(ProjectConstants.AGE, ProjectConstants.EMPTY_STRING);
+        sex = globalSP.getString(ProjectConstants.SEX, ProjectConstants.EMPTY_STRING);
 
         // ActionBar is set on MainActivity
         setToolbar();
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         JSONObject jsonObjectRequest = new JSONObject();
         try {
-            jsonObjectRequest.put(ProjectConstants.SEX, "F");
+            jsonObjectRequest.put(ProjectConstants.SEX, sex.equals("M") ? "F" : "M");
 
 //            if(!location.equals(ProjectConstants.EMPTY_STRING)) {
 //                jsonObjectRequest.put(ProjectConstants.LOCATION, location);
@@ -215,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USERLIST_URL).newBuilder();
             if ( DetectConnection.checkInternetConnection(MainActivity.this) ) {
-                new ProjectConstants.getDataFromServer(jsonObjectRequest,new FetchUserList(),this).execute(urlBuilder.build().toString(),token);
+                new ProjectConstants.getDataFromServer(jsonObjectRequest, new FetchUserList(),this).execute(urlBuilder.build().toString(),token);
             } else {
                 Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
             }
@@ -255,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_favorite_white_24dp);
     }
 
-    public class FetchUserList implements CallBackFunction{
+    public class FetchUserList implements CallBackFunction {
 
         @Override
         public void getResponseFromServer(Response response) throws IOException {
@@ -394,7 +395,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            startActivity(setttingsActivity);
 //        }
         if(id == R.id.nav_log_out) {
-            JSONObject jsonLogoutRequest = new JSONObject();
+            logoutServiceCall();
+/*            JSONObject jsonLogoutRequest = new JSONObject();
             try {
                 jsonLogoutRequest.put(ProjectConstants.ID, id);
             } catch (JSONException e) {
@@ -405,7 +407,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 new ProjectConstants.getDataFromServer(jsonLogoutRequest,new LogoutServiceCall(),MainActivity.this).execute(urlBuilder.build().toString());
             }else{
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-            }
+            }*/
         }
         if(id == R.id.nav_change_password) {
 //            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
@@ -531,12 +533,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     exit = false;
                 }
             }, 3 * 1000);
-
         }
-
     }
 
-    public class LogoutServiceCall implements CallBackFunction{
+    /*public class LogoutServiceCall implements CallBackFunction{
 
         @Override
         public void getResponseFromServer(Response response) throws IOException {
@@ -587,7 +587,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         }
-    }
+    }*/
 
     /**
      * Enables login button and progressbar invisible

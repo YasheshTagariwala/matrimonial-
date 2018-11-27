@@ -19,6 +19,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -40,10 +42,13 @@ import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.kloudforj.matrimonial.utils.Tools;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -80,6 +85,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     Spinner spinnerGender, spinnerCountry, spinnerState, spinnerCity,
             spinnerCast, spinnerSubCast1, spinnerSubCast2, spinnerMaritalStatus;
+
+    ArrayList<String> countryNames, stateNames, cityNames;
 
     RadioGroup radioGroupSex;
     RadioButton radioButtonMale, radioButtonFemale;
@@ -121,6 +128,20 @@ public class UserEditProfileActivity extends AppCompatActivity {
         spinnerSubCast1 = findViewById(R.id.spn_user_sub_caste_1);
         spinnerSubCast2 = findViewById(R.id.spn_user_sub_caste_2);
         spinnerMaritalStatus = findViewById(R.id.spn_marital_status);
+
+        countryNames = new ArrayList<>();
+        stateNames = new ArrayList<>();
+        cityNames = new ArrayList<>();
+
+        loadCountrySpinners();
+
+        spinnerCountry.setAdapter(new ArrayAdapter<String>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, countryNames));
+        spinnerCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //loadStateSpinners();
+            }
+        });
 
         textViewBirthDate = findViewById(R.id.text_birth_date);
 //        textViewUserEducation = findViewById(R.id.text_user_education);
@@ -252,7 +273,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Log.e("data",jsonUserProfileRequest.toString());
+                    //Log.e("data",jsonUserProfileRequest.toString());
                     HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.UPDATE_PROFILE_URL).newBuilder();
                     if (DetectConnection.checkInternetConnection(UserEditProfileActivity.this)) {
                         new ProjectConstants.getDataFromServer(jsonUserProfileRequest, new UpdateProfileCall(), UserEditProfileActivity.this).execute(urlBuilder.build().toString(),token);
@@ -336,12 +357,13 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 String[] datas = getResources().getStringArray(R.array.marital_status);
                 spinnerMaritalStatus.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getMarital_status()));
 
-                datas = getResources().getStringArray(R.array.country);
+                /*datas = getResources().getStringArray(R.array.country);
                 spinnerCountry.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCountry()));
                 datas = getResources().getStringArray(R.array.state);
                 spinnerState.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getState()));
                 datas = getResources().getStringArray(R.array.city);
-                spinnerCity.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCity()));
+                spinnerCity.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCity()));*/
+
                 datas = getResources().getStringArray(R.array.caste);
                 spinnerCast.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCaste()));
                 datas = getResources().getStringArray(R.array.sub_caste_1);
@@ -416,6 +438,39 @@ public class UserEditProfileActivity extends AppCompatActivity {
         editTextPhone.setText(globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING));
         editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING));
 
+    }
+
+    private void loadCountrySpinners() {
+        String jsonCountries = "";
+        try {
+            InputStream is = this.getAssets().open("countries.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            jsonCountries = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        if(!jsonCountries.trim().equals(ProjectConstants.EMPTY_STRING)) {
+
+            try {
+
+                JSONObject jsonObject = new JSONObject(jsonCountries);
+                JSONArray jsonArray = jsonObject.getJSONArray("countries");
+
+                for(int i = 0; i < jsonArray.length(); i++) {
+
+                    JSONObject objectCountry = jsonArray.getJSONObject(i);
+                    countryNames.add(objectCountry.getString("name"));
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     public void requestPermission() {
@@ -560,7 +615,9 @@ public class UserEditProfileActivity extends AppCompatActivity {
                                     editor.apply();
                                 }
                             });
-                            startActivity(new Intent(UserEditProfileActivity.this, UserProfileActivity.class));
+                            Intent intentUserProfile = new Intent(UserEditProfileActivity.this, UserProfileActivity.class);
+                            intentUserProfile.putExtra(ProjectConstants.SEX, radioButtonMale.isChecked() ? "M" : "F");
+                            startActivity(intentUserProfile);
                             finish();
                         }
 

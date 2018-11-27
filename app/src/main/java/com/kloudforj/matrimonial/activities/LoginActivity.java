@@ -119,11 +119,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         editor.putString(ProjectConstants.LOCATION, "");
                                         editor.putString(ProjectConstants.SUBCASTE1, "");
                                         editor.putString(ProjectConstants.SUBCASTE2, "");
-                                        editor.putString(ProjectConstants.NAME, "");
+                                        editor.putString(ProjectConstants.NAME, ( jsonLogin.has(ProjectConstants.USER_NAME) ? jsonLogin.getString(ProjectConstants.USER_NAME) : "") );
                                         editor.putString(ProjectConstants.EMAIL, loginEmail.getText().toString());
                                         editor.putString(ProjectConstants.USER_NAME, ( jsonLogin.has(ProjectConstants.USER_NAME) ? jsonLogin.getString(ProjectConstants.USER_NAME) : "") );
                                         editor.putString(ProjectConstants.BASE_IMAGE, ( jsonLogin.has(ProjectConstants.BASE_IMAGE) ? jsonLogin.getString(ProjectConstants.BASE_IMAGE) : "") );
                                         editor.putString(ProjectConstants.PHONE, ( jsonLogin.has(ProjectConstants.PHONE) ? jsonLogin.getString(ProjectConstants.PHONE) : ""));
+                                        editor.putString(ProjectConstants.SEX, ( jsonLogin.has(ProjectConstants.SEX) ? jsonLogin.getString(ProjectConstants.SEX).trim() : ""));
 
                                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                                         editor.putBoolean(ProjectConstants.USER_PROFILE, profile);
