@@ -52,7 +52,10 @@ import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 import okhttp3.HttpUrl;
 import okhttp3.Response;
@@ -86,6 +89,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
     Spinner spinnerGender, spinnerCountry, spinnerState, spinnerCity,
             spinnerCast, spinnerSubCast1, spinnerSubCast2, spinnerMaritalStatus;
 
+    HashMap<Integer, String> countries, states, cities;
     ArrayList<String> countryNames, stateNames, cityNames;
 
     RadioGroup radioGroupSex;
@@ -129,19 +133,15 @@ public class UserEditProfileActivity extends AppCompatActivity {
         spinnerSubCast2 = findViewById(R.id.spn_user_sub_caste_2);
         spinnerMaritalStatus = findViewById(R.id.spn_marital_status);
 
+        countries = new HashMap<Integer, String>();
+        /*states = new LinkedHashMap();
+        cities = new LinkedHashMap();*/
         countryNames = new ArrayList<>();
         stateNames = new ArrayList<>();
         cityNames = new ArrayList<>();
 
-        loadCountrySpinners();
-
-        spinnerCountry.setAdapter(new ArrayAdapter<String>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, countryNames));
-        spinnerCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //loadStateSpinners();
-            }
-        });
+        loadLocations();
+        loadCountrySpinner();
 
         textViewBirthDate = findViewById(R.id.text_birth_date);
 //        textViewUserEducation = findViewById(R.id.text_user_education);
@@ -440,15 +440,31 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     }
 
-    private void loadCountrySpinners() {
+    private void loadLocations() {
         String jsonCountries = "";
+        String jsonStates = "";
+        String jsonCities = "";
         try {
-            InputStream is = this.getAssets().open("countries.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            jsonCountries = new String(buffer, "UTF-8");
+            InputStream isCountry = this.getAssets().open("countries.json");
+            int sizeCountry = isCountry.available();
+            byte[] bufferCountry = new byte[sizeCountry];
+            isCountry.read(bufferCountry);
+            isCountry.close();
+            jsonCountries = new String(bufferCountry, "UTF-8");
+
+            InputStream isState = this.getAssets().open("states.json");
+            int sizeState = isState.available();
+            byte[] bufferState = new byte[sizeState];
+            isState.read(bufferState);
+            isState.close();
+            jsonStates = new String(bufferState, "UTF-8");
+
+            InputStream isCity = this.getAssets().open("cities.json");
+            int sizeCity = isCity.available();
+            byte[] bufferCity = new byte[sizeCity];
+            isCity.read(bufferCity);
+            isCity.close();
+            jsonCities = new String(bufferCity, "UTF-8");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -463,14 +479,67 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 for(int i = 0; i < jsonArray.length(); i++) {
 
                     JSONObject objectCountry = jsonArray.getJSONObject(i);
+                    countries.put(objectCountry.getInt("id"), objectCountry.getString("name"));
                     countryNames.add(objectCountry.getString("name"));
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
+        if(!jsonStates.trim().equals(ProjectConstants.EMPTY_STRING)) {
+
+            try {
+
+                JSONObject jsonObject = new JSONObject(jsonStates);
+                JSONArray jsonArray = jsonObject.getJSONArray("states");
+
+                for(int i = 0; i < jsonArray.length(); i++) {
+
+                    JSONObject objectCountry = jsonArray.getJSONObject(i);
+                    states.put(objectCountry.getInt("id"), objectCountry.getString("name"));
+                    stateNames.add(objectCountry.getString("name"));
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if(!jsonCities.trim().equals(ProjectConstants.EMPTY_STRING)) {
+
+            try {
+
+                JSONObject jsonObject = new JSONObject(jsonStates);
+                JSONArray jsonArray = jsonObject.getJSONArray("cities");
+
+                for(int i = 0; i < jsonArray.length(); i++) {
+
+                    JSONObject objectCountry = jsonArray.getJSONObject(i);
+                    cities.put(objectCountry.getInt("id"), objectCountry.getString("name"));
+                    cityNames.add(objectCountry.getString("name"));
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void loadCountrySpinner() {
+
+        spinnerCountry.setAdapter(new ArrayAdapter<String>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, countryNames));
+        spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //loadStateSpinners();
+                Log.e("Country :", countryNames.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void requestPermission() {

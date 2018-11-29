@@ -142,7 +142,7 @@
     <!-- Search Activity strings -->
     <string name="search_user">Search</string>
     <string name="search_name">Name</string>
-    <string name="search_age">Age</string>
+    <string name="search_year">Year</string>
     <string name="search_caste">Caste</string>
     <string name="search_sub_caste_1">Sub Caste 1</string>
     <string name="search_sub_caste_2">Sub Caste 2</string>

@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FavouriteListFragment favouriteListFragment;
 
     private String location, subcaste1, subcaste2, name, user_name, image_name;
-    private String age, sex;
+    private String sex;
+    private int birth_year;
 
     private String token;
     private int user_id;
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         name = globalSP.getString(ProjectConstants.NAME, ProjectConstants.EMPTY_STRING);
         user_name = globalSP.getString(ProjectConstants.USER_NAME, ProjectConstants.EMPTY_STRING);
         image_name = globalSP.getString(ProjectConstants.BASE_IMAGE, ProjectConstants.EMPTY_STRING);
-        age = globalSP.getString(ProjectConstants.AGE, ProjectConstants.EMPTY_STRING);
+        birth_year = globalSP.getInt(ProjectConstants.BIRTH_YEAR, 0);
         sex = globalSP.getString(ProjectConstants.SEX, ProjectConstants.EMPTY_STRING);
 
         // ActionBar is set on MainActivity
@@ -201,12 +202,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(!subcaste2.equals(ProjectConstants.EMPTY_STRING)) {
                 jsonObjectRequest.put(ProjectConstants.SUBCASTE2, subcaste2);
             }
-            if(!age.equals(ProjectConstants.EMPTY_STRING)) {
-                jsonObjectRequest.put(ProjectConstants.AGE, age);
+            if(birth_year != 0) {
+                jsonObjectRequest.put(ProjectConstants.BIRTH_YEAR, birth_year);
             }
 
-            //TODO: Add age from range seek bar.
-                /*jsonObjectRequest.put(ProjectConstants.AGE, "");*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
