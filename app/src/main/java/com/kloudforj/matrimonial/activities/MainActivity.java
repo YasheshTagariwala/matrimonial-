@@ -229,11 +229,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setupTabIcons();
 
         Snackbar snackbar = Snackbar
-                .make(drawer, "TEST", Snackbar.LENGTH_INDEFINITE)
+                .make(drawer, "Please contact admin for more details.", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Contact Us", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
                     }
                 });
         snackbar.show();

@@ -145,8 +145,8 @@
                 android:text="@string/label_login"
                 android:textAllCaps="false"
                 android:textSize="20sp"
-                android:textColor="@color/white"
-                android:background="@color/colorButton" />
+                android:textColor="@color/colorPrimaryText"
+                android:background="@color/colorPrimaryLight" />
                 <!-- android:background="@drawable/btn_rounded_green_300" -->
 
             <View

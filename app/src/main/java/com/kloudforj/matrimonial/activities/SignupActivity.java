@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kloudforj.matrimonial.R;
@@ -34,17 +35,19 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private EditText /*etFirstName, etMiddleName, etLastName,*/ etEmail, etPassword, etConfirmPassword, etPhone;
     private TextInputLayout /*firstNameWrapper, middleNameWrapper, lastNameWrapper,*/ emailWrapper, phoneWrapper, passwordWrapper, confirmPasswordWrapper;
     private ProgressBar mSignUpActvityProgressBar;
+    private TextView logintextView;
     private Button registerButton;
     private SharedPreferences globalSP;
     Boolean signUpCheck = false; // A flag is initialized for checking Edittext value is empty or not
 
-    private Call signUpRequestCall;
     private String TAG = "SignupActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
 
         mSignUpActvityProgressBar = findViewById(R.id.pb_signup_activity);
         if (mSignUpActvityProgressBar != null) {
@@ -125,8 +128,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
-
+        logintextView = findViewById(R.id.login);
+        logintextView.setOnClickListener(this);
     }
 
     @Override
@@ -187,6 +190,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
                 }
 
+                break;
+
+            case R.id.login:
+                finish();
                 break;
         }
     }

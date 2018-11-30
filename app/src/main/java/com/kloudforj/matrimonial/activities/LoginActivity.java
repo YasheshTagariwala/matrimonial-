@@ -2,6 +2,7 @@ package com.kloudforj.matrimonial.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -211,8 +212,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.sign_up:
-                Intent intentSignUp = new Intent(this, SignupActivity.class);
-                startActivity(intentSignUp);
+                startActivity(new Intent(this, SignupActivity.class));
                 break;
         }
     }

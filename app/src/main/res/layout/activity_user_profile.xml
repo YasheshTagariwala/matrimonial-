@@ -179,7 +179,7 @@
             android:layout_margin="@dimen/spacing_mlarge"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/colorPrimary"
+            app:backgroundTint="@color/colorAccent"
             app:fabSize="normal"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|right|end"

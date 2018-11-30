@@ -7,16 +7,24 @@
     <color name="colorPrimaryDark">#C74147</color>
     <color name="colorButton">#FFA5A1</color>-->
 
-    <color name="colorPrimary">#EF5350</color>
+    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryDark">#D32F2F</color>
+    <color name="colorPrimaryLight">#FFCDD2</color>
+    <color name="colorAccent">#FFC107</color>
+    <color name="colorPrimaryText">#212121</color>
+    <!--<color name="colorButton">#FF8A80</color>-->
+
+<!--    <color name="colorPrimary">#EF5350</color>
     <color name="colorPrimaryDark">#F44336</color>
-    <color name="colorButton">#FF8A80</color>
+    <color name="colorButton">#FF8A80</color>-->
 
     <!-- <color name="colorPrimaryDark">#FF4D4D</color> -->
     <!-- <color name="colorPrimaryDark">#F06292</color> -->
     <!--<color name="colorPrimaryDark">#0283c2</color>-->
     <!-- <color name="colorLoginBackground">#FF4D4D</color> -->
 
-    <color name="colorAccent">#0283c2</color>
+
+<!--    <color name="colorAccent">#0283c2</color>-->
     <color name="navItemTintColor">#696969</color>
     <color name="kloudforj_black">#2d333a</color>
 
@@ -110,7 +118,7 @@
 
 
     <!--Added On 27-09-2018-->
-    <color name="colorPrimaryLight">#1E88E5</color>
+    <!--<color name="colorPrimaryLight">#1E88E5</color>-->
     <color name="colorAccentDark">#F50057</color>
     <color name="colorAccentLight">#FF80AB</color>
 
