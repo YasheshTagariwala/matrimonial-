@@ -183,7 +183,7 @@
             app:fabSize="normal"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|right|end"
-            app:srcCompat="@drawable/ic_create_pink_primary_dark_24dp"
+            app:srcCompat="@drawable/ic_create_white_24dp"
             tools:ignore="VectorDrawableCompat" />
 
     </android.support.design.widget.CoordinatorLayout>

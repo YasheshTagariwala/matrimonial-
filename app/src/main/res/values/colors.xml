@@ -10,6 +10,7 @@
     <color name="colorPrimary">#F44336</color>
     <color name="colorPrimaryDark">#D32F2F</color>
     <color name="colorPrimaryLight">#FFCDD2</color>
+    <color name="colorPrimaryMLight">#F08080</color>
     <color name="colorAccent">#FFC107</color>
     <color name="colorPrimaryText">#212121</color>
     <!--<color name="colorButton">#FF8A80</color>-->

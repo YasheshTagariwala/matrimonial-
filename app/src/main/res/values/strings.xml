@@ -56,6 +56,7 @@
 
     <!-- Main Activity strings -->
     <string name="doublebackpress">Press back once again to exit!</string>
+    <string name="developed_by">Developed By Kloudforj</string>
 
 
     <!-- UserProfile Activity strings -->
