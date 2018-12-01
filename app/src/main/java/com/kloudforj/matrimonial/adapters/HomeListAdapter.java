@@ -113,6 +113,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     new LazyHeaders.Builder().addHeader(ProjectConstants.APITOKEN, token).build());
             GlideApp.with(context).load(url).apply(ro)
                     .into(holder.userImage);
+        } else {
+            if(items.getProfile().getSex().toLowerCase().equals("m")){
+                holder.userImage.setImageResource(R.drawable.default_male);
+            }else{
+                holder.userImage.setImageResource(R.drawable.default_female);
+            }
         }
 
         holder.setClickListener(new ItemClickListener() {
