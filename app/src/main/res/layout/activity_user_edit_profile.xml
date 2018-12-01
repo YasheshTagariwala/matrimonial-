@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_large"
                 android:background="@color/transparent"
-                android:src="@drawable/ic_close_red_400"
+                android:src="@drawable/ic_close_white"
                 android:textColor="@color/white"
                 android:contentDescription="@string/default_image_button_string" />
 

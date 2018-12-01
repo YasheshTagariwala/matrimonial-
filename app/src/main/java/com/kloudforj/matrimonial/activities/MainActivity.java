@@ -401,6 +401,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(id == R.id.nav_change_password) {
             Toast.makeText(this, "123", Toast.LENGTH_SHORT).show();
         }
+        if(id == R.id.nav_contact_us) {
+            startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
+        }
         return true;
     }
 

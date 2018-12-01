@@ -228,4 +228,15 @@
     <string name="user_pincode_empty">Enter Your Pincode</string>
 
 
+    <!-- AboutUs Activity -->
+    <string name="about_us_first">To arrange happy everlasting married life is what we have believed in from the past 7 years of experience.</string>
+    <string name="about_us_second">Achievement: We arranged one get togather on large scale, with details of each candidate for them to know each other well enough for the everlasting married life to start.</string>
+    <string name="about_us_reach_us">Reach Us</string>
+    <string name="about_us_name_1">Parul Marfatia</string>
+    <string name="about_us_address_1">42, Sangam society, opposite Science Center, city light road, Surat - 395007</string>
+    <string name="about_us_phone_1">Phone: 9825119752</string>
+    <string name="about_us_name_2">Gayatri Lokhandwala</string>
+    <string name="about_us_address_2">A - 701, Bejanwala complex, opposite S.M.C Zone office, Tarwadi, Rander Road, Surat - 395009</string>
+    <string name="about_us_phone_2">Phone: 7990972333</string>
+    <string name="about_us_app_name">Celebration match Maker.</string>
 </resources>
