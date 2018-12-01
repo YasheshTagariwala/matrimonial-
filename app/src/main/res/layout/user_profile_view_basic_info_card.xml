@@ -304,6 +304,8 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="@dimen/spacing_middle"
                                 android:lineSpacingExtra="@dimen/spacing_xsmall"
+                                android:autoLink="phone"
+                                android:textColorLink="@color/colorPrimary"
                                 android:textSize="@dimen/TextViewLabel"
                                 android:textColor="@color/kloudforj_black"
                                 android:hint="@string/user_profile_number"
@@ -317,7 +319,7 @@
                                 android:layout_weight="1">
 
                                 <ImageButton
-                                    android:id="@+id/phone_number_not_verified"
+                                    android:id="@+id/view_phone_number_not_verified"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/ic_info_red_900_24dp"
@@ -325,7 +327,7 @@
                                     android:contentDescription="@string/default_image_button_string" />
 
                                 <ImageButton
-                                    android:id="@+id/phone_number_verified"
+                                    android:id="@+id/view_phone_number_verified"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@color/transparent"
@@ -383,9 +385,11 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="@dimen/spacing_middle"
                                 android:lineSpacingExtra="@dimen/spacing_xsmall"
+                                android:autoLink="email"
+                                android:textColorLink="@color/colorPrimary"
                                 android:textSize="@dimen/TextViewLabel"
                                 android:textColor="@color/kloudforj_black"
-                                android:hint="tagariwalayashesh@gmail.com"
+                                android:hint="demo@gmail.com"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                             <LinearLayout
@@ -394,7 +398,7 @@
                                 android:gravity="end">
 
                                 <ImageButton
-                                    android:id="@+id/email_not_verified"
+                                    android:id="@+id/view_email_not_verified"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@color/transparent"
@@ -402,7 +406,7 @@
                                     android:contentDescription="@string/default_image_button_string" />
 
                                 <ImageButton
-                                    android:id="@+id/email_verified"
+                                    android:id="@+id/view_email_verified"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@color/transparent"

@@ -62,6 +62,10 @@
     <!-- UserProfile Activity strings -->
     <string name="user_profile_save">Save</string>
 
+    <!-- Verification Activity -->
+    <string name="phone_verify">You will get SMS with a Verification Code to this number.</string>
+    <string name="email_verify">You will get EMail with a Verification Code to this Email ID.</string>
+
     <!-- Basic Info Card -->
     <string name="user_profile_card_title_basic_info">Basic Info</string>
     <string name="user_profile_name">Name</string>

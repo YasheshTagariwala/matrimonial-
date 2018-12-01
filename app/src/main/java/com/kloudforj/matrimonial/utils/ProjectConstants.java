@@ -90,6 +90,8 @@ public class ProjectConstants {
     public static final String USERLIST_URL = "/home";
     public static final String ADD_TO_FAVORITES_URL = "/add-to-favorites";
     public static final String REMOVE_FAVORITES_URL = "/delete-favorites";
+    public static final String GENERATE_VERIFICATION_CODE = "/generate-verification-code";
+    public static final String VERIFY_CODE = "/verify-code";
 
     /*Logout constants*/
     public static final String LOGOUT_URL = "/logout";

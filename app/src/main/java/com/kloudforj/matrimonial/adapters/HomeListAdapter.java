@@ -100,7 +100,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         if(items.getEducation().size() > 0){
             holder.tvUserEducation.setText(items.getEducation().get(0));
         }else{
-            holder.tvUserEducation.setText('-');
+            holder.tvUserEducation.setText("-");
         }
 
         if(items.getImages().length > 0){

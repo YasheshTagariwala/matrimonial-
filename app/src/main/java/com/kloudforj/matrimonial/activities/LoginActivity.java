@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
@@ -70,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
 
-        if(!token.trim().equals(ProjectConstants.EMPTY_STRING)) {
+        if (!token.trim().equals(ProjectConstants.EMPTY_STRING)) {
             finish();
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
@@ -79,11 +80,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * used for login service call
      */
-    public class LoginServiceCall implements CallBackFunction{
+    public class LoginServiceCall implements CallBackFunction {
 
         @Override
         public void getResponseFromServer(Response response) throws IOException {
-            if(!response.isSuccessful()) {
+            if (!response.isSuccessful()) {
                 //Log.e("Response False : ", response.body().string());
                 enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                 throw new IOException("Unexpected code " + response);
@@ -92,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String result = response.body().string(); // response is converted to string
                 //Log.e("Response True : ", result);
 
-                if(result != null) {
+                if (result != null) {
 
                     try {
 
@@ -108,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 loginButton.setEnabled(true); // Login Button is Enabled
                                 mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
 
-                                if(auth) {
+                                if (auth) {
                                     try {
                                         token = jsonLogin.getString(ProjectConstants.TOKEN);
                                         final int userid = jsonLogin.getInt(ProjectConstants.USERID);
@@ -120,24 +121,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         editor.putString(ProjectConstants.LOCATION, "");
                                         editor.putString(ProjectConstants.SUBCASTE1, "");
                                         editor.putString(ProjectConstants.SUBCASTE2, "");
-                                        editor.putString(ProjectConstants.NAME, ( jsonLogin.has(ProjectConstants.USER_NAME) ? jsonLogin.getString(ProjectConstants.USER_NAME) : "") );
-                                        editor.putString(ProjectConstants.EMAIL, loginEmail.getText().toString());
-                                        editor.putString(ProjectConstants.USER_NAME, ( jsonLogin.has(ProjectConstants.USER_NAME) ? jsonLogin.getString(ProjectConstants.USER_NAME) : "") );
-                                        editor.putString(ProjectConstants.BASE_IMAGE, ( jsonLogin.has(ProjectConstants.BASE_IMAGE) ? jsonLogin.getString(ProjectConstants.BASE_IMAGE) : "") );
-                                        editor.putString(ProjectConstants.PHONE, ( jsonLogin.has(ProjectConstants.PHONE) ? jsonLogin.getString(ProjectConstants.PHONE) : ""));
-                                        editor.putString(ProjectConstants.SEX, ( jsonLogin.has(ProjectConstants.SEX) ? jsonLogin.getString(ProjectConstants.SEX).trim() : ""));
+                                        editor.putString(ProjectConstants.NAME, (jsonLogin.has(ProjectConstants.USER_NAME) ? jsonLogin.getString(ProjectConstants.USER_NAME) : ""));
+                                        editor.putString(ProjectConstants.EMAIL, (jsonLogin.has(ProjectConstants.EMAIL) ? jsonLogin.getString(ProjectConstants.EMAIL) : ""));
+                                        editor.putString(ProjectConstants.USER_NAME, (jsonLogin.has(ProjectConstants.USER_NAME) ? jsonLogin.getString(ProjectConstants.USER_NAME) : ""));
+                                        editor.putString(ProjectConstants.BASE_IMAGE, (jsonLogin.has(ProjectConstants.BASE_IMAGE) ? jsonLogin.getString(ProjectConstants.BASE_IMAGE) : ""));
+                                        editor.putString(ProjectConstants.PHONE, (jsonLogin.has(ProjectConstants.PHONE) ? jsonLogin.getString(ProjectConstants.PHONE) : ""));
+                                        editor.putString(ProjectConstants.SEX, (jsonLogin.has(ProjectConstants.SEX) ? jsonLogin.getString(ProjectConstants.SEX).trim() : ""));
 
                                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                                         editor.putBoolean(ProjectConstants.USER_PROFILE, profile);
                                         editor.apply();
-                                        if(profile){
+                                        if (profile) {
                                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                        }else{
+                                        } else {
                                             startActivity(new Intent(LoginActivity.this, UserEditProfileActivity.class));
                                         }
                                         finish();
-                                    }
-                                    catch (JSONException e) {
+                                    } catch (JSONException e) {
                                         enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                                         e.printStackTrace();
                                     }
@@ -202,9 +202,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         e.printStackTrace();
                     }
                     HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.LOGIN_URL).newBuilder();
-                    if(DetectConnection.checkInternetConnection(LoginActivity.this)) {
-                        new ProjectConstants.getDataFromServer(jsonLoginRequest,new LoginServiceCall(),this).execute(urlBuilder.build().toString());
-                    }else{
+                    if (DetectConnection.checkInternetConnection(LoginActivity.this)) {
+                        new ProjectConstants.getDataFromServer(jsonLoginRequest, new LoginServiceCall(), this).execute(urlBuilder.build().toString());
+                    } else {
                         Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                     }
                 }

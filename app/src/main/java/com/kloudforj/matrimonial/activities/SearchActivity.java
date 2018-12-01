@@ -15,11 +15,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -27,6 +35,8 @@ public class SearchActivity extends AppCompatActivity {
     Button buttonFind;
 
     private Spinner mSpnBirthYear, mSpnSubCaste1, mSpnSubCaste2;
+    private ArrayList<String> listCountry, listState, listCity;
+    private HashMap<Integer, String> mapCountry, mapState, mapCity;
     ArrayList<String> birthYears;
     private Spinner mSpnCountry, mSpnState, mSpnCity;
     private EditText mEtName;
@@ -47,14 +57,14 @@ public class SearchActivity extends AppCompatActivity {
         int thisYear = Calendar.getInstance().get(Calendar.YEAR);
         int upto = thisYear;
 
-        if(!sex.equals(ProjectConstants.EMPTY_STRING) && sex.equals("M")) {
+        if (!sex.equals(ProjectConstants.EMPTY_STRING) && sex.equals("M")) {
             upto = thisYear - 18; //2000
         }
-        if(!sex.equals(ProjectConstants.EMPTY_STRING) && sex.equals("F")) {
+        if (!sex.equals(ProjectConstants.EMPTY_STRING) && sex.equals("F")) {
             upto = thisYear - 21; //1997
         }
 
-        for(; upto >= 1975; upto--) {
+        for (; upto >= 1975; upto--) {
             birthYears.add(String.valueOf(upto));
         }
 
@@ -76,6 +86,8 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        initCountryStateCity();
+
         buttonFind = findViewById(R.id.bt_find);
         buttonFind.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,10 +102,10 @@ public class SearchActivity extends AppCompatActivity {
 
                 Toast.makeText(SearchActivity.this, "Find / Search", Toast.LENGTH_SHORT).show();
 
-                String location = mSpnCountry.getSelectedItem().toString().trim()+"/"+mSpnState.getSelectedItem().toString().trim()+"/"+mSpnCity.getSelectedItem().toString().trim();
+                String location = mSpnCountry.getSelectedItem().toString().trim() + "/" + mSpnState.getSelectedItem().toString().trim() + "/" + mSpnCity.getSelectedItem().toString().trim();
                 Intent intentMain = new Intent(SearchActivity.this, MainActivity.class);
                 intentMain.putExtra(ProjectConstants.LOCATION, location);
-                if(!mSpnBirthYear.getSelectedItem().toString().equals("Select birth year")) {
+                if (!mSpnBirthYear.getSelectedItem().toString().equals("Select birth year")) {
                     int byear = Integer.parseInt(mSpnBirthYear.getSelectedItem().toString());
                     intentMain.putExtra(ProjectConstants.BIRTH_YEAR, byear);
                 }
@@ -106,5 +118,25 @@ public class SearchActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void initCountryStateCity() {
+
+    }
+
+    public String loadJSONFromAsset(String fileName) {
+        String json = null;
+        try {
+            InputStream is = getResources().getAssets().open(fileName);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 }

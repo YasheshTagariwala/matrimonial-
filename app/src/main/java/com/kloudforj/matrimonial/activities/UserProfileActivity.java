@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -35,6 +36,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.adapters.AdapterGridBasic;
@@ -76,17 +78,17 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private LinearLayout toggle_basic_info, toggle_education_info, toggle_extra_info, toggle_family_info;
     private ImageView img_toggle_basic_info, img_toggle_extra_info, img_toggle_education_info, img_toggle_family_info, img_toggle_address_info;
-    private View basic_info_expanded_view, extra_info_expanded_view, education_info_expanded_view, family_info_expanded_view,toggle_address_info, address_info_expanded_view;
+    private View basic_info_expanded_view, extra_info_expanded_view, education_info_expanded_view, family_info_expanded_view, toggle_address_info, address_info_expanded_view;
     private NestedScrollView nested_scroll_view;
 
-//========     Added by ellis On date 30-09-2018     ================
+    //========     Added by ellis On date 30-09-2018     ================
     private LinearLayout layout_dots;
     private ViewPager viewPager;
     private UserImageSliderAdapter userImageSliderAdapter;
     private Runnable runnable = null;
     private Handler handler = new Handler();
 
-//    private static int[] array_image_product = {
+    //    private static int[] array_image_product = {
 //            R.drawable.profile_image,
 //            R.drawable.profile_image,
 //            R.drawable.profile_image,
@@ -101,17 +103,17 @@ public class UserProfileActivity extends AppCompatActivity {
     ImageButton imageButtonSave;
     boolean modeEdit = false;
 
-    LinearLayout linearLayoutPhone,linearLayoutEducation;
+    LinearLayout linearLayoutPhone, linearLayoutEducation;
 
-    ImageButton imageButtonCancel;
+    ImageButton imageButtonCancel, imageButtonPhoneNumberNotVerified, imageButtonPhoneNumberVerified, imageButtonEmailNotVerified, imageButtonEmailVerified;
 
     TextView textViewFullName, textViewAboutMe, textViewHobby, textViewBirthDate,
-            textViewPhone, textViewGender,textViewEmail,
-            textViewCaste, textViewSubCaste1, textViewSubCaste2,textViewMaritalStatus,textViewIncome,
+            textViewPhone, textViewGender, textViewEmail,
+            textViewCaste, textViewSubCaste1, textViewSubCaste2, textViewMaritalStatus, textViewIncome,
             textViewUserHeight, textViewUserWeight, textViewUserBirthPlace, textViewUserBirthTime,
             textViewUserJob, textViewUserEducation, textViewFatherName, textViewFatherEducation,
             textViewFatherProfession, textViewFatherBirthPlace, textViewMotherName,
-            textViewMotherEducation, textViewMotherProfession, textViewMotherBirthPlace,textViewAddress1, textViewAddress2, textViewAddress3, textViewPincode, textviewLocation;
+            textViewMotherEducation, textViewMotherProfession, textViewMotherBirthPlace, textViewAddress1, textViewAddress2, textViewAddress3, textViewPincode, textviewLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +144,25 @@ public class UserProfileActivity extends AppCompatActivity {
         linearLayoutPhone = findViewById(R.id.linearlayout_phone);
         linearLayoutEducation = findViewById(R.id.linearlayout_education);
         imageButtonCancel = findViewById(R.id.imagebutton_Cancel);
+
+        imageButtonPhoneNumberNotVerified = findViewById(R.id.view_phone_number_not_verified);
+        imageButtonPhoneNumberVerified = findViewById(R.id.view_phone_number_verified);
+        imageButtonEmailNotVerified = findViewById(R.id.view_email_not_verified);
+        imageButtonEmailVerified = findViewById(R.id.view_email_verified);
+
+        imageButtonPhoneNumberNotVerified.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyActivity("Phone");
+            }
+        });
+
+        imageButtonEmailNotVerified.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyActivity("Email");
+            }
+        });
 
         textViewFullName = findViewById(R.id.text_full_name);
         textViewAboutMe = findViewById(R.id.text_about_me);
@@ -182,32 +203,64 @@ public class UserProfileActivity extends AppCompatActivity {
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userProfile1 != null){
+                if (userProfile1 != null) {
                     Intent editProfile = new Intent(UserProfileActivity.this, UserEditProfileActivity.class);
                     editProfile.putExtra("userProfile", userProfile1.toString());
                     startActivity(editProfile);
-                }else{
+                } else {
                     Toast.makeText(UserProfileActivity.this, UserProfileActivity.this.getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        if(isSelf) {
+        if (isSelf) {
             fabEdit.setVisibility(View.VISIBLE);
+            imageButtonPhoneNumberVerified.setVisibility(View.GONE);
+            imageButtonPhoneNumberNotVerified.setVisibility(View.VISIBLE);
+            imageButtonEmailVerified.setVisibility(View.GONE);
+            imageButtonEmailNotVerified.setVisibility(View.VISIBLE);
         } else {
             fabEdit.setVisibility(View.GONE);
-            linearLayoutPhone.setVisibility(View.GONE);
+            imageButtonPhoneNumberVerified.setVisibility(View.GONE);
+            imageButtonPhoneNumberNotVerified.setVisibility(View.GONE);
+            imageButtonEmailVerified.setVisibility(View.GONE);
+            imageButtonEmailNotVerified.setVisibility(View.GONE);
+//            linearLayoutPhone.setVisibility(View.GONE);
         }
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USER_PROFILE_URL + ProjectConstants.SLASH + user_id).newBuilder();
-        if(DetectConnection.checkInternetConnection(this)) {
-            new ProjectConstants.getDataFromServer(new JSONObject(), new FetchUserDetails(), this).execute(urlBuilder.build().toString(),token);
-        }else{
+        if (DetectConnection.checkInternetConnection(this)) {
+            new ProjectConstants.getDataFromServer(new JSONObject(), new FetchUserDetails(), this).execute(urlBuilder.build().toString(), token);
+        } else {
             Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
         }
 
         initComponent();
 
+    }
+
+    public void verifyActivity(String type) {
+        boolean is_empty = false;
+        String data;
+        if (type.equals("Phone")) {
+            data = textViewEmail.getText().toString().trim();
+            if (textViewPhone.getText().toString().trim().equals("-") || textViewPhone.getText().toString().trim().equals("")) {
+                is_empty = true;
+            }
+        } else {
+            data = textViewPhone.getText().toString().trim();
+            if (textViewEmail.getText().toString().trim().equals("-") || textViewEmail.getText().toString().trim().equals("")) {
+                is_empty = true;
+            }
+        }
+        if (is_empty) {
+            Toast.makeText(UserProfileActivity.this, type + " Is Not Valid", Toast.LENGTH_LONG).show();
+        } else {
+            Intent intent = new Intent(UserProfileActivity.this, VerificationActivity.class);
+            intent.putExtra("type", type);
+            intent.putExtra("data", data);
+            startActivity(intent);
+        }
     }
 
     //========     Added by ellis On date 30-09-2018     ================
@@ -382,7 +435,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         @Override
         public void getResponseFromServer(Response response) throws IOException {
-            if(!response.isSuccessful()) {
+            if (!response.isSuccessful()) {
                 enableComponents(getResources().getString(R.string.something_went_wrong));
                 throw new IOException("Unexpected code " + response);
             } else {
@@ -390,7 +443,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 String result = response.body().string(); // response is converted to string
 //                Log.e("resp : ", result);
 
-                if(result != null) {
+                if (result != null) {
                     try {
                         final JSONObject jsonUserProfile = new JSONObject(result);
 
@@ -402,7 +455,7 @@ public class UserProfileActivity extends AppCompatActivity {
                             public void run() {
                                 mUserProfileActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
 
-                                if(auth) {
+                                if (auth) {
                                     try {
 //                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
@@ -413,20 +466,42 @@ public class UserProfileActivity extends AppCompatActivity {
                                         Gson gson = new Gson();
                                         UserProfile userProfile = gson.fromJson(jsonObjectData.toString(), UserProfile.class);
 
-                                        textViewFullName.setText(String.valueOf(userProfile.getProfile().getFirst_name()+" "+userProfile.getProfile().getMiddle_name()+" "+userProfile.getProfile().getLast_name()));
+                                        textViewFullName.setText(String.valueOf(userProfile.getProfile().getFirst_name() + " " + userProfile.getProfile().getMiddle_name() + " " + userProfile.getProfile().getLast_name()));
                                         textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
-                                        textViewGender.setText((userProfile.getProfile().getSex().toLowerCase().equals("m")?"Male":"Female"));
-                                        textViewPhone.setText(globalSP.getString(ProjectConstants.PHONE,ProjectConstants.EMPTY_STRING));
-                                        textViewEmail.setText(globalSP.getString(ProjectConstants.EMAIL,ProjectConstants.EMPTY_STRING));
+                                        textViewGender.setText((userProfile.getProfile().getSex().toLowerCase().equals("m") ? "Male" : "Female"));
+                                        textViewPhone.setText(userProfile.getPhone_number() == null ? "-" : userProfile.getPhone_number());
+                                        textViewEmail.setText(userProfile.getEmail() == null ? "-" : userProfile.getEmail());
                                         String martial_status = userProfile.getProfile().getMarital_status();
                                         textViewMaritalStatus.setText(martial_status);
-                                        if(martial_status.trim().equals("Divorced")) {
-                                            if(Build.VERSION.SDK_INT < 23) {
+                                        if (martial_status.trim().equals("Divorced")) {
+                                            if (Build.VERSION.SDK_INT < 23) {
                                                 textViewMaritalStatus.setTextColor(getResources().getColor(R.color.colorPrimary));
                                             } else {
                                                 textViewMaritalStatus.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
                                             }
 
+                                        }
+
+                                        if (isSelf) {
+                                            if (userProfile.getProfile().getPhone_number_verified() == 0) {
+                                                imageButtonPhoneNumberVerified.setVisibility(View.GONE);
+                                                imageButtonPhoneNumberNotVerified.setVisibility(View.VISIBLE);
+                                            } else {
+                                                imageButtonPhoneNumberVerified.setVisibility(View.VISIBLE);
+                                                imageButtonPhoneNumberNotVerified.setVisibility(View.GONE);
+                                            }
+                                            if (userProfile.getProfile().getEmail_verified() == 0) {
+                                                imageButtonEmailVerified.setVisibility(View.GONE);
+                                                imageButtonEmailNotVerified.setVisibility(View.VISIBLE);
+                                            } else {
+                                                imageButtonEmailVerified.setVisibility(View.VISIBLE);
+                                                imageButtonEmailNotVerified.setVisibility(View.GONE);
+                                            }
+                                        } else {
+                                            imageButtonPhoneNumberVerified.setVisibility(View.GONE);
+                                            imageButtonPhoneNumberNotVerified.setVisibility(View.GONE);
+                                            imageButtonEmailVerified.setVisibility(View.GONE);
+                                            imageButtonEmailNotVerified.setVisibility(View.GONE);
                                         }
 
                                         textViewCaste.setText(userProfile.getProfile().getCaste());
@@ -442,28 +517,27 @@ public class UserProfileActivity extends AppCompatActivity {
                                         textViewAboutMe.setText(userProfile.getExtra().getAbout_me());
 
                                         StringBuilder education = new StringBuilder();
-                                        for(int i = 0; i < userProfile.getEducation().size(); i++)
-                                        {
+                                        for (int i = 0; i < userProfile.getEducation().size(); i++) {
                                             education.append(userProfile.getEducation().get(i)).append(System.getProperty("line.separator"));
                                         }
                                         textViewUserEducation.setText(education.toString());
 
                                         StringBuilder hobbies = new StringBuilder();
-                                        for(int i = 0; i < userProfile.getHobbies().size(); i++)
-                                        {
+                                        for (int i = 0; i < userProfile.getHobbies().size(); i++) {
                                             hobbies.append(userProfile.getHobbies().get(i)).append(System.getProperty("line.separator"));
                                         }
                                         textViewHobby.setText(hobbies.toString());
 
                                         array_image_product = new String[userProfile.getImages().length];
-                                        for(int i = 0; i < userProfile.getImages().length; i++){
+                                        for (int i = 0; i < userProfile.getImages().length; i++) {
                                             array_image_product[i] = userProfile.getImages()[i].getImage_path();
                                         }
 
                                         textViewAddress1.setText(userProfile.getProfile().getAddress1());
                                         textViewAddress2.setText(userProfile.getProfile().getAddress2());
                                         textViewAddress3.setText(userProfile.getProfile().getAddress3());
-                                        textviewLocation.setText(userProfile.getProfile().getCountry() + ", "+ userProfile.getProfile().getState() + ", "+ userProfile.getProfile().getCity());
+                                        textViewPincode.setText(userProfile.getProfile().getPincode());
+                                        textviewLocation.setText(userProfile.getProfile().getCountry() + ", " + userProfile.getProfile().getState() + ", " + userProfile.getProfile().getCity());
 
                                         textViewFatherName.setText(userProfile.getFamily().getFather_name());
                                         textViewFatherEducation.setText(userProfile.getFamily().getFather_education());
@@ -535,7 +609,7 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void showEducationAdd(){
+    public void showEducationAdd() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Add Education"); //Set Alert dialog title here
         alert.setMessage("Here You Can Add new Education"); //Message here

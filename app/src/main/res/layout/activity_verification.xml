@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kloudforj.matrimonial.activities.VerificationActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.kloudforj.matrimonial.activities.VerificationActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -24,9 +24,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/spacing_xlarge"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/spacing_xlarge">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,27 +66,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_large"
                 android:layout_marginTop="@dimen/spacing_xlarge"
+                android:layout_marginBottom="@dimen/spacing_large"
                 android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:inputType="phone"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="+61"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/grey_60"
-                    android:textStyle="bold" />
+                <!--<android.support.design.widget.TextInputEditText-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:enabled="false"-->
+                <!--android:inputType="phone"-->
+                <!--android:maxLines="1"-->
+                <!--android:singleLine="true"-->
+                <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"-->
+                <!--android:textColor="@color/grey_60"-->
+                <!--android:textStyle="bold" />-->
 
-                <View
-                    android:layout_width="@dimen/spacing_middle"
-                    android:layout_height="0dp" />
+                <!--<View-->
+                <!--android:layout_width="@dimen/spacing_middle"-->
+                <!--android:layout_height="0dp" />-->
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verify_phone_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -95,7 +95,6 @@
                     android:inputType="phone"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="9767 0587 7834"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                     android:textColor="@color/grey_60"
                     android:textStyle="bold">
@@ -133,6 +132,7 @@
                 android:orientation="horizontal">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_phone_code_1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -150,6 +150,7 @@
                     android:layout_height="0dp" />
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_phone_code_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -167,6 +168,7 @@
                     android:layout_height="0dp" />
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_phone_code_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -184,6 +186,43 @@
                     android:layout_height="0dp" />
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_phone_code_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/grey_90"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="@dimen/spacing_medium"
+                    android:layout_height="0dp" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_phone_code_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/grey_90"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="@dimen/spacing_medium"
+                    android:layout_height="0dp" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_phone_code_6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -199,7 +238,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_coundown"
+                android:id="@+id/tv_countdown_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_medium"
@@ -220,8 +259,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_large"
                 android:layout_marginTop="@dimen/spacing_xlarge"
+                android:layout_marginBottom="@dimen/spacing_large"
                 android:orientation="horizontal">
 
                 <View
@@ -229,6 +268,7 @@
                     android:layout_height="0dp" />
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verify_email_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -236,11 +276,10 @@
                     android:hint="Email"
                     android:inputType="phone"
                     android:maxLines="1"
-                    android:textSize="15dp"
                     android:singleLine="true"
-                    android:text="tagariwalayashesh@gmail.com"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                     android:textColor="@color/grey_60"
+                    android:textSize="15dp"
                     android:textStyle="bold">
 
                     <requestFocus />
@@ -276,6 +315,7 @@
                 android:orientation="horizontal">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_email_code_1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -293,6 +333,7 @@
                     android:layout_height="0dp" />
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_email_code_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -310,6 +351,7 @@
                     android:layout_height="0dp" />
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_email_code_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -327,6 +369,43 @@
                     android:layout_height="0dp" />
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_email_code_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/grey_90"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="@dimen/spacing_medium"
+                    android:layout_height="0dp" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_email_code_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/grey_90"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="@dimen/spacing_medium"
+                    android:layout_height="0dp" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/verification_email_code_6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -342,7 +421,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_coundown"
+                android:id="@+id/tv_countdown_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_medium"
@@ -353,14 +432,13 @@
 
         </LinearLayout>
 
-
-
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
         <android.support.v7.widget.AppCompatButton
+            android:id="@+id/verify_continue"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_rounded_red"
@@ -368,6 +446,7 @@
             android:textColor="@android:color/white" />
 
         <android.support.v7.widget.AppCompatButton
+            android:id="@+id/resend_code"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
