@@ -255,7 +255,6 @@
                             android:paddingTop="@dimen/spacing_middle"
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
                             android:textSize="@dimen/TextViewLabel"
-                            android:hint="@string/user_profile_default_marital_status"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black" />
 

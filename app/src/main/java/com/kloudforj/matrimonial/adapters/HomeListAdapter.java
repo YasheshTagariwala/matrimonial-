@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,10 +83,19 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         final UserProfile items = userProfileList.get(position);
         holder.tvUserName.setText(String.valueOf(items.getProfile().getFirst_name() + " " + items.getProfile().getMiddle_name() + " " + items.getProfile().getLast_name()));
         holder.tvUserCaste.setText(items.getProfile().getCaste());
-        holder.tvUserAge.setText(String.valueOf(items.getProfile().getAge())+" Years");
+        holder.tvUserAge.setText(String.valueOf(items.getProfile().getAge()+" Years"));
 
         holder.tvUserBirthPlace.setText(items.getExtra().getBirth_place());
-        holder.tvUserMaritalStatus.setText(items.getProfile().getMarital_status());
+        String martial_status = items.getProfile().getMarital_status();
+        if(martial_status.trim().equals("Divorced")) {
+            if(Build.VERSION.SDK_INT < 23) {
+                holder.tvUserMaritalStatus.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            } else {
+                holder.tvUserMaritalStatus.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+            }
+
+        }
+        holder.tvUserMaritalStatus.setText(martial_status);
         holder.tvUserHeight.setText(items.getExtra().getHeight());
         if(items.getEducation().size() > 0){
             holder.tvUserEducation.setText(items.getEducation().get(0));

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -417,7 +418,16 @@ public class UserProfileActivity extends AppCompatActivity {
                                         textViewGender.setText((userProfile.getProfile().getSex().toLowerCase().equals("m")?"Male":"Female"));
                                         textViewPhone.setText(globalSP.getString(ProjectConstants.PHONE,ProjectConstants.EMPTY_STRING));
                                         textViewEmail.setText(globalSP.getString(ProjectConstants.EMAIL,ProjectConstants.EMPTY_STRING));
-                                        textViewMaritalStatus.setText(userProfile.getProfile().getMarital_status());
+                                        String martial_status = userProfile.getProfile().getMarital_status();
+                                        textViewMaritalStatus.setText(martial_status);
+                                        if(martial_status.trim().equals("Divorced")) {
+                                            if(Build.VERSION.SDK_INT < 23) {
+                                                textViewMaritalStatus.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                            } else {
+                                                textViewMaritalStatus.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
+                                            }
+
+                                        }
 
                                         textViewCaste.setText(userProfile.getProfile().getCaste());
                                         textViewSubCaste1.setText(userProfile.getProfile().getSub_caste1());

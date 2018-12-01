@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int user_id;
     private SharedPreferences globalSP;
 
+    private DrawerLayout drawer;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     ArrayList<UserProfile> userProfiles = new ArrayList<>();
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setToolbar();
 
         // Drawer Mapping
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mainToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         assert drawer != null;
@@ -140,6 +141,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         textViewProfileName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                assert drawer != null;
+                drawer.closeDrawer(GravityCompat.START);
                 startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
             }
         });
@@ -147,6 +150,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                assert drawer != null;
+                drawer.closeDrawer(GravityCompat.START);
                 startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
             }
         });
@@ -386,35 +391,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-//        if(id == R.id.nav_settings) {
-//
-//            Intent setttingsActivity = new Intent(MainActivity.this, SettingsActivity.class);
-//            startActivity(setttingsActivity);
-//        }
-        if(id == R.id.nav_log_out) {
-            logoutServiceCall();
-/*            JSONObject jsonLogoutRequest = new JSONObject();
-            try {
-                jsonLogoutRequest.put(ProjectConstants.ID, id);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.LOGOUT_URL).newBuilder();
-            if(DetectConnection.checkInternetConnection(MainActivity.this)) {
-                new ProjectConstants.getDataFromServer(jsonLogoutRequest,new LogoutServiceCall(),MainActivity.this).execute(urlBuilder.build().toString());
-            }else{
-                Toast.makeText(MainActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-            }*/
-        }
-        if(id == R.id.nav_change_password) {
-//            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
+
+        int id = item.getItemId();
+        if(id == R.id.nav_log_out) {
+            logoutServiceCall();
+        }
+        if(id == R.id.nav_change_password) {
+            Toast.makeText(this, "123", Toast.LENGTH_SHORT).show();
+        }
         return true;
     }
 
@@ -521,88 +507,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        if (exit) {
-            finish(); // finish activity
+        if(drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
         } else {
-            Toast.makeText(this, "Press Back again to Exit.", Toast.LENGTH_SHORT).show();
-            exit = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    exit = false;
-                }
-            }, 3 * 1000);
-        }
-    }
-
-    /*public class LogoutServiceCall implements CallBackFunction{
-
-        @Override
-        public void getResponseFromServer(Response response) throws IOException {
-            if(!response.isSuccessful()) {
-                Log.e("1 : ", response.toString());
-                enableLoginComponents(getResources().getString(R.string.something_went_wrong));
-                throw new IOException("Unexpected code " + response);
+            if (exit) {
+                finish(); // finish activity
             } else {
-
-                String result = response.body().string(); // response is converted to string
-
-                if(result != null) {
-
-                    try {
-
-                        final JSONObject jsonLogin = new JSONObject(result);
-
-                        final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
-                        final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
-
-                                if(auth) {
-
-                                    SharedPreferences.Editor editor = globalSP.edit();
-                                    editor.clear();
-                                    editor.apply();
-
-                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                                    finish();
-                                } else {
-                                    enableLoginComponents(getResources().getString(R.string.something_went_wrong));
-                                }
-                            }
-                        });
-
-                    } catch (JSONException e) {
-                        enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+                Toast.makeText(this, "Press Back again to Exit.", Toast.LENGTH_SHORT).show();
+                exit = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        exit = false;
                     }
-
-                } else {
-                    enableLoginComponents(getResources().getString(R.string.something_went_wrong));
-                }
-
+                }, 3 * 1000);
             }
         }
-    }*/
-
-    /**
-     * Enables login button and progressbar invisible
-     *
-     * @param msg
-     */
-    private void enableLoginComponents(final String msg) {
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //TODO: Settings design
-                /*loginButton.setEnabled(true); // Login Button is Enabled
-                mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled*/
-                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
-            }
-        });
     }
 }
