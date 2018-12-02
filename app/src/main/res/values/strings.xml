@@ -229,6 +229,7 @@
 
 
     <!-- AboutUs Activity -->
+    <string name="about_us_title">About Us</string>
     <string name="about_us_first">To arrange happy everlasting married life is what we have believed in from the past 7 years of experience.</string>
     <string name="about_us_second">Achievement: We arranged one get togather on large scale, with details of each candidate for them to know each other well enough for the everlasting married life to start.</string>
     <string name="about_us_reach_us">Reach Us</string>
