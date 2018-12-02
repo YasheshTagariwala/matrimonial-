@@ -1,7 +1,15 @@
 package com.kloudforj.matrimonial.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.Toast;
 
+
+import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.activities.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,11 +20,14 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ProjectConstants {
 
@@ -46,7 +57,7 @@ public class ProjectConstants {
     public static final String BOOKMARKID = "bookmark_id";
     public static final String IMAGE_ID = "image_id";
 
-//  public static final String BASE_URL = "http://metrimonial.it/api";
+    //  public static final String BASE_URL = "http://metrimonial.it/api";
 //    public static final String BASE_URL = "http://139.59.90.129/matrimonial/public/index.php/api";
     public static final String BASE_URL = "http://139.59.68.146/matrimonial/public/index.php/api";
     public static final String VERSION_0 = "/v0";
@@ -79,7 +90,7 @@ public class ProjectConstants {
     public static final String AGE = "age";                 // 26-30
     public static final String BIRTH_YEAR = "year";
     public static final String LOCATION = "location";       // india/gujarat/surat
-//    public static final String NAME = "/user-list";
+    //    public static final String NAME = "/user-list";
     public static final String NAME = "name";
 
     public static final String USER_PROFILE_URL = "/profile";
@@ -92,6 +103,7 @@ public class ProjectConstants {
     public static final String REMOVE_FAVORITES_URL = "/delete-favorites";
     public static final String GENERATE_VERIFICATION_CODE = "/generate-verification-code";
     public static final String VERIFY_CODE = "/verify-code";
+    public static final String GET_CASTE_SUBCASTE = "/get-caste-subcaste-list";
 
     /*Logout constants*/
     public static final String LOGOUT_URL = "/logout";
@@ -102,23 +114,23 @@ public class ProjectConstants {
         CallBackFunction callBackFunction;
         WeakReference<Context> context;
 
-        public getDataFromServer(JSONObject values,CallBackFunction callBackFunction,Context context){
+        public getDataFromServer(JSONObject values, CallBackFunction callBackFunction, Context context) {
             this.values = values;
             this.callBackFunction = callBackFunction;
             this.context = new WeakReference<>(context);
         }
 
-        public void execute(String url,String token){
+        public void execute(String url, String token) {
             Call requestCall;
             OkHttpClient client = new OkHttpClient();
             Request request;
-            if(this.values.length() > 0){
+            if (this.values.length() > 0) {
                 request = new Request.Builder()
                         .url(url)
                         .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), this.values.toString()))
                         .header(ProjectConstants.APITOKEN, token)
                         .build();
-            }else{
+            } else {
                 request = new Request.Builder()
                         .url(url)
                         .header(ProjectConstants.APITOKEN, token)
@@ -139,16 +151,16 @@ public class ProjectConstants {
             });
         }
 
-        public void execute(String url){
+        public void execute(String url) {
             Call requestCall;
             OkHttpClient client = new OkHttpClient();
             Request request;
-            if(this.values.length() > 0){
+            if (this.values.length() > 0) {
                 request = new Request.Builder()
                         .url(url)
                         .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), this.values.toString()))
                         .build();
-            }else{
+            } else {
                 request = new Request.Builder()
                         .url(url)
                         .build();
@@ -167,5 +179,99 @@ public class ProjectConstants {
                 }
             });
         }
+    }
+
+    public static void logoutServiceCall(final Context context) {
+        Call logoutRequestCall;
+        final SharedPreferences globalSP;
+        globalSP = context.getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
+        int user_id = globalSP.getInt(ProjectConstants.USERID, 0);
+        if (DetectConnection.checkInternetConnection(context)) {
+
+            JSONObject jsonLogoutResquest = new JSONObject();
+            try {
+                jsonLogoutResquest.put(ProjectConstants.ID, user_id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            OkHttpClient clientlogout = new OkHttpClient();
+            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.LOGOUT_URL).newBuilder();
+
+            String urlLogout = urlBuilder.build().toString(); // URL is converted to String
+            /*Log.e("URL Logout : ", urlLogout);
+            Log.e("URL Request : ", jsonLogoutResquest.toString());*/
+
+            Request requestLogout = new Request.Builder()
+                    .url(urlLogout)
+                    .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), jsonLogoutResquest.toString()))
+                    .build();
+
+            logoutRequestCall = clientlogout.newCall(requestLogout);
+            logoutRequestCall.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (!response.isSuccessful()) {
+                        Log.e("1 : ", response.toString());
+                        enableComponents(context);
+                        throw new IOException("Unexpected code " + response);
+                    } else {
+
+                        String result = response.body().string(); // response is converted to string
+
+                        if (result != null) {
+
+                            try {
+
+                                final JSONObject jsonLogin = new JSONObject(result);
+
+                                final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
+                                final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
+
+                                ((Activity) context).runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
+
+                                        if (auth) {
+                                            SharedPreferences.Editor editor = globalSP.edit();
+                                            editor.clear();
+                                            editor.apply();
+
+                                            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                            context.startActivity(new Intent(context, LoginActivity.class));
+                                            ((Activity) context).finish();
+                                        } else {
+                                            enableComponents(context);
+                                        }
+                                    }
+                                });
+
+                            } catch (JSONException e) {
+                                enableComponents(context);
+                            }
+
+                        } else {
+                            enableComponents(context);
+                        }
+
+                    }
+                }
+            });
+        }
+    }
+
+    public static void enableComponents(final Context context) {
+        ((Activity) context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, context.getResources().getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

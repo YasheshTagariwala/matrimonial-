@@ -43,6 +43,7 @@ import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.GlideApp;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 assert drawer != null;
                 drawer.closeDrawer(GravityCompat.START);
-                startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
+                startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
             }
         });
         imgProfile = mView.findViewById(R.id.imageview_profile);
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 assert drawer != null;
                 drawer.closeDrawer(GravityCompat.START);
-                startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
+                startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
             }
         });
 
@@ -198,29 +199,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            if(!location.equals(ProjectConstants.EMPTY_STRING)) {
 //                jsonObjectRequest.put(ProjectConstants.LOCATION, location);
 //            }
-            if(!name.equals(ProjectConstants.EMPTY_STRING)) {
+            if (!name.equals(ProjectConstants.EMPTY_STRING)) {
                 jsonObjectRequest.put(ProjectConstants.NAME, name);
             }
-            if(!subcaste1.equals(ProjectConstants.EMPTY_STRING)) {
+            if (!subcaste1.equals(ProjectConstants.EMPTY_STRING)) {
                 jsonObjectRequest.put(ProjectConstants.SUBCASTE1, subcaste1);
             }
-            if(!subcaste2.equals(ProjectConstants.EMPTY_STRING)) {
+            if (!subcaste2.equals(ProjectConstants.EMPTY_STRING)) {
                 jsonObjectRequest.put(ProjectConstants.SUBCASTE2, subcaste2);
             }
-            if(birth_year != 0) {
+            if (birth_year != 0) {
                 jsonObjectRequest.put(ProjectConstants.BIRTH_YEAR, birth_year);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(!globalSP.getBoolean(ProjectConstants.USER_PROFILE,false)) {
+        if (!globalSP.getBoolean(ProjectConstants.USER_PROFILE, false)) {
             startActivity(new Intent(MainActivity.this, UserEditProfileActivity.class));
             finish();
         } else {
             HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USERLIST_URL).newBuilder();
-            if ( DetectConnection.checkInternetConnection(MainActivity.this) ) {
-                new ProjectConstants.getDataFromServer(jsonObjectRequest, new FetchUserList(),this).execute(urlBuilder.build().toString(),token);
+            if (DetectConnection.checkInternetConnection(MainActivity.this)) {
+                new ProjectConstants.getDataFromServer(jsonObjectRequest, new FetchUserList(), this).execute(urlBuilder.build().toString(), token);
             } else {
                 Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
             }
@@ -264,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         public void getResponseFromServer(Response response) throws IOException {
-            if(!response.isSuccessful()) {
+            if (!response.isSuccessful()) {
 //                Log.e("resp : ", response.toString());
                 enableComponents(getResources().getString(R.string.something_went_wrong));
                 throw new IOException("Unexpected code " + response);
@@ -273,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String result = response.body().string(); // response is converted to string
                 //Log.e("resp : ", result);
 
-                if(result != null) {
+                if (result != null) {
 
                     try {
 
@@ -288,13 +289,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             public void run() {
                                 mMainActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
 
-                                if(auth) {
+                                if (auth) {
 
                                     try {
-                                        if(total_users == 0) {
+                                        if (total_users == 0) {
                                             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                                         } else {
-                                            Toast.makeText(getApplicationContext(), total_users+" "+message, Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getApplicationContext(), total_users + " " + message, Toast.LENGTH_LONG).show();
                                         }
 
                                         JSONArray jsonArrayData = jsonHome.getJSONArray(ProjectConstants.DATA);
@@ -304,19 +305,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                             userProfiles = new ArrayList<>();
                                             userProfilesWithFavorites = new ArrayList<>();
-                                            Map<Integer,Boolean> is_favorite = new HashMap<>();
-                                            for(int i = 0; i < jsonArrayData.length(); i++) {
+                                            Map<Integer, Boolean> is_favorite = new HashMap<>();
+                                            for (int i = 0; i < jsonArrayData.length(); i++) {
                                                 JSONObject jsonObject = jsonArrayData.getJSONObject(i);
                                                 //Log.e("Profile : ", jsonObject.toString());
                                                 userProfiles.add(new Gson().fromJson(jsonObject.toString(), UserProfile.class));
-                                                if(jsonObject.getBoolean("is_favorite")){
-                                                    is_favorite.put(jsonObject.getJSONObject("profile").getInt("user_id"),true);
+                                                if (jsonObject.getBoolean("is_favorite")) {
+                                                    is_favorite.put(jsonObject.getJSONObject("profile").getInt("user_id"), true);
                                                     userProfilesWithFavorites.add(new Gson().fromJson(jsonObject.toString(), UserProfile.class));
                                                 }
                                             }
-                                            mHomeListAdapter = new HomeListAdapter(MainActivity.this, userProfiles,false,is_favorite);
+                                            mHomeListAdapter = new HomeListAdapter(MainActivity.this, userProfiles, false, is_favorite);
                                             userListFragment.mUsersListRecyclerView.setAdapter(mHomeListAdapter);
-                                            mHomeListFavoritesAdapter = new HomeListAdapter(MainActivity.this, userProfilesWithFavorites,true,is_favorite);
+                                            mHomeListFavoritesAdapter = new HomeListAdapter(MainActivity.this, userProfilesWithFavorites, true, is_favorite);
                                             favouriteListFragment.mUsersListRecyclerView.setAdapter(mHomeListFavoritesAdapter);
 //                                            mUsersListRecyclerView.setAdapter();
                                         }
@@ -325,7 +326,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         e.printStackTrace();
                                     }
                                 } else {
-                                    logoutServiceCall();
+                                    ProjectConstants.logoutServiceCall(MainActivity.this);
                                 }
                             }
                         });
@@ -342,30 +343,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void updateData(boolean is_removed,int id){
-        Map<Integer,Boolean> is_favorite = new HashMap<>();
-        if(is_removed){
-            for (int i = 0;i < userProfilesWithFavorites.size();i++){
-                if(userProfilesWithFavorites.get(i).getId() == id){
+    public void updateData(boolean is_removed, int id) {
+        Map<Integer, Boolean> is_favorite = new HashMap<>();
+        if (is_removed) {
+            for (int i = 0; i < userProfilesWithFavorites.size(); i++) {
+                if (userProfilesWithFavorites.get(i).getId() == id) {
                     userProfilesWithFavorites.remove(i);
                 }
             }
-        }else{
-            for (int j = 0;j < userProfiles.size();j++){
-                if(userProfiles.get(j).getId() == id){
+        } else {
+            for (int j = 0; j < userProfiles.size(); j++) {
+                if (userProfiles.get(j).getId() == id) {
                     userProfilesWithFavorites.add(userProfiles.get(j));
                 }
             }
         }
-        for (int i = 0;i < userProfilesWithFavorites.size();i++){
-            is_favorite.put(userProfilesWithFavorites.get(i).getId(),true);
+        for (int i = 0; i < userProfilesWithFavorites.size(); i++) {
+            is_favorite.put(userProfilesWithFavorites.get(i).getId(), true);
         }
-        if(is_removed){
-            mHomeListAdapter = new HomeListAdapter(MainActivity.this, userProfiles,false,is_favorite);
+        if (is_removed) {
+            mHomeListAdapter = new HomeListAdapter(MainActivity.this, userProfiles, false, is_favorite);
             userListFragment.mUsersListRecyclerView.setAdapter(mHomeListAdapter);
-            mHomeListAdapter = new HomeListAdapter(MainActivity.this, userProfilesWithFavorites,true,is_favorite);
+            mHomeListAdapter = new HomeListAdapter(MainActivity.this, userProfilesWithFavorites, true, is_favorite);
             favouriteListFragment.mUsersListRecyclerView.setAdapter(mHomeListAdapter);
-        }else{
+        } else {
             mHomeListFavoritesAdapter.notifyDataSetChanged();
         }
     }
@@ -395,13 +396,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
 
         int id = item.getItemId();
-        if(id == R.id.nav_log_out) {
-            logoutServiceCall();
+        if (id == R.id.nav_log_out) {
+            ProjectConstants.logoutServiceCall(this);
         }
-        if(id == R.id.nav_change_password) {
+        if (id == R.id.nav_change_password) {
             Toast.makeText(this, "123", Toast.LENGTH_SHORT).show();
         }
-        if(id == R.id.nav_contact_us) {
+        if (id == R.id.nav_contact_us) {
             startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
         }
         return true;
@@ -423,94 +424,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void logoutServiceCall() {
-
-        if(DetectConnection.checkInternetConnection(MainActivity.this)) {
-
-            JSONObject jsonLogoutResquest = new JSONObject();
-            try {
-                jsonLogoutResquest.put(ProjectConstants.ID, user_id);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            OkHttpClient clientlogout = new OkHttpClient();
-            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.LOGOUT_URL).newBuilder();
-
-            String urlLogout = urlBuilder.build().toString(); // URL is converted to String
-            /*Log.e("URL Logout : ", urlLogout);
-            Log.e("URL Request : ", jsonLogoutResquest.toString());*/
-
-            Request requestLogout = new Request.Builder()
-                    .url(urlLogout)
-                    .post(RequestBody.create(MediaType.parse(ProjectConstants.APPLICATION_CHARSET), jsonLogoutResquest.toString()))
-                    .build();
-
-            logoutRequestCall = clientlogout.newCall(requestLogout);
-            logoutRequestCall.enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if(!response.isSuccessful()) {
-                        Log.e("1 : ", response.toString());
-                        enableComponents(getResources().getString(R.string.something_went_wrong));
-                        throw new IOException("Unexpected code " + response);
-                    } else {
-
-                        String result = response.body().string(); // response is converted to string
-
-                        if(result != null) {
-
-                            try {
-
-                                final JSONObject jsonLogin = new JSONObject(result);
-
-                                final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
-                                final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //mLoginActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
-
-                                        if(auth) {
-
-                                            SharedPreferences.Editor editor = globalSP.edit();
-                                            editor.clear();
-                                            editor.apply();
-
-                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                                            finish();
-                                        } else {
-                                            enableComponents(getResources().getString(R.string.something_went_wrong));
-                                        }
-                                    }
-                                });
-
-                            } catch (JSONException e) {
-                                enableComponents(getResources().getString(R.string.something_went_wrong));
-                            }
-
-                        } else {
-                            enableComponents(getResources().getString(R.string.something_went_wrong));
-                        }
-
-                    }
-                }
-            });
-        }
-    }
-
     private Boolean exit = false;
 
     @Override
     public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             if (exit) {
