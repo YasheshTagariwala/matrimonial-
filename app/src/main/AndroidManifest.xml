@@ -46,9 +46,11 @@
         <activity android:name=".activities.VerificationActivity" />
         <activity
             android:name=".activities.UserEditProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activities.AboutUsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.AboutUsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

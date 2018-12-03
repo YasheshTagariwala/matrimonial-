@@ -106,9 +106,28 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/tv_email"
+                            android:text="@string/about_us_email"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/colorAccent" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/spacing_mxlarge" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/about_us_name_1"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textColor="@color/colorPrimaryLight" />
+                            android:textColor="@color/colorAccent" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -123,7 +142,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/about_us_phone_1"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@android:color/white" />
+                            android:textColor="@color/colorAccent" />
 
                     </LinearLayout>
 
@@ -141,7 +160,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/about_us_name_2"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textColor="@color/colorPrimaryLight" />
+                            android:textColor="@color/colorAccent" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -156,7 +175,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/about_us_phone_2"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@android:color/white" />
+                            android:textColor="@color/colorAccent" />
 
                     </LinearLayout>
 

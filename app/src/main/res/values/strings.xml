@@ -37,6 +37,10 @@
     <string name="nav_settings">Settings</string>
     <string name="nav_user_name">Profile name</string>
 
+    <!-- Change password activity -->
+    <string name="label_current_password">Current password</string>
+    <string name="label_new_password">New password</string>
+
 
     <!-- Sign Up Activity strings -->
     <string name="label_registration">Registration</string>
@@ -61,6 +65,8 @@
 
     <!-- UserProfile Activity strings -->
     <string name="user_profile_save">Save</string>
+    <!-- UserProfileEdit Activity strings -->
+    <string name="user_profile_upload_image">Image is uploading. Please wait.</string>
 
     <!-- Verification Activity -->
     <string name="phone_verify">You will get SMS with a Verification Code to this number.</string>
@@ -233,11 +239,12 @@
     <string name="about_us_first">To arrange happy everlasting married life is what we have believed in from the past 7 years of experience.</string>
     <string name="about_us_second">Achievement: We arranged one get togather on large scale, with details of each candidate for them to know each other well enough for the everlasting married life to start.</string>
     <string name="about_us_reach_us">Reach Us</string>
+    <string name="about_us_email">celebrationmatchmakersurat@gmail.com</string>
     <string name="about_us_name_1">Parul Marfatia</string>
     <string name="about_us_address_1">42, Sangam society, opposite Science Center, city light road, Surat - 395007</string>
-    <string name="about_us_phone_1">Phone: 9825119752</string>
+    <string name="about_us_phone_1">+919825119752</string>
     <string name="about_us_name_2">Gayatri Lokhandwala</string>
     <string name="about_us_address_2">A - 701, Bejanwala complex, opposite S.M.C Zone office, Tarwadi, Rander Road, Surat - 395009</string>
-    <string name="about_us_phone_2">Phone: 7990972333</string>
+    <string name="about_us_phone_2">+917990972333</string>
     <string name="about_us_app_name">Celebration match Maker.</string>
 </resources>

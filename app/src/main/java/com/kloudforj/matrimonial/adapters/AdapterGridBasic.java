@@ -21,10 +21,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
 import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.activities.LoginActivity;
 import com.kloudforj.matrimonial.activities.MainActivity;
 import com.kloudforj.matrimonial.activities.UserEditProfileActivity;
 import com.kloudforj.matrimonial.utils.CallBackFunction;
@@ -297,6 +299,23 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                     String picturePath = cursor1.getString(columnIndex);
                     cursor1.close();
 
+                    LayoutInflater inflater = LayoutInflater.from(ctx);
+                    final View alertImageUpload = inflater.inflate(R.layout.layout_image_upload, null);
+                    ProgressBar mImageUploadProgressbar = alertImageUpload.findViewById(R.id.pb_image_upload);
+                    if (mImageUploadProgressbar != null) {
+                        mImageUploadProgressbar.getIndeterminateDrawable().setColorFilter(
+                                ContextCompat.getColor(ctx, R.color.colorAccent),
+                                android.graphics.PorterDuff.Mode.SRC_IN);
+                    }
+
+                    final AlertDialog.Builder builderInageUpload = new AlertDialog.Builder(ctx);
+                    builderInageUpload.setTitle("Uploading");
+                    builderInageUpload.setView(alertImageUpload);
+                    builderInageUpload.setCancelable(false);
+
+                    final AlertDialog alertDialogImageUpload = builderInageUpload.create();
+                    alertDialogImageUpload.show();
+
                     Call requestCall;
                     OkHttpClient client = new OkHttpClient();
                     Request request;
@@ -335,6 +354,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                                     ((Activity) ctx).runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
+                                            alertDialogImageUpload.dismiss();
                                             Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
                                             SharedPreferences globalSP;
                                             globalSP = ctx.getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
