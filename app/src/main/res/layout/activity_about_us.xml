@@ -108,6 +108,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/tv_email"
                             android:text="@string/about_us_email"
+                            android:autoLink="email"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                             android:textColor="@color/colorAccent" />
 
@@ -141,6 +142,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/about_us_phone_1"
+                            android:autoLink="phone"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorAccent" />
 
@@ -174,6 +176,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/about_us_phone_2"
+                            android:autoLink="phone"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorAccent" />
 

@@ -1,5 +1,6 @@
 package com.kloudforj.matrimonial.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
@@ -8,9 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telecom.Call;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -132,6 +139,59 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         logintextView.setOnClickListener(this);
     }
 
+    private void showPrivacyDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.setContentView(R.layout.dialog_signup_policies);
+        dialog.setCancelable(true);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        ((TextView) dialog.findViewById(R.id.tv_content)).setMovementMethod(LinkMovementMethod.getInstance());
+
+        TextView tv_privacy = dialog.findViewById(R.id.tv_privacy);
+        tv_privacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentPolicy = new Intent(SignupActivity.this, PoliciesActivity.class);
+                intentPolicy.putExtra("policy", "privacy");
+                startActivity(intentPolicy);
+            }
+        });
+
+        TextView tv_terms = dialog.findViewById(R.id.tv_terms);
+        tv_terms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentPolicy = new Intent(SignupActivity.this, PoliciesActivity.class);
+                    intentPolicy.putExtra("policy", "terms");
+                startActivity(intentPolicy);
+            }
+        });
+
+        ((Button) dialog.findViewById(R.id.bt_accept)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getApplicationContext(), "Button Accept Clicked", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                makeRegisterCall();
+            }
+        });
+
+        ((Button) dialog.findViewById(R.id.bt_decline)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Please accept policies to continue.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+    }
+
     @Override
     public void onClick(View view) {
 
@@ -172,29 +232,31 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 if (signUpCheck) {
-                    //Log.e("Register : ", "Made a call");
-                    JSONObject jsonSignUpRequest = new JSONObject();
-                    try {
-                        jsonSignUpRequest.put(ProjectConstants.EMAIL, etEmail.getText().toString().trim());
-                        jsonSignUpRequest.put(ProjectConstants.PHONE, etPhone.getText().toString().trim());
-                        jsonSignUpRequest.put(ProjectConstants.PASSWORD, etPassword.getText().toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.SIGNUP_URL).newBuilder();
-                    if(DetectConnection.checkInternetConnection(this)) {
-                        new ProjectConstants.getDataFromServer(jsonSignUpRequest,new RegisterServiceCall(),this).execute(urlBuilder.build().toString());
-                    }else{
-                        Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-                    }
-
+                    showPrivacyDialog();
                 }
-
                 break;
 
             case R.id.login:
                 finish();
                 break;
+        }
+    }
+
+    private void makeRegisterCall() {
+
+        JSONObject jsonSignUpRequest = new JSONObject();
+        try {
+            jsonSignUpRequest.put(ProjectConstants.EMAIL, etEmail.getText().toString().trim());
+            jsonSignUpRequest.put(ProjectConstants.PHONE, etPhone.getText().toString().trim());
+            jsonSignUpRequest.put(ProjectConstants.PASSWORD, etPassword.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.SIGNUP_URL).newBuilder();
+        if(DetectConnection.checkInternetConnection(this)) {
+            new ProjectConstants.getDataFromServer(jsonSignUpRequest, new RegisterServiceCall(),this).execute(urlBuilder.build().toString());
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -206,22 +268,20 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         public void getResponseFromServer(Response response) throws IOException {
             if(!response.isSuccessful()) {
-                Log.e("data",response.toString());
+                //Log.e("data",response.toString());
                 enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                 throw new IOException("Unexpected code " + response);
             } else {
 
                 String result = response.body().string(); // response is converted to string
+                //Log.e("Result : ",result);
 
                 if(result != null) {
 
                     try {
 
-                        final JSONObject jsonLogin = new JSONObject(result);
-
-                        final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
-                        final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
-                        final String token = jsonLogin.getString(ProjectConstants.TOKEN);
+                        final JSONObject jsonSignup = new JSONObject(result);
+                        final Boolean auth = jsonSignup.getBoolean(ProjectConstants.AUTH);
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -230,21 +290,23 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                 mSignUpActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
 
                                 if(auth) {
+
+                                    String message = null;
+                                    try {
+                                        message = jsonSignup.getString(ProjectConstants.MESSAGE);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-
-//                                    SharedPreferences.Editor editor = globalSP.edit();
-//                                    editor.putString(ProjectConstants.TOKEN, token);
-//                                    editor.apply();
-
                                     startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                                     finish();
+
                                 } else {
 
                                     etPassword.setText(ProjectConstants.EMPTY_STRING);
                                     etConfirmPassword.setText(ProjectConstants.EMPTY_STRING);
                                     passwordWrapper.setErrorEnabled(false);
                                     confirmPasswordWrapper.setErrorEnabled(false);
-                                    Toast.makeText(SignupActivity.this, message, Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -258,6 +320,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
+
     /**
      * Enables login button and progressbar invisible
      *
