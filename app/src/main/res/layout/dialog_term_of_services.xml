@@ -98,6 +98,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end"
+        android:visibility="gone"
         android:paddingBottom="@dimen/spacing_middle"
         android:paddingLeft="@dimen/spacing_mlarge"
         android:paddingRight="@dimen/spacing_mlarge"

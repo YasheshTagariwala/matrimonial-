@@ -61,10 +61,10 @@
         By using this App, you agree to the Terms-Conditions and Privacy-Policy and consent to having your personal data, behavior processed.
     </string>
     <string name="signup_privacy">
-        Privacy-Policy
+        <u>Privacy-Policy</u>
     </string>
     <string name="signup_terms">
-        Terms-Conditions
+        <u>Terms-Conditions</u>
     </string>
 
 
