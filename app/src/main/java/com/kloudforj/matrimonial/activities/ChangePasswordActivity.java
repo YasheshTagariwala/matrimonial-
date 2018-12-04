@@ -1,5 +1,6 @@
 package com.kloudforj.matrimonial.activities;
 
+import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
@@ -18,6 +20,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
     private TextInputLayout currentPasswordWrapper, newPasswordWrapper, confirmPasswordWrapper;
     private Button changePasswordButton;
     Boolean changePasswordCheck = false; // A flag is initialized for validations.
+    private ImageButton imageButtonCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,14 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
 
         changePasswordButton = findViewById(R.id.change_password_button);
         changePasswordButton.setOnClickListener(this);
+
+        imageButtonCancel = findViewById(R.id.imagebutton_cpa_cancel);
+        imageButtonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         etNewPassword.addTextChangedListener(new TextWatcher() {
             @Override
