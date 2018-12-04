@@ -186,11 +186,13 @@ public class ProjectConstants {
         final SharedPreferences globalSP;
         globalSP = context.getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         int user_id = globalSP.getInt(ProjectConstants.USERID, 0);
+        int apitoken = globalSP.getInt(ProjectConstants.APITOKEN, 0);
         if (DetectConnection.checkInternetConnection(context)) {
 
             JSONObject jsonLogoutResquest = new JSONObject();
             try {
                 jsonLogoutResquest.put(ProjectConstants.ID, user_id);
+                jsonLogoutResquest.put(ProjectConstants.APITOKEN, apitoken);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
