@@ -1,9 +1,11 @@
 package com.kloudforj.matrimonial.activities;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -57,6 +59,17 @@ public class PoliciesActivity extends AppCompatActivity {
         } else if (policy.equals("terms")) {
             tv_content.setText(R.string.terms_and_conditions);
         }
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    dialog.dismiss();
+                    finish();
+                }
+                return true;
+            }
+        });
 
 
         /*((Button) dialog.findViewById(R.id.bt_accept)).setOnClickListener(new View.OnClickListener() {
