@@ -84,6 +84,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         holder.tvUserName.setText(String.valueOf(items.getProfile().getFirst_name() + " " + items.getProfile().getMiddle_name() + " " + items.getProfile().getLast_name()));
         holder.tvUserCaste.setText(items.getProfile().getCaste());
         holder.tvUserAge.setText(String.valueOf(items.getProfile().getAge()+" Years"));
+        holder.tvUserId.setText("CM" + String.valueOf(items.getProfile().getUser_id()));
 
         holder.tvUserBirthPlace.setText(items.getExtra().getBirth_place());
         String martial_status = items.getProfile().getMarital_status();
@@ -329,7 +330,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        private TextView tvUserName, tvUserCaste, tvUserAge, tvUserBirthPlace, tvUserMaritalStatus, tvUserHeight, tvUserEducation;
+        private TextView tvUserName, tvUserCaste, tvUserAge, tvUserBirthPlace, tvUserMaritalStatus, tvUserHeight, tvUserEducation,tvUserId;
         ImageButton imageButtonFavouritePerson, imageButtonFavouritePersonLike;
         ImageView userImage;
 
@@ -346,6 +347,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             tvUserName = view.findViewById(R.id.tv_user_name);
             tvUserCaste = view.findViewById(R.id.tv_user_caste);
             tvUserAge = view.findViewById(R.id.tv_user_age);
+            tvUserId = view.findViewById(R.id.tv_user_id);
             tvUserBirthPlace = view.findViewById(R.id.tv_user_birth_place);
             tvUserMaritalStatus = view.findViewById(R.id.tv_user_marital_status);
             tvUserHeight = view.findViewById(R.id.tv_user_height);
