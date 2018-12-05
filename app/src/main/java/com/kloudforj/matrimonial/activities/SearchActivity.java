@@ -60,7 +60,13 @@ public class SearchActivity extends AppCompatActivity {
         countrySelected = stateSelected = citySelected = 0;
 
         mSpnBirthYear = findViewById(R.id.spn_user_birthyear);
-        birthYears = castes = subCastes1 = subCastes2 = country = state = city = new ArrayList<>();
+        birthYears = new ArrayList<>();
+        castes = new ArrayList<>();
+        subCastes1 = new ArrayList<>();
+        subCastes2 = new ArrayList<>();
+        country = new ArrayList<>();
+        state = new ArrayList<>();
+        city = new ArrayList<>();
         birthYears.add("Select birth year");
         castes.add("Select Caste");
         subCastes1.add("Select Sub Caste 1");
@@ -263,8 +269,12 @@ public class SearchActivity extends AppCompatActivity {
             JSONArray stateArray = new JSONObject(loadJSONFromAsset("states.json")).getJSONArray("states");
             for (int i = 0; i < stateArray.length(); i++) {
                 JSONObject stateObject = new JSONObject(stateArray.get(i).toString());
-                if (stateObject.getInt("country_id") == country) {
-                    state.add(i, stateObject.getString("name"));
+                try {
+                    if (stateObject.getInt("country_id") == country) {
+                        state.add(stateObject.getString("name"));
+                    }
+                }catch (Exception e){
+                    Log.e("country_id",stateObject.toString());
                 }
             }
 
@@ -295,8 +305,13 @@ public class SearchActivity extends AppCompatActivity {
             JSONArray cityArray = new JSONObject(loadJSONFromAsset("cities.json")).getJSONArray("cities");
             for (int i = 0; i < cityArray.length(); i++) {
                 JSONObject cityObject = new JSONObject(cityArray.get(i).toString());
-                if (cityObject.getInt("state_id") == state) {
-                    city.add(i, cityObject.getString("name"));
+                try {
+                    if (cityObject.getInt("state_id") == state) {
+                        city.add(cityObject.getString("name"));
+//                        city.add(i, cityObject.getString("name"));
+                    }
+                }catch (Exception e){
+                    Log.e("state_id",cityObject.toString());
                 }
             }
 
