@@ -89,8 +89,11 @@ public class UserEditProfileActivity extends AppCompatActivity {
     Spinner spinnerGender, spinnerCountry, spinnerState, spinnerCity,
             spinnerCast, spinnerSubCast1, spinnerSubCast2, spinnerMaritalStatus;
 
-    HashMap<Integer, String> countries, states, cities;
-    ArrayList<String> countryNames, stateNames, cityNames;
+//    HashMap<Integer, String> countries, states, cities;
+//    ArrayList<String> countryNames, stateNames, cityNames, jsonState;
+
+    ArrayList<CustomArray> countryList,stateList,cityList;
+    ArrayList<String> castes,subCastes1 ,subCastes2;
 
     RadioGroup radioGroupSex;
     RadioButton radioButtonMale, radioButtonFemale;
@@ -133,12 +136,22 @@ public class UserEditProfileActivity extends AppCompatActivity {
         spinnerSubCast2 = findViewById(R.id.spn_user_sub_caste_2);
         spinnerMaritalStatus = findViewById(R.id.spn_marital_status);
 
-        countries = new HashMap<Integer, String>();
+//        countries = new HashMap<Integer, String>();
         /*states = new LinkedHashMap();
         cities = new LinkedHashMap();*/
-        countryNames = new ArrayList<>();
-        stateNames = new ArrayList<>();
-        cityNames = new ArrayList<>();
+
+//        countryNames = new ArrayList<>();
+//        jsonState = new ArrayList<>();
+//        stateNames = new ArrayList<>();
+//        cityNames = new ArrayList<>();
+
+        countryList = new ArrayList<>();
+        stateList = new ArrayList<>();
+        cityList = new ArrayList<>();
+
+        castes = new ArrayList<>();
+        subCastes1 = new ArrayList<>();
+        subCastes2 = new ArrayList<>();
 
         loadLocations();
         loadCountrySpinner();
@@ -273,7 +286,6 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //Log.e("data",jsonUserProfileRequest.toString());
                     HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.UPDATE_PROFILE_URL).newBuilder();
                     if (DetectConnection.checkInternetConnection(UserEditProfileActivity.this)) {
                         new ProjectConstants.getDataFromServer(jsonUserProfileRequest, new UpdateProfileCall(), UserEditProfileActivity.this).execute(urlBuilder.build().toString(),token);
@@ -438,6 +450,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         editTextPhone.setText(globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING));
         editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING));
 
+        getCasteAndSubCaste();
     }
 
     private void loadLocations() {
@@ -478,9 +491,11 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                 for(int i = 0; i < jsonArray.length(); i++) {
 
-                    JSONObject objectCountry = jsonArray.getJSONObject(i);
-                    countries.put(objectCountry.getInt("id"), objectCountry.getString("name"));
-                    countryNames.add(objectCountry.getString("name"));
+                    try{
+                        JSONObject objectCountry = jsonArray.getJSONObject(i);
+                        CustomArray ca = new CustomArray(objectCountry.getInt("id"),objectCountry.getString("name"),-1);
+                        countryList.add(ca);
+                    }catch (Exception e){}
                 }
 
             } catch (Exception e) {
@@ -496,9 +511,11 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                 for(int i = 0; i < jsonArray.length(); i++) {
 
-                    JSONObject objectCountry = jsonArray.getJSONObject(i);
-                    states.put(objectCountry.getInt("id"), objectCountry.getString("name"));
-                    stateNames.add(objectCountry.getString("name"));
+                    try{
+                        JSONObject objectCountry = jsonArray.getJSONObject(i);
+                        CustomArray ca = new CustomArray(objectCountry.getInt("id"),objectCountry.getString("name"),objectCountry.getInt("country_id"));
+                        stateList.add(ca);
+                    }catch (Exception e){}
                 }
 
             } catch (Exception e) {
@@ -509,14 +526,16 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
             try {
 
-                JSONObject jsonObject = new JSONObject(jsonStates);
+                JSONObject jsonObject = new JSONObject(jsonCities);
                 JSONArray jsonArray = jsonObject.getJSONArray("cities");
 
                 for(int i = 0; i < jsonArray.length(); i++) {
 
-                    JSONObject objectCountry = jsonArray.getJSONObject(i);
-                    cities.put(objectCountry.getInt("id"), objectCountry.getString("name"));
-                    cityNames.add(objectCountry.getString("name"));
+                    try {
+                        JSONObject objectCountry = jsonArray.getJSONObject(i);
+                        CustomArray ca = new CustomArray(objectCountry.getInt("id"), objectCountry.getString("name"), objectCountry.getInt("state_id"));
+                        cityList.add(ca);
+                    }catch (Exception e){}
                 }
 
             } catch (Exception e) {
@@ -527,12 +546,11 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     private void loadCountrySpinner() {
 
-        spinnerCountry.setAdapter(new ArrayAdapter<String>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, countryNames));
+        spinnerCountry.setAdapter(new ArrayAdapter<CustomArray>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, countryList));
         spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //loadStateSpinners();
-                Log.e("Country :", countryNames.get(position));
+                loadState(countryList.get(position).id);
             }
 
             @Override
@@ -540,6 +558,38 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void loadState(int id){
+        final ArrayList<CustomArray> temp = new ArrayList<>();
+        for (CustomArray ca :stateList){
+            if(ca.pid == id){
+                temp.add(ca);
+            }
+        }
+        spinnerState.setAdapter(new ArrayAdapter<CustomArray>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, temp));
+        spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //loadStateSpinners();
+                loadCity(temp.get(position).id);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    public void loadCity(int id){
+        final ArrayList<CustomArray> temp = new ArrayList<>();
+        for (CustomArray ca :cityList){
+            if(ca.pid == id){
+                temp.add(ca);
+            }
+        }
+        spinnerCity.setAdapter(new ArrayAdapter<CustomArray>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, temp));
     }
 
     public void requestPermission() {
@@ -663,7 +713,6 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 throw new IOException("Unexpected code " + response);
             } else {
                 String result = response.body().string(); // response is converted to string
-                //Log.e("Response : ", result);
 
                 if (result != null) {
 
@@ -984,5 +1033,92 @@ public class UserEditProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         mAdapter.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+    }
+
+    public class CustomArray{
+        private int id;
+        private int pid;
+        private String value;
+
+        CustomArray(int id,String value,int pid){
+            this.id = id;
+            this.value = value;
+            this.pid = pid;
+        }
+
+        public String toString(){
+            return value;
+        }
+    }
+
+    public void getCasteAndSubCaste() {
+        SharedPreferences globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
+        String token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.GET_CASTE_SUBCASTE).newBuilder();
+        if (DetectConnection.checkInternetConnection(this)) {
+            new ProjectConstants.getDataFromServer(new JSONObject(), new GetCasteAndSubCaste(), this).execute(urlBuilder.build().toString(), token);
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public class GetCasteAndSubCaste implements CallBackFunction {
+
+        @Override
+        public void getResponseFromServer(Response response) throws IOException {
+            if (!response.isSuccessful()) {
+                Log.e("Error", response.toString());
+            } else {
+
+                String result = response.body().string(); // response is converted to string
+//                Log.e("resp : ", result);
+
+                if (result != null) {
+                    try {
+                        final JSONObject jsonUserProfile = new JSONObject(result);
+
+                        final Boolean auth = jsonUserProfile.getBoolean(ProjectConstants.AUTH);
+                        final String message = jsonUserProfile.getString(ProjectConstants.MESSAGE);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (auth) {
+                                    try {
+                                        JSONObject jsonObjectData = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
+                                        JSONArray casteArray = jsonObjectData.getJSONArray("caste");
+                                        JSONArray subCasteArray1 = jsonObjectData.getJSONArray("sub_caste1");
+                                        JSONArray subCasteArray2 = jsonObjectData.getJSONArray("sub_caste2");
+
+                                        for (int i = 0; i < casteArray.length(); i++) {
+                                            castes.add(casteArray.get(i).toString());
+                                        }
+                                        for (int i = 0; i < subCasteArray1.length(); i++) {
+                                            subCastes1.add(subCasteArray1.get(i).toString());
+                                        }
+                                        for (int i = 0; i < subCasteArray2.length(); i++) {
+                                            subCastes2.add(subCasteArray2.get(i).toString());
+                                        }
+
+                                        ArrayAdapter<String> adapterCastes = new ArrayAdapter<>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, castes);
+                                        spinnerCast.setAdapter(adapterCastes);
+                                        ArrayAdapter<String> adapterSubCastes1 = new ArrayAdapter<>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, subCastes1);
+                                        spinnerSubCast1.setAdapter(adapterSubCastes1);
+                                        ArrayAdapter<String> adapterSubCastes2 = new ArrayAdapter<>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, subCastes2);
+                                        spinnerSubCast2.setAdapter(adapterSubCastes2);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        });
+                    } catch (JSONException e) {
+                        Toast.makeText(UserEditProfileActivity.this, getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(UserEditProfileActivity.this, getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }

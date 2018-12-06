@@ -45,6 +45,24 @@
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="8dp">
 
+                        <RelativeLayout
+                            android:layout_gravity="right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginRight="8dp">
+
+                            <TextView
+                                android:id="@+id/tv_user_id"
+                                android:text="u1234"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/grey_40"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -53,13 +71,6 @@
 
                             <TextView
                                 android:id="@+id/tv_user_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/grey_60"
-                                android:textSize="@dimen/spacing_smlarge"
-                                android:textStyle="bold" />
-                            <TextView
-                                android:id="@+id/tv_user_id"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/grey_60"
