@@ -51,6 +51,8 @@ public class ProjectConstants {
     public static final String USER_NAME = "user_name";
     public static final String PHONE = "phone_number";
     public static final String BASE_IMAGE = "user_image";
+    public static final String OLD_PASSWORD = "old_password";
+    public static final String NEW_PASSWORD = "new_password";
     public static final String ID = "id";
 
 
@@ -76,6 +78,7 @@ public class ProjectConstants {
     public static final String PASSWORD = "password";
 
     public static final String SIGNUP_URL = "/register";
+    public static final String CHANGE_PASSWORD = "/change-password";
 
 
     /*Login Activity constants*/
@@ -192,7 +195,7 @@ public class ProjectConstants {
             JSONObject jsonLogoutResquest = new JSONObject();
             try {
                 jsonLogoutResquest.put(ProjectConstants.ID, user_id);
-                jsonLogoutResquest.put(ProjectConstants.APITOKEN, apitoken);
+//                jsonLogoutResquest.put(ProjectConstants.APITOKEN, apitoken);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -246,7 +249,9 @@ public class ProjectConstants {
                                             editor.apply();
 
                                             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-                                            context.startActivity(new Intent(context, LoginActivity.class));
+                                            Intent intent = new Intent(context, LoginActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            context.startActivity(intent);
                                             ((Activity) context).finish();
                                         } else {
                                             enableComponents(context);

@@ -4,8 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SearchActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activities.SearchActivity">
+
+    <ProgressBar
+        android:id="@+id/pb_search_activity"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@android:color/white"
+        android:indeterminate="true"
+        android:visibility="gone"/>
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -135,8 +145,8 @@
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:singleLine="true"
                         android:prompt="@string/search_caste"
+                        android:singleLine="true"
                         android:spinnerMode="dialog"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/grey_60" />
@@ -147,8 +157,8 @@
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:singleLine="true"
                         android:prompt="@string/search_sub_caste_1"
+                        android:singleLine="true"
                         android:spinnerMode="dialog"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/grey_60" />
@@ -160,9 +170,9 @@
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
+                        android:prompt="@string/search_sub_caste_2"
                         android:singleLine="true"
                         android:spinnerMode="dialog"
-                        android:prompt="@string/search_sub_caste_2"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/grey_60" />
 
@@ -191,9 +201,9 @@
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
+                        android:prompt="@string/search_country"
                         android:singleLine="true"
                         android:spinnerMode="dialog"
-                        android:prompt="@string/search_country"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/grey_60" />
 
@@ -203,9 +213,9 @@
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
+                        android:prompt="@string/search_state"
                         android:singleLine="true"
                         android:spinnerMode="dialog"
-                        android:prompt="@string/search_state"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/grey_60" />
 
@@ -215,9 +225,9 @@
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
+                        android:prompt="@string/search_city"
                         android:singleLine="true"
                         android:spinnerMode="dialog"
-                        android:prompt="@string/search_city"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/grey_60" />
 

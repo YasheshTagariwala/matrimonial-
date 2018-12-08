@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +46,7 @@ public class SearchActivity extends AppCompatActivity {
     ArrayList<String> birthYears, castes, subCastes1, subCastes2, country, state, jsonState, city;
     private Spinner mSpnCountry, mSpnState, mSpnCity;
     private EditText mEtName;
-    private int countrySelected, stateSelected, citySelected;
+    private ProgressBar progressBar;
 
     private SharedPreferences globalSP;
 
@@ -57,9 +58,8 @@ public class SearchActivity extends AppCompatActivity {
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         String sex = globalSP.getString(ProjectConstants.SEX, ProjectConstants.EMPTY_STRING).trim();
 
-        countrySelected = stateSelected = citySelected = 0;
-
         mSpnBirthYear = findViewById(R.id.spn_user_birthyear);
+        progressBar = findViewById(R.id.pb_search_activity);
         birthYears = new ArrayList<>();
         castes = new ArrayList<>();
         subCastes1 = new ArrayList<>();
@@ -72,9 +72,6 @@ public class SearchActivity extends AppCompatActivity {
         castes.add("Select Caste");
         subCastes1.add("Select Sub Caste 1");
         subCastes2.add("Select Sub Caste 2");
-        country.add("Select Country");
-        state.add("Select State");
-        city.add("Select City");
         int thisYear = Calendar.getInstance().get(Calendar.YEAR);
         int upto = thisYear;
 
@@ -122,11 +119,14 @@ public class SearchActivity extends AppCompatActivity {
 
                 Toast.makeText(SearchActivity.this, "Find / Search", Toast.LENGTH_SHORT).show();
                 String location;
-                if (citySelected == 0 && stateSelected == 0 && citySelected == 0) {
+                if (mSpnCountry.getSelectedItem().toString().equals("Select Country") && mSpnState.getSelectedItem().toString().equals("Select State")
+                        && mSpnCity.getSelectedItem().toString().equals("Select City")) {
                     location = "";
-                } else if (citySelected > 0 && stateSelected == 0 && citySelected == 0) {
+                } else if (!mSpnCountry.getSelectedItem().toString().equals("Select Country") && mSpnState.getSelectedItem().toString().equals("Select State")
+                        && mSpnCity.getSelectedItem().toString().equals("Select City")) {
                     location = mSpnCountry.getSelectedItem().toString().trim();
-                } else if (citySelected > 0 && stateSelected > 0 && citySelected == 0) {
+                } else if (!mSpnCountry.getSelectedItem().toString().equals("Select Country") && !mSpnState.getSelectedItem().toString().equals("Select State")
+                        && mSpnCity.getSelectedItem().toString().equals("Select City")) {
                     location = mSpnCountry.getSelectedItem().toString().trim() + "/" + mSpnState.getSelectedItem().toString().trim();
                 } else {
                     location = mSpnCountry.getSelectedItem().toString().trim() + "/" + mSpnState.getSelectedItem().toString().trim() + "/" + mSpnCity.getSelectedItem().toString().trim();
@@ -134,13 +134,16 @@ public class SearchActivity extends AppCompatActivity {
                 Intent intentMain = new Intent(SearchActivity.this, MainActivity.class);
                 intentMain.putExtra(ProjectConstants.LOCATION, location);
                 if (!mSpnBirthYear.getSelectedItem().toString().equals("Select birth year")) {
-                    int byear = Integer.parseInt(mSpnBirthYear.getSelectedItem().toString());
-                    intentMain.putExtra(ProjectConstants.BIRTH_YEAR, byear);
+//                    int byear = Integer.parseInt();
+                    intentMain.putExtra(ProjectConstants.BIRTH_YEAR, mSpnBirthYear.getSelectedItem().toString());
+                } else {
+                    intentMain.putExtra(ProjectConstants.BIRTH_YEAR, "0");
                 }
                 intentMain.putExtra(ProjectConstants.SUBCASTE1, mSpnSubCaste1.getSelectedItemId() == 0 ? "" : mSpnSubCaste1.getSelectedItem().toString().trim());
                 intentMain.putExtra(ProjectConstants.CAST, mSpnCaste.getSelectedItemId() == 0 ? "" : mSpnCaste.getSelectedItem().toString().trim());
                 intentMain.putExtra(ProjectConstants.SUBCASTE2, mSpnSubCaste2.getSelectedItemId() == 0 ? "" : mSpnSubCaste2.getSelectedItem().toString().trim());
                 intentMain.putExtra(ProjectConstants.NAME, mEtName.getText().toString().trim());
+                intentMain.putExtra("Settings", '1');
 
                 startActivity(intentMain);
 
@@ -152,6 +155,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void getCasteAndSubCaste() {
+        progressBar.setVisibility(View.VISIBLE);
         SharedPreferences globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         String token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
         HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.GET_CASTE_SUBCASTE).newBuilder();
@@ -184,6 +188,7 @@ public class SearchActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (auth) {
+                                    progressBar.setVisibility(View.GONE);
                                     try {
                                         JSONObject jsonObjectData = jsonUserProfile.getJSONObject(ProjectConstants.DATA);
                                         JSONArray casteArray = jsonObjectData.getJSONArray("caste");
@@ -231,6 +236,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void loadCountries() {
         country.clear();
+        country.add("Select Country");
         try {
             JSONArray countryArray = new JSONObject(loadJSONFromAsset("countries.json")).getJSONArray("countries");
             for (int i = 0; i < countryArray.length(); i++) {
@@ -244,13 +250,8 @@ public class SearchActivity extends AppCompatActivity {
             mSpnCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (position == 0) {
-                        countrySelected = stateSelected = citySelected = 0;
-                    } else {
+                    if (position != 0) {
                         loadStates(position);
-                        countrySelected = position;
-                        stateSelected = 0;
-                        citySelected = 0;
                     }
                 }
 
@@ -266,17 +267,20 @@ public class SearchActivity extends AppCompatActivity {
 
     public void loadStates(int country) {
         state.clear();
+        state.add("Select State");
+        jsonState.add("Select State");
         try {
             JSONArray stateArray = new JSONObject(loadJSONFromAsset("states.json")).getJSONArray("states");
             for (int i = 0; i < stateArray.length(); i++) {
                 JSONObject stateObject = new JSONObject(stateArray.get(i).toString());
                 try {
-                    if (stateObject.getInt("country_id") == country + 1) {
+//                    if (stateObject.getInt("country_id") == country + 1) {
+                    if (stateObject.getInt("country_id") == country) {
                         state.add(stateObject.getString("name"));
                         jsonState.add(stateObject.toString());
                     }
                 } catch (Exception e) {
-                    Log.e("country_id", stateObject.toString());
+//                    Log.e("country_id", stateObject.toString());
                 }
             }
 
@@ -286,9 +290,9 @@ public class SearchActivity extends AppCompatActivity {
             mSpnState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    loadCity(position);
-                    stateSelected = position;
-                    citySelected = 0;
+                    if(position != 0){
+                        loadCity(position);
+                    }
                 }
 
                 @Override
@@ -303,6 +307,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void loadCity(int state) {
         city.clear();
+        city.add("Select City");
         try {
             JSONArray cityArray = new JSONObject(loadJSONFromAsset("cities.json")).getJSONArray("cities");
             JSONObject tempStateObject = new JSONObject(jsonState.get(state));
@@ -315,7 +320,7 @@ public class SearchActivity extends AppCompatActivity {
 //                        city.add(i, cityObject.getString("name"));
                     }
                 } catch (Exception e) {
-                    Log.e("state_id", cityObject.toString());
+//                    Log.e("state_id", cityObject.toString());
                 }
             }
 
@@ -325,7 +330,6 @@ public class SearchActivity extends AppCompatActivity {
             mSpnCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    citySelected = position;
                 }
 
                 @Override

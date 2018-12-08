@@ -1,18 +1,31 @@
 package com.kloudforj.matrimonial.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.kloudforj.matrimonial.R;
+import com.kloudforj.matrimonial.utils.CallBackFunction;
+import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.HttpUrl;
+import okhttp3.Response;
 
 public class ChangePasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,6 +34,8 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
     private Button changePasswordButton;
     Boolean changePasswordCheck = false; // A flag is initialized for validations.
     private ImageButton imageButtonCancel;
+    private String token;
+    private SharedPreferences globalSP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +77,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 String newPassword = etNewPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
 
-                if(! newPassword.equals(confirmPassword)) {
+                if (!newPassword.equals(confirmPassword)) {
                     confirmPasswordWrapper.setError(getResources().getString(R.string.enter_same_password));
                     changePasswordCheck = false;
                 } else {
@@ -89,7 +104,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 String newPassword = etNewPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
 
-                if(! newPassword.equals(confirmPassword)) {
+                if (!newPassword.equals(confirmPassword)) {
                     confirmPasswordWrapper.setError(getResources().getString(R.string.enter_same_password));
                     changePasswordCheck = false;
                 } else {
@@ -107,7 +122,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
 
             case R.id.change_password_button:
 
-                if ( etCurrentPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING) && etNewPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING) && etConfirmPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
+                if (etCurrentPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING) && etNewPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING) && etConfirmPassword.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
                     currentPasswordWrapper.setError(getResources().getString(R.string.enter_valid_email));
                     newPasswordWrapper.setError(getResources().getString(R.string.enter_valid_phone));
                     confirmPasswordWrapper.setError(getResources().getString(R.string.enter_valid_password));
@@ -125,12 +140,81 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                     changePasswordCheck = false;
                 }
 
-                if(changePasswordCheck) {
-                    //TODO: Call change password APIs
-                }
+                if (changePasswordCheck) {
+                    JSONObject jsonObjectRequest = new JSONObject();
+                    try {
+                        jsonObjectRequest.put(ProjectConstants.OLD_PASSWORD, etCurrentPassword.getText().toString());
+                        jsonObjectRequest.put(ProjectConstants.NEW_PASSWORD, etNewPassword.getText().toString());
 
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
+                    token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
+                    HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.CHANGE_PASSWORD).newBuilder();
+                    if (DetectConnection.checkInternetConnection(this)) {
+                        new ProjectConstants.getDataFromServer(jsonObjectRequest, new ChangePasswordResponse(), this).execute(urlBuilder.build().toString(), token);
+                    } else {
+                        Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
         }
+    }
 
+    private void enableComponents(final String msg) {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(ChangePasswordActivity.this, msg, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public class ChangePasswordResponse implements CallBackFunction {
+
+        @Override
+        public void getResponseFromServer(Response response) throws IOException {
+            if (!response.isSuccessful()) {
+                Log.e("response", response.toString());
+                enableComponents(getResources().getString(R.string.something_went_wrong));
+                throw new IOException("Unexpected code " + response);
+            } else {
+
+                String result = response.body().string(); // response is converted to string
+                //Log.e("resp : ", result);
+
+                if (result != null) {
+
+                    try {
+
+                        final JSONObject jsonHome = new JSONObject(result);
+
+                        final Boolean auth = jsonHome.getBoolean(ProjectConstants.AUTH);
+                        final String message = jsonHome.getString(ProjectConstants.MESSAGE);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (auth) {
+                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                    ProjectConstants.logoutServiceCall(ChangePasswordActivity.this);
+                                } else {
+                                    ProjectConstants.logoutServiceCall(ChangePasswordActivity.this);
+                                }
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        enableComponents(getResources().getString(R.string.something_went_wrong));
+                    }
+
+                } else {
+                    enableComponents(getResources().getString(R.string.something_went_wrong));
+                }
+
+            }
+        }
     }
 }

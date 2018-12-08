@@ -53,9 +53,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Key;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -93,11 +95,12 @@ public class UserEditProfileActivity extends AppCompatActivity {
     Spinner spinnerGender, spinnerCountry, spinnerState, spinnerCity,
             spinnerCast, spinnerSubCast1, spinnerSubCast2, spinnerMaritalStatus;
 
-//    HashMap<Integer, String> countries, states, cities;
+    //    HashMap<Integer, String> countries, states, cities;
 //    ArrayList<String> countryNames, stateNames, cityNames, jsonState;
+    ProgressBar progressBar;
 
-    ArrayList<CustomArray> countryList,stateList,cityList;
-    ArrayList<String> castes,subCastes1 ,subCastes2;
+    ArrayList<CustomArray> countryList, stateList, cityList;
+    ArrayList<String> castes, subCastes1, subCastes2;
 
     RadioGroup radioGroupSex;
     RadioButton radioButtonMale, radioButtonFemale;
@@ -106,7 +109,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     private SharedPreferences globalSP;
 
-    ImageButton imageButtonAddress1, imageButtonAddress2, imageButtonAddress3,imageButtonBirthTime,
+    ImageButton imageButtonAddress1, imageButtonAddress2, imageButtonAddress3, imageButtonBirthTime,
             imageButtonCancel, imageButtonCalendar, imageButtonAddEducation, imageButtonAddHobbies, imageButtonSave,
             imageButtonPhoneVerified, imageButtonEmailVerified, imageButtonPhoneNotVerified, imageButtonEmailNotVerified;
 
@@ -121,6 +124,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
         globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
+        progressBar = findViewById(R.id.pb_userprofile_activity);
 
         recyclerViewUserImage = (RecyclerView) findViewById(R.id.recyclerView_user_image);
         recyclerViewUserImage.setLayoutManager(new GridLayoutManager(this, 3));
@@ -206,6 +210,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     JSONObject jsonUserProfileRequest = null;
                     try {
                         UserProfile userProfile = new UserProfile();
+                        userProfile.setPhone_number(globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING));
+                        userProfile.setEmail(globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING));
 
                         //Profile
                         UserProfile.Profile profile = userProfile.new Profile();
@@ -218,17 +224,16 @@ public class UserEditProfileActivity extends AppCompatActivity {
                             profile.setSex("F");
                         }
                         profile.setDate_of_birth(textViewBirthDate.getText().toString().trim());
-                        profile.setPhone_number(editTextPhone.getText().toString().trim());
                         profile.setCaste(spinnerCast.getSelectedItem().toString().trim());
                         profile.setSub_caste1(spinnerSubCast1.getSelectedItem().toString().trim());
                         profile.setSub_caste2(spinnerSubCast2.getSelectedItem().toString().trim());
                         profile.setMarital_status(spinnerMaritalStatus.getSelectedItem().toString().trim());
 
                         profile.setAddress1(editTextAddress1.getText().toString().trim());
-                        if(!editTextAddress2.getText().toString().trim().equals("")){
+                        if (!editTextAddress2.getText().toString().trim().equals("")) {
                             profile.setAddress2(editTextAddress2.getText().toString().trim());
                         }
-                        if(!editTextAddress3.getText().toString().trim().equals("")){
+                        if (!editTextAddress3.getText().toString().trim().equals("")) {
                             profile.setAddress3(editTextAddress3.getText().toString().trim());
                         }
                         profile.setCountry(spinnerCountry.getSelectedItem().toString());
@@ -256,7 +261,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                         //Education
                         //UserProfile.Education education = userProfile.new Education(); //getEducation();
-                        int i = 0; List<String> tempedu = new ArrayList<>();
+                        int i = 0;
+                        List<String> tempedu = new ArrayList<>();
                         for (View educations : arrayOfEducationView) {
                             TextView text = educations.findViewById(R.id.text_main_content);
                             tempedu.add(text.getText().toString().trim());
@@ -266,7 +272,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                         //Hobbies
                         //UserProfile.Hobby hobbies = userProfile.new Hobby(); //getHobbies();
-                        int j = 0; List<String> temphobby = new ArrayList<>();
+                        int j = 0;
+                        List<String> temphobby = new ArrayList<>();
                         for (View hobbie : arrayOfHobbyView) {
                             TextView text = hobbie.findViewById(R.id.text_main_content);
                             temphobby.add(text.getText().toString().trim());
@@ -292,7 +299,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     }
                     HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.UPDATE_PROFILE_URL).newBuilder();
                     if (DetectConnection.checkInternetConnection(UserEditProfileActivity.this)) {
-                        new ProjectConstants.getDataFromServer(jsonUserProfileRequest, new UpdateProfileCall(), UserEditProfileActivity.this).execute(urlBuilder.build().toString(),token);
+                        new ProjectConstants.getDataFromServer(jsonUserProfileRequest, new UpdateProfileCall(), UserEditProfileActivity.this).execute(urlBuilder.build().toString(), token);
                     } else {
                         Toast.makeText(UserEditProfileActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
                     }
@@ -360,8 +367,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
             imageButtonCancel.setVisibility(View.GONE);
         }
 
-        if (getIntent().hasExtra("userProfile"))  {
-            if(getIntent().getExtras().getString("userProfile") != null) {
+        if (getIntent().hasExtra("userProfile")) {
+            if (getIntent().getExtras().getString("userProfile") != null) {
                 Gson gson = new Gson();
                 UserProfile userProfile = gson.fromJson(getIntent().getExtras().getString("userProfile"), UserProfile.class);
                 editTextFirstName.setText(userProfile.getProfile().getFirst_name());
@@ -382,14 +389,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 datas = getResources().getStringArray(R.array.city);
                 spinnerCity.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCity()));*/
 
-                setSpinnerCountry(userProfile.getProfile().getCountry(), userProfile.getProfile().getState());
-
-                /*datas = getResources().getStringArray(R.array.caste);
-                spinnerCast.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCaste()));
-                datas = getResources().getStringArray(R.array.sub_caste_1);
-                spinnerSubCast1.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getSub_caste1()));
-                datas = getResources().getStringArray(R.array.sub_caste_2);
-                spinnerSubCast2.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getSub_caste2()));*/
+                setSpinnerCountry(userProfile.getProfile().getCountry(), userProfile.getProfile().getState(), userProfile.getProfile().getCity());
 
                 if (userProfile.getProfile().getSex().toLowerCase().equals("m")) {
                     radioButtonMale.setChecked(true);
@@ -424,10 +424,10 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 editTextUserJob.setText(userProfile.getExtra().getCurrent_job());
                 editTextAboutMe.setText(userProfile.getExtra().getAbout_me());
 
-                for (int i = 0; i< userProfile.getEducation().size(); i++) {
+                for (int i = 0; i < userProfile.getEducation().size(); i++) {
                     addCell(userProfile.getEducation().get(i), true);
                 }
-                for (int i = 0; i< userProfile.getHobbies().size(); i++) {
+                for (int i = 0; i < userProfile.getHobbies().size(); i++) {
                     addCell(userProfile.getHobbies().get(i), false);
                 }
 
@@ -437,7 +437,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     items[i] = userProfile.getImages()[i].getImage_path();
                     items_id[i] = userProfile.getImages()[i].getId();
                 }
-                mAdapter = new AdapterGridBasic(this, items,items_id);
+                mAdapter = new AdapterGridBasic(this, items, items_id);
                 recyclerViewUserImage.setAdapter(mAdapter);
 
                 editTextAddress1.setText(userProfile.getProfile().getAddress1());
@@ -454,42 +454,58 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 editTextMotherEducation.setText(userProfile.getFamily().getMother_education());
                 editTextMotherProfession.setText(userProfile.getFamily().getMother_profession());
                 editTextMotherBirthPlace.setText(userProfile.getFamily().getMother_birth_place());
+                getCasteAndSubCaste(userProfile);
             }
         }
         editTextPhone.setText(globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING));
         editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING));
-
-        getCasteAndSubCaste();
     }
 
-    private void setSpinnerCountry(String country, String state) {
+    private void setSpinnerCountry(String country, String state, String city) {
 
         int position = -1;
 
-        for(int i = 0; i < spinnerCountry.getCount(); i++) {
-            if(spinnerCountry.getItemAtPosition(i).toString().equalsIgnoreCase(country)) {
+        for (int i = 0; i < spinnerCountry.getCount(); i++) {
+            if (spinnerCountry.getItemAtPosition(i).toString().equalsIgnoreCase(country)) {
                 position = i;
                 break;
             }
         }
 
-        if(position != -1) {
+        if (position != -1) {
             spinnerCountry.setSelection(position);
 
-            loadState(position+1);
-            for(int i = 0; i < spinnerState.getCount(); i++) {
-                if(spinnerState.getItemAtPosition(i).toString().equalsIgnoreCase(state)) {
+            loadState(position + 1);
+            for (int i = 0; i < spinnerState.getCount(); i++) {
+                if (spinnerState.getItemAtPosition(i).toString().equalsIgnoreCase(state)) {
                     position = i;
                     break;
                 }
             }
+        }
 
+        if (position != -1) {
             final int finalPosition = position;
             new Handler().postDelayed(new Runnable() {
                 public void run() {
                     spinnerState.setSelection(finalPosition);
                 }
             }, 1000);
+
+            loadCity(position + 1);
+            for (int i = 0; i < spinnerCity.getCount(); i++) {
+                if (spinnerCity.getItemAtPosition(i).toString().equalsIgnoreCase(city)) {
+                    position = i;
+                    break;
+                }
+            }
+            final int finalPosition2 = position;
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    spinnerCity.setSelection(finalPosition2);
+                }
+            }, 2000);
+
         }
     }
 
@@ -522,60 +538,63 @@ public class UserEditProfileActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
 
-        if(!jsonCountries.trim().equals(ProjectConstants.EMPTY_STRING)) {
+        if (!jsonCountries.trim().equals(ProjectConstants.EMPTY_STRING)) {
 
             try {
 
                 JSONObject jsonObject = new JSONObject(jsonCountries);
                 JSONArray jsonArray = jsonObject.getJSONArray("countries");
 
-                for(int i = 0; i < jsonArray.length(); i++) {
+                for (int i = 0; i < jsonArray.length(); i++) {
 
-                    try{
+                    try {
                         JSONObject objectCountry = jsonArray.getJSONObject(i);
-                        CustomArray ca = new CustomArray(objectCountry.getInt("id"),objectCountry.getString("name"),-1);
+                        CustomArray ca = new CustomArray(objectCountry.getInt("id"), objectCountry.getString("name"), -1);
                         countryList.add(ca);
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        if(!jsonStates.trim().equals(ProjectConstants.EMPTY_STRING)) {
+        if (!jsonStates.trim().equals(ProjectConstants.EMPTY_STRING)) {
 
             try {
 
                 JSONObject jsonObject = new JSONObject(jsonStates);
                 JSONArray jsonArray = jsonObject.getJSONArray("states");
 
-                for(int i = 0; i < jsonArray.length(); i++) {
+                for (int i = 0; i < jsonArray.length(); i++) {
 
-                    try{
+                    try {
                         JSONObject objectCountry = jsonArray.getJSONObject(i);
-                        CustomArray ca = new CustomArray(objectCountry.getInt("id"),objectCountry.getString("name"),objectCountry.getInt("country_id"));
+                        CustomArray ca = new CustomArray(objectCountry.getInt("id"), objectCountry.getString("name"), objectCountry.getInt("country_id"));
                         stateList.add(ca);
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        if(!jsonCities.trim().equals(ProjectConstants.EMPTY_STRING)) {
+        if (!jsonCities.trim().equals(ProjectConstants.EMPTY_STRING)) {
 
             try {
 
                 JSONObject jsonObject = new JSONObject(jsonCities);
                 JSONArray jsonArray = jsonObject.getJSONArray("cities");
 
-                for(int i = 0; i < jsonArray.length(); i++) {
+                for (int i = 0; i < jsonArray.length(); i++) {
 
                     try {
                         JSONObject objectCountry = jsonArray.getJSONObject(i);
                         CustomArray ca = new CustomArray(objectCountry.getInt("id"), objectCountry.getString("name"), objectCountry.getInt("state_id"));
                         cityList.add(ca);
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                 }
 
             } catch (Exception e) {
@@ -602,8 +621,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     public void loadState(final int id) {
         final ArrayList<CustomArray> temp = new ArrayList<>();
-        for (CustomArray ca :stateList){
-            if(ca.pid == id){
+        for (CustomArray ca : stateList) {
+            if (ca.pid == id) {
                 temp.add(ca);
             }
         }
@@ -623,10 +642,10 @@ public class UserEditProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void loadCity(int id){
+    public void loadCity(int id) {
         final ArrayList<CustomArray> temp = new ArrayList<>();
-        for (CustomArray ca :cityList){
-            if(ca.pid == id){
+        for (CustomArray ca : cityList) {
+            if (ca.pid == id) {
                 temp.add(ca);
             }
         }
@@ -647,7 +666,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
     public void requestPermission() {
 
-        if (ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[0]) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[1]) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[2]) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[3]) != PackageManager.PERMISSION_GRANTED ) {
+        if (ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[0]) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[1]) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[2]) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[3]) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(UserEditProfileActivity.this, permissionsRequired[0]) || ActivityCompat.shouldShowRequestPermissionRationale(UserEditProfileActivity.this, permissionsRequired[1]) || ActivityCompat.shouldShowRequestPermissionRationale(UserEditProfileActivity.this, permissionsRequired[2]) || ActivityCompat.checkSelfPermission(UserEditProfileActivity.this, permissionsRequired[3]) != PackageManager.PERMISSION_GRANTED) {
                 //Show Information about why you need the permission
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -787,7 +806,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                                 }
                             });
                             Intent intentUserProfile = new Intent(UserEditProfileActivity.this, UserProfileActivity.class);
-                            intentUserProfile.putExtra(ProjectConstants.SEX, radioButtonMale.isChecked() ? "M" : "F");
+//                            intentUserProfile.putExtra(ProjectConstants.SEX, radioButtonMale.isChecked() ? "M" : "F");
                             startActivity(intentUserProfile);
                             finish();
                         }
@@ -949,11 +968,11 @@ public class UserEditProfileActivity extends AppCompatActivity {
                         if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
                             view.updateDate(mYear, mMonth, mDay);
                         String month = String.valueOf(monthOfYear + 1);
-                        if((monthOfYear + 1) < 10){
+                        if ((monthOfYear + 1) < 10) {
                             month = "0" + String.valueOf((monthOfYear + 1));
                         }
                         String day = String.valueOf(dayOfMonth);
-                        if(dayOfMonth < 10){
+                        if (dayOfMonth < 10) {
                             day = "0" + String.valueOf(dayOfMonth);
                         }
                         textViewBirthDate.setText(String.valueOf(year + "-" + month + "-" + day));
@@ -1069,14 +1088,14 @@ public class UserEditProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void getBirthTime(){
+    public void getBirthTime() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 new TimePickerDialog.OnTimeSetListener() {
 
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
-                        textViewBirthTime.setText( String.valueOf(hourOfDay + ":" + minute + " " + (hourOfDay >= 12 ? "PM" : "AM")));
+                        textViewBirthTime.setText(String.valueOf(hourOfDay + ":" + minute + " " + (hourOfDay >= 12 ? "PM" : "AM")));
                     }
                 }, 0, 0, false);
         timePickerDialog.show();
@@ -1088,34 +1107,40 @@ public class UserEditProfileActivity extends AppCompatActivity {
         mAdapter.onActivityResult(requestCode, resultCode, imageReturnedIntent);
     }
 
-    public class CustomArray  {
+    public class CustomArray {
         private int id;
         private int pid;
         private String value;
 
-        CustomArray(int id,String value,int pid){
+        CustomArray(int id, String value, int pid) {
             this.id = id;
             this.value = value;
             this.pid = pid;
         }
 
-        public String toString(){
+        public String toString() {
             return value;
         }
     }
 
-    public void getCasteAndSubCaste() {
+    public void getCasteAndSubCaste(UserProfile userProfile) {
         SharedPreferences globalSP = getSharedPreferences(ProjectConstants.PROJECTBASEPREFERENCE, MODE_PRIVATE);
         String token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
         HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.GET_CASTE_SUBCASTE).newBuilder();
         if (DetectConnection.checkInternetConnection(this)) {
-            new ProjectConstants.getDataFromServer(new JSONObject(), new GetCasteAndSubCaste(), this).execute(urlBuilder.build().toString(), token);
+            new ProjectConstants.getDataFromServer(new JSONObject(), new GetCasteAndSubCaste(userProfile), this).execute(urlBuilder.build().toString(), token);
         } else {
             Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
         }
     }
 
     public class GetCasteAndSubCaste implements CallBackFunction {
+
+        UserProfile userProfile;
+
+        public GetCasteAndSubCaste(UserProfile userProfile){
+            this.userProfile = userProfile;
+        }
 
         @Override
         public void getResponseFromServer(Response response) throws IOException {
@@ -1143,14 +1168,26 @@ public class UserEditProfileActivity extends AppCompatActivity {
                                         JSONArray subCasteArray1 = jsonObjectData.getJSONArray("sub_caste1");
                                         JSONArray subCasteArray2 = jsonObjectData.getJSONArray("sub_caste2");
 
+                                        int castePosition = 0;
+                                        int SubCaste1Position = 0;
+                                        int SubCaste2Position = 0;
                                         for (int i = 0; i < casteArray.length(); i++) {
                                             castes.add(casteArray.get(i).toString());
+                                            if(userProfile.getProfile().getCaste().equalsIgnoreCase(casteArray.get(i).toString())){
+                                                castePosition = i;
+                                            }
                                         }
                                         for (int i = 0; i < subCasteArray1.length(); i++) {
                                             subCastes1.add(subCasteArray1.get(i).toString());
+                                            if(userProfile.getProfile().getSub_caste1().equalsIgnoreCase(subCasteArray1.get(i).toString())){
+                                                SubCaste1Position = i;
+                                            }
                                         }
                                         for (int i = 0; i < subCasteArray2.length(); i++) {
                                             subCastes2.add(subCasteArray2.get(i).toString());
+                                            if(userProfile.getProfile().getSub_caste2().equalsIgnoreCase(subCasteArray2.get(i).toString())){
+                                                SubCaste2Position = i;
+                                            }
                                         }
 
                                         ArrayAdapter<String> adapterCastes = new ArrayAdapter<>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, castes);
@@ -1159,6 +1196,10 @@ public class UserEditProfileActivity extends AppCompatActivity {
                                         spinnerSubCast1.setAdapter(adapterSubCastes1);
                                         ArrayAdapter<String> adapterSubCastes2 = new ArrayAdapter<>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, subCastes2);
                                         spinnerSubCast2.setAdapter(adapterSubCastes2);
+
+                                        spinnerCast.setSelection(castePosition);
+                                        spinnerSubCast1.setSelection(SubCaste1Position);
+                                        spinnerSubCast2.setSelection(SubCaste2Position);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }

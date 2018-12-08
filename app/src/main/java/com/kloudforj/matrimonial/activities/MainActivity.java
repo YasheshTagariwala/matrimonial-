@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private UserListFragment userListFragment;
     private FavouriteListFragment favouriteListFragment;
 
-    private String location, subcaste1, subcaste2, name, user_name, image_name;
+    private String location, subcaste1, subcaste2, name, user_name, image_name, caste;
     private String sex;
     private int birth_year;
 
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
-        mMainActvityProgressBar = (ProgressBar) findViewById(R.id.pb_main_activity);
+        mMainActvityProgressBar = findViewById(R.id.pb_main_activity);
         if (mMainActvityProgressBar != null) {
             mMainActvityProgressBar.getIndeterminateDrawable().setColorFilter(
                     ContextCompat.getColor(MainActivity.this, R.color.colorAccent),
@@ -109,27 +109,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         token = globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING);
         user_id = globalSP.getInt(ProjectConstants.USERID, 0);
 
-        location = globalSP.getString(ProjectConstants.LOCATION, ProjectConstants.EMPTY_STRING);
-        subcaste1 = globalSP.getString(ProjectConstants.SUBCASTE1, ProjectConstants.EMPTY_STRING);
-        subcaste2 = globalSP.getString(ProjectConstants.SUBCASTE2, ProjectConstants.EMPTY_STRING);
-        name = globalSP.getString(ProjectConstants.NAME, ProjectConstants.EMPTY_STRING);
         user_name = globalSP.getString(ProjectConstants.USER_NAME, ProjectConstants.EMPTY_STRING);
         image_name = globalSP.getString(ProjectConstants.BASE_IMAGE, ProjectConstants.EMPTY_STRING);
-        birth_year = globalSP.getInt(ProjectConstants.BIRTH_YEAR, 0);
         sex = globalSP.getString(ProjectConstants.SEX, ProjectConstants.EMPTY_STRING);
+        location = "";
+        subcaste1 = "";
+        caste = "";
+        subcaste2 = "";
+        name = "";
+        birth_year = 0;
 
         // ActionBar is set on MainActivity
         setToolbar();
 
         // Drawer Mapping
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mainToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         assert drawer != null;
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView = findViewById(R.id.nav_view);
         if (mNavigationView != null) {
             mNavigationView.getMenu().getItem(0).setChecked(true);
             mNavigationView.setNavigationItemSelectedListener(this);
@@ -192,45 +193,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        JSONObject jsonObjectRequest = new JSONObject();
-        try {
-            jsonObjectRequest.put(ProjectConstants.SEX, sex.equals("M") ? "F" : "M");
-
-//            if(!location.equals(ProjectConstants.EMPTY_STRING)) {
-//                jsonObjectRequest.put(ProjectConstants.LOCATION, location);
-//            }
-            if (!name.equals(ProjectConstants.EMPTY_STRING)) {
-                jsonObjectRequest.put(ProjectConstants.NAME, name);
-            }
-            if (!subcaste1.equals(ProjectConstants.EMPTY_STRING)) {
-                jsonObjectRequest.put(ProjectConstants.SUBCASTE1, subcaste1);
-            }
-            if (!subcaste2.equals(ProjectConstants.EMPTY_STRING)) {
-                jsonObjectRequest.put(ProjectConstants.SUBCASTE2, subcaste2);
-            }
-            if (birth_year != 0) {
-                jsonObjectRequest.put(ProjectConstants.BIRTH_YEAR, birth_year);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (!globalSP.getBoolean(ProjectConstants.USER_PROFILE, false)) {
-            startActivity(new Intent(MainActivity.this, UserEditProfileActivity.class));
-            finish();
-        } else {
-            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USERLIST_URL).newBuilder();
-            if (DetectConnection.checkInternetConnection(MainActivity.this)) {
-                new ProjectConstants.getDataFromServer(jsonObjectRequest, new FetchUserList(), this).execute(urlBuilder.build().toString(), token);
-            } else {
-                Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
@@ -244,7 +210,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
         snackbar.show();
 
+        Intent intent = getIntent();
+        if (intent.hasExtra("Settings")) {
+            location = intent.getStringExtra(ProjectConstants.LOCATION);
+            subcaste1 = intent.getStringExtra(ProjectConstants.SUBCASTE1);
+            caste = intent.getStringExtra(ProjectConstants.CAST);
+            subcaste2 = intent.getStringExtra(ProjectConstants.SUBCASTE2);
+            name = intent.getStringExtra(ProjectConstants.NAME);
+            birth_year = Integer.parseInt(intent.getStringExtra(ProjectConstants.BIRTH_YEAR));
+        } else {
+            if (!globalSP.getBoolean(ProjectConstants.USER_PROFILE, false)) {
+                startActivity(new Intent(MainActivity.this, UserEditProfileActivity.class));
+                finish();
+            }
+        }
+        getUserListApi();
+
         //Log.e("Token : ", token);
+    }
+
+    public void getUserListApi() {
+        JSONObject jsonObjectRequest = new JSONObject();
+        try {
+            jsonObjectRequest.put(ProjectConstants.SEX, sex.equals("M") ? "F" : "M");
+
+            if (!location.equals(ProjectConstants.EMPTY_STRING)) {
+                jsonObjectRequest.put(ProjectConstants.LOCATION, location);
+            }
+
+            if (!name.equals(ProjectConstants.EMPTY_STRING)) {
+                jsonObjectRequest.put(ProjectConstants.NAME, name);
+            }
+            if (!subcaste1.equals(ProjectConstants.EMPTY_STRING)) {
+                jsonObjectRequest.put(ProjectConstants.SUBCASTE1, subcaste1);
+            }
+            if (!caste.equals(ProjectConstants.EMPTY_STRING)) {
+                jsonObjectRequest.put(ProjectConstants.CAST, caste);
+            }
+            if (!subcaste2.equals(ProjectConstants.EMPTY_STRING)) {
+                jsonObjectRequest.put(ProjectConstants.SUBCASTE2, subcaste2);
+            }
+            if (birth_year != 0) {
+                jsonObjectRequest.put(ProjectConstants.BIRTH_YEAR, birth_year);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USERLIST_URL).newBuilder();
+        if (DetectConnection.checkInternetConnection(MainActivity.this)) {
+            new ProjectConstants.getDataFromServer(jsonObjectRequest, new FetchUserList(), this).execute(urlBuilder.build().toString(), token);
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -375,7 +393,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Set Action ToolBar as per Material Design Standards
      */
     private void setToolbar() {
-        mainToolbar = (Toolbar) findViewById(R.id.toolbar_main_activity);
+        mainToolbar = findViewById(R.id.toolbar_main_activity);
         if (mainToolbar != null) {
 
             mainToolbar.collapseActionView();
