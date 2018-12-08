@@ -212,7 +212,7 @@
         <item>Female</item>
     </string-array>
     <string-array name="marital_status">
-        <item>Single / Never Married</item>
+        <item>Single</item>
         <item>Divorced</item>
         <item>Widow</item>
     </string-array>

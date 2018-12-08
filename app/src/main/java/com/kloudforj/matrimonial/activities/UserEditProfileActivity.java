@@ -9,15 +9,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +28,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -301,7 +305,6 @@ public class UserEditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                //startActivity(new Intent(UserEditProfileActivity.this, UserProfileActivity.class));
             }
         });
 
@@ -369,6 +372,9 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 String[] datas = getResources().getStringArray(R.array.marital_status);
                 spinnerMaritalStatus.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getMarital_status()));
 
+                //spinnerCast.setSelection(castes.indexOf(userProfile.getProfile().getCaste()));
+                //spinnerSubCast1.setSelection(castes.indexOf(userProfile.getProfile().getSub_caste1()));
+
                 /*datas = getResources().getStringArray(R.array.country);
                 spinnerCountry.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCountry()));
                 datas = getResources().getStringArray(R.array.state);
@@ -376,12 +382,15 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 datas = getResources().getStringArray(R.array.city);
                 spinnerCity.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCity()));*/
 
-                datas = getResources().getStringArray(R.array.caste);
+                setSpinnerCountry(userProfile.getProfile().getCountry(), userProfile.getProfile().getState());
+
+                /*datas = getResources().getStringArray(R.array.caste);
                 spinnerCast.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getCaste()));
                 datas = getResources().getStringArray(R.array.sub_caste_1);
                 spinnerSubCast1.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getSub_caste1()));
                 datas = getResources().getStringArray(R.array.sub_caste_2);
-                spinnerSubCast2.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getSub_caste2()));
+                spinnerSubCast2.setSelection(Arrays.asList(datas).indexOf(userProfile.getProfile().getSub_caste2()));*/
+
                 if (userProfile.getProfile().getSex().toLowerCase().equals("m")) {
                     radioButtonMale.setChecked(true);
                     radioButtonFemale.setChecked(false);
@@ -451,6 +460,37 @@ public class UserEditProfileActivity extends AppCompatActivity {
         editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING));
 
         getCasteAndSubCaste();
+    }
+
+    private void setSpinnerCountry(String country, String state) {
+
+        int position = -1;
+
+        for(int i = 0; i < spinnerCountry.getCount(); i++) {
+            if(spinnerCountry.getItemAtPosition(i).toString().equalsIgnoreCase(country)) {
+                position = i;
+                break;
+            }
+        }
+
+        if(position != -1) {
+            spinnerCountry.setSelection(position);
+
+            loadState(position+1);
+            for(int i = 0; i < spinnerState.getCount(); i++) {
+                if(spinnerState.getItemAtPosition(i).toString().equalsIgnoreCase(state)) {
+                    position = i;
+                    break;
+                }
+            }
+
+            final int finalPosition = position;
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    spinnerState.setSelection(finalPosition);
+                }
+            }, 1000);
+        }
     }
 
     private void loadLocations() {
@@ -560,7 +600,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void loadState(int id){
+    public void loadState(final int id) {
         final ArrayList<CustomArray> temp = new ArrayList<>();
         for (CustomArray ca :stateList){
             if(ca.pid == id){
@@ -573,6 +613,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //loadStateSpinners();
                 loadCity(temp.get(position).id);
+
             }
 
             @Override
@@ -589,7 +630,19 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 temp.add(ca);
             }
         }
+
         spinnerCity.setAdapter(new ArrayAdapter<CustomArray>(UserEditProfileActivity.this, android.R.layout.simple_spinner_dropdown_item, temp));
+        spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void requestPermission() {
@@ -1035,7 +1088,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         mAdapter.onActivityResult(requestCode, resultCode, imageReturnedIntent);
     }
 
-    public class CustomArray{
+    public class CustomArray  {
         private int id;
         private int pid;
         private String value;
