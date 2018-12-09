@@ -94,7 +94,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             } else {
                 holder.tvUserMaritalStatus.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
             }
-
+        }else{
+            if(Build.VERSION.SDK_INT < 23) {
+                holder.tvUserMaritalStatus.setTextColor(context.getResources().getColor(R.color.grey_40));
+            } else {
+                holder.tvUserMaritalStatus.setTextColor(ContextCompat.getColor(context, R.color.grey_40));
+            }
         }
         holder.tvUserMaritalStatus.setText(martial_status);
         holder.tvUserHeight.setText(items.getExtra().getHeight());
