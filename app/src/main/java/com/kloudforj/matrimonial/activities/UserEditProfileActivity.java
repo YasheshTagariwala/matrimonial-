@@ -82,6 +82,10 @@ public class UserEditProfileActivity extends AppCompatActivity {
             Manifest.permission.INTERNET,
             Manifest.permission.ACCESS_NETWORK_STATE};
 
+    int castePosition = 0;
+    int SubCaste1Position = 0;
+    int SubCaste2Position = 0;
+
     private RecyclerView recyclerViewUserImage;
 
     //    EditText editTextHobby;
@@ -225,8 +229,16 @@ public class UserEditProfileActivity extends AppCompatActivity {
                         }
                         profile.setDate_of_birth(textViewBirthDate.getText().toString().trim());
                         profile.setCaste(spinnerCast.getSelectedItem().toString().trim());
-                        profile.setSub_caste1(spinnerSubCast1.getSelectedItem().toString().trim());
-                        profile.setSub_caste2(spinnerSubCast2.getSelectedItem().toString().trim());
+                        if (SubCaste1Position == -1) {
+                            profile.setSub_caste1("-");
+                        } else {
+                            profile.setSub_caste1(spinnerSubCast1.getSelectedItem().toString().trim());
+                        }
+                        if (SubCaste2Position == -1) {
+                            profile.setSub_caste2("-");
+                        } else {
+                            profile.setSub_caste2(spinnerSubCast2.getSelectedItem().toString().trim());
+                        }
                         profile.setMarital_status(spinnerMaritalStatus.getSelectedItem().toString().trim());
 
                         profile.setAddress1(editTextAddress1.getText().toString().trim());
@@ -480,6 +492,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 if (spinnerState.getItemAtPosition(i).toString().equalsIgnoreCase(state)) {
                     position = i;
                     break;
+                } else {
+                    position = -1;
                 }
             }
         }
@@ -1138,7 +1152,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
         UserProfile userProfile;
 
-        public GetCasteAndSubCaste(UserProfile userProfile){
+        public GetCasteAndSubCaste(UserProfile userProfile) {
             this.userProfile = userProfile;
         }
 
@@ -1168,25 +1182,26 @@ public class UserEditProfileActivity extends AppCompatActivity {
                                         JSONArray subCasteArray1 = jsonObjectData.getJSONArray("sub_caste1");
                                         JSONArray subCasteArray2 = jsonObjectData.getJSONArray("sub_caste2");
 
-                                        int castePosition = 0;
-                                        int SubCaste1Position = 0;
-                                        int SubCaste2Position = 0;
                                         for (int i = 0; i < casteArray.length(); i++) {
                                             castes.add(casteArray.get(i).toString());
-                                            if(userProfile.getProfile().getCaste().equalsIgnoreCase(casteArray.get(i).toString())){
+                                            if (userProfile.getProfile().getCaste().equalsIgnoreCase(casteArray.get(i).toString())) {
                                                 castePosition = i;
                                             }
                                         }
                                         for (int i = 0; i < subCasteArray1.length(); i++) {
                                             subCastes1.add(subCasteArray1.get(i).toString());
-                                            if(userProfile.getProfile().getSub_caste1().equalsIgnoreCase(subCasteArray1.get(i).toString())){
+                                            if (userProfile.getProfile().getSub_caste1().equalsIgnoreCase(subCasteArray1.get(i).toString())) {
                                                 SubCaste1Position = i;
+                                            } else {
+                                                SubCaste1Position = -1;
                                             }
                                         }
                                         for (int i = 0; i < subCasteArray2.length(); i++) {
                                             subCastes2.add(subCasteArray2.get(i).toString());
-                                            if(userProfile.getProfile().getSub_caste2().equalsIgnoreCase(subCasteArray2.get(i).toString())){
+                                            if (userProfile.getProfile().getSub_caste2().equalsIgnoreCase(subCasteArray2.get(i).toString())) {
                                                 SubCaste2Position = i;
+                                            } else {
+                                                SubCaste2Position = -1;
                                             }
                                         }
 
@@ -1199,7 +1214,29 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                                         spinnerCast.setSelection(castePosition);
                                         spinnerSubCast1.setSelection(SubCaste1Position);
+                                        spinnerSubCast1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                            @Override
+                                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                SubCaste1Position = position;
+                                            }
+
+                                            @Override
+                                            public void onNothingSelected(AdapterView<?> parent) {
+
+                                            }
+                                        });
                                         spinnerSubCast2.setSelection(SubCaste2Position);
+                                        spinnerSubCast2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                            @Override
+                                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                SubCaste2Position = position;
+                                            }
+
+                                            @Override
+                                            public void onNothingSelected(AdapterView<?> parent) {
+
+                                            }
+                                        });
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }

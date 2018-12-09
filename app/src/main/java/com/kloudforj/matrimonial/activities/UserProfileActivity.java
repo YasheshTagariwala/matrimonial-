@@ -244,12 +244,12 @@ public class UserProfileActivity extends AppCompatActivity {
         boolean is_empty = false;
         String data;
         if (type.equals("Phone")) {
-            data = textViewEmail.getText().toString().trim();
+            data = textViewPhone.getText().toString().trim();
             if (textViewPhone.getText().toString().trim().equals("-") || textViewPhone.getText().toString().trim().equals("")) {
                 is_empty = true;
             }
         } else {
-            data = textViewPhone.getText().toString().trim();
+            data = textViewEmail.getText().toString().trim();
             if (textViewEmail.getText().toString().trim().equals("-") || textViewEmail.getText().toString().trim().equals("")) {
                 is_empty = true;
             }
@@ -470,8 +470,8 @@ public class UserProfileActivity extends AppCompatActivity {
                                         textViewFullName.setText(String.valueOf(userProfile.getProfile().getFirst_name() + " " + userProfile.getProfile().getMiddle_name() + " " + userProfile.getProfile().getLast_name()));
                                         textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
                                         textViewGender.setText((userProfile.getProfile().getSex().toLowerCase().equals("m") ? "Male" : "Female"));
-                                        textViewPhone.setText(userProfile.getPhone_number() == null ? "-" : userProfile.getPhone_number());
-                                        textViewEmail.setText(userProfile.getEmail() == null ? "-" : userProfile.getEmail());
+                                        textViewPhone.setText(userProfile.getPhone_number() == null || userProfile.getPhone_number().equals("null") ? "-" : userProfile.getPhone_number());
+                                        textViewEmail.setText(userProfile.getEmail() == null || userProfile.getEmail().equals("null") ? "-" : userProfile.getEmail());
                                         String martial_status = userProfile.getProfile().getMarital_status();
                                         textViewMaritalStatus.setText(martial_status);
                                         if (martial_status.trim().equals("Divorced")) {
