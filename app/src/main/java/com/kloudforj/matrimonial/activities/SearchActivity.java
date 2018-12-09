@@ -119,11 +119,9 @@ public class SearchActivity extends AppCompatActivity {
 
                 Toast.makeText(SearchActivity.this, "Find / Search", Toast.LENGTH_SHORT).show();
                 String location;
-                if (mSpnCountry.getSelectedItem().toString().equals("Select Country") && mSpnState.getSelectedItem().toString().equals("Select State")
-                        && mSpnCity.getSelectedItem().toString().equals("Select City")) {
+                if (mSpnCountry.getSelectedItem().toString().equals("Select Country")) {
                     location = "";
-                } else if (!mSpnCountry.getSelectedItem().toString().equals("Select Country") && mSpnState.getSelectedItem().toString().equals("Select State")
-                        && mSpnCity.getSelectedItem().toString().equals("Select City")) {
+                } else if (!mSpnCountry.getSelectedItem().toString().equals("Select Country") && mSpnState.getSelectedItem().toString().equals("Select State")) {
                     location = mSpnCountry.getSelectedItem().toString().trim();
                 } else if (!mSpnCountry.getSelectedItem().toString().equals("Select Country") && !mSpnState.getSelectedItem().toString().equals("Select State")
                         && mSpnCity.getSelectedItem().toString().equals("Select City")) {
