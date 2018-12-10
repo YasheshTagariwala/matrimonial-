@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -27,38 +28,37 @@
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
-                android:contentDescription="@string/default_image_button_string"
-                android:src="@drawable/ic_location_on_white_24dp" />
+                android:src="@drawable/ic_location_on_white_24dp"
+                android:contentDescription="@string/default_image_button_string" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingStart="@dimen/spacing_large"
-                android:paddingEnd="@dimen/spacing_large"
                 android:text="@string/user_profile_card_title_address_details"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_90"
-                android:textSize="@dimen/TextViewLabel"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:paddingStart="@dimen/spacing_large"
+                android:paddingEnd="@dimen/spacing_large"
+                android:textSize="@dimen/TextViewLabel"/>
 
             <ImageView
                 android:id="@+id/img_toggle_address_info"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="@dimen/spacing_mxlarge"
-                android:rotation="180"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/default_image_button_string"
                 android:paddingStart="@dimen/spacing_large"
                 android:paddingEnd="@dimen/spacing_large"
-                android:src="@drawable/ic_expand_more_grey_60_24dp" />
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_expand_more_grey_60_24dp"
+                android:contentDescription="@string/default_image_button_string" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/divider_line" />
+            android:background="@color/divider_line"/>
 
         <LinearLayout
             android:id="@+id/address_info_expanded_view"
@@ -76,39 +76,39 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="@dimen/spacing_middle">
+                    android:paddingTop="@dimen/spacing_middle"
+                    android:orientation="horizontal">
 
                     <!--<ImageButton-->
-                    <!--android:layout_width="@dimen/spacing_mlarge"-->
-                    <!--android:layout_height="@dimen/spacing_mlarge"-->
-                    <!--android:background="@android:color/transparent"-->
-                    <!--app:srcCompat="@drawable/ic_location_on_white_24dp"-->
-                    <!--tools:ignore="VectorDrawableCompat"-->
-                    <!--android:contentDescription="@string/default_image_button_string" />-->
+                        <!--android:layout_width="@dimen/spacing_mlarge"-->
+                        <!--android:layout_height="@dimen/spacing_mlarge"-->
+                        <!--android:background="@android:color/transparent"-->
+                        <!--app:srcCompat="@drawable/ic_location_on_white_24dp"-->
+                        <!--tools:ignore="VectorDrawableCompat"-->
+                        <!--android:contentDescription="@string/default_image_button_string" />-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingEnd="@dimen/spacing_large">
+                        android:paddingEnd="@dimen/spacing_large"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="@string/user_profile_address1"
-                            android:paddingBottom="@dimen/spacing_xsmall"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/TextViewLabel"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_address1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="@string/user_profile_address1"
                             android:paddingTop="@dimen/spacing_xsmall"
+                            android:hint="@string/user_profile_address1"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -120,31 +120,31 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="@dimen/spacing_mlarge">
+                    android:paddingTop="@dimen/spacing_mlarge"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingEnd="@dimen/spacing_large">
+                        android:paddingEnd="@dimen/spacing_large"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="@string/user_profile_address2"
-                            android:paddingBottom="@dimen/spacing_xsmall"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/TextViewLabel"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_address2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="@string/user_profile_address2"
                             android:paddingTop="@dimen/spacing_xsmall"
+                            android:hint="@string/user_profile_address2"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -156,31 +156,31 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="@dimen/spacing_mlarge">
+                    android:paddingTop="@dimen/spacing_mlarge"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingEnd="@dimen/spacing_large">
+                        android:paddingEnd="@dimen/spacing_large"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="@string/user_profile_address3"
-                            android:paddingBottom="@dimen/spacing_xsmall"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/TextViewLabel"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_address3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="@string/user_profile_address3"
                             android:paddingTop="@dimen/spacing_xsmall"
+                            android:hint="@string/user_profile_address3"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -192,31 +192,31 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="@dimen/spacing_mlarge">
+                    android:paddingTop="@dimen/spacing_mlarge"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingEnd="@dimen/spacing_large">
+                        android:paddingEnd="@dimen/spacing_large"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="@string/user_profile_pincode"
-                            android:paddingBottom="@dimen/spacing_xsmall"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/TextViewLabel"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_pincode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="@string/user_profile_pincode"
                             android:paddingTop="@dimen/spacing_xsmall"
+                            android:hint="@string/user_profile_pincode"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -228,31 +228,31 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="@dimen/spacing_mlarge">
+                    android:paddingTop="@dimen/spacing_mlarge"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingEnd="@dimen/spacing_large">
+                        android:paddingEnd="@dimen/spacing_large"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="@string/user_profile_location"
-                            android:paddingBottom="@dimen/spacing_xsmall"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/TextViewLabel"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingBottom="@dimen/spacing_xsmall"
+                            android:textSize="@dimen/TextViewLabel" />
 
                         <TextView
                             android:id="@+id/text_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="@string/user_profile_default_location"
                             android:paddingTop="@dimen/spacing_xsmall"
+                            android:hint="@string/user_profile_default_location"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
