@@ -428,6 +428,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_contact_us) {
             startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
         }
+        if (id == R.id.nav_home) {
+            startActivity(new Intent(MainActivity.this, MainActivity.class));
+            finish();
+        }
         return true;
     }
 
