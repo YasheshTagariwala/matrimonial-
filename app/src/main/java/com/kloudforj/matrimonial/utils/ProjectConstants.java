@@ -82,6 +82,8 @@ public class ProjectConstants {
 
     public static final String SIGNUP_URL = "/register";
     public static final String CHANGE_PASSWORD = "/change-password";
+    public static final String FORGET_PASSWORD = "/forget";
+    public static final String GENERATE_FORGET_VERIFICATION_CODE = "/forget-verification-code-generate";
 
 
     /*Login Activity constants*/

@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextInputLayout emailWrapper, passwordWrapper;
     private ProgressBar mLoginActvityProgressBar;
     private Button loginButton;
-    private TextView signUptextView;
+    private TextView signUptextView, forgetPassword;
     private Call loginRequestCall;
 
     private String token;
@@ -61,6 +61,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         passwordWrapper = findViewById(R.id.passwordWrapper);
         loginEmail = findViewById(R.id.loginUsername);
         loginPassword = findViewById(R.id.loginPassword);
+        forgetPassword = findViewById(R.id.forgot_password);
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (loginEmail.getText().toString().equals(ProjectConstants.EMPTY_STRING)) {
+                    emailWrapper.setError(getResources().getString(R.string.enter_valid_email));
+                } else {
+                    Intent intent = new Intent(LoginActivity.this, ChangePasswordActivity.class);
+                    intent.putExtra("is_forget", 1);
+                    intent.putExtra("user_name", loginEmail.getText().toString().trim());
+                    startActivity(intent);
+                }
+            }
+        });
 
         loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this);
@@ -127,9 +141,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         editor.putString(ProjectConstants.BASE_IMAGE, (jsonLogin.has(ProjectConstants.BASE_IMAGE) ? jsonLogin.getString(ProjectConstants.BASE_IMAGE) : ""));
                                         editor.putString(ProjectConstants.PHONE, (jsonLogin.has(ProjectConstants.PHONE) ? jsonLogin.getString(ProjectConstants.PHONE) : ""));
                                         editor.putString(ProjectConstants.SEX, (jsonLogin.has(ProjectConstants.SEX) ? jsonLogin.getString(ProjectConstants.SEX).trim() : ""));
-                                        editor.putBoolean(ProjectConstants.ADMIN_VERIFIED, jsonLogin.getBoolean(ProjectConstants.ADMIN_VERIFIED));
-                                        editor.putBoolean(ProjectConstants.PHONE_VERIFIED, jsonLogin.getBoolean(ProjectConstants.PHONE_VERIFIED));
-                                        editor.putBoolean(ProjectConstants.EMAIL_VERIFIED, jsonLogin.getBoolean(ProjectConstants.EMAIL_VERIFIED));
+                                        editor.putInt(ProjectConstants.ADMIN_VERIFIED, jsonLogin.getInt(ProjectConstants.ADMIN_VERIFIED));
+                                        editor.putInt(ProjectConstants.PHONE_VERIFIED, jsonLogin.getInt(ProjectConstants.PHONE_VERIFIED));
+                                        editor.putInt(ProjectConstants.EMAIL_VERIFIED, jsonLogin.getInt(ProjectConstants.EMAIL_VERIFIED));
 
                                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                                         editor.putBoolean(ProjectConstants.USER_PROFILE, profile);
