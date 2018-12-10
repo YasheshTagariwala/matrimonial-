@@ -1,10 +1,15 @@
 package com.kloudforj.matrimonial.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -16,7 +21,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -43,10 +47,9 @@ public class ProjectConstants {
 
     public static final String DATA = "data";
     public static final String USER_PROFILE = "profile";
-    public static final String USER_EDUCATION = "user_education";
-    public static final String USER_HOBBY = "user_hobby";
-    public static final String USER_FAMILY = "user_family";
-    public static final String USER_EXTRA = "user_extra";
+    public static final String ADMIN_VERIFIED = "admin_verified";
+    public static final String PHONE_VERIFIED = "phone_verified";
+    public static final String EMAIL_VERIFIED = "email_verified";
     public static final String USERID = "user_id";
     public static final String USER_NAME = "user_name";
     public static final String PHONE = "phone_number";
@@ -116,14 +119,34 @@ public class ProjectConstants {
         JSONObject values;
         CallBackFunction callBackFunction;
         WeakReference<Context> context;
+        Context context1;
 
         public getDataFromServer(JSONObject values, CallBackFunction callBackFunction, Context context) {
             this.values = values;
             this.callBackFunction = callBackFunction;
             this.context = new WeakReference<>(context);
+            this.context1 = context;
         }
 
         public void execute(String url, String token) {
+
+            LayoutInflater inflater = LayoutInflater.from(context1);
+            View alertLoadind = inflater.inflate(R.layout.layout_loading, null);
+            ProgressBar mLoadingProgressbar = alertLoadind.findViewById(R.id.pb_loading);
+            if (mLoadingProgressbar != null) {
+                mLoadingProgressbar.getIndeterminateDrawable().setColorFilter(
+                        ContextCompat.getColor(context1, R.color.colorAccent),
+                        android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
+            AlertDialog.Builder builderLoading = new AlertDialog.Builder(context1);
+            builderLoading.setTitle("Loading");
+            builderLoading.setView(alertLoadind);
+            builderLoading.setCancelable(false);
+
+            final AlertDialog alertDialogLoading = builderLoading.create();
+            alertDialogLoading.show();
+
             Call requestCall;
             OkHttpClient client = new OkHttpClient();
             Request request;
@@ -149,6 +172,7 @@ public class ProjectConstants {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
+                    alertDialogLoading.dismiss();
                     callBackFunction.getResponseFromServer(response);
                 }
             });

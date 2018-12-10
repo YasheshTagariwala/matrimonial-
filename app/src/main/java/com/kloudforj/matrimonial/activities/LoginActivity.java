@@ -127,6 +127,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         editor.putString(ProjectConstants.BASE_IMAGE, (jsonLogin.has(ProjectConstants.BASE_IMAGE) ? jsonLogin.getString(ProjectConstants.BASE_IMAGE) : ""));
                                         editor.putString(ProjectConstants.PHONE, (jsonLogin.has(ProjectConstants.PHONE) ? jsonLogin.getString(ProjectConstants.PHONE) : ""));
                                         editor.putString(ProjectConstants.SEX, (jsonLogin.has(ProjectConstants.SEX) ? jsonLogin.getString(ProjectConstants.SEX).trim() : ""));
+                                        editor.putBoolean(ProjectConstants.ADMIN_VERIFIED, jsonLogin.getBoolean(ProjectConstants.ADMIN_VERIFIED));
+                                        editor.putBoolean(ProjectConstants.PHONE_VERIFIED, jsonLogin.getBoolean(ProjectConstants.PHONE_VERIFIED));
+                                        editor.putBoolean(ProjectConstants.EMAIL_VERIFIED, jsonLogin.getBoolean(ProjectConstants.EMAIL_VERIFIED));
 
                                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                                         editor.putBoolean(ProjectConstants.USER_PROFILE, profile);

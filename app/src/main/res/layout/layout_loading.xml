@@ -5,15 +5,16 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:id="@+id/linearlayout_image_upload" >
 
         <ProgressBar
-            android:id="@+id/pb_image_upload"
+            android:id="@+id/pb_loading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_gravity="top"
             android:background="@android:color/white"
             android:indeterminate="true"

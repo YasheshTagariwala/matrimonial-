@@ -1,20 +1,16 @@
 package com.kloudforj.matrimonial.adapters;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,8 +24,6 @@ import android.widget.Toast;
 
 
 import com.kloudforj.matrimonial.R;
-import com.kloudforj.matrimonial.activities.LoginActivity;
-import com.kloudforj.matrimonial.activities.MainActivity;
 import com.kloudforj.matrimonial.activities.UserEditProfileActivity;
 import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
@@ -40,10 +34,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -294,8 +286,8 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
                     LayoutInflater inflater = LayoutInflater.from(ctx);
-                    final View alertImageUpload = inflater.inflate(R.layout.layout_image_upload, null);
-                    ProgressBar mImageUploadProgressbar = alertImageUpload.findViewById(R.id.pb_image_upload);
+                    final View alertImageUpload = inflater.inflate(R.layout.layout_loading, null);
+                    ProgressBar mImageUploadProgressbar = alertImageUpload.findViewById(R.id.pb_loading);
                     if (mImageUploadProgressbar != null) {
                         mImageUploadProgressbar.getIndeterminateDrawable().setColorFilter(
                                 ContextCompat.getColor(ctx, R.color.colorAccent),
@@ -399,8 +391,8 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                     cursor1.close();
 
                     LayoutInflater inflater = LayoutInflater.from(ctx);
-                    final View alertImageUpload = inflater.inflate(R.layout.layout_image_upload, null);
-                    ProgressBar mImageUploadProgressbar = alertImageUpload.findViewById(R.id.pb_image_upload);
+                    final View alertImageUpload = inflater.inflate(R.layout.layout_loading, null);
+                    ProgressBar mImageUploadProgressbar = alertImageUpload.findViewById(R.id.pb_loading);
                     if (mImageUploadProgressbar != null) {
                         mImageUploadProgressbar.getIndeterminateDrawable().setColorFilter(
                                 ContextCompat.getColor(ctx, R.color.colorAccent),
