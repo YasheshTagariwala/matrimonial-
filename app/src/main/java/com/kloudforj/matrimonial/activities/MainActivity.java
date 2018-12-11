@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getUserListApi();
         } else {
             Snackbar snackbar = Snackbar
-                    .make(drawer, "Please contact admin to continue using this application.", Snackbar.LENGTH_INDEFINITE)
+                    .make(drawer, "Please contact admin to continue using this service.", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Contact Us", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

@@ -116,10 +116,30 @@ public class UserProfileActivity extends AppCompatActivity {
             textViewFatherProfession, textViewFatherBirthPlace, textViewMotherName,
             textViewMotherEducation, textViewMotherProfession, textViewMotherBirthPlace, textViewAddress1, textViewAddress2, textViewAddress3, textViewPincode, textviewLocation;
 
+    AlertDialog alertDialogLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+        LayoutInflater inflater = LayoutInflater.from(UserProfileActivity.this);
+        View alertLoading = inflater.inflate(R.layout.layout_loading, null);
+        ProgressBar mLoadingProgressbar = alertLoading.findViewById(R.id.pb_loading);
+        if (mLoadingProgressbar != null) {
+            mLoadingProgressbar.getIndeterminateDrawable().setColorFilter(
+                    ContextCompat.getColor(UserProfileActivity.this, R.color.colorAccent),
+                    android.graphics.PorterDuff.Mode.SRC_IN);
+        }
+
+        AlertDialog.Builder builderLoading = new AlertDialog.Builder(UserProfileActivity.this);
+        builderLoading.setTitle("Loading");
+        builderLoading.setView(alertLoading);
+        builderLoading.setCancelable(true);
+
+        alertDialogLoading = builderLoading.create();
+
+        alertDialogLoading.dismiss();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         mUserProfileActvityProgressBar = (ProgressBar) findViewById(R.id.pb_userprofile_activity);
@@ -205,9 +225,13 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (userProfile1 != null) {
+
+                    alertDialogLoading.show();
+
                     Intent editProfile = new Intent(UserProfileActivity.this, UserEditProfileActivity.class);
                     editProfile.putExtra("userProfile", userProfile1.toString());
                     startActivity(editProfile);
+
                 } else {
                     Toast.makeText(UserProfileActivity.this, UserProfileActivity.this.getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show();
                 }
@@ -238,6 +262,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
         initComponent();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        alertDialogLoading.dismiss();
     }
 
     public void verifyActivity(String type) {

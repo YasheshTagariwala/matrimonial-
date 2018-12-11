@@ -100,7 +100,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         public void getResponseFromServer(Response response) throws IOException {
             if (!response.isSuccessful()) {
                 //Log.e("Response False : ", response.body().string());
-                enableLoginComponents(getResources().getString(R.string.something_went_wrong));
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        SharedPreferences.Editor editor = globalSP.edit();
+                        editor.clear();
+                        editor.apply();
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                loginEmail.setText(ProjectConstants.EMPTY_STRING);
+                                loginPassword.setText(ProjectConstants.EMPTY_STRING);
+                                //passwordWrapper.setErrorEnabled(true);
+                                passwordWrapper.setError(getResources().getString(R.string.enter_valid_username_or_password));
+                                Toast.makeText(LoginActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
+                            }
+                        }, 100);
+                    }
+                });
+
+                //enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                 throw new IOException("Unexpected code " + response);
             } else {
 
@@ -159,6 +182,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         e.printStackTrace();
                                     }
                                 } else {
+                                    //Log.e("Test : ", "1");
                                     SharedPreferences.Editor editor = globalSP.edit();
                                     editor.clear();
                                     editor.apply();

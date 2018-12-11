@@ -231,7 +231,6 @@ public class SearchActivity extends AppCompatActivity {
         loadCountries();
     }
 
-
     public void loadCountries() {
         country.clear();
         country.add("Select Country");

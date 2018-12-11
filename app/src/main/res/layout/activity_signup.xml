@@ -46,7 +46,8 @@
                 android:id="@+id/emailWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditText.White.Hint">
+                android:theme="@style/EditText.White.Hint"
+                app:errorTextAppearance="@style/error_appearance">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/email"
@@ -72,7 +73,8 @@
                 android:id="@+id/phoneWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditText.White.Hint">
+                android:theme="@style/EditText.White.Hint"
+                app:errorTextAppearance="@style/error_appearance">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/phone"
@@ -99,6 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/EditText.White.Hint"
+                app:errorTextAppearance="@style/error_appearance"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleContentDescription="@string/toggle_description"
                 app:passwordToggleDrawable="@drawable/password_toggle"
@@ -129,6 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/EditText.White.Hint"
+                app:errorTextAppearance="@style/error_appearance"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleContentDescription="@string/toggle_description"
                 app:passwordToggleDrawable="@drawable/password_toggle"

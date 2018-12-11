@@ -27,6 +27,11 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="error_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <!-- Ellis Added -->
     <style name="EditText.White.Hint" parent="@style/EditText.White">
         <item name="colorAccent">@android:color/white</item>

@@ -215,6 +215,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     try {
                         UserProfile userProfile = new UserProfile();
                         userProfile.setPhone_number(globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING));
+
                         userProfile.setEmail(globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING));
 
                         //Profile
@@ -469,8 +470,19 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 getCasteAndSubCaste(userProfile);
             }
         }
-        editTextPhone.setText(globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING));
-        editTextEmail.setText(globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING));
+
+        String phone = globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING);
+        if(phone.trim().equals("null")) {
+            phone = "";
+        }
+
+        editTextPhone.setText(phone);
+
+        String email = globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING);
+        if(email.trim().equals("null")) {
+            email = "";
+        }
+        editTextEmail.setText(email);
     }
 
     private void setSpinnerCountry(String country, String state, String city) {
@@ -1192,6 +1204,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                                             subCastes1.add(subCasteArray1.get(i).toString());
                                             if (userProfile.getProfile().getSub_caste1().equalsIgnoreCase(subCasteArray1.get(i).toString())) {
                                                 SubCaste1Position = i;
+                                                break;
                                             } else {
                                                 SubCaste1Position = -1;
                                             }
@@ -1200,6 +1213,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                                             subCastes2.add(subCasteArray2.get(i).toString());
                                             if (userProfile.getProfile().getSub_caste2().equalsIgnoreCase(subCasteArray2.get(i).toString())) {
                                                 SubCaste2Position = i;
+                                                break;
                                             } else {
                                                 SubCaste2Position = -1;
                                             }
@@ -1213,6 +1227,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
                                         spinnerSubCast2.setAdapter(adapterSubCastes2);
 
                                         spinnerCast.setSelection(castePosition);
+
                                         spinnerSubCast1.setSelection(SubCaste1Position);
                                         spinnerSubCast1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                             @Override
@@ -1225,6 +1240,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                                             }
                                         });
+
                                         spinnerSubCast2.setSelection(SubCaste2Position);
                                         spinnerSubCast2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                             @Override
