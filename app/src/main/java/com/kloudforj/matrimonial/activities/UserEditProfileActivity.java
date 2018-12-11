@@ -469,6 +469,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
                 editTextMotherBirthPlace.setText(userProfile.getFamily().getMother_birth_place());
                 getCasteAndSubCaste(userProfile);
             }
+        } else {
+            getCasteAndSubCaste(new UserProfile());
         }
 
         String phone = globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING);
@@ -1196,26 +1198,35 @@ public class UserEditProfileActivity extends AppCompatActivity {
 
                                         for (int i = 0; i < casteArray.length(); i++) {
                                             castes.add(casteArray.get(i).toString());
-                                            if (userProfile.getProfile().getCaste().equalsIgnoreCase(casteArray.get(i).toString())) {
-                                                castePosition = i;
+                                            if(userProfile.getProfile() != null) {
+                                                if (userProfile.getProfile().getCaste().equalsIgnoreCase(casteArray.get(i).toString())) {
+                                                    castePosition = i;
+                                                } else {
+                                                    castePosition = - 1;
+                                                }
                                             }
                                         }
+
                                         for (int i = 0; i < subCasteArray1.length(); i++) {
                                             subCastes1.add(subCasteArray1.get(i).toString());
-                                            if (userProfile.getProfile().getSub_caste1().equalsIgnoreCase(subCasteArray1.get(i).toString())) {
-                                                SubCaste1Position = i;
-                                                break;
-                                            } else {
-                                                SubCaste1Position = -1;
+                                            if(userProfile.getProfile() != null) {
+                                                if (userProfile.getProfile().getSub_caste1().equalsIgnoreCase(subCasteArray1.get(i).toString())) {
+                                                    SubCaste1Position = i;
+                                                    break;
+                                                } else {
+                                                    SubCaste1Position = -1;
+                                                }
                                             }
                                         }
                                         for (int i = 0; i < subCasteArray2.length(); i++) {
                                             subCastes2.add(subCasteArray2.get(i).toString());
-                                            if (userProfile.getProfile().getSub_caste2().equalsIgnoreCase(subCasteArray2.get(i).toString())) {
-                                                SubCaste2Position = i;
-                                                break;
-                                            } else {
-                                                SubCaste2Position = -1;
+                                            if(userProfile.getProfile() != null) {
+                                                if (userProfile.getProfile().getSub_caste2().equalsIgnoreCase(subCasteArray2.get(i).toString())) {
+                                                    SubCaste2Position = i;
+                                                    break;
+                                                } else {
+                                                    SubCaste2Position = -1;
+                                                }
                                             }
                                         }
 

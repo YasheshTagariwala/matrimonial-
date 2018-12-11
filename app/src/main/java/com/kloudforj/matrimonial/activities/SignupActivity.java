@@ -246,8 +246,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         JSONObject jsonSignUpRequest = new JSONObject();
         try {
-            jsonSignUpRequest.put(ProjectConstants.EMAIL, etEmail.getText().toString().trim());
-            jsonSignUpRequest.put(ProjectConstants.PHONE, etPhone.getText().toString().trim());
+            if(!etEmail.getText().toString().trim().equals("")) {
+                jsonSignUpRequest.put(ProjectConstants.EMAIL, etEmail.getText().toString().trim());
+            }
+
+            if(!etPhone.getText().toString().trim().equals("")) {
+                jsonSignUpRequest.put(ProjectConstants.PHONE, etPhone.getText().toString().trim());
+            }
+
             jsonSignUpRequest.put(ProjectConstants.PASSWORD, etPassword.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -268,13 +274,13 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         public void getResponseFromServer(Response response) throws IOException {
             if(!response.isSuccessful()) {
-                //Log.e("data",response.toString());
+                Log.e("data",response.toString());
                 enableLoginComponents(getResources().getString(R.string.something_went_wrong));
                 throw new IOException("Unexpected code " + response);
             } else {
 
                 String result = response.body().string(); // response is converted to string
-                //Log.e("Result : ",result);
+                Log.e("Result : ",result);
 
                 if(result != null) {
 

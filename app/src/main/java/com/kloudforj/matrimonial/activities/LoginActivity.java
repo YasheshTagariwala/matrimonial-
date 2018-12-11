@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         public void getResponseFromServer(Response response) throws IOException {
             if (!response.isSuccessful()) {
-                //Log.e("Response False : ", response.body().string());
+                Log.e("Response False : ", response.body().string());
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } else {
 
                 String result = response.body().string(); // response is converted to string
-                //Log.e("Response True : ", result);
+                Log.e("Response True : ", result);
 
                 if (result != null) {
 
