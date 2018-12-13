@@ -200,20 +200,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-        if(globalSP.getInt(ProjectConstants.ADMIN_VERIFIED, 0) == 1) {
-            getUserListApi();
-        } else {
-            Snackbar snackbar = Snackbar
-                    .make(drawer, "Please contact admin to continue using this service.", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Contact Us", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
-                        }
-                    });
-            snackbar.show();
-        }
-
         Intent intent = getIntent();
         if (intent.hasExtra("Settings")) {
             location = intent.getStringExtra(ProjectConstants.LOCATION);
@@ -227,6 +213,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, UserEditProfileActivity.class));
                 finish();
             }
+        }
+
+        if(globalSP.getInt(ProjectConstants.ADMIN_VERIFIED, 0) == 1) {
+            getUserListApi();
+        } else {
+            Snackbar snackbar = Snackbar
+                    .make(drawer, "Please contact admin to continue using this service.", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Contact Us", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
+                        }
+                    });
+            snackbar.show();
         }
 
 
