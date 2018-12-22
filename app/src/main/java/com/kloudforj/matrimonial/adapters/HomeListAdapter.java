@@ -83,19 +83,19 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         final UserProfile items = userProfileList.get(position);
         holder.tvUserName.setText(String.valueOf(items.getProfile().getFirst_name() + " " + items.getProfile().getMiddle_name() + " " + items.getProfile().getLast_name()));
         holder.tvUserCaste.setText(items.getProfile().getCaste());
-        holder.tvUserAge.setText(String.valueOf(items.getProfile().getAge()+" Years"));
-        holder.tvUserId.setText("CM" + String.valueOf(items.getProfile().getUser_id()));
+        holder.tvUserAge.setText(String.valueOf(items.getProfile().getAge() + " Years"));
+        holder.tvUserId.setText(String.valueOf("CM" + String.valueOf(items.getProfile().getUser_id())));
 
         holder.tvUserBirthPlace.setText(items.getExtra().getBirth_place());
         String martial_status = items.getProfile().getMarital_status();
-        if(martial_status.trim().equals("Divorced")) {
-            if(Build.VERSION.SDK_INT < 23) {
+        if (martial_status.trim().equals("Divorced")) {
+            if (Build.VERSION.SDK_INT < 23) {
                 holder.tvUserMaritalStatus.setTextColor(context.getResources().getColor(R.color.colorPrimary));
             } else {
                 holder.tvUserMaritalStatus.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
             }
-        }else{
-            if(Build.VERSION.SDK_INT < 23) {
+        } else {
+            if (Build.VERSION.SDK_INT < 23) {
                 holder.tvUserMaritalStatus.setTextColor(context.getResources().getColor(R.color.grey_40));
             } else {
                 holder.tvUserMaritalStatus.setTextColor(ContextCompat.getColor(context, R.color.grey_40));
@@ -103,13 +103,13 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         }
         holder.tvUserMaritalStatus.setText(martial_status);
         holder.tvUserHeight.setText(items.getExtra().getHeight());
-        if(items.getEducation().size() > 0){
+        if (items.getEducation().size() > 0) {
             holder.tvUserEducation.setText(items.getEducation().get(0));
-        }else{
+        } else {
             holder.tvUserEducation.setText("-");
         }
 
-        if(items.getImages().length > 0){
+        if (items.getImages().length > 0) {
             RequestOptions ro = new RequestOptions()
                     .fitCenter()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -120,9 +120,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             GlideApp.with(context).load(url).apply(ro)
                     .into(holder.userImage);
         } else {
-            if(items.getProfile().getSex().toLowerCase().equals("m")){
+            if (items.getProfile().getSex().toLowerCase().equals("m")) {
                 holder.userImage.setImageResource(R.drawable.default_male);
-            }else{
+            } else {
                 holder.userImage.setImageResource(R.drawable.default_female);
             }
         }
@@ -144,7 +144,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             if (is_favorite.containsKey(items.getId())) {
                 holder.imageButtonFavouritePersonLike.setVisibility(View.VISIBLE);
                 holder.imageButtonFavouritePerson.setVisibility(View.GONE);
-            }else{
+            } else {
                 holder.imageButtonFavouritePersonLike.setVisibility(View.GONE);
                 holder.imageButtonFavouritePerson.setVisibility(View.VISIBLE);
             }
@@ -187,7 +187,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     }
                 }
             });
-        }else{
+        } else {
             holder.imageButtonFavouritePersonLike.setVisibility(View.VISIBLE);
             holder.imageButtonFavouritePersonLike.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -246,7 +246,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                 if (auth) {
                                     is_favorite.put(bookmark_id, true);
                                     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-                                    ((MainActivity) context).updateData(false,bookmark_id);
+                                    ((MainActivity) context).updateData(false, bookmark_id);
                                 }
                             }
                         });
@@ -260,11 +260,11 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     }
                 } else {
                     ((Activity) context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(context, context.getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, context.getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         }
@@ -304,7 +304,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                 if (auth) {
                                     is_favorite.remove(bookmark_id);
                                     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-                                    ((MainActivity) context).updateData(true,bookmark_id);
+                                    ((MainActivity) context).updateData(true, bookmark_id);
                                 }
                             }
                         });
@@ -335,7 +335,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        private TextView tvUserName, tvUserCaste, tvUserAge, tvUserBirthPlace, tvUserMaritalStatus, tvUserHeight, tvUserEducation,tvUserId;
+        private TextView tvUserName, tvUserCaste, tvUserAge, tvUserBirthPlace, tvUserMaritalStatus, tvUserHeight, tvUserEducation, tvUserId;
         ImageButton imageButtonFavouritePerson, imageButtonFavouritePersonLike;
         ImageView userImage;
 
