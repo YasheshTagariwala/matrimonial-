@@ -35,6 +35,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,12 +90,10 @@ public class UserProfileActivity extends AppCompatActivity {
     private Runnable runnable = null;
     private Handler handler = new Handler();
 
-    //    private static int[] array_image_product = {
-//            R.drawable.profile_image,
-//            R.drawable.profile_image,
-//            R.drawable.profile_image,
-//    };
     private String[] array_image_product;
+
+    CardView cardViewPrivateHolder;
+    Switch switchPrivate;
 //===================================================================
 
     private ProgressBar mUserProfileActvityProgressBar;
@@ -122,6 +121,9 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+        cardViewPrivateHolder = findViewById(R.id.cv_upa_private_holder);
+        switchPrivate = findViewById(R.id.sw_upa_private);
 
         LayoutInflater inflater = LayoutInflater.from(UserProfileActivity.this);
         View alertLoading = inflater.inflate(R.layout.layout_loading, null);
@@ -244,12 +246,14 @@ public class UserProfileActivity extends AppCompatActivity {
             imageButtonPhoneNumberNotVerified.setVisibility(View.VISIBLE);
             imageButtonEmailVerified.setVisibility(View.GONE);
             imageButtonEmailNotVerified.setVisibility(View.VISIBLE);
+            cardViewPrivateHolder.setVisibility(View.VISIBLE);
         } else {
             fabEdit.setVisibility(View.GONE);
             imageButtonPhoneNumberVerified.setVisibility(View.GONE);
             imageButtonPhoneNumberNotVerified.setVisibility(View.GONE);
             imageButtonEmailVerified.setVisibility(View.GONE);
             imageButtonEmailNotVerified.setVisibility(View.GONE);
+            cardViewPrivateHolder.setVisibility(View.GONE);
 //            linearLayoutPhone.setVisibility(View.GONE);
         }
 

@@ -153,6 +153,59 @@
                 android:padding="@dimen/spacing_middle"
                 android:paddingTop="@dimen/appbar_padding_top">
 
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cv_upa_private_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_xlarge"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="@dimen/spacing_middle"
+                    app:cardCornerRadius="@dimen/spacing_xsmall"
+                    app:cardElevation="@dimen/spacing_xsmall">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center">
+
+                            <ImageButton
+                                android:layout_width="?attr/actionBarSize"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ic_person_kloudforj_black_24dp"
+                                android:contentDescription="@string/default_image_button_string" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/user_profile_private_profile"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                android:textColor="@color/kloudforj_black"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/TextViewLabel"
+                                android:paddingStart="@dimen/spacing_large"
+                                android:paddingEnd="@dimen/spacing_large"/>
+
+                            <Switch
+                                android:id="@+id/sw_upa_private"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/spacing_mxlarge"
+                                android:paddingStart="@dimen/spacing_large"
+                                android:paddingEnd="@dimen/spacing_large" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
                 <!--basic info-->
                 <include layout="@layout/user_profile_view_basic_info_card" />
 
