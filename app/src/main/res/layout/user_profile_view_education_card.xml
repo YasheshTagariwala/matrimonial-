@@ -110,7 +110,6 @@
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
                             android:textSize="@dimen/TextViewLabel"
                             android:textColor="@color/kloudforj_black"
-                            android:hint="@string/user_profile_default_current_job"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                     </LinearLayout>
@@ -162,7 +161,6 @@
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
                             android:textSize="@dimen/TextViewLabel"
                             android:textColor="@color/kloudforj_black"
-                            android:hint="@string/user_profile_default_income"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                     </LinearLayout>

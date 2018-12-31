@@ -127,7 +127,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_default_fathers_name"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -172,7 +171,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_default_fathers_education"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -217,7 +215,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_default_fathers_profession"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -262,7 +259,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_default_fathers_birth_place"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -332,7 +328,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_default_mothers_name"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -377,7 +372,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_default_mothers_education"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -422,7 +416,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_default_mothers_profession"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -468,7 +461,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_default_mothers_birth_place"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />

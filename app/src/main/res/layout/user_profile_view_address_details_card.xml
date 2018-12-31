@@ -108,7 +108,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_address1"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -144,7 +143,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_address2"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -180,7 +178,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_address3"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -216,7 +213,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_pincode"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />
@@ -252,7 +248,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_default_location"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black"
                             android:textSize="@dimen/TextViewLabel" />

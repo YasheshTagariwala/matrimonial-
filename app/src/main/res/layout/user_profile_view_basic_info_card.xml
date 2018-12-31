@@ -111,7 +111,6 @@
                             android:paddingTop="@dimen/spacing_middle"
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
                             android:textSize="@dimen/TextViewLabel"
-                            android:hint="@string/default_string"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/kloudforj_black" />
 
@@ -163,7 +162,6 @@
                                 android:paddingTop="@dimen/spacing_middle"
                                 android:lineSpacingExtra="@dimen/spacing_xsmall"
                                 android:textSize="@dimen/TextViewLabel"
-                                android:hint="@string/user_profile_birthdate"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/kloudforj_black" />
 
@@ -208,7 +206,6 @@
                                 android:paddingTop="@dimen/spacing_middle"
                                 android:lineSpacingExtra="@dimen/spacing_xsmall"
                                 android:textSize="@dimen/TextViewLabel"
-                                android:hint="@string/user_profile_gender_female"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/kloudforj_black" />
 
@@ -308,7 +305,6 @@
                                 android:textColorLink="@color/colorPrimary"
                                 android:textSize="@dimen/TextViewLabel"
                                 android:textColor="@color/kloudforj_black"
-                                android:hint="@string/user_profile_number"
                                 android:layout_weight="1"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
@@ -389,7 +385,6 @@
                                 android:textColorLink="@color/colorPrimary"
                                 android:textSize="@dimen/TextViewLabel"
                                 android:textColor="@color/kloudforj_black"
-                                android:hint="demo@gmail.com"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                             <LinearLayout
@@ -459,7 +454,6 @@
                             android:paddingTop="@dimen/spacing_middle"
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
                             android:textSize="@dimen/TextViewLabel"
-                            android:hint="@string/user_profile_caste"
                             android:textColor="@color/kloudforj_black"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
@@ -505,7 +499,6 @@
                             android:textSize="@dimen/TextViewLabel"
                             android:textColor="@color/kloudforj_black"
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_sub_caste_1"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                     </LinearLayout>
@@ -550,7 +543,6 @@
                             android:textSize="@dimen/TextViewLabel"
                             android:textColor="@color/kloudforj_black"
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
-                            android:hint="@string/user_profile_sub_caste_2"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                     </LinearLayout>

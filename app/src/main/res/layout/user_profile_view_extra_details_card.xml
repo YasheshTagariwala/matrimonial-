@@ -120,7 +120,6 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="@dimen/spacing_xsmall"
                                 android:textSize="@dimen/TextViewLabel"
-                                android:hint="@string/user_profile_default_height"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                 android:textColor="@color/kloudforj_black" />
 
@@ -167,7 +166,6 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="@dimen/spacing_xsmall"
                                 android:textSize="@dimen/TextViewLabel"
-                                android:hint="@string/user_profile_default_weight"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                 android:textColor="@color/kloudforj_black" />
 
@@ -222,7 +220,6 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="@dimen/spacing_xsmall"
                                 android:textSize="@dimen/TextViewLabel"
-                                android:hint="@string/user_profile_default_birth_place"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                 android:textColor="@color/kloudforj_black" />
 
@@ -268,7 +265,6 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="@dimen/spacing_xsmall"
                                 android:textSize="@dimen/TextViewLabel"
-                                android:hint="@string/user_profile_default_birth_time"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                                 android:textColor="@color/kloudforj_black" />
 
@@ -358,7 +354,6 @@
                             android:lineSpacingExtra="@dimen/spacing_xsmall"
                             android:textSize="@dimen/TextViewLabel"
                             android:textColor="@color/kloudforj_black"
-                            android:hint="@string/lorem_ipsum"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                     </LinearLayout>
