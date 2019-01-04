@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_0 + ProjectConstants.USER + ProjectConstants.USERLIST_URL).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_1 + ProjectConstants.USER + ProjectConstants.USERLIST_URL).newBuilder();
         if (DetectConnection.checkInternetConnection(MainActivity.this)) {
             new ProjectConstants.getDataFromServer(jsonObjectRequest, new FetchUserList(), this).execute(urlBuilder.build().toString(), token);
         } else {

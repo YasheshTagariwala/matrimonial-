@@ -62,10 +62,10 @@ public class ProjectConstants {
     public static final String BOOKMARKID = "bookmark_id";
     public static final String IMAGE_ID = "image_id";
 
-//    public static final String BASE_URL = "http://139.59.90.129/matrimonial/public/index.php/api";
-    public static final String BASE_URL = "http://139.59.68.146/matrimonial/public/index.php/api";
+    public static final String BASE_URL = "http://139.59.90.129/matrimonial/public/index.php/api";
+//    public static final String BASE_URL = "http://139.59.68.146/matrimonial/public/index.php/api";
     public static final String VERSION_0 = "/v0";
-//    public static final String VERSION_1 = "/v1";
+    public static final String VERSION_1 = "/v1";
 
     public static final String USER = "/user";
 
@@ -111,6 +111,7 @@ public class ProjectConstants {
     public static final String GENERATE_VERIFICATION_CODE = "/generate-verification-code";
     public static final String VERIFY_CODE = "/verify-code";
     public static final String GET_CASTE_SUBCASTE = "/get-caste-subcaste-list";
+    public static final String USER_PROFILE_PRIVACY_TOGGLE = "/update-profile-privacy";
 
     /*Logout constants*/
     public static final String LOGOUT_URL = "/logout";
@@ -132,8 +133,8 @@ public class ProjectConstants {
         public void execute(String url, String token) {
 
             LayoutInflater inflater = LayoutInflater.from(context1);
-            View alertLoadind = inflater.inflate(R.layout.layout_loading, null);
-            ProgressBar mLoadingProgressbar = alertLoadind.findViewById(R.id.pb_loading);
+            View alertLoading = inflater.inflate(R.layout.layout_loading, null);
+            ProgressBar mLoadingProgressbar = alertLoading.findViewById(R.id.pb_loading);
             if (mLoadingProgressbar != null) {
                 mLoadingProgressbar.getIndeterminateDrawable().setColorFilter(
                         ContextCompat.getColor(context1, R.color.colorAccent),
@@ -142,7 +143,7 @@ public class ProjectConstants {
 
             AlertDialog.Builder builderLoading = new AlertDialog.Builder(context1);
             builderLoading.setTitle("Loading");
-            builderLoading.setView(alertLoadind);
+            builderLoading.setView(alertLoading);
             builderLoading.setCancelable(false);
 
             final AlertDialog alertDialogLoading = builderLoading.create();

@@ -6,7 +6,7 @@ public class UserProfile {
 
     public class Profile {
 
-        private int user_id, age;
+        private int user_id, age, is_private;
         private String first_name;
         private String middle_name;
         private String last_name;
@@ -184,6 +184,14 @@ public class UserProfile {
 
         public void setSub_caste2(String sub_caste2) {
             this.sub_caste2 = sub_caste2;
+        }
+
+        public int getIs_private() {
+            return is_private;
+        }
+
+        public void setIs_private(int is_private) {
+            this.is_private = is_private;
         }
     }
 

@@ -14,11 +14,13 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -486,6 +488,27 @@ public class UserProfileActivity extends AppCompatActivity {
                                         Gson gson = new Gson();
                                         UserProfile userProfile = gson.fromJson(jsonObjectData.toString(), UserProfile.class);
 
+                                        int is_private = userProfile.getProfile().getIs_private();
+                                        switchPrivate.setChecked(is_private != 0);
+                                        switchPrivate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                            @Override
+                                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                JSONObject jsonObjectRequest = new JSONObject();
+                                                try {
+                                                    jsonObjectRequest.put(ProjectConstants.USERID, user_id);
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                                HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.VERSION_1 + ProjectConstants.USER + ProjectConstants.USER_PROFILE_PRIVACY_TOGGLE).newBuilder();
+                                                if (DetectConnection.checkInternetConnection(UserProfileActivity.this)) {
+                                                    new ProjectConstants.getDataFromServer(jsonObjectRequest, new PrivateUserDetails(), UserProfileActivity.this).execute(urlBuilder.build().toString(), token);
+                                                } else {
+                                                    Toast.makeText(UserProfileActivity.this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+
                                         textViewFullName.setText(String.valueOf(userProfile.getProfile().getFirst_name() + " " + userProfile.getProfile().getMiddle_name() + " " + userProfile.getProfile().getLast_name()));
                                         textViewBirthDate.setText(userProfile.getProfile().getDate_of_birth());
                                         textViewGender.setText((userProfile.getProfile().getSex().toLowerCase().equals("m") ? "Male" : "Female"));
@@ -650,5 +673,45 @@ public class UserProfileActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = alert.create();
         alertDialog.show();
+    }
+
+    public class PrivateUserDetails implements CallBackFunction {
+
+        @Override
+        public void getResponseFromServer(Response response) throws IOException {
+            if (!response.isSuccessful()) {
+                //Log.e("resp : ", response.toString());
+                enableComponents(getResources().getString(R.string.something_went_wrong));
+                throw new IOException("Unexpected code " + response);
+            } else {
+
+                String result = response.body().string(); // response is converted to string
+                //Log.e("resp : ", result);
+
+                if (result != null) {
+                    try {
+                        final JSONObject jsonUserProfile = new JSONObject(result);
+
+                        final Boolean auth = jsonUserProfile.getBoolean(ProjectConstants.AUTH);
+                        final String message = jsonUserProfile.getString(ProjectConstants.MESSAGE);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mUserProfileActvityProgressBar.setVisibility(View.GONE); // ProgressBar is Disabled
+
+                                if (auth) {
+                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                    } catch (JSONException e) {
+                        enableComponents(getResources().getString(R.string.something_went_wrong));
+                    }
+                } else {
+                    enableComponents(getResources().getString(R.string.something_went_wrong));
+                }
+            }
+        }
     }
 }
