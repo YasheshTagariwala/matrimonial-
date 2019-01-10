@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
@@ -90,6 +91,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
         public View lyt_parent;
         public ImageButton imageButtonTimeline;
         public ImageButton imageButtonRemove;
+        public RelativeLayout relativeLayoutDisable;
 
         public OriginalViewHolder(View v) {
             super(v);
@@ -97,6 +99,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
             lyt_parent = (View) v.findViewById(R.id.lyt_parent);
             imageButtonTimeline = v.findViewById(R.id.timeline_image);
             imageButtonRemove = v.findViewById(R.id.remove_image);
+            relativeLayoutDisable = v.findViewById(R.id.rl_igi_disable);
         }
     }
 
@@ -126,6 +129,8 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                         }
                     }
                 });
+                /** To Display Disable Image **/
+                view.relativeLayoutDisable.setVisibility(View.VISIBLE);
             } else {
                 view.imageButtonTimeline.setImageResource(R.drawable.add_image_icon);
                 view.imageButtonRemove.setVisibility(View.GONE);

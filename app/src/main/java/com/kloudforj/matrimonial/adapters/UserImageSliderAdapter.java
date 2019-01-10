@@ -73,6 +73,10 @@ public class UserImageSliderAdapter extends PagerAdapter {
         View v = inflater.inflate(R.layout.item_slider_image, container, false);
 
         RelativeLayout relativeLayoutMain = v.findViewById(R.id.relative_main);
+        RelativeLayout relativeLayoutDisable = v.findViewById(R.id.rl_isi_disable);
+
+        /** To Display Disable Image **/
+        relativeLayoutDisable.setVisibility(View.VISIBLE);
 
         final ImageView image = v.findViewById(R.id.image);
         RelativeLayout relativeLayout = v.findViewById(R.id.relative_editable);

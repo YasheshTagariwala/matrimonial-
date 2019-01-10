@@ -246,6 +246,9 @@
     <string name="user_address_empty">Enter Your Address</string>
     <string name="user_pincode_empty">Enter Your Pincode</string>
 
+    <!-- Item Slider -->
+    <string name="lbl_item_slider_pending_approval">Approval Pending...</string>
+
 
     <!-- AboutUs Activity -->
     <string name="about_us_title">About Us</string>
