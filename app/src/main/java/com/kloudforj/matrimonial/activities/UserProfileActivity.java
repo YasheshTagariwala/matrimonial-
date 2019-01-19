@@ -46,6 +46,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Call;
@@ -78,6 +79,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private Handler handler = new Handler();
 
     private String[] array_image_product;
+    private Integer[] array_image_product_is_verified;
 
     CardView cardViewPrivateHolder;
     Switch switchPrivate;
@@ -572,8 +574,33 @@ public class UserProfileActivity extends AppCompatActivity {
                                         textViewHobby.setText(hobbies.toString());
 
                                         array_image_product = new String[userProfile.getImages().length];
+                                        array_image_product_is_verified = new Integer[userProfile.getImages().length];
+                                        int length = 0;
+
                                         for (int i = 0; i < userProfile.getImages().length; i++) {
-                                            array_image_product[i] = userProfile.getImages()[i].getImage_path();
+                                            if (!isSelf) {
+                                                if (userProfile.getImages()[i].getIs_verified() == 1) {
+                                                    length = length + 1;
+                                                    array_image_product[i] = userProfile.getImages()[i].getImage_path();
+                                                    array_image_product_is_verified[i] = userProfile.getImages()[i].getIs_verified();
+                                                }
+                                            } else {
+                                                array_image_product[i] = userProfile.getImages()[i].getImage_path();
+                                                array_image_product_is_verified[i] = userProfile.getImages()[i].getIs_verified();
+                                            }
+                                        }
+
+                                        if (!isSelf) {
+                                            List<String> temp1 = new ArrayList<>();
+                                            List<Integer> temp2 = new ArrayList<>();
+                                            for (int i = 0; i < array_image_product.length; i++) {
+                                                if (array_image_product[i] != null) {
+                                                    temp1.add(array_image_product[i]);
+                                                    temp2.add(array_image_product_is_verified[i]);
+                                                }
+                                            }
+                                            array_image_product = temp1.toArray(new String[temp1.size()]);
+                                            array_image_product_is_verified = temp2.toArray(new Integer[temp2.size()]);
                                         }
 
                                         textViewAddress1.setText(userProfile.getProfile().getAddress1());
@@ -592,9 +619,10 @@ public class UserProfileActivity extends AppCompatActivity {
                                         textViewMotherBirthPlace.setText(userProfile.getFamily().getMother_birth_place());
 
                                         List<UserProfileImage> items = new ArrayList<>();
-                                        for (String i : array_image_product) {
+                                        for (int i = 0; i < array_image_product.length; i++) {
                                             UserProfileImage obj = new UserProfileImage();
-                                            obj.name = i;
+                                            obj.name = array_image_product[i];
+                                            obj.is_verified = array_image_product_is_verified[i];
                                             items.add(obj);
                                         }
 

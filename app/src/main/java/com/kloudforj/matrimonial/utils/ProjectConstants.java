@@ -62,8 +62,8 @@ public class ProjectConstants {
     public static final String BOOKMARKID = "bookmark_id";
     public static final String IMAGE_ID = "image_id";
 
-    public static final String BASE_URL = "http://139.59.68.146/matrimonial/public/index.php/api";    //client server
-//    public static final String BASE_URL = "http://139.59.90.129/matrimonial/public/index.php/api";      //kloudforj server
+//    public static final String BASE_URL = "http://139.59.68.146/matrimonial/public/index.php/api";    //client server
+    public static final String BASE_URL = "http://139.59.90.129/matrimonial/public/index.php/api";      //kloudforj server
 
     public static final String VERSION_0 = "/v0";
     public static final String VERSION_1 = "/v1";

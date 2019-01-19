@@ -199,6 +199,15 @@ public class UserProfile {
 
         private int id;
         private String image_path;
+        private int is_verified;
+
+        public int getIs_verified() {
+            return is_verified;
+        }
+
+        public void setIs_verified(int is_verified) {
+            this.is_verified = is_verified;
+        }
 
         public int getId() {
             return id;

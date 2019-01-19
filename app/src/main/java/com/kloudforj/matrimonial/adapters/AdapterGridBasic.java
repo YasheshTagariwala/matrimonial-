@@ -130,7 +130,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 });
                 /** To Display Disable Image **/
-                view.relativeLayoutDisable.setVisibility(View.VISIBLE);
+//                view.relativeLayoutDisable.setVisibility(View.VISIBLE);
             } else {
                 view.imageButtonTimeline.setImageResource(R.drawable.add_image_icon);
                 view.imageButtonRemove.setVisibility(View.GONE);

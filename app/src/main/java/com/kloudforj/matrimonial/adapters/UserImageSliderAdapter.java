@@ -57,7 +57,7 @@ public class UserImageSliderAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void setCanEdit(boolean canEdit){
+    public void setCanEdit(boolean canEdit) {
         this.canEdit = canEdit;
     }
 
@@ -76,16 +76,20 @@ public class UserImageSliderAdapter extends PagerAdapter {
         RelativeLayout relativeLayoutDisable = v.findViewById(R.id.rl_isi_disable);
 
         /** To Display Disable Image **/
-        relativeLayoutDisable.setVisibility(View.VISIBLE);
+        if (items.get(position).is_verified == 1) {
+            relativeLayoutDisable.setVisibility(View.GONE);
+        } else {
+            relativeLayoutDisable.setVisibility(View.VISIBLE);
+        }
 
         final ImageView image = v.findViewById(R.id.image);
         RelativeLayout relativeLayout = v.findViewById(R.id.relative_editable);
-        if(canEdit){
-            RelativeLayout.LayoutParams relativeParams = (RelativeLayout.LayoutParams)relativeLayout.getLayoutParams();
-            relativeParams.setMargins(10,10,10,10);
+        if (canEdit) {
+            RelativeLayout.LayoutParams relativeParams = (RelativeLayout.LayoutParams) relativeLayout.getLayoutParams();
+            relativeParams.setMargins(10, 10, 10, 10);
             relativeLayoutMain.setLayoutParams(relativeParams);
             relativeLayout.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             relativeLayout.setVisibility(View.GONE);
         }
         MaterialRippleLayout lyt_parent = v.findViewById(R.id.lyt_parent);
@@ -104,7 +108,7 @@ public class UserImageSliderAdapter extends PagerAdapter {
             public void onClick(View v) {
                 LayoutInflater inflater = LayoutInflater.from(act);
                 View imgEntryView = inflater.inflate(R.layout.full_screen_image, null);
-                final Dialog dialog=new Dialog(act,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                final Dialog dialog = new Dialog(act, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
                 ImageView img = imgEntryView.findViewById(R.id.full_screen_image);
                 img.setImageDrawable(image.getDrawable());
                 dialog.setContentView(imgEntryView);

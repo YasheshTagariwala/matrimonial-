@@ -9,5 +9,6 @@ public class UserProfileImage {
     public String name;
     public String brief;
     public Integer counter = null;
+    public Integer is_verified;
 
 }
