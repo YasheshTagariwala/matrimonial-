@@ -110,15 +110,29 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         }
 
         if (items.getImages().length > 0) {
-            RequestOptions ro = new RequestOptions()
-                    .fitCenter()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .fitCenter();
+            String imagePath = "";
+            for (int i = 0; i < items.getImages().length; i++) {
+                if (items.getImages()[i].getIs_verified() == 1) {
+                    imagePath = items.getImages()[i].getImage_path();
+                }
+            }
+            if (imagePath.equals("")) {
+                if (items.getProfile().getSex().toLowerCase().equals("m")) {
+                    holder.userImage.setImageResource(R.drawable.default_male);
+                } else {
+                    holder.userImage.setImageResource(R.drawable.default_female);
+                }
+            } else {
+                RequestOptions ro = new RequestOptions()
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .fitCenter();
 
-            GlideUrl url = new GlideUrl(ProjectConstants.BASE_URL + ProjectConstants.IMAGE_GET_URL + "/" + items.getImages()[0].getImage_path(),
-                    new LazyHeaders.Builder().addHeader(ProjectConstants.APITOKEN, token).build());
-            GlideApp.with(context).load(url).apply(ro)
-                    .into(holder.userImage);
+                GlideUrl url = new GlideUrl(ProjectConstants.BASE_URL + ProjectConstants.IMAGE_GET_URL + "/" + imagePath,
+                        new LazyHeaders.Builder().addHeader(ProjectConstants.APITOKEN, token).build());
+                GlideApp.with(context).load(url).apply(ro)
+                        .into(holder.userImage);
+            }
         } else {
             if (items.getProfile().getSex().toLowerCase().equals("m")) {
                 holder.userImage.setImageResource(R.drawable.default_male);
