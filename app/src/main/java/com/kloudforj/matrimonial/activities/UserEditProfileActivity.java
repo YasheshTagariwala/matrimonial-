@@ -214,9 +214,9 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     JSONObject jsonUserProfileRequest = null;
                     try {
                         UserProfile userProfile = new UserProfile();
-                        userProfile.setPhone_number(globalSP.getString(ProjectConstants.PHONE, ProjectConstants.EMPTY_STRING));
+                        userProfile.setPhone_number(editTextPhone.getText().toString());
 
-                        userProfile.setEmail(globalSP.getString(ProjectConstants.EMAIL, ProjectConstants.EMPTY_STRING));
+                        userProfile.setEmail(editTextEmail.getText().toString());
 
                         //Profile
                         UserProfile.Profile profile = userProfile.new Profile();
