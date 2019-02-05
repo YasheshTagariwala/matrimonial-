@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public void getResponseFromServer(Response response) throws IOException {
             if (!response.isSuccessful()) {
-//                Log.e("resp : ", response.toString());
+                //Log.e("resp : ", response.toString());
                 enableComponents(getResources().getString(R.string.something_went_wrong));
                 throw new IOException("Unexpected code " + response);
             } else {

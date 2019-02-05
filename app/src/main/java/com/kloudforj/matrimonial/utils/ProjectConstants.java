@@ -62,8 +62,8 @@ public class ProjectConstants {
     public static final String BOOKMARKID = "bookmark_id";
     public static final String IMAGE_ID = "image_id";
 
-//    public static final String BASE_URL = "http://139.59.68.146/matrimonial/public/index.php/api";    //client server
-    public static final String BASE_URL = "http://139.59.90.129/matrimonial/public/index.php/api";      //kloudforj server
+    public static final String BASE_URL = "http://139.59.68.146/matrimonial/public/index.php/api";    //client server
+//    public static final String BASE_URL = "http://139.59.90.129/matrimonial/public/index.php/api";      //kloudforj server
 
     public static final String VERSION_0 = "/v0";
     public static final String VERSION_1 = "/v1";
@@ -116,6 +116,18 @@ public class ProjectConstants {
 
     /*Logout constants*/
     public static final String LOGOUT_URL = "/logout";
+
+    //set current timestamp
+    public static void setTimeStamp(Context context) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(PROJECTBASEPREFERENCE, MODE_PRIVATE).edit();
+        editor.putLong("timeNow", System.currentTimeMillis()).apply();
+        editor.apply();
+    }
+
+    //get timestamp
+    public static long getTimeStamp(Context context) {
+        return context.getSharedPreferences(PROJECTBASEPREFERENCE, MODE_PRIVATE).getLong("timeNow", 0);
+    }
 
     /* Common Api Call Function */
     public static class getDataFromServer {

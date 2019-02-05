@@ -70,6 +70,9 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
             isFromForget = true;
             userName = intent.getStringExtra("user_name");
         }
+        long ts = ProjectConstants.getTimeStamp(this);
+        final long FIVE_MINUTES = 1000 * 60 * 5; //5 minutes in milliseconds
+        long current_ts = System.currentTimeMillis();
 
         if (isFromForget) {
             forgetPasswordWrapper.setVisibility(View.VISIBLE);
@@ -85,13 +88,19 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.e("DATA", jsonObjectRequest.toString());
-            HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.GENERATE_FORGET_VERIFICATION_CODE).newBuilder();
-            if (DetectConnection.checkInternetConnection(ChangePasswordActivity.this)) {
-                new ProjectConstants.getDataFromServer(jsonObjectRequest, new GenerateVerificationCode(), this).execute(urlBuilder.build().toString());
-            } else {
-                Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+            //Log.e("DATA", jsonObjectRequest.toString());
+
+            if(current_ts - ts > FIVE_MINUTES) {
+                //Log.e("1 : ", "Generate Code called.");
+                ProjectConstants.setTimeStamp(ChangePasswordActivity.this);
+                HttpUrl.Builder urlBuilder = HttpUrl.parse(ProjectConstants.BASE_URL + ProjectConstants.GENERATE_FORGET_VERIFICATION_CODE).newBuilder();
+                if (DetectConnection.checkInternetConnection(ChangePasswordActivity.this)) {
+                    new ProjectConstants.getDataFromServer(jsonObjectRequest, new GenerateVerificationCode(), this).execute(urlBuilder.build().toString());
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+                }
             }
+
         } else {
             forgetPasswordWrapper.setVisibility(View.GONE);
             currentPasswordWrapper.setVisibility(View.VISIBLE);
@@ -328,7 +337,6 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 } else {
                     enableComponents(getResources().getString(R.string.something_went_wrong));
                 }
-
             }
         }
     }

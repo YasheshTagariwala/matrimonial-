@@ -22,25 +22,20 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-
 import com.kloudforj.matrimonial.R;
 import com.kloudforj.matrimonial.activities.UserEditProfileActivity;
 import com.kloudforj.matrimonial.utils.CallBackFunction;
 import com.kloudforj.matrimonial.utils.DetectConnection;
 import com.kloudforj.matrimonial.utils.ProjectConstants;
 import com.kloudforj.matrimonial.utils.Tools;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
@@ -50,7 +45,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
@@ -176,7 +170,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
         @Override
         public void getResponseFromServer(Response response) throws IOException {
             if (!response.isSuccessful()) {
-                Log.e("resp1 : ", response.toString());
+                //Log.e("resp1 : ", response.toString());
                 ((Activity) ctx).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -187,7 +181,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
             } else {
 
                 String result = response.body().string(); // response is converted to string
-                Log.e("resp : ", result);
+                //Log.e("resp : ", result);
 
                 if (result != null) {
 
@@ -227,7 +221,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public void getImageData() {
-        Log.e("where", "getImageData");
+//        Log.e("where", "getImageData");
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
         builder.setTitle("Get New Image");
 
@@ -427,14 +421,14 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                             .header(ProjectConstants.APITOKEN, globalSP.getString(ProjectConstants.TOKEN, ProjectConstants.EMPTY_STRING))
                             .build();
 
-                    Log.e("Request : ", request.toString());
+                    //Log.e("Request : ", request.toString());
 
                     requestCall = client.newCall(request);
                     requestCall.enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            Log.e("Error : ", "123");
-                            Log.e("Error : ", e.getMessage());
+                            /*Log.e("Error : ", "123");
+                            Log.e("Error : ", e.getMessage());*/
                             e.printStackTrace();
                         }
 
@@ -442,7 +436,7 @@ public class AdapterGridBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
                         public void onResponse(Call call, Response response) throws IOException {
                             try {
                                 String result = response.body().string();
-                                Log.e("Response : ", result);
+                                //Log.e("Response : ", result);
                                 final JSONObject jsonLogin = new JSONObject(result);
                                 final Boolean auth = jsonLogin.getBoolean(ProjectConstants.AUTH);
                                 final String message = jsonLogin.getString(ProjectConstants.MESSAGE);
